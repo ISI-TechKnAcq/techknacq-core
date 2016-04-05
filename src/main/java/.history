@@ -1,0 +1,11 @@
+2016-02-23T12:35:12.Gullys-Mac.local ks
+2016-02-23T12:35:29.Gullys-Mac.local rm -rf entity2topic/
+2016-02-23T12:35:33.Gullys-Mac.local rm -rf graph/
+2016-02-23T12:35:36.Gullys-Mac.local rm -rf hierarchy/
+2016-02-23T12:35:40.Gullys-Mac.local rm -rf isi/
+2016-02-23T12:35:42.Gullys-Mac.local rm -rf parser/
+2016-02-23T12:35:45.Gullys-Mac.local rm -rf readinglist/
+2016-02-23T12:35:48.Gullys-Mac.local rm -rf techknacq/
+2016-02-23T12:35:52.Gullys-Mac.local rm -rf topic/
+2016-02-23T12:35:56.Gullys-Mac.local rm -rf utl
+2016-02-23T12:35:58.Gullys-Mac.local rm -rf util/

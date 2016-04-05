@@ -1,0 +1,96 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>edu.isi.techknacq</groupId>
+	<artifactId>techknacq-core</artifactId>
+	<version>0.0.3-SNAPSHOT</version>
+	<name>TechKnAcq Core Java</name>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>me.lizier</groupId>
+			<artifactId>infodynamics</artifactId>
+			<version>1.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.lemurproject</groupId>
+			<artifactId>kstem</artifactId>
+			<version>3.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>2.3.2</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+
+		<!-- ISI repositories at ettin.isi.edu -->
+		<repository>
+			<id>isi.nexus.server.thirdparty</id>
+			<name>ISI Third Party Nexus Repository</name>
+			<url>http://colo-pm2.isi.edu:8081/nexus/content/repositories/thirdparty/</url>
+		</repository>
+
+		<repository>
+			<id>isi.nexus.server.snapshots</id>
+			<name>ISI Snapshots Nexus Repository</name>
+			<url>http://colo-pm2.isi.edu:8081/nexus/content/repositories/snapshots/</url>
+		</repository>
+
+		<repository>
+			<id>isi.nexus.server</id>
+			<name>ISI Snapshots Nexus Repository</name>
+			<url>http://colo-pm2.isi.edu:8081/nexus/content/repositories/public/</url>
+		</repository>
+
+	</repositories>
+        
+	<distributionManagement>
+		<repository>
+			<id>isi.nexus.server</id>
+			<name>ISI releases</name>
+			<url>http://colo-pm2.isi.edu:8081/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>isi.nexus.server.snapshots</id>
+			<name>Hugin ISI MRP repository SNAPSHOTS</name>
+			<url>http://colo-pm2.isi.edu:8081/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+</project>
