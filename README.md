@@ -153,10 +153,11 @@ type --help to get detailed instruction for running Infomap
      with Arguments:
      Usage [keyfile] [tree file] [topic composition file] [# topics] [citation file] [flow file] [topicscorefile]
 
-  2. The output for the Co-occurrence based cross entropy approach is saved in a file with name ``entropy1.txt" while co-citation based cross entropy approach is saved in another file with name ``entropy2.txt"
+  2. The output for the Co-occurrence based cross entropy approach is saved in a file with name "entropy1.txt" while co-citation based cross entropy approach is saved in another file with name "entropy2.txt"
   
   3. Run the graph format code within format script to format the edge table format to the adjacent list format specified in (Generate reading list) as follows.
   
+
      3.1 Compile
 
          G++ edge2weightstandard.cpp -O3 -o format
@@ -190,6 +191,7 @@ type --help to get detailed instruction for running Infomap
 ##Usage
 Our program accepts the following parameters, that are:
 
+
          //args[0]: keyword (string);
          
          //args[1]: doc2topicfilename (string);
@@ -200,11 +202,16 @@ Our program accepts the following parameters, that are:
          
          //args[4]: dockeyname (string);
          
-         //args[5]: number of docs per topic (Integer)
+         //args[5]: the page rank file (String);
          
-         //args[6]: number of maximum dependence topics (Integer);
+         //args[6]: number of docs per topic (Integer)
+         
+         //args[7]: number of maximum dependence topics (Integer);
+         
+         //args[8]: a list of bad papers that to be filtered out.
          
 ##Input format
+
 ###keyword
 Note that if the keyword is not unigram, we use "_" to connect each term within the input keyword
 ###doc2topicfile
@@ -233,55 +240,15 @@ An example of input graph format is as follows:
 where this graph is a triangle with three vertices
 ###dockeyname
 The index.json file for metadata information of each document
+###Pagerankfile:  A graph.net format representation for citation network, and the pagerank score is associated with each document node. An example of pagerank file can be found here:  \Data\ReadingListInputExample
+
+###Filterfile: It is a comma separate file that contains the document key and a binary value
+
 
 ##Output format
-The output is saved in a .txt file with name keyword_readinglist
+The output is saved in a JSON file with name keyword_readinglist
 
-# New reading list
 
-##Compile
-  1. The easiest way is to comile with the IDE (either Netbeans or others) and generate a jar file
-  
-  2. Command line compile:
-  
-     mkdir classes 
 
-     javac -cp "lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -d classes @name.txt
-     
-##Run
-1. With jar file generated from IDE or ant:
 
-   Simply type java -jar [jarfilename] [arguments], where arguments are specified in Usage as below
-   
-2. Without jar file:
 
-  java -classpath ".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m readinglist.ReadingList2Json [arguments], where arguments are specified in Usage as below
-
-##Usage
-Our program accepts the following parameters, that are:
-
-         //args[0]: keyword (string);
-         
-         //args[1]: doc2topicfilename (string);
-         
-         //args[2]: topickeyname (string);
-         
-         //args[3]: topicgraphfilename (string);
-         
-         //args[4]: dockeyname (string);
-         
-         //args[5]: pagerankfilename (string);
-         
-         //args[6]: number of docs per topic (Integer); optional
-         
-         //args[7]: number of maximum dependence topics (Integer); optional
-         
-         //args[8]: filterfilename (String); optional
-         
-##Input format
-
-All of the input files have the same format as above. For the pagerankfile and filterfile, the format are as follows:
-
-Pagerankfile: A graph.net format representation for citation network, and the pagerank score is associated with each document node. An example of pagerank file can be found here:  \Data\ReadingListInputExample
-
-Filterfile: It is a comma separate file that contains the document key and a binary value
