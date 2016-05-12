@@ -240,9 +240,13 @@ An example of input graph format is as follows:
 where this graph is a triangle with three vertices
 ###dockeyname
 The index.json file for metadata information of each document
-###Pagerankfile:  A graph.net format representation for citation network, and the pagerank score is associated with each document node. An example of pagerank file can be found here:  \Data\ReadingListInputExample
+###Pagerankfile
 
-###Filterfile: It is a comma separate file that contains the document key and a binary value
+A graph.net format representation for citation network, and the pagerank score is associated with each document node. An example of pagerank file can be found here:  \Data\ReadingListInputExample
+
+###Filterfile
+
+It is a comma separate file that contains the document key and a binary value
 
 
 ##Output format
