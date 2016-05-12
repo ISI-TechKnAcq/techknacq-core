@@ -31,9 +31,9 @@ public class citationgraph {
     int tnum=300;
     
     public citationgraph(){
-        this.paperids=new HashMap<String, Integer>(18161);
-        this.papernames=new ArrayList<String>(18161);
-        mycited=new ArrayList[18161];
+        this.paperids=new HashMap<String, Integer>(100000);
+        this.papernames=new ArrayList<String>(100000);
+        mycited=new ArrayList[500000];
         for(int i=0;i<mycited.length;i++)
             mycited[i]=new ArrayList<Integer>(10);
     }

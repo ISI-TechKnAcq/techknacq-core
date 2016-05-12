@@ -200,10 +200,10 @@ public class Comparisononalledges {
             double hierdoc;
             double hierword;
             double citewang;
-            double []v1=new double[30000];
-            double []v2=new double[30000];
-            double []v3=new double[40000];
-            double []v4=new double[40000];
+            double []v1=new double[300000];
+            double []v2=new double[300000];
+            double []v3=new double[400000];
+            double []v4=new double[400000];
             BufferedWriter out = null;
             FileWriter fstream = null;
             fstream = new FileWriter("alledge.tsv", false);
