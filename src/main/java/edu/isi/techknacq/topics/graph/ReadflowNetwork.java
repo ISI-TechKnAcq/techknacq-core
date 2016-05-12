@@ -31,7 +31,7 @@ public class ReadflowNetwork {
     HashMap<String,Integer> keysearch; //help find the topic index with a hashmap structure
     double []keyvalues;
     public ReadflowNetwork(){
-        
+
     }
     public void Readkey(String filename){
         try {
@@ -113,11 +113,12 @@ public class ReadflowNetwork {
             DataInputStream in1 = new DataInputStream(fstream1);
             BufferedReader br = new BufferedReader(new InputStreamReader(in1));
             String strline;
-            br.readLine();
             double score;
             String topicname;
             int index;
             while((strline=br.readLine())!=null){
+                if (strline.startsWith("#"))
+                    continue;
                 Scanner sc=new Scanner(strline);
                 sc.next();
                 score=Double.parseDouble(sc.next());
