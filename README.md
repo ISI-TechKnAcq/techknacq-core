@@ -121,7 +121,7 @@ type --help to get detailed instruction for running Infomap
 
 2.3 Obtained the hierarchy clustering results that are stored as .tree format outputted by Infomap and the information flow results that are stored as .flow format
 
-#Concept Graph Generation
+# Concept Graph Generation
   ## Information Flow Graph
   1. Obtain the .tree format and the information flow results .flow from running the infomap with the .net format for co-occurrence matrices, see (TechKnacq-hierarchy clustering) in above for more details
 
@@ -167,7 +167,6 @@ type --help to get detailed instruction for running Infomap
  
         
       
-
 # Generate reading list
 ##Compile
   1. The easiest way is to comile with the IDE (either Netbeans or others) and generate a jar file
