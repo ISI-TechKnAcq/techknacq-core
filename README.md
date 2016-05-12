@@ -1,9 +1,9 @@
 # techknacq-core
 # Table of Content
- - [Topic Modeling](#TechKnacq-topic)
- - [Hierarchy Clustering](#TechKnacq-hierarchy-clustering)
- - [Concept Graph]()
- - [Reading List]()
+ - [Topic Modeling](#techknacq-topic)
+ - [Hierarchy Clustering](#techknacq-hierarchy-clustering)
+ - [Concept Graph](#concept-graph-generation)
+ - [Reading List](#generate-reading-list)
 # TechKnacq-topic
 The topic modeling implementation to learn the document topic affiliation and word distribution for each topic
 ##Compile
@@ -126,6 +126,7 @@ type --help to get detailed instruction for running Infomap
   1. Obtain the .tree format and the information flow results .flow from running the infomap with the .net format for co-occurrence matrices, see (TechKnacq-hierarchy clustering) in above for more details
 
   2. Run the ReadflowNetwork under TechKnacq-topic\TopicModeling\src\util to obtain the edge table format for the topic dependency Graph
+  
      2.1 Compile the ReadFlowNetwork
 
         javac -cp "lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -d classes @name.txt
@@ -138,6 +139,7 @@ type --help to get detailed instruction for running Infomap
           Usage: [keyfilename] [treefilename] [flowfilename] [outputfilename]
          
   3. Run the graph format code within format script to format the edge table format to the adjacent list format specified in (Generate reading list) as follows.
+  
      3.1 Compile
 
          G++ edge2weightstandard.cpp -O3 -o format
@@ -153,12 +155,18 @@ type --help to get detailed instruction for running Infomap
   2. The output for the Co-occurrence based cross entropy approach is saved in a file with name ``entropy1.txt" while co-citation based cross entropy approach is saved in another file with name ``entropy2.txt"
   
   3. Run the graph format code within format script to format the edge table format to the adjacent list format specified in (Generate reading list) as follows.
+  
      3.1 Compile
 
          G++ edge2weightstandard.cpp -O3 -o format
      3.2 Usage
      
          format [inputgraphfile] [# nodes]
+         example: format entroy1.txt 300
+         
+ 
+        
+      
 
 # Generate reading list
 ##Compile
