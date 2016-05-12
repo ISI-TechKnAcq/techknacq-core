@@ -1,8 +1,5 @@
 /*
  * Created on 2004-11-4
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
 package edu.isi.techknacq.topics.parser;
 

@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package edu.isi.techknacq.topics.readinglist;
 
 import java.io.BufferedReader;
@@ -72,11 +66,13 @@ public class citationgraph {
                     tid=this.paperids.get(target);
                 }
                 if(sid>=mycited.length){
+                    System.out.println("SID is greater than limit");
                     System.out.println(sid);
                     System.exit(2);
                 }
                 mycited[sid].add(tid);
             }
+            System.out.println("Finished:");
             System.out.println(pnum);
             in1.close();
         } catch (FileNotFoundException ex) {
