@@ -151,7 +151,7 @@ type --help to get detailed instruction for running Infomap
   
   1. Run the techknacq-core/src/main/java/edu/isi/techknacq/topics/graph/Comparisononalledges.java
      with Arguments:
-     Usage [keyfile] [tree file] [topic composition file] [# topics] [citation file] [flow file] [topicscorefile]
+     Usage [keyfile] [tree file] [topic composition file] [# topics] [citation file] [flow file] [topicscorefile] [maximum number of files or words]
 
   2. The output for the Co-occurrence based cross entropy approach is saved in a file with name "entropy1.txt" while co-citation based cross entropy approach is saved in another file with name "entropy2.txt"
   
