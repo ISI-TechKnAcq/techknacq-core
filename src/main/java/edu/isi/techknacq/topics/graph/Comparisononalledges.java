@@ -178,7 +178,7 @@ public class Comparisononalledges {
             res=0.0;
         return res;
     }
-    public void Run(String filename, int K, String citationfile){
+    public void Run(String filename, int K, String citationfile, int maxfilewordnum){
         try {
             Concept2doc doc = new Concept2doc();
             doc.Initnum(tnum);
@@ -194,10 +194,10 @@ public class Comparisononalledges {
             double hierdoc;
             double hierword;
             double citewang;
-            double []v1=new double[300000];
-            double []v2=new double[300000];
-            double []v3=new double[400000];
-            double []v4=new double[400000];
+            double []v1=new double[maxfilewordnum];
+            double []v2=new double[maxfilewordnum];
+            double []v3=new double[maxfilewordnum];
+            double []v4=new double[maxfilewordnum];
             BufferedWriter out = null;
             FileWriter fstream = null;
             fstream = new FileWriter("alledge.tsv", false);
@@ -205,6 +205,7 @@ public class Comparisononalledges {
             out.write("sid\ts_topic\ttid\tt_topic\tsim_doc\tsim_word\tinformation_flow\tCE\tcitation\tHier\tCitation_Wang\n");
             citationgraph mycite=new citationgraph();
             mycite.settopicnum(tnum);
+            mycite.setmaxfilenum(maxfilewordnum);
            // mycite.Readcitation("acl.txt");
             mycite.Readcitation(citationfile);
             mycite.Readc2d(filename);
@@ -284,7 +285,7 @@ public class Comparisononalledges {
         alledge.flowscores=myreader.Readflowscore(args[1]);
         myreader.Readflowtomatrix(args[5],alledge.flowmatrics);
         alledge.Readtopicscore(args[6]);
-        alledge.Run(args[2], Integer.parseInt(args[3]),args[4]);
+        alledge.Run(args[2], Integer.parseInt(args[3]),args[4],Integer.parseInt(args[7]));
 //        alledge.Readkey("mallet-keys-2gm-200.txt");
 //        alledge.ReadInformationflowScore("mallet0702.tree");
 //        alledge.Run("concept2doc.txt", 200,"acl.txt");
