@@ -27,12 +27,14 @@ public class citationgraph {
     public citationgraph(){
         this.paperids=new HashMap<String, Integer>(100000);
         this.papernames=new ArrayList<String>(100000);
-        mycited=new ArrayList[500000];
         for(int i=0;i<mycited.length;i++)
             mycited[i]=new ArrayList<Integer>(10);
     }
     public void settopicnum(int _tnum){
         tnum=_tnum;
+    }
+    public void setmaxfilenum(int _fnum){
+        mycited=new ArrayList[_fnum];
     }
     public void Readcitation(String filename){
         try {
