@@ -275,7 +275,7 @@ public class Comparisononalledges {
     }
     public static void main(String []args){
         if(args.length<1){
-            System.out.println("Usage [keyfile] [tree file] [topic composition file] [# topics] [citation file] [flow file] [topicscorefile]");
+            System.out.println("Usage [keyfile] [tree file] [topic composition file] [# topics] [citation file] [flow file] [topicscorefile] [maxfilewordnum]");
             System.exit(2);
         }
         Comparisononalledges alledge=new Comparisononalledges();
