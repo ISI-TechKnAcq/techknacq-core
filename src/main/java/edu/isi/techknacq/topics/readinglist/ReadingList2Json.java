@@ -31,7 +31,7 @@ import edu.isi.techknacq.topics.topic.WordPair;
  */
 public class ReadingList2Json {
     Map<String, Double> paperpagerank;
-    List<List<WordPair>> wordintopic;
+    ArrayList<ArrayList<WordPair>> wordintopic;
     List<String> topickeys;
     List<Integer> hittopic;
     Map<String, String> docmap;

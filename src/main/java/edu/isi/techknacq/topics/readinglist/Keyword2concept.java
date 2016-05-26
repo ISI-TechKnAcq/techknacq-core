@@ -1,3 +1,9 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package edu.isi.techknacq.topics.readinglist;
 
 import java.io.BufferedReader;
@@ -8,11 +14,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import edu.isi.techknacq.topics.topic.Indexpair;
 import edu.isi.techknacq.topics.topic.Weightpair;
 import edu.isi.techknacq.topics.topic.WordPair;
 
@@ -21,9 +26,9 @@ import edu.isi.techknacq.topics.topic.WordPair;
  * @author linhong
  */
 public class Keyword2concept {
-    List<String> topics;
-    List<List<WordPair>> wordintopic;
-    List<Weightpair> hittopics;
+    ArrayList<String> topics;
+    ArrayList<ArrayList<WordPair>> wordintopic;
+    ArrayList<Weightpair> hittopics;
     int k=8;
     public Keyword2concept(){
         
@@ -100,24 +105,24 @@ public class Keyword2concept {
             }
         }
         Collections.sort(hittopics);
-        ArrayList<Integer> topicindex=new ArrayList(hittopics.size());
+        ArrayList<Integer> topicindex=new ArrayList<Integer>(hittopics.size());
         for (Weightpair o : hittopics) {
             topicindex.add(o.getindex());
         }
         return topicindex;
     }
     
-    public List<String> Gettopics(){
+    public ArrayList<String> Gettopics(){
         return topics;
     }
-    public List<List<WordPair>> Getweighttopic(){
+    public ArrayList<ArrayList<WordPair>> Getweighttopic(){
         return this.wordintopic;
     }
     public static void main(String []args){
         Keyword2concept mykeyword=new Keyword2concept();
         mykeyword.Readkey("mallet-weighted-key.txt");
-        List<Integer> hits=mykeyword.Getmatch("machine_translation");
-        List<String> mytopic=mykeyword.Gettopics();
+        ArrayList<Integer> hits=mykeyword.Getmatch("machine_translation");
+        ArrayList<String> mytopic=mykeyword.Gettopics();
         for(int i=0;i<hits.size();i++){
             int index=hits.get(i);
            System.out.println(mytopic.get(index));
