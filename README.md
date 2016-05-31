@@ -291,25 +291,8 @@ first column: labeled/unlabeled (string) eg: unlabeled
 second column: ID of documents, eg: ACL-X98-1030
 third column: pedogical type (string), eg: ['survey']
 ### The configuration file
+An example of the configuration file is [here]()
 
-#PVvalue
-['Empirical results']	0.00001
-['Reference work']	0.001
-['None']	0.000001
-['Tutorial']	0.005
-['Survey']	0.006
-['Software manual']	0.0001
-['Resource']	0.0002
-#end
-#relevencethreshold
-10
-#end
-#weight
-1	0.5	pagerank
-2	0.2	PVvalue
-3	0.1	complexity
-4	0.000001	relevence
-#end
 
 
 
