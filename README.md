@@ -288,10 +288,13 @@ Our program accepts the following parameters, that are:
 ### The file of pedegocial type of each document
 Each row is seperated by tab with three columns:
 first column: labeled/unlabeled (string) eg: unlabeled
+
 second column: ID of documents, eg: ACL-X98-1030
+
 third column: pedogical type (string), eg: ['survey']
+
 ### The configuration file
-An example of the configuration file is [here]()
+An example of the configuration file is [here](https://github.com/ISI-TechknAcq/techknacq-core/blob/master/config.txt)
 
 
 
