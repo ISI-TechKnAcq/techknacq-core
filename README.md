@@ -296,6 +296,8 @@ third column: pedogical type (string), eg: ['survey']
 ### The configuration file
 An example of the configuration file is [here](https://github.com/ISI-TechknAcq/techknacq-core/blob/master/config.txt)
 
+all the other input files are using the same format as specfied as above.
+
 
 
 
