@@ -4,6 +4,7 @@
  - [Hierarchy Clustering](#techknacq-hierarchy-clustering)
  - [Concept Graph](#concept-graph-generation)
  - [Reading List](#generate-reading-list)
+ - [PV Reading List](#new-reading-list)
 
 # TechKnacq-topic
 The topic modeling implementation to learn the document topic affiliation and word distribution for each topic
@@ -251,6 +252,64 @@ It is a comma separate file that contains the document key and a binary value
 
 ##Output format
 The output is saved in a JSON file with name keyword_readinglist
+# New Reading List
+## Main Function
+techknacq-core/src/main/java/edu/isi/techknacq/topics/readinglist/NewReadingList.java
+## Run with jar file
+Simply type java -jar [jarfilename] [arguments], where arguments are specified in Usage as below
+## Run without jar file
+java -classpath ".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m readinglist.NewReadingList [arguments], where arguments are specified in Usage as below
+## Usage
+
+Our program accepts the following parameters, that are:
+
+
+         //args[0]: keyword (string);
+         
+         //args[1]: doc2topicfilename (string);
+         
+         //args[2]: topickeyname (string);
+         
+         //args[3]: topicgraphfilename (string);
+         
+         //args[4]: dockeyname (string);
+         
+         //args[5]: the page rank file (String);
+         
+         //args[6]: number of docs per topic (Integer)
+         
+         //args[7]: number of maximum dependence topics (Integer);
+         
+         //args[8]: a list of bad papers that to be filtered out.
+         //args[9]: the file of pedegocial type of each document
+         //args[10]: configuration file
+         
+## Input format
+### The file of pedegocial type of each document
+Each row is seperated by tab with three columns:
+first column: labeled/unlabeled (string) eg: unlabeled
+second column: ID of documents, eg: ACL-X98-1030
+third column: pedogical type (string), eg: ['survey']
+### The configuration file
+
+#PVvalue
+['Empirical results']	0.00001
+['Reference work']	0.001
+['None']	0.000001
+['Tutorial']	0.005
+['Survey']	0.006
+['Software manual']	0.0001
+['Resource']	0.0002
+#end
+#relevencethreshold
+10
+#end
+#weight
+1	0.5	pagerank
+2	0.2	PVvalue
+3	0.1	complexity
+4	0.000001	relevence
+#end
 
 
 
