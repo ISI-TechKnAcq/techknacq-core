@@ -44,26 +44,21 @@ public class ReadingList2 {
         
     }
     public void Readdata(String keyword, String keyname, String pagerankfile, String docfile, int dnum, String doc2conceptfile, String filterfile){
-        try {
-            Keyword2concept match1=new Keyword2concept();
-            match1.Readkey(keyname);
-            hittopic=match1.Getmatch(keyword);
-            this.wordintopic=match1.Getweighttopic();
-            this.topickeys=match1.Gettopics();
-            ReadPageRankscore(pagerankfile);
-            ReadDocumentkey rdk = new ReadDocumentkey(docfile);
-            rdk.Readfile();
-            docmap=rdk.GetDocmap();
-            Concept2doc Getdoc=new Concept2doc();
-            Getdoc.Initnum(topickeys.size());
-            Getdoc.addfiter(filterfile);
-            Getdoc.GettopK(dnum*10, doc2conceptfile);
-            topic2docs=Getdoc.GetTopic2doc();
-            docfiles=Getdoc.Getdocname();
-            //docfiles: The filename of each document
-        } catch (IOException ex) {
-            Logger.getLogger(ReadingList2.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Keyword2concept match1=new Keyword2concept();
+        match1.Readkey(keyname);
+        hittopic=match1.Getmatch(keyword);
+        this.wordintopic=match1.Getweighttopic();
+        this.topickeys=match1.Gettopics();
+        ReadPageRankscore(pagerankfile);
+        ReadDocumentkey rdk = new ReadDocumentkey(docfile);
+        rdk.Readfile();
+        docmap=rdk.GetDocmap();
+        Concept2doc Getdoc=new Concept2doc();
+        Getdoc.Initnum(topickeys.size());
+        Getdoc.addfiter(filterfile);
+        Getdoc.GettopK(dnum*10, doc2conceptfile);
+        topic2docs=Getdoc.GetTopic2doc();
+        docfiles=Getdoc.Getdocname();
     }
     public String Getdocmeda(String id){
         if(this.docmap.containsKey(id)==true)

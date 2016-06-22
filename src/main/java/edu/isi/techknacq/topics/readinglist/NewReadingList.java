@@ -73,35 +73,24 @@ public class NewReadingList {
     @
     **/
     public void Readdata(String keyname, String pagerankfile, String docfile, int dnum, String doc2conceptfile, String filterfile){
-        try {
-            match1=new Keyword2concept();
-            match1.Readkey(keyname);
-            System.out.println("finish reading topic");
-            this.wordintopic=match1.Getweighttopic();
-            this.topickeys=match1.Gettopics();
-            ReadPageRankscore(pagerankfile);
-            System.out.println("finish reading pagerank");
-            ReadDocumentkey rdk = new ReadDocumentkey(docfile);
-            rdk.Readfile();
-            System.out.println("finish reading document");
-            docmap=rdk.GetDocmap();
-            Concept2doc Getdoc=new Concept2doc();
-            Getdoc.Initnum(topickeys.size());
-            /*
-            filter out bad documents;
-            */
-            Getdoc.addfiter(filterfile);
-            /*
-            filter out non-relevence documents by returning only Top-k (k=dnum*relevencek) number of documents per topic.
-            */
-            Getdoc.GettopK(dnum*relevencek, doc2conceptfile);
-            topic2docs=Getdoc.GetTopic2doc();
-            docfiles=Getdoc.Getdocname();
-            System.out.println("finish reading data");
-            //docfiles: The filename of each document
-        } catch (IOException ex) {
-            Logger.getLogger(NewReadingList.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        match1=new Keyword2concept();
+        match1.Readkey(keyname);
+        System.out.println("finish reading topic");
+        this.wordintopic=match1.Getweighttopic();
+        this.topickeys=match1.Gettopics();
+        ReadPageRankscore(pagerankfile);
+        System.out.println("finish reading pagerank");
+        ReadDocumentkey rdk = new ReadDocumentkey(docfile);
+        rdk.Readfile();
+        System.out.println("finish reading document");
+        docmap=rdk.GetDocmap();
+        Concept2doc Getdoc=new Concept2doc();
+        Getdoc.Initnum(topickeys.size());
+        Getdoc.addfiter(filterfile);
+        Getdoc.GettopK(dnum*relevencek, doc2conceptfile);
+        topic2docs=Getdoc.GetTopic2doc();
+        docfiles=Getdoc.Getdocname();
+        System.out.println("finish reading data");
     }
     /*
     Read the pedgogical type of each document

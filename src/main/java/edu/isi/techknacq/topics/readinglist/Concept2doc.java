@@ -187,29 +187,22 @@ public class Concept2doc {
     }
     
     public static void main(String args[]) {
-        try {
-            Concept2doc doc = new Concept2doc();
-            int tnum = 200;
-            int K = 100;
-            String filename = "concept2doc.txt";
-            doc.Initnum(tnum);
-            doc.GettopK(K, filename);
-            //doc.Prune();
-            int tindex = 180;
-            //i==35||i==65||i==38||i==176||i==180
-            ArrayList<Integer> mydocs=doc.Getdocs(tindex);
-            ReadDocumentkey rdk = new ReadDocumentkey("acl-meta.json");
-            rdk.Readfile();
-            for(int i=0;i<mydocs.size();i++){
-                //System.out.println(mydocs.get(i));
-                String id = doc.docnames.get(mydocs.get(i));
-                String docVal = rdk.Getdocumentkey(id);
-                //System.out.println("Retrieving:");
-                System.out.println(id + " --- " + docVal);
-            }
-            //doc.Print();
-        } catch (IOException ex) {
-            Logger.getLogger(Concept2doc.class.getName()).log(Level.SEVERE, null, ex);
+        Concept2doc doc = new Concept2doc();
+        int tnum = 200;
+        int K = 100;
+        String filename = "concept2doc.txt";
+        doc.Initnum(tnum);
+        doc.GettopK(K, filename);
+        int tindex = 180;
+        ArrayList<Integer> mydocs=doc.Getdocs(tindex);
+        ReadDocumentkey rdk = new ReadDocumentkey("acl-meta.json");
+        rdk.Readfile();
+        for(int i=0;i<mydocs.size();i++){
+            //System.out.println(mydocs.get(i));
+            String id = doc.docnames.get(mydocs.get(i));
+            String docVal = rdk.Getdocumentkey(id);
+            //System.out.println("Retrieving:");
+            System.out.println(id + " --- " + docVal);
         }
     }
 }
