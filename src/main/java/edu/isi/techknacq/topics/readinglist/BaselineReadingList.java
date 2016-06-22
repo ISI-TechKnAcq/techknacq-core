@@ -49,7 +49,7 @@ public class BaselineReadingList {
                 Scanner sc=new Scanner(strline);
                 sc.useDelimiter("\t| ");
                 sr=sc.next();
-                if(sr.indexOf("Edge")>=0)
+                if(sr.contains("*Edge")||sr.contains("*Arc"))
                     break;
                 keyname=sc.next();
                 keyname=keyname.substring(1, keyname.length()-1);

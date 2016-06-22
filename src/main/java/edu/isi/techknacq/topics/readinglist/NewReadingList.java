@@ -209,7 +209,7 @@ public class NewReadingList {
                 Scanner sc=new Scanner(strline);
                 sc.useDelimiter("\t| ");
                 sr=sc.next();
-                if(sr.contains("Edge"))
+                if(sr.contains("*Edge")||sr.contains("*Arc"))
                     break;
                 keyname=sc.next();
                 keyname=keyname.substring(1, keyname.length()-1);
