@@ -1,0 +1,18 @@
+#PVvalue
+['Empirical results']	0.00001
+['Reference work']	0.001
+['None']	0.000001
+['Tutorial']	0.005
+['Survey']	0.006
+['Software manual']	0.0001
+['Resource']	0.0002
+#end
+#relevencethreshold
+10
+#end
+#weight
+1	0.5	pagerank
+2	0.2	PVvalue
+3	0.1	complexity
+4	0.000001	relevence
+#end
