@@ -439,6 +439,7 @@ public class NewReadingList {
             out.write(documents);
             out.write("}");
             out.close();
+            //System.out.print(out.toString());
             return out.toString();
         } catch (IOException ex) {
             Logger.getLogger(NewReadingList.class.getName()).log(Level.SEVERE, null, ex);
