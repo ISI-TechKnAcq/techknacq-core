@@ -33,7 +33,8 @@ specified in Usage as below.
 2. Without jar file:
 ```
 java -classpath
-".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m topic.Main [arguments]```
+".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m topic.Main [arguments]
+```
 
 Arguments are specified in Usage below.
 
