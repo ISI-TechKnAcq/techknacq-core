@@ -3,9 +3,9 @@
 ## Table of Contents
  - [Topic Modeling](#techknacq-topic)
  - [Hierarchy Clustering](#techknacq-hierarchy-clustering)
- - [Concept Graph](#concept-graph-generation)
- - [Reading List](#generate-reading-list)
- - [Reading List](#new-reading-list)
+ - [Concept Graph Generation](#concept-graph-generation)
+ - [Basic Reading List Generation](#generate-reading-list)
+ - [Pedagogical Reading List Generation](#new-reading-list)
 
 ## TechKnAcq-topic
 
