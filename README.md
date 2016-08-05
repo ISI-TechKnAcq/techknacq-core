@@ -1,17 +1,18 @@
 # techknacq-core
 
-# Table of Contents
+## Table of Contents
  - [Topic Modeling](#techknacq-topic)
  - [Hierarchy Clustering](#techknacq-hierarchy-clustering)
  - [Concept Graph](#concept-graph-generation)
  - [Reading List](#generate-reading-list)
  - [Reading List](#new-reading-list)
 
-# TechKnacq-topic
+## TechKnAcq-topic
+
 The topic modeling implementation to learn the document topic affiliation and
 word distribution for each topic.
 
-## Compile
+### Compile
 
 1. The easiest way is to comile with the IDE (either Netbeans or others) and generate a jar file
 
@@ -22,19 +23,24 @@ word distribution for each topic.
      javac -cp "lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -d classes @name.txt
 ```
 
-## Run from the command line
-1. With jar file generated from IDE or ant:
+### Run from the command line
 
-   Simply type `java -jar [jarfilename] [arguments]`, where arguments are
+1. With ia jar file generated from IDE or ant:
+
+Simply type `java -jar [jarfilename] [arguments]`, where arguments are
 specified in Usage as below.
 
 2. Without jar file:
-  `java -classpath
-".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m topic.Main [arguments]`, where arguments are specified in Usage as below
+```
+java -classpath
+".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m topic.Main [arguments]```
+
+Arguments are specified in Usage below.
 
 
-## Usage
-Our program accepts five parameters, that is:
+### Usage
+
+Our program accepts five parameters:
 
 1. String: dirname. The directory for the text corpus. Note that each document
 is stored as single text file.
@@ -48,25 +54,31 @@ To execute the program, type `java -jar TechKnacq.jar [args]`, and the
 argument directory name is required. For the other parameters, we can use the
 default values if otherwise specified.
 
-## Input
+
+### Input
+
 Put each document as a single file under the same directory, the directory
 name is an input for the program.
 
-## Output
-The output of results will be stored in two directories: the current work space directory and the ./lib/output directory. The output of results contain the following files:
 
-       ./lib/output/final.beta: the word-topic matrix, where each line denotes a topic, each column denotes a word, and the value denotes the likelihood of a word belongs to this topic.
+### Output
 
-      ./lib/prefixdocument2topic.txt: the document-topic matrix, where each line is with the following format:
- 
+The output of results will be stored in two directories: the current work
+space directory and the ./lib/output directory. The output of results contain
+the following files:
+
+- lib/output/final.beta: the word-topic matrix, where each line denotes a topic, each column denotes a word, and the value denotes the likelihood of a word belongs to this topic.
+
+- lib/prefixdocument2topic.txt: the document-topic matrix, where each line is with the following format:
+```
       [documentname][tab][topic1]:[value][tab][topic2]:[value][tab].....
+```
 
-      ./lib/prefixtopic.csv: the topic 30 words from the entire corpus
+- lib/prefixtopic.csv: the topic 30 words from the entire corpus
 
-      ./lib/prefixtopic.txt: the top-k word distribution of topics, where for each topic, we print out the top-k words.
+- lib/prefixtopic.txt: the top-k word distribution of topics, where for each topic, we print out the top-k words. It is formatted as follows:
 
-      It is formatted as follows:
-
+```
 topic 000
 "word1",value
 "word2",value
@@ -78,20 +90,24 @@ Topic 019
 "word2",value
 ....
 "wordk",value
-
-## Notes
-+Remember to put the lib with the same directory of the jar file
-
-+Remember to create a output folder within lib directory
-
-+For Linux, please rename ./lib/lda-linux to ./lib/lda 
-
-+Remember to unzip jar files within lib directory:)
+```
 
 
-# TechKnacq-hierarchy clustering
+### Notes
 
-1. Given the co-occurrence matrices, the first step is to run the Graphformat under TopicModeling\src\util to generate the Pajek .net format.
+- Remember to put the lib with the same directory of the jar file
+
+- Remember to create a output folder within lib directory
+
+- For Linux, please rename lib/lda-linux to lib/lda 
+
+- Remember to unzip jar files within the lib directory.
+
+
+## TechKnAcq-hierarchy clustering
+
+1. Given the co-occurrence matrices, the first step is to run the Graphformat
+under TopicModeling/src/util to generate the Pajek .net format.
 
 1.1 .Net format introduction:
 http://gephi.github.io/users/supported-graph-formats/pajek-net-format/
@@ -118,42 +134,50 @@ Arguments:
 
 2.1 Compile Infomap
 
-type make 
+Type `make`
 
 2.2 Run the Infomap to get the hierarchy clustering
 
-type --help to get detailed instruction for running Infomap
+Use the --help flag to get detailed instruction for running Infomap.
 
 2.3 Obtained the hierarchy clustering results that are stored as .tree format outputted by Infomap and the information flow results that are stored as .flow format
 
-# Concept Graph Generation
-  ## Information Flow Graph
-  1. Obtain the .tree format and the information flow results .flow from running the infomap with the .net format for co-occurrence matrices, see (TechKnacq-hierarchy clustering) in above for more details
+## Concept Graph Generation
 
-  2. Run the ReadflowNetwork under TechKnacq-topic\TopicModeling\src\util to obtain the edge table format for the topic dependency Graph
-  
-     2.1 Compile the ReadFlowNetwork
+### Information Flow Graph
 
-        javac -cp "lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -d classes @name.txt
+1. Obtain the .tree format and the information flow results .flow from running the infomap with the .net format for co-occurrence matrices, see (TechKnacq-hierarchy clustering) in above for more details
 
-     2.2 Run the ReadFlowNetwork
+2. Run the ReadflowNetwork under TechKnacq-topic/TopicModeling/src/util to obtain the edge table format for the topic dependency Graph
 
-         java -classpath ".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m util.ReadFlowNetwork [arguments]
-         
-      2.3 Arguments:
-          Usage: [keyfilename] [treefilename] [flowfilename] [outputfilename]
-         
-  3. Run the graph format code within format script to format the edge table format to the adjacent list format specified in (Generate reading list) as follows.
-  
-     3.1 Compile
+2.1. Compile the ReadFlowNetwork
 
-         G++ edge2weightstandard.cpp -O3 -o format
-     3.2 Usage
-     
-         format [inputgraphfile] [# nodes]
-  ## Cross Entropy Graph Generation
-  
-  1. Run the techknacq-core/src/main/java/edu/isi/techknacq/topics/graph/Comparisononalledges.java
+```
+javac -cp "lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -d classes @name.txt
+```
+
+2.2. Run the ReadFlowNetwork
+
+```
+java -classpath ".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m util.ReadFlowNetwork [arguments]
+```
+
+2.3. Arguments: [keyfilename] [treefilename] [flowfilename] [outputfilename]
+
+3. Run the graph format code within format script to format the edge table format to the adjacent list format specified in (Generate reading list) as follows.
+
+3.1. Compile
+
+```
+g++ edge2weightstandard.cpp -O3 -o format
+```
+
+3.2. Usage: format [inputgraphfile] [# nodes]
+
+
+### Cross Entropy Graph Generation
+
+1. Run the techknacq-core/src/main/java/edu/isi/techknacq/topics/graph/Comparisononalledges.java
      with Arguments:
      Usage [keyfile] [tree file] [topic composition file] [# topics] [citation file] [flow file] [topicscorefile] [maximum number of files or words]
 
@@ -169,12 +193,11 @@ type --help to get detailed instruction for running Infomap
      
          format [inputgraphfile] [# nodes]
          example: format entroy1.txt 300
-         
- 
-        
-      
-# Generate reading list
-##Compile
+
+## Generate reading list
+
+### Compile
+
   1. The easiest way is to comile with the IDE (either Netbeans or others) and generate a jar file
   
   2. Command line compile:
@@ -182,8 +205,9 @@ type --help to get detailed instruction for running Infomap
      mkdir classes 
 
      javac -cp "lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -d classes @name.txt
-     
-##Run
+
+### Run
+
 1. With jar file generated from IDE or ant:
 
    Simply type java -jar [jarfilename] [arguments], where arguments are specified in Usage as below
@@ -192,47 +216,46 @@ type --help to get detailed instruction for running Infomap
 
   java -classpath ".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m readinglist.Getreadinglist [arguments], where arguments are specified in Usage as below
 
-##Usage
+### Usage
+
 Our program accepts the following parameters, that are:
+1. keyword (string)
+2. doc2topicfilename (string)
+3. topickeyname (string)
+4. topicgraphfilename (string)
+5. dockeyname (string)
+6. the page rank file (String)
+7. number of docs per topic (Integer)
+8. number of maximum dependence topics (Integer)
+9. a list of bad papers that to be filtered out
 
+### Input format
 
-         //args[0]: keyword (string);
-         
-         //args[1]: doc2topicfilename (string);
-         
-         //args[2]: topickeyname (string);
-         
-         //args[3]: topicgraphfilename (string);
-         
-         //args[4]: dockeyname (string);
-         
-         //args[5]: the page rank file (String);
-         
-         //args[6]: number of docs per topic (Integer)
-         
-         //args[7]: number of maximum dependence topics (Integer);
-         
-         //args[8]: a list of bad papers that to be filtered out.
-         
-##Input format
-
-###keyword
+#### keyword
 Note that if the keyword is not unigram, we use "_" to connect each term within the input keyword
-###doc2topicfile
+
+#### doc2topicfile
 Each line denotes the topic representation for a document, with the following format:
+```
 [documentname][tab][topic1]:[value][tab][topic2]:[value][tab].....
-###topickeyname 
+```
+
+#### topickeyname
 Each line denotes the word distribution for a topic, and it is formated as the mallet output format
-###topicgraphfile
+
+#### topicgraphfile
 The graph file is with the following format:
 The first line is number of nodes, and starting from the second lins is the adjacence list of each node formated as follows:
 
+```
 node_id,degree_d:neighboreid1,weight1:neighborid2,weight2:...neighboridd,weightd
+```
 
 Note that the node_id is within the range [0,n-1], where n is number of nodes, and the list of neighbors are sorted in ascending order too.
 
 An example of input graph format is as follows:
 
+```
 3
 
 0,2:1,1.0:2,1.0
@@ -240,56 +263,64 @@ An example of input graph format is as follows:
 1,2:0,1.0:2,1.0
 
 2,2:0,1.0:1,1.0
+```
 
 where this graph is a triangle with three vertices
-###dockeyname
+
+#### dockeyname
 The index.json file for metadata information of each document
-###Pagerankfile
 
-A graph.net format representation for citation network, and the pagerank score is associated with each document node. An example of pagerank file can be found here:  \Data\ReadingListInputExample
+#### Pagerankfile
 
-###Filterfile
+A graph.net format representation for citation network, and the pagerank score
+is associated with each document node. (At ISI, an example of pagerank file
+can be found in Data/ReadingListInputExample.)
+
+#### Filterfile
 
 It is a comma separate file that contains the document key and a binary value
 
 
-##Output format
+### Output format
+
 The output is saved in a JSON file with name keyword_readinglist
-# New Reading List
-## Main Function
+
+
+## New Reading List
+
+### Main Function
+
 techknacq-core/src/main/java/edu/isi/techknacq/topics/readinglist/NewReadingList.java
-## Run with jar file
-Simply type java -jar [jarfilename] [arguments], where arguments are specified in Usage as below
-## Run without jar file
-java -classpath ".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m readinglist.NewReadingList [arguments], where arguments are specified in Usage as below
-## Usage
+
+### Run with jar file
+Simply type `java -jar [jarfilename] [arguments]`, where arguments are
+specified in Usage as below.
+
+### Run without jar file
+
+`java -classpath
+".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m readinglist.NewReadingList [arguments]`, where arguments are
+specified in Usage as below.
+
+### Usage
 
 Our program accepts the following parameters, that are:
 
+1. keyword (string);
+2. doc2topicfilename (string);
+3. topickeyname (string);
+4. topicgraphfilename (string);
+5. dockeyname (string);
+6. the page rank file (String);
+7. number of docs per topic (Integer)
+8. number of maximum dependence topics (Integer);
+9. a list of bad papers that to be filtered out.
+10. the file of pedegocial type of each document
+11. configuration file
 
-         //args[0]: keyword (string);
-         
-         //args[1]: doc2topicfilename (string);
-         
-         //args[2]: topickeyname (string);
-         
-         //args[3]: topicgraphfilename (string);
-         
-         //args[4]: dockeyname (string);
-         
-         //args[5]: the page rank file (String);
-         
-         //args[6]: number of docs per topic (Integer)
-         
-         //args[7]: number of maximum dependence topics (Integer);
-         
-         //args[8]: a list of bad papers that to be filtered out.
-         //args[9]: the file of pedegocial type of each document
-         //args[10]: configuration file
+### Input format
 
-## Input format
-
-### The file of pedagogical type of each document
+#### The file of pedagogical type of each document
 
 Each row is seperated by tab with three columns:
 
@@ -297,7 +328,7 @@ Each row is seperated by tab with three columns:
 - second column: ID of documents, eg: ACL-X98-1030
 - third column: pedogical type (string), eg: ['survey']
 
-### The configuration file
+#### The configuration file
 
 An example of the configuration file is [here](https://github.com/ISI-TechknAcq/techknacq-core/blob/master/config.txt)
 Basically, we need to specify
