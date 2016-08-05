@@ -1,54 +1,56 @@
 # techknacq-core
-# Table of Content
+
+# Table of Contents
  - [Topic Modeling](#techknacq-topic)
  - [Hierarchy Clustering](#techknacq-hierarchy-clustering)
  - [Concept Graph](#concept-graph-generation)
  - [Reading List](#generate-reading-list)
- - [PV Reading List](#new-reading-list)
+ - [Reading List](#new-reading-list)
 
 # TechKnacq-topic
-The topic modeling implementation to learn the document topic affiliation and word distribution for each topic
-##Compile
-  1. The easiest way is to comile with the IDE (either Netbeans or others) and generate a jar file
-  
-  2. Command line compile:
+The topic modeling implementation to learn the document topic affiliation and
+word distribution for each topic.
+
+## Compile
+
+1. The easiest way is to comile with the IDE (either Netbeans or others) and generate a jar file
+
+2. Command line compile:
+
+```
      mkdir classes 
      javac -cp "lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -d classes @name.txt
+```
 
-##Run in command line
+## Run from the command line
 1. With jar file generated from IDE or ant:
 
-   Simply type java -jar [jarfilename] [arguments], where arguments are specified in Usage as below
-   
+   Simply type `java -jar [jarfilename] [arguments]`, where arguments are
+specified in Usage as below.
+
 2. Without jar file:
-  java -classpath ".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m topic.Main [arguments], where arguments are specified in Usage as below
+  `java -classpath
+".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m topic.Main [arguments]`, where arguments are specified in Usage as below
 
 
-##Usage
+## Usage
 Our program accepts five parameters, that is:
 
-        + //args[0]: String: dirname
-        + //args[1]: Int: topicnum (default 20)
-        + //args[2]: Int: k, where k denotes top-k word to be printed for each topic (default k=10)
-        + //args[3]: double: parameter alpha (default 0.07)
-        + //args[4]: String: prefix name for topic model (default tech) 
+1. String: dirname. The directory for the text corpus. Note that each document
+is stored as single text file.
+2. Int: topicnum (default 20). The number of topics.
+3. Int: k, where k denotes top-k word to be printed for each topic (default
+k=10).
+4. double: Dirichlet parameter alpha (default 0.07)
+5. String: prefix name for topic model (default tech)
 
-where 
-
-         + dirname is the directory for the text corpus. Note that each document is stored as single text file.
-
-         + topicnum is the number of topics
-
-         + k is the number of top-words to be printed for each topic
-
-         + alpha is the dirichlet parameter
-
-         + prefix is a string to distinguish the topic models.
-
-To execute the program, type java -jar TechKnacq.jar [args], and the argument directory name is required. For the other parameters, we can use the default values if otherwise specified.
+To execute the program, type `java -jar TechKnacq.jar [args]`, and the
+argument directory name is required. For the other parameters, we can use the
+default values if otherwise specified.
 
 ## Input
-Put each document as a single file under the same directory, the directory name is an input for the program.
+Put each document as a single file under the same directory, the directory
+name is an input for the program.
 
 ## Output
 The output of results will be stored in two directories: the current work space directory and the ./lib/output directory. The output of results contain the following files:
@@ -77,7 +79,7 @@ Topic 019
 ....
 "wordk",value
 
-##Notes
+## Notes
 +Remember to put the lib with the same directory of the jar file
 
 +Remember to create a output folder within lib directory
@@ -87,7 +89,7 @@ Topic 019
 +Remember to unzip jar files within lib directory:)
 
 
-#TechKnacq-hierarchy clustering
+# TechKnacq-hierarchy clustering
 
 1. Given the co-occurrence matrices, the first step is to run the Graphformat under TopicModeling\src\util to generate the Pajek .net format.
 
@@ -96,20 +98,21 @@ http://gephi.github.io/users/supported-graph-formats/pajek-net-format/
 
 1.2 Comile and run instruction for java
 
-compile: 
+Compile:
 
+```
 mkdir classes 
-     javac -cp "lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -d classes @name.txt
+javac -cp "lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -d classes @name.txt
+```
 
-run: java [mainclassfilename] [arguments]
+Run:
 
-arguments:
+```java [mainclassfilename] [arguments]```
 
-the first argument: keyfilename or the topic file names
-
-the second argument: co-occurrence matrix file name
-
-the third argument: outputfilename
+Arguments:
+- the first argument: keyfilename or the topic file names
+- the second argument: co-occurrence matrix file name
+- the third argument: outputfilename
 
 2. The second step is to run the hierarchy clustering over the outputed .net topic graph file
 
@@ -283,29 +286,35 @@ Our program accepts the following parameters, that are:
          //args[8]: a list of bad papers that to be filtered out.
          //args[9]: the file of pedegocial type of each document
          //args[10]: configuration file
-         
+
 ## Input format
-### The file of pedegocial type of each document
+
+### The file of pedagogical type of each document
+
 Each row is seperated by tab with three columns:
-first column: labeled/unlabeled (string) eg: unlabeled
 
-second column: ID of documents, eg: ACL-X98-1030
-
-third column: pedogical type (string), eg: ['survey']
+- first column: labeled/unlabeled (string) eg: unlabeled
+- second column: ID of documents, eg: ACL-X98-1030
+- third column: pedogical type (string), eg: ['survey']
 
 ### The configuration file
+
 An example of the configuration file is [here](https://github.com/ISI-TechknAcq/techknacq-core/blob/master/config.txt)
 Basically, we need to specify
 the mapping from pedogical type to a score (double type)
 the parameter value: e.g., the relevence threshold
 the coefficent weight for each feature (i.e., the weight controls the contribution of each feature in ordering documents)
 
+All the other input files are using the same format as specfied as above.
 
 
-all the other input files are using the same format as specfied as above.
+## Acknowledgments
 
-
-
-
-
-
+This research is based upon work supported in part by the Office of the
+Director of National Intelligence (ODNI), Intelligence Advanced Research
+Projects Activity (IARPA), via Air Force Research Laboratory (AFRL). The views
+and conclusions contained herein are those of the authors and should not be
+interpreted as necessarily representing the official policies or endorsements,
+either expressed or implied, of ODNI, IARPA, AFRL, or the U.S. Government. The
+U.S. Government is authorized to reproduce and distribute reprints for
+Governmental purposes notwithstanding any copyright annotation thereon.
