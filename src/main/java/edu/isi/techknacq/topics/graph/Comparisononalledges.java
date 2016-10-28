@@ -26,9 +26,6 @@ import edu.isi.techknacq.topics.util.ReadWeightedTopicKey;
  * @author linhong
  */
 public class Comparisononalledges {
-    /*
-    
-    */
     ArrayList<String> keynames;
     int tnum;
     List []conceptsindoc;
@@ -37,11 +34,13 @@ public class Comparisononalledges {
     public double [][]flowmatrics;
     EntropyCalculatorKernel entropy;
     ArrayList<Double> topicscores;
-    public Comparisononalledges(){
+
+    public Comparisononalledges() {
         entropy=new EntropyCalculatorKernel();
         entropy.initialise();
     }
-    public void Readkey(String filename){
+
+    public void Readkey(String filename) {
         ReadWeightedTopicKey myreader=new ReadWeightedTopicKey();
         myreader.read(filename,5);
         keynames=myreader.Getkeynames();
@@ -50,7 +49,8 @@ public class Comparisononalledges {
         tnum=this.keynames.size();
         flowmatrics=new double[tnum][tnum];
     }
-    public void Readtopicscore(String filename){
+
+    public void Readtopicscore(String filename) {
         topicscores=new ArrayList<Double>(this.tnum);
         try {
             Scanner sc=new Scanner(new File(filename));
@@ -62,26 +62,29 @@ public class Comparisononalledges {
             Logger.getLogger(Comparisononalledges.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void Extract(List a1, double []v1){
+
+    public void Extract(List a1, double []v1) {
         Arrays.fill(v1,0.0);
         for(int i=0;i<a1.size();i++){
             Weightpair o=(Weightpair)a1.get(i);
             v1[o.getindex()]=o.getweight();
         }
     }
-     public void Extract2(List a1, double []v1){
+
+    public void Extract2(List a1, double []v1) {
         Arrays.fill(v1,0.0);
         for(int i=0;i<a1.size();i++){
             Indexpair o=(Indexpair)a1.get(i);
             v1[o.getindex()]=o.getweight();
         }
     }
-    public int Getoccu(double []v1, double []v2){
-        int c=0;
-        int i=0;
-        int j=0;
-        while(i<v1.length&&j<v2.length){
-            if(v1[i]>0.0000000001&&v2[j]>0.00000000001){
+
+    public int Getoccu(double []v1, double []v2) {
+        int c = 0;
+        int i = 0;
+        int j = 0;
+        while (i < v1.length && j < v2.length){
+            if (v1[i] > 0.0000000001 && v2[j] > 0.00000000001) {
                 c++;
             }
             i++;
@@ -89,15 +92,15 @@ public class Comparisononalledges {
         }
         return c;
     }
+
     public double entropy(double p){
         if(p>0.0)
             return -p*Math.log(p);
         else
             return 0.0;
     }
+
     public double klDivergence(double[] p1, double[] p2) {
-
-
       double klDiv = 0.0;
 
       for (int i = 0; i < p1.length; ++i) {
@@ -214,13 +217,14 @@ public class Comparisononalledges {
             BufferedWriter out2=new BufferedWriter(fstream2);
             FileWriter fstream3=new FileWriter("entropy2.txt",false);
             BufferedWriter out3=new BufferedWriter(fstream3);
-            for(int i=0;i<tnum;i++){
-                if(this.topicscores.get(i)<0.42)
+
+            for (int i = 0; i < tnum; i++) {
+                if (this.topicscores.get(i) < 0.42)
                     continue;
                 Extract(conceptsindoc[i],v1);
                 Extract2(conceptsinword[i],v3);
                 for(int j=0;j<tnum;j++){
-                    if(this.topicscores.get(j)<0.42)
+                    if (this.topicscores.get(j) < 0.42)
                         continue;
                     if(j==i)
                         continue;
@@ -273,19 +277,29 @@ public class Comparisononalledges {
             Logger.getLogger(Comparisononalledges.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public static void main(String []args){
-        if(args.length<1){
-            System.out.println("Usage [keyfile] [tree file] [topic composition file] [# topics] [citation file] [flow file] [topicscorefile] [maxfilewordnum]");
+
+    public static void main(String []args) {
+        if (args.length < 1){
+            System.out.println("Usage [keyfile] [tree file] [topic composition file] [# topics] [citation file] [flow file] ([topicscorefile] [maxfilewordnum])");
             System.exit(2);
         }
-        Comparisononalledges alledge=new Comparisononalledges();
+        Comparisononalledges alledge = new Comparisononalledges();
         alledge.Readkey(args[0]);
-        ReadflowNetwork myreader=new ReadflowNetwork();
+        ReadflowNetwork myreader = new ReadflowNetwork();
         myreader.Readkey(args[0]);
-        alledge.flowscores=myreader.Readflowscore(args[1]);
-        myreader.Readflowtomatrix(args[5],alledge.flowmatrics);
-        alledge.Readtopicscore(args[6]);
-        alledge.Run(args[2], Integer.parseInt(args[3]),args[4],Integer.parseInt(args[7]));
+        alledge.flowscores = myreader.Readflowscore(args[1]);
+        myreader.Readflowtomatrix(args[5], alledge.flowmatrics);
+
+        if (args.length > 6)
+            alledge.Readtopicscore(args[6]);
+
+        int maxfilewordnum = 400000;
+        if (args.length > 7)
+            maxfilewordnum = Integer.parseInt(args[7])
+
+        alledge.Run(args[2], Integer.parseInt(args[3]), args[4],
+                    maxfilewordnum);
+
 //        alledge.Readkey("mallet-keys-2gm-200.txt");
 //        alledge.ReadInformationflowScore("mallet0702.tree");
 //        alledge.Run("concept2doc.txt", 200,"acl.txt");
