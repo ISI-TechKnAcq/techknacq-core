@@ -18,7 +18,7 @@ import edu.isi.techknacq.topics.topic.Weightpair;
 
 public class StrUtil {
     public static int GetMapMaxvalue(Map mp) {
-        int max=0;
+        int max = 0;
         Iterator it = mp.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pairs = (Map.Entry)it.next();
@@ -49,14 +49,14 @@ public class StrUtil {
     }
 
     public static void EnumarateMap(Map mp, List l) {
-         Iterator it = mp.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pairs = (Map.Entry)it.next();
-                Integer windex = (Integer)pairs.getKey();
-                Double weight = (Double)pairs.getValue();
-                Weightpair o = new Weightpair(weight,windex);
-                l.add(o);
-            }
+        Iterator it = mp.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pairs = (Map.Entry)it.next();
+            Integer windex = (Integer)pairs.getKey();
+            Double weight = (Double)pairs.getValue();
+            Weightpair o = new Weightpair(weight,windex);
+            l.add(o);
+        }
     }
 
     public static ArrayList<String> Initfolder(String path) {
