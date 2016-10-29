@@ -4,7 +4,7 @@ package edu.isi.techknacq.topics.techknacq;
  *
  * @author linhong
  */
-public class TechKnacq {
+public class TechKnAcq {
 
     /**
      * @param args the command line arguments
@@ -12,5 +12,5 @@ public class TechKnacq {
     public static void main(String[] args) {
         // TODO code application logic here
     }
-    
+
 }
