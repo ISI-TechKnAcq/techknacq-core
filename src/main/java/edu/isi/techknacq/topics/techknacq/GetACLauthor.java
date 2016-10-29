@@ -23,11 +23,13 @@ import edu.isi.techknacq.topics.util.StrUtil;
  */
 public class GetACLauthor {
     HashMap<String, Integer> authorname;
-    public GetACLauthor(){
-        
+
+    public GetACLauthor() {
+
     }
-    public void readfile(String filename) throws IOException{
-        authorname=new HashMap<String,Integer>(10000);
+
+    public void readfile(String filename) throws IOException {
+        authorname = new HashMap<String,Integer>(10000);
         try {
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -37,17 +39,20 @@ public class GetACLauthor {
             String strline;
             String conf;
             String author;
-            while((strline=br.readLine())!=null){
-                Scanner sc=new Scanner(strline);
+            while ((strline = br.readLine()) != null){
+                Scanner sc = new Scanner(strline);
                 sc.useDelimiter(":");
-                conf=sc.next();
-                author=sc.next();
-                if(conf.indexOf("conf/acl")>=0||conf.indexOf("conf/emnlp")>=0
-                        ||conf.indexOf("conf/naacl")>=0||conf.indexOf("conf/eacl")>=0||conf.indexOf("journals/coling")>=0){
-                    if(this.authorname.containsKey(author)==true){
-                        int count=authorname.get(author);
+                conf = sc.next();
+                author = sc.next();
+                if (conf.indexOf("conf/acl") >=0 ||
+                    conf.indexOf("conf/emnlp") >=0 ||
+                    conf.indexOf("conf/naacl") >=0 ||
+                    conf.indexOf("conf/eacl") >=0 ||
+                    conf.indexOf("journals/coling") >=0) {
+                    if (this.authorname.containsKey(author) == true) {
+                        int count = authorname.get(author);
                         this.authorname.put(author, count+1);
-                    }else{
+                    } else {
                         this.authorname.put(author, 1);
                     }
                 }
@@ -59,9 +64,10 @@ public class GetACLauthor {
             Logger.getLogger(GetACLauthor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public static void main(String []args){
+
+    public static void main(String []args) {
         try {
-            GetACLauthor myauthor=new GetACLauthor();
+            GetACLauthor myauthor = new GetACLauthor();
             myauthor.readfile("C:\\Users\\linhong\\Documents\\linhong-work\\Coding\\Projects\\eclips\\Parser\\confauthor");
         } catch (IOException ex) {
             Logger.getLogger(GetACLauthor.class.getName()).log(Level.SEVERE, null, ex);
