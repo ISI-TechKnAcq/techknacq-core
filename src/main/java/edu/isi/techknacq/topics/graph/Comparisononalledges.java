@@ -48,10 +48,16 @@ public class Comparisononalledges {
         conceptsinword=myreader.Getconceptinword();
         tnum=this.keynames.size();
         flowmatrics=new double[tnum][tnum];
+
+        // Now that we know the number of topics, introduce default topic
+        // scores in case they're not provided.
+        topicscores = new ArrayList<Double>(tnum);
+        for (int i = 0; i < tnum; i++) {
+            topicscores.add(1.0);
+        }
     }
 
     public void Readtopicscore(String filename) {
-        topicscores=new ArrayList<Double>(this.tnum);
         try {
             Scanner sc=new Scanner(new File(filename));
             while(sc.hasNext()){
@@ -295,7 +301,7 @@ public class Comparisononalledges {
 
         int maxfilewordnum = 400000;
         if (args.length > 7)
-            maxfilewordnum = Integer.parseInt(args[7])
+            maxfilewordnum = Integer.parseInt(args[7]);
 
         alledge.Run(args[2], Integer.parseInt(args[3]), args[4],
                     maxfilewordnum);
