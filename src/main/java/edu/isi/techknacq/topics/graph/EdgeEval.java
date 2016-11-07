@@ -59,7 +59,7 @@ public class EdgeEval {
             double hword;
             double hdoc;
             br.readLine();
-            while ((strline = br.readLine())! = null) {
+            while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t");
                 id = sc.nextInt();
@@ -112,7 +112,7 @@ public class EdgeEval {
             int tid;
             System.out.print("id\ttid\tsimdoc\tsimword\tIF\tCE\tcite\thier\tcite_wang\t");
             System.out.println(br.readLine());
-            while((strline = br.readLine())! = null) {
+            while ((strline = br.readLine()) != null) {
                 strline = strline.replaceAll(" ", "");
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t");
