@@ -1,89 +1,95 @@
 # techknacq-core
 
+This repository contains Java code for various core functionality of the
+TechKnAcq project, including methods for predicting concept dependency
+relations and for generating reading lists.
+
 ## Table of Contents
- - [Topic Modeling](#techknacq-topic)
- - [Hierarchy Clustering](#techknacq-hierarchy-clustering)
- - [Concept Graph Generation](#concept-graph-generation)
- - [Basic Reading List Generation](#generate-reading-list)
- - [Pedagogical Reading List Generation](#new-reading-list)
 
-## TechKnAcq-topic
+- [Topic Modeling](#topic-modeling)
+- [Hierarchy Clustering](#hierarchy-clustering)
+- [Concept Graph Generation](#concept-graph-generation)
+- [Basic Reading List Generation](#generate-reading-list)
+- [Pedagogical Reading List Generation](#new-reading-list)
 
-The topic modeling implementation to learn the document topic affiliation and
-word distribution for each topic.
+## Topic Modeling
+
+This code provides one method of generating topic models defined by a
+distribution over words and a distribution over documents. The TechKnAcq
+production system instead uses the implementation of LDA in Mallet.
+
+NB: This repository does not contain all of the required files to run
+the topic modeling code, e.g., lib/lda, referenced below.
 
 ### Compile
 
-1. The easiest way is to comile with the IDE (either Netbeans or others) and generate a jar file
+1. The easiest way is to compile with an IDE (e.g., Netbeans) to generate
+a jar file.
 
-2. Command line compile:
+2. To compile from the command line:
 
+```bash
+mkdir classes
+javac -cp "lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -d classes @name.txt
 ```
-     mkdir classes 
-     javac -cp "lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -d classes @name.txt
+
+### Run
+
+Create the lib/output directory.
+
+Unzip the jar files in the lib directory.
+
+To run on Linux, rename lib/lda-linux to lib/lda.
+
+
+1. With a jar file generated from IDE or ant:
+```bash
+java -jar [jarfilename] [dirname] [topicnum] [k] [alpha] [prefix]
 ```
-
-### Run from the command line
-
-1. With ia jar file generated from IDE or ant:
-
-Simply type `java -jar [jarfilename] [arguments]`, where arguments are
-specified in Usage as below.
 
 2. Without jar file:
 ```
-java -classpath
-".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m topic.Main [arguments]
+java -classpath ".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m topic.Main [dirname] [topicnum] [k] [alpha] [prefix]
 ```
 
-Arguments are specified in Usage below.
+The arguments are:
 
+1. *dirname*: The corpus directory containing plain-text files.
+2. *topicnum*: The number of topics. Default: 20.
+3. *k*: The number of words to print for each topic. Default: 10
+4. *alpha*: The Dirichlet parameter. Default: 0.07.
+5. *prefix*: The name for the topic model. Default: tech.
 
-### Usage
-
-Our program accepts five parameters:
-
-1. String: dirname. The directory for the text corpus. Note that each document
-is stored as single text file.
-2. Int: topicnum (default 20). The number of topics.
-3. Int: k, where k denotes top-k word to be printed for each topic (default
-k=10).
-4. double: Dirichlet parameter alpha (default 0.07)
-5. String: prefix name for topic model (default tech)
-
-To execute the program, type `java -jar TechKnacq.jar [args]`, and the
-argument directory name is required. For the other parameters, we can use the
-default values if otherwise specified.
-
+The directory name argument is required; the others are optional.
 
 ### Input
 
-Put each document as a single file under the same directory, the directory
-name is an input for the program.
-
+The corpus directory cannot contain subdirectories.
 
 ### Output
 
-The output of results will be stored in two directories: the current work
-space directory and the ./lib/output directory. The output of results contain
-the following files:
+The resulting output will be stored in the current working directory and
+lib/output. The output files include:
 
-- lib/output/final.beta: the word-topic matrix, where each line denotes a topic, each column denotes a word, and the value denotes the likelihood of a word belongs to this topic.
+- lib/output/final.beta: The word-topic matrix, where each line denotes a
+topic, each column denotes a word, and each value is the likelihood that
+the word belongs to this topic.
 
-- lib/prefixdocument2topic.txt: the document-topic matrix, where each line is with the following format:
+- lib/prefixdocument2topic.txt: The document-topic matrix, where each line is
+of the format:
 ```
-      [documentname][tab][topic1]:[value][tab][topic2]:[value][tab].....
+[documentname]\t[topic1]:[value]\t[topic2]:[value]\t...
 ```
 
-- lib/prefixtopic.csv: the topic 30 words from the entire corpus
+- lib/prefixtopic.csv: The topic 30 words from the entire corpus
 
-- lib/prefixtopic.txt: the top-k word distribution of topics, where for each topic, we print out the top-k words. It is formatted as follows:
-
+- lib/prefixtopic.txt: The top-k word distribution of topics. It is formatted
+as follows:
 ```
 topic 000
 "word1",value
 "word2",value
-....
+...
 "wordk",value
 
 Topic 019
@@ -94,62 +100,52 @@ Topic 019
 ```
 
 
-### Notes
+## Hierarchy Clustering
 
-- Remember to put the lib with the same directory of the jar file
-
-- Remember to create a output folder within lib directory
-
-- For Linux, please rename lib/lda-linux to lib/lda 
-
-- Remember to unzip jar files within the lib directory.
-
-
-## TechKnAcq-hierarchy clustering
+NB: The compilation instructions below will not work for this repository,
+which does not include 'name.txt', which was used in the TechKnAcq-topic
+repository.
 
 1. Given the co-occurrence matrices, the first step is to run the Graphformat
-under TopicModeling/src/util to generate the Pajek .net format.
-
-1.1 .Net format introduction:
+code (in src/main/java/edu/isi/techknacq/topics/graph) to generate the Pajek
+.net format. For an introduction to this format, see
 http://gephi.github.io/users/supported-graph-formats/pajek-net-format/
 
-1.2 Comile and run instruction for java
-
-Compile:
-
+2. Compile:
 ```
-mkdir classes 
+mkdir classes
 javac -cp "lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -d classes @name.txt
 ```
 
-Run:
-
-```java [mainclassfilename] [arguments]```
+3. Run:
+```java [mainclassfilename] [keyfilename] [matrix] [outputfile]```
 
 Arguments:
-- the first argument: keyfilename or the topic file names
-- the second argument: co-occurrence matrix file name
-- the third argument: outputfilename
+- *keyfilename* or the topic file name.
+- *matrix*: The co-occurrence matrix file name.
+- *outputfile*: The name for the output file.
 
-2. The second step is to run the hierarchy clustering over the outputed .net topic graph file
+4. To run the hierarchical clustering over the outputed .net topic graph file,
+first compile Infomap using `make`.
 
-2.1 Compile Infomap
+5. Run Infomap to get the hierarchy clustering. Use the --help flag to get
+detailed instructions for running Infomap.
 
-Type `make`
+6. You'll have obtained the hierarchy clustering resultsm, stored as .tree
+format outputted by Infomap and the information flow results that are stored
+as .flow format.
 
-2.2 Run the Infomap to get the hierarchy clustering
-
-Use the --help flag to get detailed instruction for running Infomap.
-
-2.3 Obtained the hierarchy clustering results that are stored as .tree format outputted by Infomap and the information flow results that are stored as .flow format
 
 ## Concept Graph Generation
 
 ### Information Flow Graph
 
-1. Obtain the .tree format and the information flow results .flow from running the infomap with the .net format for co-occurrence matrices, see (TechKnacq-hierarchy clustering) in above for more details
+1. Obtain the .tree format and the information flow results .flow from
+running the infomap with the .net format for co-occurrence matrices,
+see (TechKnAcq-hierarchy clustering) in above for more details.
 
-2. Run the ReadflowNetwork under TechKnacq-topic/TopicModeling/src/util to obtain the edge table format for the topic dependency Graph
+2. Run the ReadflowNetwork under TechKnAcq-topic/TopicModeling/src/util to
+obtain the edge table format for the topic dependency Graph
 
 2.1. Compile the ReadFlowNetwork
 
@@ -165,11 +161,14 @@ java -classpath ".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucen
 
 2.3. Arguments: [keyfilename] [treefilename] [flowfilename] [outputfilename]
 
-3. Run the graph format code within format script to format the edge table format to the adjacent list format specified in (Generate reading list) as follows.
+3. Run the graph formatting code in the `format` script to format the edge
+table format to the adjacency list format specified in (Generate reading list)
+as follows.
 
 3.1. Compile
 
 ```
+cd util
 g++ edge2weightstandard.cpp -O3 -o format
 ```
 
@@ -178,22 +177,22 @@ g++ edge2weightstandard.cpp -O3 -o format
 
 ### Cross Entropy Graph Generation
 
-1. Run the techknacq-core/src/main/java/edu/isi/techknacq/topics/graph/Comparisononalledges.java
-     with Arguments:
-     Usage [keyfile] [tree file] [topic composition file] [# topics] [citation file] [flow file] [topicscorefile] [maximum number of files or words]
+1. Run
+     techknacq-core/src/main/java/edu/isi/techknacq/topics/graph/Comparisononalledges.java
+with Arguments:
+```
+Usage [keyfile] [tree file] [topic composition file] [# topics] [citation file] [flow file] [topicscorefile] [maximum number of files or words]
+```
 
-  2. The output for the Co-occurrence based cross entropy approach is saved in a file with name "entropy1.txt" while co-citation based cross entropy approach is saved in another file with name "entropy2.txt"
-  
-  3. Run the graph format code within format script to format the edge table format to the adjacent list format specified in (Generate reading list) as follows.
-  
+2. The output for the co-occurrence based cross entropy approach is
+saved in a file with name "entropy1.txt" while co-citation based
+cross entropy approach is saved in another file with name
+"entropy2.txt".
 
-     3.1 Compile
+3. Run the graph format code within format script to format the edge table
+format to the adjacent list format specified in (Generate reading list).
+See the directions above.
 
-         G++ edge2weightstandard.cpp -O3 -o format
-     3.2 Usage
-     
-         format [inputgraphfile] [# nodes]
-         example: format entroy1.txt 300
 
 ## Generate reading list
 
@@ -233,26 +232,34 @@ Our program accepts the following parameters, that are:
 ### Input format
 
 #### keyword
-Note that if the keyword is not unigram, we use "_" to connect each term within the input keyword
+
+Note that if the keyword is not unigram, we use "_" to connect each term
+within the input keyword.
 
 #### doc2topicfile
-Each line denotes the topic representation for a document, with the following format:
+
+Each line denotes the topic representation for a document, with the
+following format:
 ```
-[documentname][tab][topic1]:[value][tab][topic2]:[value][tab].....
+[documentname][tab][topic1]:[value][tab][topic2]:[value][tab]...
 ```
 
 #### topickeyname
-Each line denotes the word distribution for a topic, and it is formated as the mallet output format
+
+Each line denotes the word distribution for a topic, and it is formatted
+as the mallet output format.
 
 #### topicgraphfile
-The graph file is with the following format:
-The first line is number of nodes, and starting from the second lins is the adjacence list of each node formated as follows:
+
+The first line is number of nodes, and starting from the second line is
+the adjacency list of each node, formatted as follows:
 
 ```
 node_id,degree_d:neighboreid1,weight1:neighborid2,weight2:...neighboridd,weightd
 ```
 
-Note that the node_id is within the range [0,n-1], where n is number of nodes, and the list of neighbors are sorted in ascending order too.
+Note that the node_id is within the range [0,n-1], where n is number of
+nodes, and the list of neighbors are sorted in ascending order too.
 
 An example of input graph format is as follows:
 
@@ -332,10 +339,13 @@ Each row is seperated by tab with three columns:
 #### The configuration file
 
 An example of the configuration file is [here](https://github.com/ISI-TechknAcq/techknacq-core/blob/master/config.txt)
+
 Basically, we need to specify
-the mapping from pedogical type to a score (double type)
-the parameter value: e.g., the relevence threshold
-the coefficent weight for each feature (i.e., the weight controls the contribution of each feature in ordering documents)
+
+- the mapping from pedogical type to a score (double type)
+- the parameter value: e.g., the relevence threshold
+- the coefficent weight for each feature (i.e., the weight controls the
+contribution of each feature in ordering documents)
 
 All the other input files are using the same format as specfied as above.
 
