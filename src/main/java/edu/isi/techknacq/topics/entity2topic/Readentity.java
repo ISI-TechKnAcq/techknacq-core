@@ -182,14 +182,14 @@ public class Readentity {
     public static void main(String []args) {
         ReadTopicKey mytopic = new ReadTopicKey();
         mytopic.read("mallet-keys-2gm-200.txt", 20);
-        mytopic.Concepttowords("mallet-keys-2gm-200.txt");
+        mytopic.conceptToWords("mallet-keys-2gm-200.txt");
         Readentity myreader = new Readentity();
-        myreader.Initdict(mytopic.Getallwords());
+        myreader.Initdict(mytopic.getAllWords());
         myreader.Readwikifile("wikipedia-entity-counts.txt");
         // myreader.Readfile("Z:\\Data\\SKIMMR\\acl-mt\\2015-08-20\\text\\A00-1002_0.t2s");
         //myreader.Printresults();
         mytopic.read("mallet-keys-2gm-200.txt", 5);
-        ArrayList<String> keys = mytopic.Getkeynames();
+        ArrayList<String> keys = mytopic.getKeyNames();
         myreader.Getmatch(keys);
     }
 }

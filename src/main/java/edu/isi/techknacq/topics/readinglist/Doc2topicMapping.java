@@ -130,9 +130,9 @@ public class Doc2topicMapping {
         try {
             ReadWeightedTopicKey myreader=new ReadWeightedTopicKey();
             myreader.read(keyfile, 20);
-            myreader.Concepttowords(keyfile);
-            this.topicinwords=myreader.Getconceptinword();
-            this.words=myreader.Getwordlist();
+            myreader.conceptToWords(keyfile);
+            this.topicinwords = myreader.getConceptInWord();
+            this.words = myreader.getWordList();
             tnum=this.topicinwords.length;
             this.Readc2d(c2dfile);
             List orderword=new ArrayList<Weightpair> (100);

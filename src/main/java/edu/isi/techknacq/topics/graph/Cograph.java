@@ -35,8 +35,8 @@ public class Cograph {
     public void Readkey(String filename) {
         ReadTopicKey myreader = new ReadTopicKey();
         myreader.read(filename, 20);
-        keynames = myreader.Getkeynames();
-        myreader.Concepttowords(filename);
+        keynames = myreader.getKeyNames();
+        myreader.conceptToWords(filename);
         tnum = this.keynames.size();
     }
 

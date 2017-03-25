@@ -117,9 +117,9 @@ public class Evaluation {
         ReadWeightedTopicKey myreader=new ReadWeightedTopicKey();
         //ReadTopicKey myreader=new ReadTopicKey();
         myreader.read(filename, 20);
-        myreader.Concepttowords(filename);
-        List []l=myreader.Getconceptinword();
-        ArrayList<String> topicwords=myreader.Getwordlist();
+        myreader.conceptToWords(filename);
+        List []l = myreader.getConceptInWord();
+        ArrayList<String> topicwords = myreader.getWordList();
         double totalscore=0;
         for(int i=0;i<l.length;i++){
             List temp=l[i];

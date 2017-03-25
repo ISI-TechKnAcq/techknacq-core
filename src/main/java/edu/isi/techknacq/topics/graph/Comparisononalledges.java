@@ -43,9 +43,9 @@ public class Comparisononalledges {
     public void Readkey(String filename) {
         ReadWeightedTopicKey myreader = new ReadWeightedTopicKey();
         myreader.read(filename,5);
-        keynames = myreader.Getkeynames();
-        myreader.Concepttowords(filename);
-        conceptsinword = myreader.Getconceptinword();
+        keynames = myreader.getKeyNames();
+        myreader.conceptToWords(filename);
+        conceptsinword = myreader.getConceptInWord();
         tnum = this.keynames.size();
         flowmatrics = new double[tnum][tnum];
 

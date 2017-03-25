@@ -181,9 +181,10 @@ public class ReadHierarchy {
     public static void main(String []args){
         ReadWeightedTopicKey myreader=new ReadWeightedTopicKey();
         myreader.read("mallet-weighted-key.txt", 20);
-        myreader.Concepttowords("mallet-weighted-key.txt");
+        myreader.conceptToWords("mallet-weighted-key.txt");
         ReadHierarchy hiereader=new ReadHierarchy();
-        hiereader.Init(myreader.Getkeynames(), myreader.Getconceptinword(), myreader.Getwordlist());
+        hiereader.Init(myreader.getKeyNames(), myreader.getConceptInWord(),
+                       myreader.getWordList());
         hiereader.Generateclustername("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\hierarchytree-wordcosine.txt", 200);
         hiereader.ReadandWritefile("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\hierarchytree-wordcosine.txt", 200);
     }

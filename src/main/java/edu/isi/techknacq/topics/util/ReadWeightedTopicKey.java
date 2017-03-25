@@ -91,7 +91,7 @@ public class ReadWeightedTopicKey {
         }
     }
     
-    public void Concepttowords(String filename){
+    public void conceptToWords(String filename){
         try {
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -135,23 +135,28 @@ public class ReadWeightedTopicKey {
             Logger.getLogger(ReadTopicKey.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public List[]Getconceptinword(){
+
+    public List[]getConceptInWord() {
         return this.topicinwords;
     }
-    public ArrayList<String> Getkeynames(){
+
+    public ArrayList<String> getKeyNames() {
         return this.keynames;
     }
-    public HashMap<String, Integer> Getallwords(){
+
+    public HashMap<String, Integer> getAllWords() {
         return this.words;
     }
-    public ArrayList<String> Getwordlist(){
+
+    public ArrayList<String> getWordList() {
         return this.wordlist;
     }
+
     public static void main(String []args){
         ReadWeightedTopicKey myreader=new ReadWeightedTopicKey();
         myreader.read("mallet-weighted-key.txt", 20);
-        myreader.Concepttowords("mallet-weighted-key.txt");
-        List []l=myreader.Getconceptinword();
+        myreader.conceptToWords("mallet-weighted-key.txt");
+        List []l = myreader.getConceptInWord();
         for(int i=0;i<l.length;i++){
             List temp=l[i];
             for(int j=0;j<temp.size();j++){

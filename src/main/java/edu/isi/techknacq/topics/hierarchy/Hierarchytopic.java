@@ -193,8 +193,9 @@ public class Hierarchytopic {
         Hierarchytopic myhier=new Hierarchytopic();
         ReadWeightedTopicKey myreader=new ReadWeightedTopicKey();
         myreader.read("mallet-weighted-key.txt", 5);
-        myreader.Concepttowords("mallet-weighted-key.txt");
-        myhier.Init(myreader.Getkeynames(), myreader.Getconceptinword(), myreader.Getwordlist());
+        myreader.conceptToWords("mallet-weighted-key.txt");
+        myhier.Init(myreader.getKeyNames(), myreader.getConceptInWord(),
+                    myreader.getWordList());
         myhier.Readclusters("topiccluster30.txt", 30);
         myhier.Readclustergraph("clustertree_30.txt");
         myhier.Mapcluster2topicword();
