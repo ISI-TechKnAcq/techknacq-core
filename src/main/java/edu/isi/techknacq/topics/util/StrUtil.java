@@ -17,6 +17,8 @@ import java.util.logging.Logger;
 import edu.isi.techknacq.topics.topic.Weightpair;
 
 public class StrUtil {
+    Logger logger = Logger.getLogger(StrUtil.class);
+
     public static int getMapMaxvalue(Map mp) {
         int max = 0;
         Iterator it = mp.entrySet().iterator();
@@ -36,15 +38,15 @@ public class StrUtil {
                 try {
                     Map.Entry pairs = (Map.Entry)it.next();
                     //Integer w = (Integer)pairs.getValue();
-                    //if(w>1)
-                    out.write(pairs.getKey() + "\t" + pairs.getValue()+"\n");
+                    //if (w > 1)
+                    out.write(pairs.getKey() + "\t" + pairs.getValue() + "\n");
                 } catch (IOException ex) {
-                    Logger.getLogger(StrUtil.class.getName()).log(Level.SEVERE, null, ex);
+                    logger.log(Level.SEVERE, null, ex);
                 }
             }
             out.close();
         } catch (IOException ex) {
-            Logger.getLogger(StrUtil.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
@@ -73,17 +75,16 @@ public class StrUtil {
                     String arr[] = f.list();
                     try {
                         for (int i = 0; i < arr.length; i++) {
-                            Dir.add(f.getAbsolutePath()+"/"+arr[i]);
+                            Dir.add(f.getAbsolutePath() + "/" + arr[i]);
                         }
                     }
-                    catch(NullPointerException exp) {
+                    catch (NullPointerException exp) {
                         Dir.remove(f.getAbsoluteFile());
                     }
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(StrUtil.class.getName()).log(Level.SEVERE, null,
-                                                          ex);
+            logger.log(Level.SEVERE, null, ex);
         }
         return filelists;
     }
@@ -96,7 +97,8 @@ public class StrUtil {
             return new String(bytes, "UTF-8");
         } catch (Exception e) {
             // Impossible, throw unchecked
-            throw new IllegalStateException("No Latin1 or UTF-8: " + e.getMessage());
+            throw new IllegalStateException("No Latin1 or UTF-8: " +
+                                            e.getMessage());
         }
     }
 
@@ -149,7 +151,7 @@ public class StrUtil {
         if (str.trim().length() > 0) {
             try {
                 value = Integer.parseInt(getDigitStr(str));
-            } catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -166,7 +168,7 @@ public class StrUtil {
         if (str.trim().length() > 0) {
             try {
                 value = Long.parseLong(getDigitStr(str));
-            } catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -228,25 +230,23 @@ public class StrUtil {
 
     public static String getTimestr2(long timeLong) {
         Date date = new Date(timeLong);
-        String timeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
-        return timeStr;
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
     }
 
     public static String getTimeStr(long timeLong) {
         Date date = new Date(timeLong);
-        String timeStr = new SimpleDateFormat("yyyy-MM-dd-HH-mm").format(date);
-        return timeStr;
+        return new SimpleDateFormat("yyyy-MM-dd-HH-mm").format(date);
     }
 
     public static int getWinLen(String starttimestr, String endtimestr) {
         long start = StrUtil.parseSearchTime(starttimestr);
         long end = StrUtil.parseSearchTime(endtimestr);
-        long pos = (end - start)/(3*3600*1000);
+        long pos = (end - start) / (3 * 3600 * 1000);
         return (int)pos;
     }
 
     public static String floattoString(double val) {
-        int color_dec = (int)(255*val);
+        int color_dec = (int)(255 * val);
         System.out.println(color_dec);
         return Integer.toHexString(color_dec);
     }
@@ -261,7 +261,7 @@ public class StrUtil {
 //        System.out.println((float)44594/number/15);
         long start = StrUtil.parsetweettime("2012-08-10 04:43:58");
         long end = StrUtil.parsetweettime("2012-08-10 05:43:58");
-        long number = (end - start);
+        long number = end - start;
         System.out.println(number);
         String timestr = StrUtil.getTimestr2(1402365792700l);
         System.out.println(timestr);

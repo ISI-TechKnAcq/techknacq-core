@@ -14,8 +14,8 @@ public class TokenProcessor {
     }
 
     public TokenStream getTokenStream(String inputStr) {
-        TokenStream stream = kStemStdAnalyzer.tokenStream("contents", new StringReader(inputStr));
-        return stream;
+        StringReader sr = new StringReader(inputStr);
+        return kStemStdAnalyzer.tokenStream("contents", sr);
     }
 
     public String getTokenString(String inputStr) {
@@ -26,7 +26,8 @@ public class TokenProcessor {
                 Token token = stream.next();
                 if (token == null)
                     break;
-                sb.append(token.termBuffer(), 0, token.termLength()).append(" ");
+                sb.append(token.termBuffer(), 0,
+                          token.termLength()).append(" ");
             }
         } catch(Exception e) {
             e.printStackTrace();
@@ -35,7 +36,13 @@ public class TokenProcessor {
     }
 
     public static void main(String[] arg) {
-        String input = "www.ntu.edu.sg  ipods ipod ipod.s's iphone] [wii] Copyright � 2003, Center for Intelligent Information Retrieval,University of Massachusetts, Amherst. All rights reserved. University of Massachusetts must not be used to endorse or promote products derived from this software without prior written permission. To obtain permission, contact info@ciir.cs.umass.edu.";
+        String input = "www.ntu.edu.sg  ipods ipod ipod.s's iphone] [wii] " +
+            "Copyright � 2003, Center for Intelligent Information " +
+            "Retrieval,University of Massachusetts, Amherst. All rights " +
+            "reserved. University of Massachusetts must not be used to " +
+            "endorse or promote products derived from this software without " +
+            "prior written permission. To obtain permission, contact " +
+            "info@ciir.cs.umass.edu.";
 
         TokenProcessor tp = new TokenProcessor();
         System.out.println(tp.getTokenString(input));

@@ -12,10 +12,6 @@ import edu.isi.techknacq.topics.util.StrUtil;
  * @author linhong
  */
 public class Wordmatrixformat {
-    public Wordmatrixformat() {
-
-    }
-
     public void Run(String dirname, String prefix) {
         ArrayList<String> filenames = StrUtil.initFolder(dirname);
         List myfile = new ArrayList<StringPair> (filenames.size());
@@ -24,7 +20,7 @@ public class Wordmatrixformat {
             String word = name.substring(name.lastIndexOf("\\") + 1,
                                          name.length() - 4);
             String year = word.substring(1, 3);
-            if (year.startsWith("0") == true){
+            if (year.startsWith("0") == true) {
                 year = "20" + year;
             } else
                 year = "19" + year;
@@ -45,24 +41,24 @@ public class Wordmatrixformat {
             if (i % 1000 == 0)
                 System.out.println(i);
         }
-        System.out.println("finish reading files");
+        System.out.println("Finish reading files.");
         Wordmodel mymodel = new Wordmodel();
         mymodel.InitPost(posts);
         mymodel.Computerwordmodel();
         mymodel.Savewordmodel("./lib/wordmodel.txt");
         mymodel.Saveword("./lib/words.txt");
-        mymodel.SavetopK(30, "./lib/"+prefix+"top.csv");
-        String []words=mymodel.Getwords();
-        int[]df=mymodel.Getcount();
-        System.out.println("finish computing dictionary");
-        Wordmatrix mymatrix=new Wordmatrix();
+        mymodel.SavetopK(30, "./lib/" + prefix + "top.csv");
+        String []words = mymodel.Getwords();
+        int[]df = mymodel.Getcount();
+        System.out.println("Finish computing dictionary.");
+        Wordmatrix mymatrix = new Wordmatrix();
         mymatrix.Initwords(words);
         mymatrix.Initwordfreq(df);
         mymatrix.Initcontent(posts);
-        mymatrix.initmatrix("./lib/"+prefix+"wordmatrix.txt",filenames);
+        mymatrix.initmatrix("./lib/" + prefix + "wordmatrix.txt", filenames);
         mymodel.clear();
         mymatrix.clear();
-        System.out.println("finish document to word representation computation");
+        System.out.println("Finish document-to-word computation.");
     }
 
     public static void main(String []args) {

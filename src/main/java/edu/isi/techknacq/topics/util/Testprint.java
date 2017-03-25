@@ -13,6 +13,8 @@ import java.util.logging.Logger;
  * @author linhong
  */
 public class Testprint {
+    Logger logger = Logger.getLogger(Testprint.class);
+
     public static void printMap(Map mp, BufferedWriter out) {
         try {
             Iterator it = mp.entrySet().iterator();
@@ -21,48 +23,51 @@ public class Testprint {
                     Map.Entry pairs = (Map.Entry)it.next();
                     Integer w = (Integer)pairs.getValue();
                     if (w > 1)
-                        out.write(pairs.getKey() + "\t" + pairs.getValue()+"\n");
+                        out.write(pairs.getKey() + "\t" +
+                                  pairs.getValue() + "\n");
                 } catch (IOException ex) {
-                    Logger.getLogger(Testprint.class.getName()).log(Level.SEVERE, null, ex);
+                    logger.log(Level.SEVERE, null, ex);
                 }
             }
             out.close();
         } catch (IOException ex) {
-            Logger.getLogger(Testprint.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
+
     public static void printcsvMap(Map mp, BufferedWriter out) {
         try {
             Iterator it = mp.entrySet().iterator();
             while (it.hasNext()) {
                 try {
                     Map.Entry pairs = (Map.Entry)it.next();
-                    out.write(pairs.getKey() + "," + pairs.getValue()+"\n");
+                    out.write(pairs.getKey() + "," + pairs.getValue() + "\n");
                 } catch (IOException ex) {
-                    Logger.getLogger(Testprint.class.getName()).log(Level.SEVERE, null, ex);
+                    logger.log(Level.SEVERE, null, ex);
                 }
             }
             out.close();
         } catch (IOException ex) {
-            Logger.getLogger(Testprint.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
-    public static void printMap(Map mp){
+
+    public static void printMap(Map mp) {
         Iterator it = mp.entrySet().iterator();
-            while (it.hasNext()) {
-                    Map.Entry pairs = (Map.Entry)it.next();
-                    System.out.println(pairs.getKey() + "\t" + pairs.getValue());
-            }
+        while (it.hasNext()) {
+            Map.Entry pairs = (Map.Entry)it.next();
+            System.out.println(pairs.getKey() + "\t" + pairs.getValue());
+        }
     }
 
-    public static void printInArray(ArrayList a){
-        for (int i = 0; i < a.size(); i++){
+    public static void printInArray(ArrayList a) {
+        for (int i = 0; i < a.size(); i++) {
             System.out.println(a.get(i));
         }
     }
 
-    public static void printTabArray(ArrayList a){
-        for (int i = 0; i < a.size(); i++){
+    public static void printTabArray(ArrayList a) {
+        for (int i = 0; i < a.size(); i++) {
             System.out.print(a.get(i) + "\t");
         }
         System.out.println();
