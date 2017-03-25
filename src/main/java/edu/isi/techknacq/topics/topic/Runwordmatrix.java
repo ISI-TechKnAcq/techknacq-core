@@ -12,11 +12,12 @@ import edu.isi.techknacq.topics.util.StrUtil;
  * @author linhong
  */
 public class Runwordmatrix {
-    public Runwordmatrix(){
-        
+    public Runwordmatrix() {
+
     }
-    public void Run(String dirname, String prefix){
-            ArrayList<String> filenames=StrUtil.Initfolder(dirname);
+
+    public void Run(String dirname, String prefix) {
+            ArrayList<String> filenames = StrUtil.initFolder(dirname);
             List myfile=new ArrayList<StringPair> (filenames.size());
             for(int i=0;i<filenames.size();i++){
                 String name=filenames.get(i);

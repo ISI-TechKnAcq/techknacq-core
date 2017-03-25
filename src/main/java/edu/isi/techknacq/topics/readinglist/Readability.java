@@ -196,7 +196,7 @@ public class Readability {
 
     public void Run(String libfile, String datafile) {
         loadSyllableDict(libfile);
-        ArrayList<String> files = StrUtil.Initfolder(datafile);
+        ArrayList<String> files = StrUtil.initFolder(datafile);
         for (int i = 0; i < files.size(); i++) {
             double score = this.FKscore(files.get(i));
             System.out.println(files.get(i)+"\t"+score);

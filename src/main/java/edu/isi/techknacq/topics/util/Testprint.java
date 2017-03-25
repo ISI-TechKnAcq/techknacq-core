@@ -19,8 +19,8 @@ public class Testprint {
             while (it.hasNext()) {
                 try {
                     Map.Entry pairs = (Map.Entry)it.next();
-                    Integer w=(Integer)pairs.getValue();
-                    if(w>1)
+                    Integer w = (Integer)pairs.getValue();
+                    if (w > 1)
                         out.write(pairs.getKey() + "\t" + pairs.getValue()+"\n");
                 } catch (IOException ex) {
                     Logger.getLogger(Testprint.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,14 +54,16 @@ public class Testprint {
                     System.out.println(pairs.getKey() + "\t" + pairs.getValue());
             }
     }
-    public static void PrintInArray(ArrayList a){
-        for(int i=0;i<a.size();i++){
+
+    public static void printInArray(ArrayList a){
+        for (int i = 0; i < a.size(); i++){
             System.out.println(a.get(i));
         }
     }
-    public static void PrinttabArray(ArrayList a){
-        for(int i=0;i<a.size();i++){
-            System.out.print(a.get(i)+"\t");
+
+    public static void printTabArray(ArrayList a){
+        for (int i = 0; i < a.size(); i++){
+            System.out.print(a.get(i) + "\t");
         }
         System.out.println();
     }

@@ -9,7 +9,7 @@ import org.apache.lucene.analysis.Token;
 public class TokenProcessor {
     private static Analyzer kStemStdAnalyzer;
 
-    public TokenProcessor() {
+    static {
         kStemStdAnalyzer = new KStemStandardAnalyzer();
     }
 
@@ -28,7 +28,7 @@ public class TokenProcessor {
                     break;
                 sb.append(token.termBuffer(), 0, token.termLength()).append(" ");
             }
-        }catch(Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
         }
         return sb.toString().toLowerCase().trim();

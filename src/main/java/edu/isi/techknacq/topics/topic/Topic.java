@@ -20,12 +20,14 @@ import edu.isi.techknacq.topics.util.StrUtil;
  * @author linhong
  */
 public class Topic {
-    public Topic(){
-        
+    public Topic() {
+
     }
-    public void Runtopic(String dirname,int topicnum, int wordnum, double alpha, String prefix){
+
+    public void Runtopic(String dirname, int topicnum, int wordnum,
+            double alpha, String prefix) {
         try {
-            ArrayList<String> filenames=StrUtil.Initfolder(dirname);
+            ArrayList<String> filenames=StrUtil.initFolder(dirname);
             ArrayList<String> posts=new ArrayList<String>(filenames.size());
             Readfile myreader=new Readfile();
             System.out.println(filenames.size());

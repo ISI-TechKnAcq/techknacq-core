@@ -23,7 +23,7 @@ import edu.isi.techknacq.topics.readinglist.Concept2doc;
 public class ReadflowNetwork {
     ArrayList<String> keynames;
     // Help find the topic index with a hashmap structure
-    HashMap<String,Integer> keysearch;
+    private HashMap<String,Integer> keysearch;
     double []keyvalues;
 
     public ReadflowNetwork() {

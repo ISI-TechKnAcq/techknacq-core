@@ -12,62 +12,65 @@ import edu.isi.techknacq.topics.util.StrUtil;
  * @author linhong
  */
 public class Wordmatrixformat {
-    public Wordmatrixformat(){
-        
+    public Wordmatrixformat() {
+
     }
-    public void Run(String dirname, String prefix){
-            ArrayList<String> filenames=StrUtil.Initfolder(dirname);
-            List myfile=new ArrayList<StringPair> (filenames.size());
-            for(int i=0;i<filenames.size();i++){
-                String name=filenames.get(i);
-                String word=name.substring(name.lastIndexOf("\\")+1,name.length()-4);
-                String year=word.substring(1,3);
-                if(year.startsWith("0")==true){
-                    year="20"+year;
-                }else
-                    year="19"+year;
-                System.out.println(year+word);
-                StringPair o=new StringPair(year+word, filenames.get(i));
-                myfile.add(o);
-            }
-            Collections.sort(myfile);
-            ArrayList<String> posts=new ArrayList<String>(filenames.size());
-            Readfile myreader=new Readfile();
-            System.out.println(filenames.size());
-            filenames.clear();
-            for(int i=0;i<myfile.size();i++){
-                StringPair o=(StringPair)myfile.get(i);
-                filenames.add(o.getWord().substring(4));
-                String res=myreader.Readfile(o.getname());
-                posts.add(res);
-                if(i%1000==0)
-                    System.out.println(i);
-            }
-            System.out.println("finish reading files");
-            Wordmodel mymodel=new Wordmodel();
-            mymodel.InitPost(posts);
-            mymodel.Computerwordmodel();
-            mymodel.Savewordmodel("./lib/wordmodel.txt");
-            mymodel.Saveword("./lib/words.txt");
-            mymodel.SavetopK(30, "./lib/"+prefix+"top.csv");
-            String []words=mymodel.Getwords();
-            int[]df=mymodel.Getcount();
-            System.out.println("finish computing dictionary");
-            Wordmatrix mymatrix=new Wordmatrix();
-            mymatrix.Initwords(words);
-            mymatrix.Initwordfreq(df);
-            mymatrix.Initcontent(posts);
-            mymatrix.initmatrix("./lib/"+prefix+"wordmatrix.txt",filenames);
-            mymodel.clear();
-            mymatrix.clear();
-            System.out.println("finish document to word representation computation");
+
+    public void Run(String dirname, String prefix) {
+        ArrayList<String> filenames = StrUtil.initFolder(dirname);
+        List myfile = new ArrayList<StringPair> (filenames.size());
+        for (int i = 0; i < filenames.size(); i++) {
+            String name = filenames.get(i);
+            String word = name.substring(name.lastIndexOf("\\") + 1,
+                                         name.length() - 4);
+            String year = word.substring(1, 3);
+            if (year.startsWith("0") == true){
+                year = "20" + year;
+            } else
+                year = "19" + year;
+            System.out.println(year + word);
+            StringPair o = new StringPair(year+word, filenames.get(i));
+            myfile.add(o);
+        }
+        Collections.sort(myfile);
+        ArrayList<String> posts = new ArrayList<String>(filenames.size());
+        Readfile myreader = new Readfile();
+        System.out.println(filenames.size());
+        filenames.clear();
+        for (int i = 0; i < myfile.size(); i++) {
+            StringPair o = (StringPair)myfile.get(i);
+            filenames.add(o.getWord().substring(4));
+            String res = myreader.Readfile(o.getname());
+            posts.add(res);
+            if (i % 1000 == 0)
+                System.out.println(i);
+        }
+        System.out.println("finish reading files");
+        Wordmodel mymodel = new Wordmodel();
+        mymodel.InitPost(posts);
+        mymodel.Computerwordmodel();
+        mymodel.Savewordmodel("./lib/wordmodel.txt");
+        mymodel.Saveword("./lib/words.txt");
+        mymodel.SavetopK(30, "./lib/"+prefix+"top.csv");
+        String []words=mymodel.Getwords();
+        int[]df=mymodel.Getcount();
+        System.out.println("finish computing dictionary");
+        Wordmatrix mymatrix=new Wordmatrix();
+        mymatrix.Initwords(words);
+        mymatrix.Initwordfreq(df);
+        mymatrix.Initcontent(posts);
+        mymatrix.initmatrix("./lib/"+prefix+"wordmatrix.txt",filenames);
+        mymodel.clear();
+        mymatrix.clear();
+        System.out.println("finish document to word representation computation");
     }
-    public static void main(String []args){
-        if(args.length<1){
+
+    public static void main(String []args) {
+        if (args.length < 1) {
             System.err.println("Usage: [foldername] [prefixname]\n");
             System.exit(2);
         }
-        Wordmatrixformat myrun=new Wordmatrixformat();
+        Wordmatrixformat myrun = new Wordmatrixformat();
         myrun.Run(args[0], args[1]);
     }
 }

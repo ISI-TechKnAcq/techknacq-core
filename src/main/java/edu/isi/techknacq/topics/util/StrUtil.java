@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 import edu.isi.techknacq.topics.topic.Weightpair;
 
 public class StrUtil {
-    public static int GetMapMaxvalue(Map mp) {
+    public static int getMapMaxvalue(Map mp) {
         int max = 0;
         Iterator it = mp.entrySet().iterator();
         while (it.hasNext()) {
@@ -35,7 +35,7 @@ public class StrUtil {
             while (it.hasNext()) {
                 try {
                     Map.Entry pairs = (Map.Entry)it.next();
-                    Integer w = (Integer)pairs.getValue();
+                    //Integer w = (Integer)pairs.getValue();
                     //if(w>1)
                     out.write(pairs.getKey() + "\t" + pairs.getValue()+"\n");
                 } catch (IOException ex) {
@@ -48,7 +48,7 @@ public class StrUtil {
         }
     }
 
-    public static void EnumarateMap(Map mp, List l) {
+    public static void enumarateMap(Map mp, List l) {
         Iterator it = mp.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pairs = (Map.Entry)it.next();
@@ -59,8 +59,8 @@ public class StrUtil {
         }
     }
 
-    public static ArrayList<String> Initfolder(String path) {
-        ArrayList<String> filelists=new ArrayList<String>(100);
+    public static ArrayList<String> initFolder(String path) {
+        ArrayList<String> filelists = new ArrayList<String>(100);
         try {
             LinkedList<String> Dir = new LinkedList<String>();
             File f = new File(path);
@@ -238,7 +238,7 @@ public class StrUtil {
         return timeStr;
     }
 
-    public static int Getwinlen(String starttimestr, String endtimestr) {
+    public static int getWinLen(String starttimestr, String endtimestr) {
         long start = StrUtil.parseSearchTime(starttimestr);
         long end = StrUtil.parseSearchTime(endtimestr);
         long pos = (end - start)/(3*3600*1000);
@@ -248,7 +248,6 @@ public class StrUtil {
     public static String floattoString(double val) {
         int color_dec = (int)(255*val);
         System.out.println(color_dec);
-        String str = Integer.toHexString(color_dec);
         return Integer.toHexString(color_dec);
     }
 
