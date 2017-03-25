@@ -20,19 +20,16 @@ import edu.isi.techknacq.topics.util.ReadTopicKey;
  * @author linhong
  */
 public class Cograph {
-    ArrayList<String> keynames;
-    int tnum;
-    List []conceptsindoc;
-
-    public Cograph() {
-
-    }
+    private ArrayList<String> keynames;
+    private int tnum;
+    private List []conceptsindoc;
+    private Logger logger = Logger.getLogger(Cograph.class);
 
     /*
      * Read the topic key for each topic from topic key file
      * @para: filename (in String)
      */
-    public void Readkey(String filename) {
+    public void readKey(String filename) {
         ReadTopicKey myreader = new ReadTopicKey();
         myreader.read(filename, 20);
         keynames = myreader.getKeyNames();
@@ -43,9 +40,9 @@ public class Cograph {
     /*
      * Turn a WeightedPair list into a vector representation
      */
-    public void Extract(List a1, double []v1) {
+    public void extract(List a1, double []v1) {
         Arrays.fill(v1, 0.0);
-        for(int i = 0; i < a1.size(); i++) {
+        for (int i = 0; i < a1.size(); i++) {
             Weightpair o = (Weightpair)a1.get(i);
             v1[o.getindex()] = o.getweight();
         }
@@ -54,7 +51,7 @@ public class Cograph {
     /*
      * Turn a Indexpair list into a vector representation
      */
-    public void Extract2(List a1, double []v1) {
+    public void extract2(List a1, double []v1) {
         Arrays.fill(v1,0.0);
         for (int i = 0; i < a1.size(); i++) {
             Indexpair o = (Indexpair)a1.get(i);
@@ -65,11 +62,11 @@ public class Cograph {
     /*
      * Compute the topic-to-topic co-occurrences between documents
      */
-    public int Getoccu(double []v1, double []v2) {
+    public int getOccu(double []v1, double []v2) {
         int c = 0;
         int i = 0;
         int j = 0;
-        while(i < v1.length && j < v2.length) {
+        while (i < v1.length && j < v2.length) {
             if (v1[i] > 0.0000000001 && v2[j] > 0.00000000001) {
                 c++;
             }
@@ -86,12 +83,12 @@ public class Cograph {
             return 0.0;
     }
 
-    public double Topsim(double []v1, double []v2) {
+    public double topSim(double []v1, double []v2) {
         double res;
         int i;
         int a = 0;
         int b = 0;
-        for (i = 0; i < v1.length; i++){
+        for (i = 0; i < v1.length; i++) {
             if (v1[i] > 0.0000000001)
                 a++;
         }
@@ -100,7 +97,7 @@ public class Cograph {
                 b++;
             }
         }
-        int cooc = this.Getoccu(v1, v2);
+        int cooc = this.getOccu(v1, v2);
         if (a + b - cooc > 0)
             res = (double)cooc/(a+b-cooc);
         else
@@ -128,16 +125,16 @@ public class Cograph {
             fstream = new FileWriter(outfilename, false);
             out = new BufferedWriter(fstream);
             out.write("*Vertices " + keynames.size() + "\n");
-            for (int i = 0; i < keynames.size(); i++){
+            for (int i = 0; i < keynames.size(); i++) {
                 out.write((i+1)+" \"" + keynames.get(i) + "\"\n");
             }
             out.write("*Edges ");
             int edgenum = 0;
             for (int i = 0; i < tnum; i++) {
-                Extract(conceptsindoc[i], v1);
-                for (int j = i + 1; j < tnum; j++){
-                    Extract(conceptsindoc[j], v2);
-                    double w = this.Topsim(v1, v2);
+                extract(conceptsindoc[i], v1);
+                for (int j = i + 1; j < tnum; j++) {
+                    extract(conceptsindoc[j], v2);
+                    double w = this.topSim(v1, v2);
                     if (w > 0.01) {
                         edgenum++;
                     }
@@ -145,29 +142,29 @@ public class Cograph {
             }
             out.write(edgenum+"\n");
             for (int i = 0; i < tnum; i++) {
-                Extract(conceptsindoc[i], v1);
-                for(int j = i + 1; j < tnum; j++) {
-                    Extract(conceptsindoc[j], v2);
-                    double w = this.Topsim(v1, v2);
-                    if (w > 0.01){
+                extract(conceptsindoc[i], v1);
+                for (int j = i + 1; j < tnum; j++) {
+                    extract(conceptsindoc[j], v2);
+                    double w = this.topSim(v1, v2);
+                    if (w > 0.01) {
                         out.write((i+1) + " " + (j+1) + " " + w + "\n");
                     }
                 }
             }
             out.close();
         } catch (IOException ex) {
-            Logger.getLogger(Cograph.class.getName()).log(Level.SEVERE, null,
-                                                          ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
     public static void main(String []args) {
         if (args.length < 1) {
-            System.out.println("Usage: [topic key file] [topic composition file] [output graph file]");
+            System.out.println("Usage: [topic key file] " +
+                               "[topic composition file] [output graph file]");
             System.exit(2);
         }
         Cograph mygraph = new Cograph();
-        mygraph.Readkey(args[0]);
+        mygraph.readKey(args[0]);
         mygraph.Run(100, args[1], args[2]);
     }
 }

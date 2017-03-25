@@ -1,16 +1,9 @@
 package edu.isi.techknacq.topics.graph;
 
-/**
- *
- * @author zhu linhong
- * @version 1.0
- * @since 23 Nov, 2010
- * @email linhong.seba.zhu@gmail.com
- */
 public class Node {
-    int vid;
+    private int vid;
     public int []nbv;
-    double []weights;
+    private double []weights;
     public int key;
 
     public Node() {
@@ -18,17 +11,17 @@ public class Node {
     }
 
     public Node(int deg) {
-      this.nbv = new int[deg];
-      this.weights = new double[deg];
-      key = 0;
+        this.nbv = new int[deg];
+        this.weights = new double[deg];
+        key = 0;
     }
 
     public void setvid(int id) {
         vid = id;
     }
 
-    public void Addneighbore(int v, double w) {
-        // Check whether v is in neighbore already
+    public void addNeighbor(int v, double w) {
+        // Check whether v is in neighbors already
         int i = 0;
         while (i < key) {
             if (nbv[i] == v)
@@ -44,11 +37,11 @@ public class Node {
             key++;
         } else {
             int l = nbv.length;
-            int []temp = new int[2*l];
+            int []temp = new int[2 * l];
             System.arraycopy(nbv, 0, temp, 0, l);
             nbv = null;
             nbv = temp;
-            double []tmp = new double[2*l];
+            double []tmp = new double[2 * l];
             System.arraycopy(weights, 0, tmp, 0, l);
             weights = null;
             weights = tmp;

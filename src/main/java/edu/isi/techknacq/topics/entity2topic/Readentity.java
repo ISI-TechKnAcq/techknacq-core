@@ -23,14 +23,11 @@ import edu.isi.techknacq.topics.util.ReadTopicKey;
  * @author linhong
  */
 public class Readentity {
-    ArrayList<String> entitylists;
-    HashMap<String, Integer> mywords;
+    private ArrayList<String> entitylists;
+    private HashMap<String, Integer> mywords;
+    private Logger logger = Logger.getLogger(Readentity.class);
 
-    public Readentity() {
-
-    }
-
-    public void Initdict(HashMap<String, Integer> dictionaries) {
+    public void initDict(HashMap<String, Integer> dictionaries) {
         mywords = new HashMap<String,Integer>(2000);
         Iterator it = dictionaries.entrySet().iterator();
         while (it.hasNext()) {
@@ -44,9 +41,9 @@ public class Readentity {
         }
     }
 
-    public void Readwikifile(String filename){
+    public void readWikiFile(String filename) {
         try {
-            entitylists=new ArrayList<String>(1000);
+            entitylists = new ArrayList<String>(1000);
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
             // Get the object of DataInputStream
@@ -78,11 +75,11 @@ public class Readentity {
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(Readentity.class.getName()).log(Level.SEVERE,
-                                                             null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
-    public void Readfile(String filename) throws IOException{
+
+    public void readFile(String filename) throws IOException {
         try {
             entitylists = new ArrayList<String>(1000);
             FileInputStream fstream1 = null;
@@ -101,7 +98,7 @@ public class Readentity {
                 sc2.useDelimiter("_");
                 boolean flag = false;
                 while (sc2.hasNext()) {
-                    if (this.mywords.containsKey(sc2.next())){
+                    if (this.mywords.containsKey(sc2.next())) {
                         flag = true;
                     }
                 }
@@ -113,22 +110,21 @@ public class Readentity {
                 }
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Readentity.class.getName()).log(Level.SEVERE,
-                                                             null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
-    public void Printresults() {
+    public void printResults() {
         System.out.println(entitylists.size());
         for (int i = 0; i < this.entitylists.size(); i++) {
             System.out.println(entitylists.get(i));
         }
     }
 
-    public void Getmatch(ArrayList<String> topickeys){
+    public void getMatch(ArrayList<String> topickeys) {
         FileWriter fstream = null;
         try {
-            fstream = new FileWriter("wikientity2topic_thre100.txt",false);
+            fstream = new FileWriter("wikientity2topic_thre100.txt", false);
             BufferedWriter out = new BufferedWriter(fstream);
             System.out.println(entitylists.size());
             int entitytopic = 0;
@@ -168,13 +164,12 @@ public class Readentity {
             }
             out.close();
         } catch (IOException ex) {
-            Logger.getLogger(Readentity.class.getName()).log(Level.SEVERE,
-                                                             null, ex);
+            logger.log(Level.SEVERE, null, ex);
         } finally {
             try {
                 fstream.close();
             } catch (IOException ex) {
-                Logger.getLogger(Readentity.class.getName()).log(Level.SEVERE, null, ex);
+                logger.log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -184,12 +179,12 @@ public class Readentity {
         mytopic.read("mallet-keys-2gm-200.txt", 20);
         mytopic.conceptToWords("mallet-keys-2gm-200.txt");
         Readentity myreader = new Readentity();
-        myreader.Initdict(mytopic.getAllWords());
-        myreader.Readwikifile("wikipedia-entity-counts.txt");
-        // myreader.Readfile("Z:\\Data\\SKIMMR\\acl-mt\\2015-08-20\\text\\A00-1002_0.t2s");
-        //myreader.Printresults();
+        myreader.initDict(mytopic.getAllWords());
+        myreader.readWikiFile("wikipedia-entity-counts.txt");
+        // myreader.readFile("Z:\\Data\\SKIMMR\\acl-mt\\2015-08-20\\text\\A00-1002_0.t2s");
+        //myreader.printResults();
         mytopic.read("mallet-keys-2gm-200.txt", 5);
         ArrayList<String> keys = mytopic.getKeyNames();
-        myreader.Getmatch(keys);
+        myreader.getMatch(keys);
     }
 }

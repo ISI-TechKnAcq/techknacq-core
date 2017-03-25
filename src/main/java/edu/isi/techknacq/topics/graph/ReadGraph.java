@@ -49,7 +49,7 @@ public class ReadGraph {
                              index=neighstr.indexOf(",");
                              int neigh=Integer.parseInt(neighstr.substring(0,index));
                              double weight=Double.parseDouble(neighstr.substring(index+1,neighstr.length()));
-                             G[v].Addneighbore(neigh, weight);
+                             G[v].addNeighbor(neigh, weight);
                         }
                     }else{
                         G[v]=new Node();
