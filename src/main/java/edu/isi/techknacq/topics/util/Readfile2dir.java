@@ -56,7 +56,7 @@ public class Readfile2dir {
         }
     }
 
-    public void Readfile(String filename, String dirname) {
+    public void readFile(String filename, String dirname) {
         try {
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -103,9 +103,9 @@ public class Readfile2dir {
             // Example:
             //myreader.Parsetopicvector("C:\\Users\\linhong\\Documents\\linhong-work\\Data\\mallet-2.0.8RC2\\doc2topic.txt", 20);
         } else {
-            myreader.Readfile(args[1], args[2]);
+            myreader.readFile(args[1], args[2]);
             // Example:
-            //myreader.Readfile("C:\\Users\\linhong\\Documents\\linhong-work\\Data\\preprocessed_text.csv", "C:\\Users\\linhong\\Documents\\linhong-work\\Data\\abstract2004");
+            //myreader.readFile("C:\\Users\\linhong\\Documents\\linhong-work\\Data\\preprocessed_text.csv", "C:\\Users\\linhong\\Documents\\linhong-work\\Data\\abstract2004");
         }
     }
 }

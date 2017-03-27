@@ -28,7 +28,7 @@ public class BaselineReadingListJson {
     Map<String, Double> paperpagerank;
     List<String> topickeys;
     public BaselineReadingListJson(){
-        
+
     }
         public void ReadPageRankscore(String filename){
         try {
@@ -107,7 +107,7 @@ public class BaselineReadingListJson {
             s.value(keyword);
             Collections.sort(mylist);
             ReadDocumentkey rdk = new ReadDocumentkey(docfile);
-            rdk.Readfile();
+            rdk.readFile();
             s.name("documents");
             s.beginArray();
             for(int i=0;i<K;i++){

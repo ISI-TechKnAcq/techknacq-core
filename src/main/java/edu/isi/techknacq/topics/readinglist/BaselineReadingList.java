@@ -129,7 +129,7 @@ public class BaselineReadingList {
             }
             Collections.sort(mylist);
             ReadDocumentkey rdk = new ReadDocumentkey(docfile);
-            rdk.Readfile();
+            rdk.readFile();
             FileWriter fstream = null;
             fstream = new FileWriter("BaselineReadingList_"+keyword+".html",
                                      false);

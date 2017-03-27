@@ -214,7 +214,7 @@ public class Concept2doc {
         int tindex = 180;
         ArrayList<Integer> mydocs = doc.Getdocs(tindex);
         ReadDocumentkey rdk = new ReadDocumentkey("acl-meta.json");
-        rdk.Readfile();
+        rdk.readFile();
         for (int i = 0; i < mydocs.size(); i++){
             //System.out.println(mydocs.get(i));
             String id = doc.docnames.get(mydocs.get(i));

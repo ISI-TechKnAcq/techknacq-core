@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 public class Readfile {
     private Logger logger = Logger.getLogger(Readfile.class);
 
-    public String Readfile(String filename) {
+    public String read(String filename) {
         try {
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -21,7 +21,7 @@ public class Readfile {
             BufferedReader br = new BufferedReader(new InputStreamReader(in1));
             String strline;
             StringBuilder sb = new StringBuilder();
-            while ((strline = br.readLine()) != null){
+            while ((strline = br.readLine()) != null) {
                 sb.append(strline + " ");
             }
             in1.close();

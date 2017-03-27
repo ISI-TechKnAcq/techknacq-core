@@ -22,9 +22,6 @@ import edu.isi.techknacq.topics.graph.ReadGraph;
  * @author Linhong
  */
 public class Getreadinglist {
-    public Getreadinglist(){
-        
-    }
     public static void main(String []args){
         FileWriter fstream=null;
         try {
@@ -60,7 +57,7 @@ public class Getreadinglist {
             List<String> docfiles=Getdoc.Getdocname();
             //docfiles: The filename of each document
             ReadDocumentkey rdk = new ReadDocumentkey(args[4]);
-            rdk.Readfile();
+            rdk.readFile();
             //rdk: read the title and author information of each
             ReadGraph myreader=new ReadGraph(args[3]);
             Node []G=myreader.Getgraph();
@@ -108,6 +105,6 @@ public class Getreadinglist {
             Dependency.Getsubgraph(args[0]);
         } catch (IOException ex) {
             Logger.getLogger(Getreadinglist.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
 }

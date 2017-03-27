@@ -24,7 +24,7 @@ public class Readbipartite {
         this.topics = new HashMap<String, Integer>(10000);
     }
 
-    public void Readfile(String filename) {
+    public void readFile(String filename) {
         try {
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -86,6 +86,6 @@ public class Readbipartite {
 
     public static void main(String []args) {
         Readbipartite myrun = new Readbipartite();
-        myrun.Readfile(args[0]);
+        myrun.readFile(args[0]);
     }
 }

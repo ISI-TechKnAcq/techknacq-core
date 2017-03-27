@@ -29,10 +29,10 @@ public class Topic {
         try {
             ArrayList<String> filenames=StrUtil.initFolder(dirname);
             ArrayList<String> posts=new ArrayList<String>(filenames.size());
-            Readfile myreader=new Readfile();
+            Readfile myreader = new Readfile();
             System.out.println(filenames.size());
             for(int i=0;i<filenames.size();i++){
-                String res=myreader.Readfile(filenames.get(i));
+                String res = myreader.read(filenames.get(i));
                 posts.add(res);
                 if(i%1000==0)
                     System.out.println(i);

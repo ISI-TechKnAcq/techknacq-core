@@ -17,20 +17,16 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-
-/**
- *
- * @author Linhong
- */
 public class ReadDocumentkey {
     private Map <String, String> docMap;
     private String filename;
-   
-    public ReadDocumentkey(String filename){
+
+    public ReadDocumentkey(String filename) {
         this.filename = filename;
         docMap = new HashMap<String, String>();
     }
-    public void Readfile(){
+
+    public void readFile() {
         try {
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(filename));
@@ -49,9 +45,9 @@ public class ReadDocumentkey {
         }
 
     }
-    
-    public String Getdocumentkey(String id){
-        if(this.docMap.containsKey(id)==true)
+
+    public String Getdocumentkey(String id) {
+        if (this.docMap.containsKey(id) == true)
             return docMap.get(id);
         else
             return "author: ??, title: ??";
@@ -59,11 +55,11 @@ public class ReadDocumentkey {
     public Map<String,String> GetDocmap(){
         return this.docMap;
     }
-    
+
     public static void main(String []args){
-        //test reading index.json file
+        // Test reading index.json file
         ReadDocumentkey rdk = new ReadDocumentkey("C:\\Users\\linhong\\Documents\\linhong-work\\Data\\NLP-full\\meta.json");
-        rdk.Readfile();
+        rdk.readFile();
         String id = "acl-X98-1030";
         String docVal = rdk.Getdocumentkey(id);
         System.out.println("Retrieving:");

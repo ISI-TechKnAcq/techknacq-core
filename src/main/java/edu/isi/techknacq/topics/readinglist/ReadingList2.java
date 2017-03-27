@@ -41,7 +41,7 @@ public class ReadingList2 {
     int []ordertopic;
     Set<String> authorlists;
     public ReadingList2(){
-        
+
     }
     public void Readdata(String keyword, String keyname, String pagerankfile, String docfile, int dnum, String doc2conceptfile, String filterfile){
         Keyword2concept match1=new Keyword2concept();
@@ -51,9 +51,9 @@ public class ReadingList2 {
         this.topickeys=match1.Gettopics();
         ReadPageRankscore(pagerankfile);
         ReadDocumentkey rdk = new ReadDocumentkey(docfile);
-        rdk.Readfile();
-        docmap=rdk.GetDocmap();
-        Concept2doc Getdoc=new Concept2doc();
+        rdk.readFile();
+        docmap = rdk.GetDocmap();
+        Concept2doc Getdoc = new Concept2doc();
         Getdoc.Initnum(topickeys.size());
         Getdoc.addfiter(filterfile);
         Getdoc.GettopK(dnum*10, doc2conceptfile);
@@ -280,7 +280,7 @@ public class ReadingList2 {
 "</head>\n" +
 "<body>\n" +
 "<h1>Reading List for "+keyword+" </h1>");
-            
+
             boolean []isvisit=new boolean[this.docfiles.size()];
             for(int i=0;i<isvisit.length;i++){
                 isvisit[i]=false;
@@ -292,7 +292,7 @@ public class ReadingList2 {
             Arrays.fill(istopicvisit, 'v');
             List mylist=new ArrayList(100);
             this.authorlists=new HashSet();
-            
+
             for(int i=0;i<hittopic.size();i++){
                  int tindex=hittopic.get(i);
                  istopicvisit[tindex]='m';
@@ -343,7 +343,7 @@ public class ReadingList2 {
                           j++;
                     }
                     out.write("</div>");
-                    out.write("</section>");  
+                    out.write("</section>");
                 }
                  ArrayList<Integer> deptopics=Dependency.Gettopnode(maxtopic, tindex);
                  for (Integer deptopic : deptopics) {
@@ -405,7 +405,7 @@ public class ReadingList2 {
                       j++;
                 }
                 out.write("</div>");
-                out.write("</section>");  
+                out.write("</section>");
             }
             out.write("</form>\n" +
             "</article>\n" +
@@ -415,7 +415,7 @@ public class ReadingList2 {
             Dependency.Getsubgraph(keyword);
         } catch (IOException ex) {
             Logger.getLogger(ReadingList2.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
      public void ReadPageRankscore(String filename){
         try {
@@ -462,7 +462,7 @@ public class ReadingList2 {
          if (args.length<6){
              System.out.println("Usage [keyword] [doc2topic] [topickey] [topicgraph] [dockey] [pagerankfile] [docs/topic] [max_topic] [filterfile]");
              System.exit(2);
-          }   
+          }
          int dnum=3;
          int maxtnum=10;
          String filterfile="yes-no.csv";

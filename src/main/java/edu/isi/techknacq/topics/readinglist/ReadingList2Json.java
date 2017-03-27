@@ -39,20 +39,20 @@ public class ReadingList2Json {
     ArrayList<String> docfiles;
     int []ordertopic;
     HashSet<String> authorlists;
-    public ReadingList2Json(){
-        
-    }
-     public void Readdata(String keyword, String keyname, String pagerankfile, String docfile, int dnum, String doc2conceptfile, String filterfile){
-         Keyword2concept match1=new Keyword2concept();
+
+    public void Readdata(String keyword, String keyname, String pagerankfile,
+                         String docfile, int dnum, String doc2conceptfile,
+                         String filterfile) {
+        Keyword2concept match1=new Keyword2concept();
         match1.Readkey(keyname);
         hittopic=match1.Getmatch(keyword);
         this.wordintopic=match1.Getweighttopic();
         this.topickeys=match1.Gettopics();
         ReadPageRankscore(pagerankfile);
         ReadDocumentkey rdk = new ReadDocumentkey(docfile);
-        rdk.Readfile();
-        docmap=rdk.GetDocmap();
-        Concept2doc Getdoc=new Concept2doc();
+        rdk.readFile();
+        docmap = rdk.GetDocmap();
+        Concept2doc Getdoc = new Concept2doc();
         Getdoc.Initnum(topickeys.size());
         Getdoc.addfiter(filterfile);
         Getdoc.GettopK(dnum*10, doc2conceptfile);
@@ -194,7 +194,7 @@ public class ReadingList2Json {
                     String name=this.Printdocname(metavalue, dfile, o.getweight());
                     docstring+=name;
                     this.authorlists.add(author);
-                    dcount++;  
+                    dcount++;
                 }
                 j++;
             }
@@ -262,13 +262,13 @@ public class ReadingList2Json {
             out.close();
         } catch (IOException ex) {
             Logger.getLogger(ReadingList2.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
     public static void main(String []args){
          if (args.length<6){
              System.out.println("Usage [keyword] [doc2topic] [topickey] [topicgraph] [dockey] [pagerankfile] [docs/topic] [max_topic] [filterfile]");
              System.exit(2);
-          }   
+          }
          int dnum=3;
          int maxtnum=10;
          String filterfile="yes-no.csv";

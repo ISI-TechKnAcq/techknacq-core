@@ -36,7 +36,7 @@ import edu.isi.techknacq.topics.topic.WordPair;
 public class NewReadingList {
     Keyword2concept match1;
     //the function that matches a query to topics
-    
+
     HashMap<String, Double> paperpagerank;
     //the map function that matches each paper to the pagerank score
     HashMap<String, String> paperPVtype;
@@ -45,7 +45,7 @@ public class NewReadingList {
     //the map function that matches each paper to the text complexity score
     HashMap<String, Double> type2score;
     //the map function that assignes each pedegogical role type with a score
-    
+
     ArrayList<ArrayList<WordPair>> wordintopic;
     ArrayList<String> topickeys;
     ArrayList<Integer> hittopic;
@@ -59,9 +59,9 @@ public class NewReadingList {
     double w2=0.2;
     double w3=0.1;
     double w4=0.001;
-    
+
     public void NewReadingList(){
-        
+
     }
     /**
      * @param keyname: the file name of word distribution for each topic
@@ -72,7 +72,8 @@ public class NewReadingList {
      * @param filterfile: the filename of bad paper versus good paper
     @
     **/
-    public void Readdata(String keyname, String pagerankfile, String docfile, int dnum, String doc2conceptfile, String filterfile){
+    public void Readdata(String keyname, String pagerankfile, String docfile,
+                         int dnum, String doc2conceptfile, String filterfile){
         match1=new Keyword2concept();
         match1.Readkey(keyname);
         System.out.println("finish reading topic");
@@ -81,7 +82,7 @@ public class NewReadingList {
         ReadPageRankscore(pagerankfile);
         System.out.println("finish reading pagerank");
         ReadDocumentkey rdk = new ReadDocumentkey(docfile);
-        rdk.Readfile();
+        rdk.readFile();
         System.out.println("finish reading document");
         docmap=rdk.GetDocmap();
         Concept2doc Getdoc=new Concept2doc();
@@ -92,9 +93,10 @@ public class NewReadingList {
         docfiles=Getdoc.Getdocname();
         System.out.println("finish reading data");
     }
+
     /*
-    Read the pedgogical type of each document
-    */
+     * Read the pedagogical type of each document
+     */
     public void ReadPV(String PVtypefile){
         this.paperPVtype=new HashMap<String,String>(30000);
         try {
@@ -115,7 +117,7 @@ public class NewReadingList {
                     this.paperPVtype.put(docid, type);
                 }
             }
-            in1.close();   
+            in1.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(NewReadingList.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -127,7 +129,7 @@ public class NewReadingList {
     1) the heuristic rules that combines different document features for ranking
     2) the heuristic rules that assignes different document types with different weight
     3) other parameters such as relevence threshold
-    Those heuristics rules will be automatically learned with feedbacks from users 
+    Those heuristics rules will be automatically learned with feedbacks from users
     who evaluate the reading list
     */
     public void ReadConfiguration(String filename){
@@ -353,7 +355,7 @@ public class NewReadingList {
                     String name=this.Printdocname(metavalue, dfile, o.getweight());
                     docstring+=name;
                     this.authorlists.add(author);
-                    dcount++;  
+                    dcount++;
                 }
                 j++;
             }
@@ -402,7 +404,7 @@ public class NewReadingList {
                  }
                  out.write("{");
                  out.write(this.Printtopics(tindex));
-                 
+
                  out.write(this.Gettopdoc(tindex, dnum, mylist, isvisit));
                  out.write("\n}");
                  if(i<hittopic.size()-1)
@@ -410,11 +412,11 @@ public class NewReadingList {
                  else
                      out.write("],\n");
             }
-            
+
              /*
             Get dependency topic (END)
             */
-            
+
             //==================================================
             //Order dependency topic by topic complexity (Start)
             //===================================================
@@ -450,14 +452,14 @@ public class NewReadingList {
             out.close();
         } catch (IOException ex) {
             Logger.getLogger(NewReadingList.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
     public static void main(String []args){
          if (args.length<6){
              System.out.print("Usage [keyword] [doc2topic] [topickey] [topicgraph] [dockey] [pagerankfile] [docs/topic] [max_topic] [filterfile]");
              System.out.println("[PVfile] [Configure file]");
              System.exit(2);
-          }   
+          }
          int dnum=3;
          int maxtnum=5;
          String filterfile="yes-no.csv";
