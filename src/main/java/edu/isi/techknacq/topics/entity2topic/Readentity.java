@@ -96,11 +96,10 @@ public class Readentity {
                         flag = true;
                     }
                 }
-                if (flag == true) {
-                    if (word.indexOf("et_al") < 0 &&
-                        word.indexOf("seg_l") < 0 &&
-                        word.indexOf("dept") < 0)
-                        entitylists.add(word);
+                if (flag && word.indexOf("et_al") < 0 &&
+                    word.indexOf("seg_l") < 0 &&
+                    word.indexOf("dept") < 0) {
+                    entitylists.add(word);
                 }
             }
         } catch (FileNotFoundException ex) {
@@ -123,9 +122,6 @@ public class Readentity {
             System.out.println(entitylists.size());
             int entitytopic = 0;
             for (int i = 0; i < this.entitylists.size(); i++) {
-                //if(i%100==0) {
-                    //System.out.println(i);
-                //}
                 entitytopic = 0;
                 for (int j = 0; j < topickeys.size(); j++) {
                     String word = entitylists.get(i);

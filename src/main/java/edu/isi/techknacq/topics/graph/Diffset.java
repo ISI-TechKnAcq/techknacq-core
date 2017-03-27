@@ -14,16 +14,15 @@ import java.util.logging.Logger;
 
 import edu.isi.techknacq.topics.util.Pair;
 
-/**
- *
- * @author linhong
- */
+
 public class Diffset {
-    Set<Pair> coverededges;
-    public Diffset(){
-        this.coverededges=new HashSet<Pair>(1000) {};
+    private Set<Pair> coverededges;
+
+    public Diffset() {
+        this.coverededges = new HashSet<Pair>(1000) {};
     }
-    public void Readcovered(String filename){
+
+    public void readCovered(String filename) {
         try {
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -34,12 +33,12 @@ public class Diffset {
             int sid;
             int tid;
             br.readLine();
-            while((strline=br.readLine())!=null){
-                Scanner sc=new Scanner(strline);
+            while ((strline = br.readLine()) != null) {
+                Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t");
-                sid=sc.nextInt();
+                sid = sc.nextInt();
                 sc.next();
-                tid=sc.nextInt();
+                tid = sc.nextInt();
                 Pair o=new Pair(sid,tid);
                 this.coverededges.add(o);
             }
@@ -49,7 +48,8 @@ public class Diffset {
             Logger.getLogger(Diffset.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void Readtopset(String filename){
+
+    public void readTopset(String filename) {
         try {
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -60,15 +60,16 @@ public class Diffset {
             int sid;
             int tid;
             br.readLine();
-            while((strline=br.readLine())!=null){
+            while ((strline=br.readLine()) != null) {
                 Scanner sc=new Scanner(strline);
                 sc.useDelimiter("\t");
-                sid=sc.nextInt();
+                sid = sc.nextInt();
                 sc.next();
-                tid=sc.nextInt();
-                Pair o=new Pair(sid,tid);
-                Pair o1=new Pair(tid,sid);
-                if(this.coverededges.contains(o)==false&&this.coverededges.contains(o1)==false){
+                tid = sc.nextInt();
+                Pair o = new Pair(sid,tid);
+                Pair o1 = new Pair(tid,sid);
+                if (this.coverededges.contains(o) == false &&
+                    this.coverededges.contains(o1) == false) {
                     System.out.println(strline);
                 }
             }
@@ -76,10 +77,11 @@ public class Diffset {
             Logger.getLogger(Diffset.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public static void main(String []args){
-        Diffset mydiff=new Diffset();
-        mydiff.Readcovered("Z:\\Data\\ConceptGraphs\\acl-full\\evaluation-tsv.txt");
-        mydiff.Readtopset("topset.tsv");
-        
+
+    public static void main(String []args) {
+        Diffset mydiff = new Diffset();
+        mydiff.readCovered("Z:\\Data\\ConceptGraphs\\acl-full\\evaluation-tsv.txt");
+        mydiff.readTopset("topset.tsv");
+
     }
 }

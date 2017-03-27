@@ -10,24 +10,16 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author linhong
- */
 public class EdgeEval {
-    double [][]CEdoc;
-    double [][]CEword;
-    double [][]IF;
-    double [][]simword;
-    double [][]simdoc;
-    double [][]cite;
-    double [][]citewang;
-    double [][]hierword;
-    int topicnum;
-
-    public EdgeEval() {
-
-    }
+    private double [][]CEdoc;
+    private double [][]CEword;
+    private double [][]IF;
+    private double [][]simword;
+    private double [][]simdoc;
+    private double [][]cite;
+    private double [][]citewang;
+    private double [][]hierword;
+    private int topicnum;
 
     public void settopicnum(int _tnum) {
         topicnum = _tnum;
@@ -41,7 +33,7 @@ public class EdgeEval {
         this.cite = new double[topicnum][topicnum];
     }
 
-    public void Readscores(String filename) {
+    public void readScores(String filename) {
         try {
             FileInputStream fstream1 = new FileInputStream(filename);
             // Get the object of DataInputStream
@@ -50,7 +42,7 @@ public class EdgeEval {
             String strline;
             int id;
             int tid;
-            double cedoc;
+            //double cedoc;
             double ifscore;
             double simwordscore;
             double simdocscore;
@@ -100,7 +92,8 @@ public class EdgeEval {
             Logger.getLogger(EdgeEval.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void Readevaluation(String filename) {
+
+    public void readEvaluation(String filename) {
         try {
             FileInputStream fstream1;
             fstream1 = new FileInputStream(filename);
@@ -139,9 +132,9 @@ public class EdgeEval {
         }
         EdgeEval myEval = new EdgeEval();
         myEval.settopicnum(Integer.parseInt(args[2]));
-        myEval.Readscores(args[0]);
-        myEval.Readevaluation(args[1]);
-//        myEval.Readscores("alledge.tsv");
-//        myEval.Readevaluation("./evaluation_results/2016-02-26.12-40.dependency.tsv");
+        myEval.readScores(args[0]);
+        myEval.readEvaluation(args[1]);
+//        myEval.readScores("alledge.tsv");
+//        myEval.readEvaluation("./evaluation_results/2016-02-26.12-40.dependency.tsv");
     }
 }

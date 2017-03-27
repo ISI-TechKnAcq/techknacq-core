@@ -12,18 +12,17 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author linhong
- */
+
 public class Generatematrixjsonfile {
-    ArrayList<String> User_id;
-    ArrayList<String> group;
-    public Generatematrixjsonfile(){
-        User_id=new ArrayList<String> (8000);
-        group=new ArrayList<String> (8000);
+    private ArrayList<String> User_id;
+    private ArrayList<String> group;
+
+    public Generatematrixjsonfile() {
+        User_id = new ArrayList<String> (8000);
+        group = new ArrayList<String> (8000);
     }
-    public void ReadNodefile(String filename){
+
+    public void readNodeFile(String filename) {
         try {
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -34,12 +33,12 @@ public class Generatematrixjsonfile {
             //br.readLine();
             String id;
             String attr;
-            while((strline=br.readLine())!=null){
+            while ((strline = br.readLine()) != null) {
                 Scanner sc=new Scanner(strline);
                 sc.useDelimiter("\t");
                 sc.next();
-                id=sc.next();
-                attr=sc.next();
+                id = sc.next();
+                attr = sc.next();
                 User_id.add(id);
                 group.add(attr);
             }
@@ -48,21 +47,21 @@ public class Generatematrixjsonfile {
             Logger.getLogger(Generatematrixjsonfile.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void Readedges(String filename, String output){
+
+    public void readEdges(String filename, String output) {
         try {
             FileWriter fstream1 = new FileWriter(output,false);
-            BufferedWriter out1=new BufferedWriter(fstream1);
+            BufferedWriter out1 = new BufferedWriter(fstream1);
             out1.write("{\"directed\": false, \"graph\": [],");
             out1.write("\t\"nodes\":[\n");
-            for(int i=0;i<User_id.size();i++){
-                
+            for (int i = 0; i < User_id.size(); i++) {
                 out1.write("\t\t{");
                 out1.write("\"group\":");
                 out1.write(group.get(i)+",");
                 out1.write("\"name\":");
                 out1.write("\""+User_id.get(i)+"\"");
                 out1.write("}");
-                if(i<this.User_id.size()-1)
+                if (i < this.User_id.size() - 1)
                     out1.write(",\n");
                 else
                     out1.write("\n],\n");
@@ -74,11 +73,11 @@ public class Generatematrixjsonfile {
             DataInputStream in1 = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in1));
             String strline;
-            while((strline=br.readLine())!=null){
-                Scanner sc=new Scanner(strline);
+            while ((strline = br.readLine()) != null) {
+                Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t");
-                String i=sc.next();
-                String j=sc.next();
+                String i = sc.next();
+                String j = sc.next();
                 String value=sc.next();
                 out1.write("\t\t{");
                         out1.write("\"source\":");
@@ -95,9 +94,10 @@ public class Generatematrixjsonfile {
             Logger.getLogger(Generatematrixjsonfile.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public static void main(String []args){
-        Generatematrixjsonfile myrun=new Generatematrixjsonfile();
-        myrun.ReadNodefile(args[0]); //keyword file for nodes
-        myrun.Readedges(args[1], args[2]); //args[1]: edge file, args[2]: outputfile
+
+    public static void main(String []args) {
+        Generatematrixjsonfile myrun = new Generatematrixjsonfile();
+        myrun.readNodeFile(args[0]); // keyword file for nodes
+        myrun.readEdges(args[1], args[2]); // args[1]: edge file, args[2]: outputfile
     }
 }

@@ -50,7 +50,8 @@ public class Graphformat {
             Logger.getLogger(Graphformat.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void Readmatrix(String matrixfilename, String outfilename) {
+
+    public void readMatrix(String matrixfilename, String outfilename) {
         try {
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(matrixfilename);
@@ -66,18 +67,18 @@ public class Graphformat {
             fstream = new FileWriter(outfilename, false);
             out = new BufferedWriter(fstream);
             out.write("*Vertices "+keyname.size()+"\n");
-            for(int i=0;i<keyname.size();i++) {
+            for (int i = 0; i < keyname.size(); i++) {
                 out.write(i+1+" \""+keyname.get(i)+"\"\n");
             }
             out.write("*Edges ");
-            int edgenum=0;
-            lineindex=1;
-            while((strline=br.readLine())!=null) {
+            int edgenum = 0;
+            lineindex = 1;
+            while ((strline=br.readLine())!=null) {
                 Scanner sc=new Scanner(strline);
                 sc.useDelimiter("\t| ");
                 columnindex=1;
-                while(sc.hasNext()) {
-                    weight=sc.nextInt();
+                while (sc.hasNext()) {
+                    weight = sc.nextInt();
                     if (weight>0&&columnindex>lineindex) {
                         edgenum++;
                     }
@@ -94,13 +95,13 @@ public class Graphformat {
             in1 = new DataInputStream(fstream1);
             br = new BufferedReader(new InputStreamReader(in1));
             lineindex=1;
-            while((strline=br.readLine())!=null) {
-                Scanner sc=new Scanner(strline);
+            while ((strline = br.readLine()) != null) {
+                Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t| ");
-                columnindex=1;
+                columnindex = 1;
                 while(sc.hasNext()) {
-                    weight=sc.nextInt();
-                    if (weight>0&&columnindex>lineindex) {
+                    weight = sc.nextInt();
+                    if (weight > 0 && columnindex > lineindex) {
                         out.write(lineindex+" "+columnindex+" "+weight+"\n");
                     }
                     columnindex++;
@@ -122,13 +123,13 @@ public class Graphformat {
             System.exit(2);
         }
         Graphformat mygraph = new Graphformat();
-        //args[0]:keyfilename
-        //args[1]: co-occurrence matrix file name
-        //args[2]:output file name
+        // args[0]:keyfilename
+        // args[1]: co-occurrence matrix file name
+        // args[2]:output file name
         mygraph.readKey(args[0]);
-        mygraph.Readmatrix(args[1],args[2]);
+        mygraph.readMatrix(args[1],args[2]);
         // Graphformat mygraph = new Graphformat();
         //mygraph.readKey("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\mallet-keys.txt");
-        //mygraph.Readmatrix("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\co-occurrence.txt", "C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\Topicmallet12.net");
+        //mygraph.readMatrix("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\co-occurrence.txt", "C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\Topicmallet12.net");
     }
 }
