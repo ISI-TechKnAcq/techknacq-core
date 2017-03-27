@@ -26,14 +26,14 @@ import edu.isi.techknacq.topics.util.ReadWeightedTopicKey;
  * @author linhong
  */
 public class Comparisononalledges {
-    ArrayList<String> keynames;
-    int tnum;
-    List []conceptsindoc;
-    List []conceptsinword;
+    private ArrayList<String> keynames;
+    private int tnum;
+    private List []conceptsindoc;
+    private List []conceptsinword;
     public double[] flowscores;
     public double [][]flowmatrics;
-    EntropyCalculatorKernel entropy;
-    ArrayList<Double> topicscores;
+    private EntropyCalculatorKernel entropy;
+    private ArrayList<Double> topicscores;
 
     public Comparisononalledges() {
         entropy = new EntropyCalculatorKernel();
@@ -57,10 +57,10 @@ public class Comparisononalledges {
         }
     }
 
-    public void Readtopicscore(String filename) {
+    public void readTopicScore(String filename) {
         try {
             Scanner sc = new Scanner(new File(filename));
-            while(sc.hasNext()){
+            while (sc.hasNext()) {
                 //System.out.println(sc.next());
                 topicscores.add(sc.nextDouble());
             }
@@ -71,7 +71,7 @@ public class Comparisononalledges {
 
     public void Extract(List a1, double []v1) {
         Arrays.fill(v1,0.0);
-        for (int i = 0; i < a1.size(); i++){
+        for (int i = 0; i < a1.size(); i++) {
             Weightpair o = (Weightpair)a1.get(i);
             v1[o.getindex()] = o.getweight();
         }
@@ -79,13 +79,13 @@ public class Comparisononalledges {
 
     public void Extract2(List a1, double []v1) {
         Arrays.fill(v1, 0.0);
-        for (int i = 0; i < a1.size(); i++){
+        for (int i = 0; i < a1.size(); i++) {
             Indexpair o = (Indexpair)a1.get(i);
             v1[o.getindex()] = o.getweight();
         }
     }
 
-    public int Getoccu(double []v1, double []v2) {
+    public int getOccu(double []v1, double []v2) {
         int c = 0;
         int i = 0;
         int j = 0;
@@ -121,7 +121,7 @@ public class Comparisononalledges {
         return klDiv / Math.log(2);
     }
 
-    public double GetDiffSim(double []v1, double []v2){
+    public double getDiffSim(double []v1, double []v2) {
         double res = 0.0;
         int nzero1 = 0;
         int nzero2 = 0;
@@ -143,21 +143,21 @@ public class Comparisononalledges {
             i++;
             j++;
         }
-        while (i < v1.length){
+        while (i < v1.length) {
             if (v1[i] > 0.0000000001)
                 nzero1++;
             i++;
         }
-        while (j < v2.length){
+        while (j < v2.length) {
             if (v2[j] > 0.0000000001)
                 nzero2++;
             j++;
         }
-        res = (double)((double)(a-b)*this.Getoccu(v1, v2)/(nzero1+nzero2));
+        res = (double)((double)(a-b)*this.getOccu(v1, v2)/(nzero1+nzero2));
         return res;
     }
 
-    public double Getentropy(double []v1, double []v2) {
+    public double getEntropy(double []v1, double []v2) {
         double ce;
         //System.out.println("res "+res);
         entropy.setObservations(v1);
@@ -171,21 +171,21 @@ public class Comparisononalledges {
         return ce;
     }
 
-    public double Topsim(double []v1, double []v2){
+    public double Topsim(double []v1, double []v2) {
         double res;
         int i;
         int a = 0;
         int b = 0;
-        for (i = 0; i < v1.length; i++){
+        for (i = 0; i < v1.length; i++) {
             if (v1[i] > 0.0000000001)
                 a++;
         }
-        for (i = 0; i < v2.length; i++){
+        for (i = 0; i < v2.length; i++) {
             if (v2[i] > 0.0000000001) {
                 b++;
             }
         }
-        int cooc = this.Getoccu(v1, v2);
+        int cooc = this.getOccu(v1, v2);
         if (a + b - cooc > 0)
             res = (double)cooc/(a + b - cooc);
         else
@@ -237,39 +237,39 @@ public class Comparisononalledges {
                     continue;
                 Extract(conceptsindoc[i], v1);
                 Extract2(conceptsinword[i], v3);
-                for (int j = 0; j < tnum; j++){
+                for (int j = 0; j < tnum; j++) {
                     if (this.topicscores.get(j) < 0.42)
                         continue;
                     if (j == i)
                         continue;
                     Extract(conceptsindoc[j], v2);
                     Extract2(conceptsinword[j], v4);
-                    cooccount = this.Getoccu(v1, v2);
+                    cooccount = this.getOccu(v1, v2);
                     if (cooccount > 2) {
                         topicsim = this.Topsim(v1, v2);
                         wordsim = this.Topsim(v3, v4);
                         //System.out.println(flowmatrics[i][j]);
                         if (flowscores[i] > flowscores[j])
-                            informationflow =- this.flowmatrics[i][j];
+                            informationflow = -this.flowmatrics[i][j];
                         else
                             informationflow = this.flowmatrics[i][j];
-                        //CEdoc = this.Getentropy(v1, v2);
-                        CEword = this.Getentropy(v3, v4);
-                        hierdoc = this.GetDiffSim(v1, v2);
-                        hierword = this.GetDiffSim(v3, v4);
-                        cocite = (t2t[i][j]-t2t[j][i])/this.Getoccu(v1, v2);
+                        //CEdoc = this.getEntropy(v1, v2);
+                        CEword = this.getEntropy(v3, v4);
+                        hierdoc = this.getDiffSim(v1, v2);
+                        hierword = this.getDiffSim(v3, v4);
+                        cocite = (t2t[i][j] - t2t[j][i]) / this.getOccu(v1, v2);
                         CEword = CEword/1.9514 + hierword/1.1667;
                         citewang = t2t[i][j];
 
-                        // if (Math.abs(CEword) > 0.007){
-                        //     if (CEword > 0){
+                        // if (Math.abs(CEword) > 0.007) {
+                        //     if (CEword > 0) {
                         //         out2.write(i+"\t"+j+"\t"+CEword+"\n");
                         //     } else {
                         //         out2.write(j+"\t"+i+"\t"+(0-CEword)+"\n");
                         //     }
                         // }
-                        // if (Math.abs(cocite) > 10){
-                        //     if (cocite > 0){
+                        // if (Math.abs(cocite) > 10) {
+                        //     if (cocite > 0) {
                         //         out3.write(i+"\t"+j+"\t"+cocite+"\n");
                         //     } else {
                         //         out3.write(j+"\t"+i+"\t"+(0-cocite)+"\n");
@@ -299,19 +299,19 @@ public class Comparisononalledges {
     }
 
     public static void main(String []args) {
-        if (args.length < 1){
+        if (args.length < 1) {
             System.out.println("Usage [keyfile] [tree file] [topic composition file] [K] [citation file] [flow file] ([topicscorefile] [maxfilewordnum])");
-            System.exit(2);
+            Runtime.getRuntime().exit(2);
         }
         Comparisononalledges alledge = new Comparisononalledges();
-        alledge.Readkey(args[0]);
+        alledge.readKey(args[0]);
         ReadflowNetwork myreader = new ReadflowNetwork();
-        myreader.Readkey(args[0]);
+        myreader.readKey(args[0]);
         alledge.flowscores = myreader.Readflowscore(args[1]);
         myreader.Readflowtomatrix(args[5], alledge.flowmatrics);
 
         if (args.length > 6)
-            alledge.Readtopicscore(args[6]);
+            alledge.readTopicScore(args[6]);
 
         int maxfilewordnum = 400000;
         if (args.length > 7)
@@ -320,7 +320,7 @@ public class Comparisononalledges {
         alledge.Run(args[2], Integer.parseInt(args[3]), args[4],
                     maxfilewordnum);
 
-//        alledge.Readkey("mallet-keys-2gm-200.txt");
+//        alledge.readKey("mallet-keys-2gm-200.txt");
 //        alledge.ReadInformationflowScore("mallet0702.tree");
 //        alledge.Run("concept2doc.txt", 200,"acl.txt");
     }

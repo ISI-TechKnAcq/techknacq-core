@@ -15,24 +15,19 @@ import java.util.logging.Logger;
 
 import edu.isi.techknacq.topics.topic.Indexpair;
 
-/**
- *
- * @author linhong
- */
 public class ReadWeightedTopicKey {
     private ArrayList<String> keynames;
     private HashMap<String, Integer> words;
     private List []topicinwords;
-    private int wordcount;
     private ArrayList<String> wordlist;
     private Logger logger = Logger.getLogger(ReadTopicKey.class);
 
     public void read(String filename, int maxcount) {
+        int wordcount = 0;
         try {
-            wordcount = 0;
             if (this.words == null) {
-                this.words=new HashMap<String,Integer>(4000);
-                this.wordlist=new ArrayList<String>(4000);
+                this.words = new HashMap<String,Integer>(4000);
+                this.wordlist = new ArrayList<String>(4000);
             } else {
                 this.words.clear();
                 this.wordlist.clear();
@@ -53,9 +48,9 @@ public class ReadWeightedTopicKey {
                 sc.useDelimiter("\t| ");
                 sc.next();
                 index = 0;
-                String name="";
+                String name = "";
                 String tempword;
-                while(sc.hasNext() && index < maxcount) {
+                while (sc.hasNext() && index < maxcount) {
                     tempword = sc.next();
                     if ((!tempword.contains(name) &&
                          !name.contains(tempword)) || name.length() < 1) {
@@ -63,7 +58,7 @@ public class ReadWeightedTopicKey {
                         name += "-";
                         index++;
                     }
-                    if (words.containsKey(tempword) == false) {
+                    if (!words.containsKey(tempword)) {
                         words.put(tempword, wordcount);
                         this.wordlist.add(tempword);
                         wordcount++;
@@ -72,7 +67,7 @@ public class ReadWeightedTopicKey {
                 }
                 while (sc.hasNext()) {
                     tempword = sc.next();
-                    if (words.containsKey(tempword) == false) {
+                    if (!words.containsKey(tempword)) {
                         words.put(tempword, wordcount);
                         this.wordlist.add(tempword);
                         wordcount++;
@@ -103,13 +98,13 @@ public class ReadWeightedTopicKey {
             for (int i = 0; i < conceptnum; i++) {
                 topicinwords[i] = new ArrayList<Indexpair>(21);
             }
-            while((strline = br.readLine()) != null) {
+            while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t| ");
                 sc.next();
                 String tempword;
                 double value;
-                while(sc.hasNext()) {
+                while (sc.hasNext()) {
                     tempword = sc.next();
                     value = sc.nextDouble();
                     int windex = this.words.get(tempword);
@@ -126,7 +121,7 @@ public class ReadWeightedTopicKey {
                 }
                 for (int j = 0; j < topicinwords[i].size(); j++) {
                     Indexpair o = (Indexpair)topicinwords[i].get(j);
-                    o.setvalue(o.getweight()/sum);
+                    o.setvalue(o.getweight() / sum);
                 }
             }
         } catch (IOException ex) {

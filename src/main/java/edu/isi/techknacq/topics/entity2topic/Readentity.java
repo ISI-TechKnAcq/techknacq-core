@@ -18,10 +18,6 @@ import java.util.logging.Logger;
 
 import edu.isi.techknacq.topics.util.ReadTopicKey;
 
-/**
- *
- * @author linhong
- */
 public class Readentity {
     private ArrayList<String> entitylists;
     private HashMap<String, Integer> mywords;
@@ -35,7 +31,7 @@ public class Readentity {
             Integer w = (Integer)pairs.getValue();
             Scanner sc = new Scanner((String)pairs.getKey());
             sc.useDelimiter("_");
-            while(sc.hasNext()){
+            while (sc.hasNext()){
                 mywords.put(sc.next(), w);
             }
         }
@@ -53,7 +49,7 @@ public class Readentity {
             String word;
             String term;
             int count;
-            while ((strline = br.readLine()) != null){
+            while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 count = sc.nextInt();
                 if (count < 100)
@@ -63,7 +59,7 @@ public class Readentity {
                 while (sc.hasNext()) {
                     term = sc.next();
                     word += term;
-                     if (this.mywords.containsKey(term)) {
+                    if (this.mywords.containsKey(term)) {
                         flag = true;
                     }
                 }
@@ -89,8 +85,7 @@ public class Readentity {
             BufferedReader br = new BufferedReader(new InputStreamReader(in1));
             String strline;
             String word;
-            String term;
-            while ((strline=br.readLine()) != null) {
+            while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t");
                 word = sc.next();
@@ -102,7 +97,7 @@ public class Readentity {
                         flag = true;
                     }
                 }
-                if (flag == true){
+                if (flag == true) {
                     if (word.indexOf("et_al") < 0 &&
                         word.indexOf("seg_l") < 0 &&
                         word.indexOf("dept") < 0)
@@ -128,12 +123,12 @@ public class Readentity {
             BufferedWriter out = new BufferedWriter(fstream);
             System.out.println(entitylists.size());
             int entitytopic = 0;
-            for (int i = 0; i < this.entitylists.size(); i++){
+            for (int i = 0; i < this.entitylists.size(); i++) {
                 //if(i%100==0){
                     //System.out.println(i);
                 //}
                 entitytopic = 0;
-                for (int j = 0; j < topickeys.size(); j++){
+                for (int j = 0; j < topickeys.size(); j++) {
                     String word = entitylists.get(i);
                     Scanner sc = new Scanner(word);
                     sc.useDelimiter("_|| ");
@@ -142,20 +137,16 @@ public class Readentity {
                     double score = 0;
                     while (sc.hasNext()) {
                         String term = sc.next();
-                        if (topickeys.get(j).indexOf(term) >= 0){
+                        if (topickeys.get(j).indexOf(term) >= 0) {
                             count++;
                             desc++;
-                            score += 1.0/desc;
+                            score += 1.0 / desc;
                         }
                     }
-                    if (count > 0) {
-                        if (score >= 3.3) {
-                            out.write(this.entitylists.get(i) + "," +
-                                      topickeys.get(j) + "," + score + "\n");
-                            entitytopic++;
-                        }
-
-                        //System.out.println(this.entitylists.get(i)+","+topickeys.get(j)+","+score);
+                    if (count > 0 && score >= 3.3) {
+                        out.write(this.entitylists.get(i) + "," +
+                                  topickeys.get(j) + "," + score + "\n");
+                        entitytopic++;
                     }
                 }
                 if (entitytopic > 0)

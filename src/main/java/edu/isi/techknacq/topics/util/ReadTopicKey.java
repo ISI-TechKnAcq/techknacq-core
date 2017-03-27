@@ -15,20 +15,16 @@ import java.util.logging.Logger;
 
 import edu.isi.techknacq.topics.topic.Indexpair;
 
-/**
- *
- * @author linhong
- */
 public class ReadTopicKey {
     private ArrayList<String> keynames;
     private HashMap<String, Integer> words;
     private List []topicinwords;
-    private int wordcount;
     private ArrayList<String> wordlist;
+    private Logger logger = Logger.getLogger(ReadTopicKey.class);
 
     public void read(String filename, int maxcount) {
+        int wordcount = 0;
         try {
-            wordcount = 0;
             if (this.words == null) {
                 this.words = new HashMap<String,Integer>(4000);
                 this.wordlist = new ArrayList<String>(4000);
@@ -37,7 +33,7 @@ public class ReadTopicKey {
                 this.wordlist.clear();
             }
             if (this.keynames == null)
-                this.keynames=new ArrayList<String>(200);
+                this.keynames = new ArrayList<String>(200);
             else
                 this.keynames.clear();
             FileInputStream fstream1 = null;
@@ -47,7 +43,7 @@ public class ReadTopicKey {
             BufferedReader br = new BufferedReader(new InputStreamReader(in1));
             String strline;
             int index;
-            while ((strline = br.readLine()) != null){
+            while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t| ");
                 sc.next();
@@ -55,9 +51,10 @@ public class ReadTopicKey {
                 index = 0;
                 String name = "";
                 String tempword;
-                while (sc.hasNext() && index < maxcount){
+                while (sc.hasNext() && index < maxcount) {
                     tempwordi = sc.next();
-                    if ((!tempword.contains(name) && !name.contains(tempword)) || name.length() < 1) {
+                    if ((!tempword.contains(name) &&
+                         !name.contains(tempword)) || name.length() < 1) {
                         name += tempword;
                         name += "-";
                         index++;
@@ -80,9 +77,9 @@ public class ReadTopicKey {
             }
             in1.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ReadTopicKey.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(ReadTopicKey.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
@@ -97,16 +94,16 @@ public class ReadTopicKey {
             int index = 0;
             int conceptnum = this.keynames.size();
             topicinwords = new ArrayList[conceptnum];
-            for (int i = 0; i < conceptnum; i++){
+            for (int i = 0; i < conceptnum; i++) {
                 topicinwords[i] = new ArrayList<Indexpair>(21);
             }
-            whilei ((strline = br.readLine()) != null){
+            whilei ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t| ");
                 sc.next();
                 sc.next();
                 String tempword;
-                while(sc.hasNext()){
+                while (sc.hasNext()) {
                     tempword = sc.next();
                     int windex = this.words.get(tempword);
                     this.topicinwords[index].add(new Indexpair(windex,1));
@@ -115,7 +112,7 @@ public class ReadTopicKey {
             }
             in1.close();
         } catch (IOException ex) {
-            Logger.getLogger(ReadTopicKey.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 

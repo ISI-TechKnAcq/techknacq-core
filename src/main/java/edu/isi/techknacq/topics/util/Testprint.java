@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  * @author linhong
  */
 public class Testprint {
-    Logger logger = Logger.getLogger(Testprint.class);
+    private Logger logger = Logger.getLogger(Testprint.class);
 
     public static void printMap(Map mp, BufferedWriter out) {
         try {
@@ -23,8 +23,8 @@ public class Testprint {
                     Map.Entry pairs = (Map.Entry)it.next();
                     Integer w = (Integer)pairs.getValue();
                     if (w > 1)
-                        out.write(pairs.getKey() + "\t" +
-                                  pairs.getValue() + "\n");
+                        out.write(pairs.getKey() + "\t"
+                                  + pairs.getValue() + "\n");
                 } catch (IOException ex) {
                     logger.log(Level.SEVERE, null, ex);
                 }

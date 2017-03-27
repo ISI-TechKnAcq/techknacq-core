@@ -15,14 +15,9 @@ import edu.isi.techknacq.topics.topic.Weightpair;
 import edu.isi.techknacq.topics.util.ReadTopicKey;
 
 
-/**
- *
- * @author linhong
- */
 public class Cograph {
     private ArrayList<String> keynames;
     private int tnum;
-    private List []conceptsindoc;
     private Logger logger = Logger.getLogger(Cograph.class);
 
     /*
@@ -92,14 +87,14 @@ public class Cograph {
             if (v1[i] > 0.0000000001)
                 a++;
         }
-        for(i = 0; i < v2.length; i++) {
+        for (i = 0; i < v2.length; i++) {
             if (v2[i] > 0.0000000001) {
                 b++;
             }
         }
         int cooc = this.getOccu(v1, v2);
         if (a + b - cooc > 0)
-            res = (double)cooc/(a+b-cooc);
+            res = (double)cooc / (a + b - cooc);
         else
             res = 0.0;
         return res;
@@ -112,7 +107,8 @@ public class Cograph {
      * filename: the topic composition file (String)
      * outfilename: the graph file name (String)
      */
-    public void Run(int K, String filename, String outfilename) {
+    public void run(int K, String filename, String outfilename) {
+        List []conceptsindoc;
         try {
             Concept2doc doc = new Concept2doc();
             doc.Initnum(tnum);
@@ -126,7 +122,7 @@ public class Cograph {
             out = new BufferedWriter(fstream);
             out.write("*Vertices " + keynames.size() + "\n");
             for (int i = 0; i < keynames.size(); i++) {
-                out.write((i+1)+" \"" + keynames.get(i) + "\"\n");
+                out.write((i + 1) + " \"" + keynames.get(i) + "\"\n");
             }
             out.write("*Edges ");
             int edgenum = 0;
@@ -161,10 +157,10 @@ public class Cograph {
         if (args.length < 1) {
             System.out.println("Usage: [topic key file] " +
                                "[topic composition file] [output graph file]");
-            System.exit(2);
+            Runtime.getRuntime().exit(2);
         }
         Cograph mygraph = new Cograph();
         mygraph.readKey(args[0]);
-        mygraph.Run(100, args[1], args[2]);
+        mygraph.run(100, args[1], args[2]);
     }
 }

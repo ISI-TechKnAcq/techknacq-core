@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 import edu.isi.techknacq.topics.topic.Weightpair;
 
 public class StrUtil {
-    Logger logger = Logger.getLogger(StrUtil.class);
+    private Logger logger = Logger.getLogger(StrUtil.class);
 
     public static int getMapMaxvalue(Map mp) {
         int max = 0;
@@ -97,8 +97,8 @@ public class StrUtil {
             return new String(bytes, "UTF-8");
         } catch (Exception e) {
             // Impossible, throw unchecked
-            throw new IllegalStateException("No Latin1 or UTF-8: " +
-                                            e.getMessage());
+            throw new IllegalStateException("No Latin1 or UTF-8: "
+                                            + e.getMessage());
         }
     }
 
