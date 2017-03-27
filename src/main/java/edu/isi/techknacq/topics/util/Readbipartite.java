@@ -37,15 +37,15 @@ public class Readbipartite {
             int pnum = 1;
             int knum = 1;
             while ((strline = br.readLine()) != null) {
-                Scanner sc=new Scanner(strline);
+                Scanner sc = new Scanner(strline);
                 sc.useDelimiter(",");
                 pid = sc.next();
                 kid = sc.next();
-                if (this.entities.containsKey(pid) == false) {
+                if (!this.entities.containsKey(pid)) {
                     this.entities.put(pid, pnum);
                     pnum++;
                 }
-                if (this.topics.containsKey(kid) == false) {
+                if (!this.topics.containsKey(kid)) {
                     this.topics.put(kid, knum);
                     knum++;
                 }

@@ -15,20 +15,14 @@ import edu.isi.techknacq.topics.topic.Indexpair;
 import edu.isi.techknacq.topics.topic.Weightpair;
 import edu.isi.techknacq.topics.topic.WordPair;
 
-/**
- * @author linhong
- */
+
 public class Keyword2concept {
     ArrayList<String> topics;
     ArrayList<ArrayList<WordPair>> wordintopic;
     ArrayList<Weightpair> hittopics;
     int k = 8;
 
-    public Keyword2concept() {
-
-    }
-
-    public void Readkey(String filename) {
+    public void readKey(String filename) {
         try {
             this.topics = new ArrayList<String>(200);
             this.wordintopic = new ArrayList(200);
@@ -118,7 +112,7 @@ public class Keyword2concept {
 
     public static void main(String []args) {
         Keyword2concept mykeyword = new Keyword2concept();
-        mykeyword.Readkey("mallet-weighted-key.txt");
+        mykeyword.readKey("mallet-weighted-key.txt");
         ArrayList<Integer> hits = mykeyword.Getmatch("machine_translation");
         ArrayList<String> mytopic = mykeyword.Gettopics();
         for (int i = 0; i < hits.size(); i++) {

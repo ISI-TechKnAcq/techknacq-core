@@ -16,21 +16,13 @@ import java.util.logging.Logger;
 
 import edu.isi.techknacq.topics.readinglist.Concept2doc;
 
-/**
- *
- * @author linhong
- */
 public class ReadflowNetwork {
-    ArrayList<String> keynames;
+    private ArrayList<String> keynames;
     // Help find the topic index with a hashmap structure
     private HashMap<String,Integer> keysearch;
-    double []keyvalues;
+    private double []keyvalues;
 
-    public ReadflowNetwork() {
-
-    }
-
-    public void Readkey(String filename) {
+    public void readKey(String filename) {
         try {
             this.keynames = new ArrayList<String>(200);
             this.keysearch = new HashMap<String,Integer>(200);
@@ -213,7 +205,7 @@ public class ReadflowNetwork {
                             out.write(src + "\t" + keynames.get(src) + "\t" +
                                       target + "\t" + keynames.get(target) +
                                       "\t" + value + "\n");
-                            out2.write(src + "\t" + target + "\t" + value + 
+                            out2.write(src + "\t" + target + "\t" + value +
                                        "\n");
                         }
                         else {
@@ -247,11 +239,11 @@ public class ReadflowNetwork {
             System.exit(2);
         }
         ReadflowNetwork myreader = new ReadflowNetwork();
-        myreader.Readkey(args[0]);
+        myreader.readKey(args[0]);
         myreader.Readnodeflow(args[1]);
         myreader.ReadflowGraph(args[2], args[3]);
         //ReadflowNetwork myreader=new ReadflowNetwork();
-        //myreader.Readkey("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\mallet-keys.txt");
+        //myreader.readKey("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\mallet-keys.txt");
         //myreader.Readnodeflow("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\Topicmallet12.tree");
         //myreader.ReadflowGraph("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\Topicmallet12.flow", "C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\Topicmallet12flow.txt");
     }

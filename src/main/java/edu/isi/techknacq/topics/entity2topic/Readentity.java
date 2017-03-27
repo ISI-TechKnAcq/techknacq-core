@@ -31,7 +31,7 @@ public class Readentity {
             Integer w = (Integer)pairs.getValue();
             Scanner sc = new Scanner((String)pairs.getKey());
             sc.useDelimiter("_");
-            while (sc.hasNext()){
+            while (sc.hasNext()) {
                 mywords.put(sc.next(), w);
             }
         }
@@ -63,10 +63,9 @@ public class Readentity {
                         flag = true;
                     }
                 }
-                if (flag == true) {
-                    if (word.indexOf("et_al") < 0 &&
-                        word.indexOf("university") < 0 &&
-                        word.indexOf("dept") < 0)
+                if (flag && word.indexOf("et_al") < 0 &&
+                    word.indexOf("university") < 0 &&
+                    word.indexOf("dept") < 0) {
                     entitylists.add(word);
                 }
             }
@@ -124,7 +123,7 @@ public class Readentity {
             System.out.println(entitylists.size());
             int entitytopic = 0;
             for (int i = 0; i < this.entitylists.size(); i++) {
-                //if(i%100==0){
+                //if(i%100==0) {
                     //System.out.println(i);
                 //}
                 entitytopic = 0;
@@ -172,8 +171,8 @@ public class Readentity {
         Readentity myreader = new Readentity();
         myreader.initDict(mytopic.getAllWords());
         myreader.readWikiFile("wikipedia-entity-counts.txt");
-        // myreader.readFile("Z:\\Data\\SKIMMR\\acl-mt\\2015-08-20\\text\\A00-1002_0.t2s");
-        //myreader.printResults();
+        // myreader.readFile("A00-1002_0.t2s");
+        // myreader.printResults();
         mytopic.read("mallet-keys-2gm-200.txt", 5);
         ArrayList<String> keys = mytopic.getKeyNames();
         myreader.getMatch(keys);

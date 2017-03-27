@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class Readfile2dir {
     private Logger logger = Logger.getLogger(Readfile2dir.class);
 
-    public void Parsetopicvector(String filename, int k) {
+    public void parseTopicVector(String filename, int k) {
         try {
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -75,9 +75,10 @@ public class Readfile2dir {
                 sc.nextInt();
                 content = sc.next();
                 if (year.compareTo("2004") <= 0) {
-                    FileWriter fstream = new FileWriter(dirname + "//" + id + ".txt", false);
+                    String fname = dirname + "/" + id + ".txt";
+                    FileWriter fstream = new FileWriter(fname, false);
                     BufferedWriter out = new BufferedWriter(fstream);
-                    out.write(content+"\n");
+                    out.write(content + "\n");
                     out.close();
                 }
             }
@@ -91,21 +92,22 @@ public class Readfile2dir {
 
     public static void main(String []args) {
         if (args.length < 1) {
-            System.out.println("Usage: [(function type)Integer 1/2] [arg1] [arg2]");
-            System.out.println("if function type==1, arg1=topic composition file (string) arg2=k (integer) top k words in each topic");
-            System.out.println("if type==2, arg1=raw text file name (string), arg2=prefix for output file");
+            System.out.println("Usage: 1 [topic composition file] " +
+                               "[words per topic]");
+            System.out.println("Usage: 2 [text file] " +
+                               "[prefix for output file]");
             System.exit(2);
         }
         Readfile2dir myreader = new Readfile2dir();
         int type = Integer.parseInt(args[0]);
         if (type == 1) {
-            myreader.Parsetopicvector(args[1], Integer.parseInt(args[2]));
+            myreader.parseTopicVector(args[1], Integer.parseInt(args[2]));
             // Example:
-            //myreader.Parsetopicvector("C:\\Users\\linhong\\Documents\\linhong-work\\Data\\mallet-2.0.8RC2\\doc2topic.txt", 20);
+            //myreader.parseTopicVector("doc2topic.txt", 20);
         } else {
             myreader.readFile(args[1], args[2]);
             // Example:
-            //myreader.readFile("C:\\Users\\linhong\\Documents\\linhong-work\\Data\\preprocessed_text.csv", "C:\\Users\\linhong\\Documents\\linhong-work\\Data\\abstract2004");
+            //myreader.readFile("preprocessed_text.csv", "abstract2004");
         }
     }
 }

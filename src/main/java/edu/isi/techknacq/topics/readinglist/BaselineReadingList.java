@@ -59,20 +59,21 @@ public class BaselineReadingList {
             logger.log(Level.SEVERE, null, ex);
         }
     }
+
     public String Printdocname(String metadata, String did) {
         String name;
-        int index1=metadata.indexOf("author:");
-        int index2=metadata.indexOf("title:");
+        int index1 = metadata.indexOf("author:");
+        int index2 = metadata.indexOf("title:");
         String author;
         String title;
-        if (index1>=0&&index2>=0) {
+        if (index1 >= 0 && index2 >= 0) {
             author=metadata.substring(index1+8,index2);
-        }else
+        } else
             author=null;
-        if (index2>=0) {
-            title=metadata.substring(index2+7, metadata.length());
-        }else
-            title=null;
+        if (index2 >= 0) {
+            title = metadata.substring(index2+7, metadata.length());
+        } else
+            title = null;
         name = author+": " + "<a href=\"http://www.aclweb.org/anthology/" + did.charAt(0) + "/" +did.substring(0, 3) + "/" + did + ".pdf\">" +title+ "</a>";
         name = name.replace(" A ", " a ");
         name = name.replace(" Of ", " of ");
@@ -94,7 +95,7 @@ public class BaselineReadingList {
                     String keyword, String doc2conceptfilename) {
         try {
             Keyword2concept match1 = new Keyword2concept();
-            match1.Readkey(keyname);
+            match1.readKey(keyname);
             List<Integer> hittopic = match1.Getmatch(keyword);
             this.topickeys = match1.Gettopics();
             Concept2doc doc = new Concept2doc();
@@ -111,7 +112,7 @@ public class BaselineReadingList {
             this.ReadPageRankscore(pagerankfile);
             for (Integer hittopic1 : hittopic) {
                 int tindex = hittopic1;
-                ArrayList<Integer> mydocs=doc.Getdocs(tindex);
+                ArrayList<Integer> mydocs = doc.Getdocs(tindex);
                 for (Integer mydoc : mydocs) {
                     int Did = mydoc;
                     if (isvisit[Did] == false)

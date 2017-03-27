@@ -21,10 +21,6 @@ import edu.isi.techknacq.topics.topic.Weightpair;
 import edu.isi.techknacq.topics.util.ReadWeightedTopicKey;
 
 
-/**
- *
- * @author linhong
- */
 public class Comparisononalledges {
     private ArrayList<String> keynames;
     private int tnum;
@@ -40,7 +36,7 @@ public class Comparisononalledges {
         entropy.initialise();
     }
 
-    public void Readkey(String filename) {
+    public void readKey(String filename) {
         ReadWeightedTopicKey myreader = new ReadWeightedTopicKey();
         myreader.read(filename,5);
         keynames = myreader.getKeyNames();

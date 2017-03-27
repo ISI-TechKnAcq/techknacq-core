@@ -136,7 +136,7 @@ public class Cograph {
                     }
                 }
             }
-            out.write(edgenum+"\n");
+            out.write(edgenum + "\n");
             for (int i = 0; i < tnum; i++) {
                 extract(conceptsindoc[i], v1);
                 for (int j = i + 1; j < tnum; j++) {

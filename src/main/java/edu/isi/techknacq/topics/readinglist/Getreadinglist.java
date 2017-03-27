@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.isi.techknacq.topics.readinglist;
 
 import java.io.BufferedWriter;
@@ -17,15 +12,11 @@ import edu.isi.techknacq.topics.graph.Conceptdepth;
 import edu.isi.techknacq.topics.graph.Node;
 import edu.isi.techknacq.topics.graph.ReadGraph;
 
-/**
- *
- * @author Linhong
- */
 public class Getreadinglist {
-    public static void main(String []args){
+    public static void main(String []args) {
         FileWriter fstream=null;
         try {
-            if (args.length<6){
+            if (args.length<6) {
                 System.out.println("Usage [keyword] [doc2topic] [topickey] [topicgraph] [dockey] [docs/topic] [max_topic]");
                 System.exit(2);
             }   //args[0]: keyword;
@@ -38,14 +29,14 @@ public class Getreadinglist {
             int dnum=3;
             int maxtnum=10;
             String filterfile="yes-no.csv";
-            if(args.length>5)
+            if (args.length>5)
                 dnum=Integer.parseInt(args[5]);
-            if(args.length>6)
+            if (args.length>6)
                 maxtnum=Integer.parseInt(args[6]);
-            if(args.length>7)
+            if (args.length>7)
                 filterfile=args[7];
             Keyword2concept match1=new Keyword2concept();
-            match1.Readkey(args[2]);
+            match1.readKey(args[2]);
             List<Integer> hittopic=match1.Getmatch(args[0]);
             //hittopic: topics that matches the input keyword
             List<String> topics=match1.Gettopics();
@@ -66,7 +57,7 @@ public class Getreadinglist {
             Dependency.InitTopics(topics);
             fstream = new FileWriter(args[0]+"_readinglist.txt",false);
             BufferedWriter out=new BufferedWriter(fstream);
-            for(int i=0;i<hittopic.size();i++){
+            for(int i=0;i<hittopic.size();i++) {
                 out.write("Matched topic "+i+" : \n");
                 int tindex=hittopic.get(i);
                 out.write("```\n");
@@ -74,7 +65,7 @@ public class Getreadinglist {
                 out.write("```\n");
                 out.write("\t\t==The best relevant "+dnum+" documents: \n");
                 ArrayList<Integer> docindex=Getdoc.Getdocs(tindex);
-                for(int j=0;j<docindex.size();j++){
+                for(int j=0;j<docindex.size();j++) {
                     int dindex=docindex.get(j);
                     String dfile=docfiles.get(dindex);
                     out.write("\t\t- "+dfile);
@@ -82,7 +73,7 @@ public class Getreadinglist {
                     out.write(":"+value+"\n");
                 }
                 ArrayList<Integer> deptopics=Dependency.Gettopnode(maxtnum, tindex);
-                for(int k=0;k<deptopics.size();k++){
+                for(int k=0;k<deptopics.size();k++) {
                     int ddtindex=deptopics.get(k);
                     out.write("\n\ndependency topic: \n");
                     out.write("```\n");
@@ -90,7 +81,7 @@ public class Getreadinglist {
                     out.write("```\n");
                     out.write("\t\t\t\t==The best relevant "+dnum+" documents: \n");
                     ArrayList<Integer> docindex2=Getdoc.Getdocs(ddtindex);
-                    for(int j=0;j<docindex2.size();j++){
+                    for(int j=0;j<docindex2.size();j++) {
                         int dindex=docindex2.get(j);
                         String dfile=docfiles.get(dindex);
                         out.write("\t\t\t\t- "+dfile);
