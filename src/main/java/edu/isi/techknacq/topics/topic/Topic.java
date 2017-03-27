@@ -92,7 +92,7 @@ public class Topic {
             fstream = new FileWriter("./lib/"+prefix+"document2topic.txt", false);
             out = new BufferedWriter(fstream);
             Readresults myRreader=new Readresults();
-            myRreader.ReadD2topic("./lib/output/final.gamma", filenames, out);
+            myRreader.readD2topic("./lib/output/final.gamma", filenames, out);
             if(out!=null)
                 out.close();
             command="python ./lib/topics.py ./lib/output/final.beta ./lib/words.txt " +wordnum;
@@ -117,6 +117,6 @@ public class Topic {
             Logger.getLogger(Topic.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Topic.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
 }
