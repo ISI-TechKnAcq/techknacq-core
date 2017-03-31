@@ -21,36 +21,32 @@ public class Conceptdepth {
     private Node []G;
     private char []isvisit;
     private List<String> topics;
+    private Logger logger = Logger.getLogger(Conceptdepth.class);
 
-    public void InitTopics(List<String> inputtopics) {
+    public void initTopics(List<String> inputtopics) {
         topics = inputtopics;
     }
 
-    public void InitGraph(Node []inputG) {
+    public void initGraph(Node []inputG) {
         G = inputG;
         isvisit = new char[G.length];
     }
 
-    public void Resetvisit() {
+    public void resetVisit() {
         for (int i = 0; i < isvisit.length; i++) {
             isvisit[i]='w';
         }
     }
 
     public void BFS(ArrayList<Integer> res, int v, int m) {
-         PriorityQueue<Weightpair> queue2 =
+        PriorityQueue<Weightpair> queue2 =
             new PriorityQueue<Weightpair>();
         Queue<Integer> queue = new LinkedList<Integer>();
-        queue.add(v); //Adds to end of queue
-        int level = 0;
-        //for (int i=0;i<(level+1);i++)
-            //System.out.print("\t");
-        //System.out.println(level+" "+topics.get(v));
-        level++;
+        queue.add(v); // Adds to end of queue
         while (!queue.isEmpty()) {
             if (res.size() >= m)
                 break;
-            //removes from front of queue
+            // Removes from front of queue
             int u = queue.remove();
             isvisit[u] = 'g';
             queue2.clear();
@@ -66,26 +62,22 @@ public class Conceptdepth {
                 queue.add(e.getindex());
                 res.add(e.getindex());
                 isvisit[e.getindex()] = 'g';
-                System.out.println(u+"\t"+e.getindex()+"\t"+e.getweight());
-                //System.out.println(topics.get(u)+"\t"+topics.get(e.getindex())+"\t"+e.getweight());
-                //for (int j=0;j<(level+1);j++)
-                        //System.out.print("\t");
-                //System.out.println(level+" "+e.getweight()+" "+topics.get(e.getindex()));
-                 if (res.size() >= m)
-                        break;
-
+                System.out.println(u + "\t" + e.getindex() +
+                                   "\t" + e.getweight());
+                if (res.size() >= m)
+                    break;
             }
-            level++;
         }
     }
-    public ArrayList<Integer> Gettopnode(int m, int v) {
+
+    public ArrayList<Integer> getTopNode(int m, int v) {
         //Get top m dependent topics;
         ArrayList<Integer> relatedtopic = new ArrayList<Integer>(m);
         BFS(relatedtopic, v, m);
         return relatedtopic;
     }
 
-    public String GetsubgraphinString(String keyword) throws IOException {
+    public String getSubgraphInString(String keyword) throws IOException {
         StringWriter writer = new StringWriter();
         JsonWriter s = new JsonWriter(writer);
         s.beginObject();
@@ -134,7 +126,7 @@ public class Conceptdepth {
         return writer.toString();
     }
 
-    public void Getsubgraph(String keyword) {
+    public void getSubgraph(String keyword) {
         FileWriter fstream = null;
         try {
             fstream = new FileWriter(keyword+"_graph.net",false);
@@ -154,7 +146,8 @@ public class Conceptdepth {
             int subedge = 0;
             for (int i = 0; i < G.length; i++) {
                 if (isvisit[i] == 'g') {
-                    out.write((mapindex[i]+1)+" \""+topics.get(i)+"\"\n");
+                    out.write((mapindex[i] + 1) +
+                              " \"" + topics.get(i) + "\"\n");
                     for (int j = 0; j < G[i].key; j++) {
                         int nb = G[i].nbv[j];
                         if (isvisit[nb] == 'g')
@@ -168,19 +161,20 @@ public class Conceptdepth {
                     for (int j = 0; j < G[i].key; j++) {
                         int nb = G[i].nbv[j];
                         if (isvisit[nb] == 'g') {
-                            out.write((mapindex[i]+1)+" "+(mapindex[nb]+1)+"\n");
+                            out.write((mapindex[i] + 1) + " " +
+                                      (mapindex[nb] + 1) + "\n");
                         }
                     }
                 }
             }
             out.close();
         } catch (IOException ex) {
-            Logger.getLogger(Conceptdepth.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         } finally {
             try {
                 fstream.close();
             } catch (IOException ex) {
-                Logger.getLogger(Conceptdepth.class.getName()).log(Level.SEVERE, null, ex);
+                logger.log(Level.SEVERE, null, ex);
             }
         }
     }

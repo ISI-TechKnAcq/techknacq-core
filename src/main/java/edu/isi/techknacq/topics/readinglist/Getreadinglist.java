@@ -53,11 +53,11 @@ public class Getreadinglist {
             ReadGraph myreader=new ReadGraph(args[3]);
             Node []G=myreader.Getgraph();
             Conceptdepth Dependency=new Conceptdepth();
-            Dependency.InitGraph(G);
-            Dependency.InitTopics(topics);
+            Dependency.initGraph(G);
+            Dependency.initTopics(topics);
             fstream = new FileWriter(args[0]+"_readinglist.txt",false);
-            BufferedWriter out=new BufferedWriter(fstream);
-            for(int i=0;i<hittopic.size();i++) {
+            BufferedWriter out = new BufferedWriter(fstream);
+            for (int i=0;i<hittopic.size();i++) {
                 out.write("Matched topic "+i+" : \n");
                 int tindex=hittopic.get(i);
                 out.write("```\n");
@@ -65,15 +65,15 @@ public class Getreadinglist {
                 out.write("```\n");
                 out.write("\t\t==The best relevant "+dnum+" documents: \n");
                 ArrayList<Integer> docindex=Getdoc.Getdocs(tindex);
-                for(int j=0;j<docindex.size();j++) {
+                for (int j=0;j<docindex.size();j++) {
                     int dindex=docindex.get(j);
                     String dfile=docfiles.get(dindex);
                     out.write("\t\t- "+dfile);
                     String value=rdk.Getdocumentkey(dfile);
                     out.write(":"+value+"\n");
                 }
-                ArrayList<Integer> deptopics=Dependency.Gettopnode(maxtnum, tindex);
-                for(int k=0;k<deptopics.size();k++) {
+                ArrayList<Integer> deptopics=Dependency.getTopNode(maxtnum, tindex);
+                for (int k=0;k<deptopics.size();k++) {
                     int ddtindex=deptopics.get(k);
                     out.write("\n\ndependency topic: \n");
                     out.write("```\n");
@@ -81,7 +81,7 @@ public class Getreadinglist {
                     out.write("```\n");
                     out.write("\t\t\t\t==The best relevant "+dnum+" documents: \n");
                     ArrayList<Integer> docindex2=Getdoc.Getdocs(ddtindex);
-                    for(int j=0;j<docindex2.size();j++) {
+                    for (int j=0;j<docindex2.size();j++) {
                         int dindex=docindex2.get(j);
                         String dfile=docfiles.get(dindex);
                         out.write("\t\t\t\t- "+dfile);
@@ -93,7 +93,7 @@ public class Getreadinglist {
                 out.write("==========================================\n");
             }
             out.close();
-            Dependency.Getsubgraph(args[0]);
+            Dependency.getSubgraph(args[0]);
         } catch (IOException ex) {
             Logger.getLogger(Getreadinglist.class.getName()).log(Level.SEVERE, null, ex);
         }

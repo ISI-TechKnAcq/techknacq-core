@@ -1,6 +1,6 @@
 /*
-  The new reading List Generation Algorithm
-*/
+ * The new reading List Generation Algorithm
+ */
 
 package edu.isi.techknacq.topics.readinglist;
 
@@ -187,7 +187,7 @@ public class NewReadingList {
     }
     public ArrayList<Weightpair> Getdocs(int tindex) {
         ArrayList<Weightpair> mydocs=new ArrayList<Weightpair>(topic2docs[tindex].size());
-        for(int i=0;i<topic2docs[tindex].size();i++) {
+        for (int i=0;i<topic2docs[tindex].size();i++) {
             Weightpair o=(Weightpair)topic2docs[tindex].get(i);
             mydocs.add(o);
         }
@@ -232,7 +232,7 @@ public class NewReadingList {
         topicname="\"topic\": [\n";
         double minvalue=1;
         double maxvalue=0;
-        for(int i=0;i<this.wordintopic.get(tindex).size();i++) {
+        for (int i=0;i<this.wordintopic.get(tindex).size();i++) {
             WordPair w=wordintopic.get(tindex).get(i);
             double value=w.getprob();
             if(value>maxvalue)
@@ -241,7 +241,7 @@ public class NewReadingList {
                 minvalue=value;
             }
         }
-        for(int i=0;i<this.wordintopic.get(tindex).size();i++) {
+        for (int i=0;i<this.wordintopic.get(tindex).size();i++) {
             WordPair w=wordintopic.get(tindex).get(i);
             String word=w.getWord();
             double value=w.getprob();
@@ -371,10 +371,10 @@ public class NewReadingList {
             Node []G=myreader.Getgraph();
             this.ordertopic=myreader.Ordernode();
             Conceptdepth Dependency=new Conceptdepth();
-            Dependency.InitGraph(G);
-            Dependency.InitTopics(this.topickeys);
-            boolean []isvisit=new boolean[this.docfiles.size()];
-            for(int i=0;i<isvisit.length;i++) {
+            Dependency.initGraph(G);
+            Dependency.initTopics(this.topickeys);
+            boolean []isvisit = new boolean[this.docfiles.size()];
+            for (int i=0;i<isvisit.length;i++) {
                 isvisit[i]=false;
             }
             /*
@@ -390,14 +390,14 @@ public class NewReadingList {
             out.write("{");
             out.write("\"keyword\": \""+keyword+"\",\n");
             /*
-              Get dependency topic (start)
-            */
+             * Get dependency topic (start)
+             */
             out.write("\"Match documents\": [\n\t");
-            for(int i=0;i<hittopic.size();i++) {
+            for (int i=0;i<hittopic.size();i++) {
                 int tindex=hittopic.get(i);
                 istopicvisit[tindex]='m';
-                ArrayList<Integer> deptopics=Dependency.Gettopnode(maxtopic, tindex);
-                for(int j=0;j<deptopics.size();j++) {
+                ArrayList<Integer> deptopics = Dependency.getTopNode(maxtopic, tindex);
+                for (int j=0;j<deptopics.size();j++) {
                     int ddtindex = deptopics.get(j);
                     if(istopicvisit[ddtindex]!='m')
                         istopicvisit[ddtindex]='d';
@@ -421,7 +421,7 @@ public class NewReadingList {
             //Order dependency topic by topic complexity (Start)
             //===================================================
             int endindex=0;
-            for(int i=0;i<this.ordertopic.length;i++) {
+            for (int i=0;i<this.ordertopic.length;i++) {
                 int tindex=ordertopic[i];
                 if(istopicvisit[tindex]=='v'||istopicvisit[tindex]=='m')
                     continue;
@@ -430,7 +430,7 @@ public class NewReadingList {
             }
             System.out.println(endindex);
             out.write("\"Dependency documents\": [\n\t");
-            for(int i=0;i<this.ordertopic.length;i++) {
+            for (int i=0;i<this.ordertopic.length;i++) {
                 int tindex=ordertopic[i];
                 if(istopicvisit[tindex]=='v'||istopicvisit[tindex]=='m')
                     continue;
@@ -446,7 +446,7 @@ public class NewReadingList {
             //==================================================
             //Order dependency topic by topic complexity (END)
             //===================================================
-            String s=Dependency.GetsubgraphinString(keyword);
+            String s = Dependency.getSubgraphInString(keyword);
             System.out.println(s);
             out.write("}");
             out.close();
@@ -454,6 +454,7 @@ public class NewReadingList {
             Logger.getLogger(NewReadingList.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public static void main(String []args) {
         if (args.length<6) {
             System.out.print("Usage [keyword] [doc2topic] [topickey] [topicgraph] [dockey] [pagerankfile] [docs/topic] [max_topic] [filterfile]");

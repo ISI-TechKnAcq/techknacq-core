@@ -65,7 +65,7 @@ public class ReadingList2 {
     }
     public ArrayList<Integer> Getdocs(int tindex) {
         ArrayList<Integer> mydocs=new ArrayList(topic2docs[tindex].size());
-        for(int i=0;i<topic2docs[tindex].size();i++) {
+        for (int i=0;i<topic2docs[tindex].size();i++) {
             Weightpair o=(Weightpair)topic2docs[tindex].get(i);
             mydocs.add(o.getindex());
         }
@@ -96,7 +96,7 @@ public class ReadingList2 {
         topicname="<blockquote><p>";
         double minvalue=1;
         double maxvalue=0;
-        for(int i=0;i<this.wordintopic.get(tindex).size();i++) {
+        for (int i=0;i<this.wordintopic.get(tindex).size();i++) {
              WordPair w=wordintopic.get(tindex).get(i);
              double value=w.getprob();
              if(value>maxvalue)
@@ -105,7 +105,7 @@ public class ReadingList2 {
                  minvalue=value;
              }
         }
-        for(int i=0;i<this.wordintopic.get(tindex).size();i++) {
+        for (int i=0;i<this.wordintopic.get(tindex).size();i++) {
             WordPair w=wordintopic.get(tindex).get(i);
             String word=w.getWord();
             double value=w.getprob();
@@ -165,16 +165,16 @@ public class ReadingList2 {
     public void Run(String keyword, String graphfile, int maxtopic, int dnum) {
         try {
             FileWriter fstream = new FileWriter(keyword+"_readinglist.html",false);
-            BufferedWriter out=new BufferedWriter(fstream);
-            ReadGraph myreader=new ReadGraph(graphfile);
+            BufferedWriter out = new BufferedWriter(fstream);
+            ReadGraph myreader = new ReadGraph(graphfile);
             Node []G=myreader.Getgraph();
-            this.ordertopic=myreader.Ordernode();
-            Conceptdepth Dependency=new Conceptdepth();
-            Dependency.InitGraph(G);
-            Dependency.InitTopics(this.topickeys);
+            this.ordertopic = myreader.Ordernode();
+            Conceptdepth Dependency = new Conceptdepth();
+            Dependency.initGraph(G);
+            Dependency.initTopics(this.topickeys);
 //            List mylist=new ArrayList<>(100);
 //            boolean []isvisit=new boolean[this.docfiles.size()];
-//            for(int i=0;i<isvisit.length;i++) {
+//            for (int i=0;i<isvisit.length;i++) {
 //                isvisit[i]=false;
 //            }
 //            double value;
@@ -194,7 +194,7 @@ public class ReadingList2 {
 //                    if(value>-1)
 //                        mylist.add(new Weightpair(value,Did));
 //                }
-//                ArrayList<Integer> deptopics=Dependency.Gettopnode(maxtopic, tindex);
+//                ArrayList<Integer> deptopics=Dependency.getTopNode(maxtopic, tindex);
 //                for (Integer ddtopic : deptopics) {
 //                    ArrayList<Integer> dddocs=this.Getdocs(ddtopic);
 //                        for (Integer mydoc : dddocs) {
@@ -213,7 +213,7 @@ public class ReadingList2 {
 //                }
 //            }
 //            Collections.sort(mylist);
-//            for(int i=0;i<isvisit.length;i++) {
+//            for (int i=0;i<isvisit.length;i++) {
 //                isvisit[i]=false;
 //            }
 //            int maxdoc=maxtopic*dnum*3;
@@ -279,7 +279,7 @@ public class ReadingList2 {
 "<h1>Reading List for "+keyword+" </h1>");
 
             boolean []isvisit=new boolean[this.docfiles.size()];
-            for(int i=0;i<isvisit.length;i++) {
+            for (int i=0;i<isvisit.length;i++) {
                 isvisit[i]=false;
             }
             /*
@@ -290,7 +290,7 @@ public class ReadingList2 {
             List mylist=new ArrayList(100);
             this.authorlists=new HashSet();
 
-            for(int i=0;i<hittopic.size();i++) {
+            for (int i=0;i<hittopic.size();i++) {
                  int tindex=hittopic.get(i);
                  istopicvisit[tindex]='m';
                  if(i==0) {
@@ -342,16 +342,16 @@ public class ReadingList2 {
                     out.write("</div>");
                     out.write("</section>");
                 }
-                 ArrayList<Integer> deptopics=Dependency.Gettopnode(maxtopic, tindex);
+                 ArrayList<Integer> deptopics = Dependency.getTopNode(maxtopic, tindex);
                  for (Integer deptopic : deptopics) {
                     int ddtindex = deptopic;
                     if(istopicvisit[ddtindex]!='m')
                         istopicvisit[ddtindex]='d';
                  }
             }
-            Dependency.Getsubgraph(keyword);
+            Dependency.getSubgraph(keyword);
             //order topics by knowledge complexity
-            for(int i=0;i<this.ordertopic.length;i++) {
+            for (int i=0;i<this.ordertopic.length;i++) {
                int tindex=ordertopic[i];
                if(istopicvisit[tindex]=='v')
                    continue;
@@ -409,7 +409,7 @@ public class ReadingList2 {
             "</body>\n" +
             "</html>");
             out.close();
-            Dependency.Getsubgraph(keyword);
+            Dependency.getSubgraph(keyword);
         } catch (IOException ex) {
             Logger.getLogger(ReadingList2.class.getName()).log(Level.SEVERE, null, ex);
         }

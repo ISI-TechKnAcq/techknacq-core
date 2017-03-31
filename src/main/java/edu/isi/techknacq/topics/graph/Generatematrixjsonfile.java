@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 public class Generatematrixjsonfile {
     private ArrayList<String> User_id;
     private ArrayList<String> group;
+    private Logger logger = Logger.getLogger(Generatematrixjsonfile.class);
 
     public Generatematrixjsonfile() {
         User_id = new ArrayList<String> (8000);
@@ -44,7 +45,7 @@ public class Generatematrixjsonfile {
             }
             in1.close();
         } catch (IOException ex) {
-            Logger.getLogger(Generatematrixjsonfile.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
@@ -78,26 +79,28 @@ public class Generatematrixjsonfile {
                 sc.useDelimiter("\t");
                 String i = sc.next();
                 String j = sc.next();
-                String value=sc.next();
+                String value = sc.next();
                 out1.write("\t\t{");
-                        out1.write("\"source\":");
-                        out1.write(i+",");
-                        out1.write("\"target\":");
-                        out1.write(j+",");
-                        out1.write("\"value\":");
-                        out1.write(value);
-                        out1.write("},\n");
+                out1.write("\"source\":");
+                out1.write(i + ",");
+                out1.write("\"target\":");
+                out1.write(j + ",");
+                out1.write("\"value\":");
+                out1.write(value);
+                out1.write("},\n");
             }
             out1.write("\t]\n}");
             out1.close();
         } catch (IOException ex) {
-            Logger.getLogger(Generatematrixjsonfile.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
     public static void main(String []args) {
         Generatematrixjsonfile myrun = new Generatematrixjsonfile();
-        myrun.readNodeFile(args[0]); // keyword file for nodes
-        myrun.readEdges(args[1], args[2]); // args[1]: edge file, args[2]: outputfile
+        // keyword file for nodes
+        myrun.readNodeFile(args[0]);
+        // args[1]: edge file, args[2]: outputfile
+        myrun.readEdges(args[1], args[2]);
     }
 }

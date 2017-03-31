@@ -215,7 +215,9 @@ public class Comparisononalledges {
 
             FileWriter fstream = new FileWriter("alledge.tsv", false);
             BufferedWriter out = new BufferedWriter(fstream);
-            out.write("sid\ts_topic\ttid\tt_topic\tsim_doc\tsim_word\tinformation_flow\tCE\tcitation\tHier\tCitation_Wang\n");
+            out.write("sid\ts_topic\ttid\tt_topic\tsim_doc\tsim_word");
+            out.write("\tinformation_flow\tCE\tcitation\tHier");
+            out.write("\tCitation_Wang\n");
 
             citationgraph mycite = new citationgraph();
             mycite.settopicnum(tnum);
@@ -297,7 +299,9 @@ public class Comparisononalledges {
 
     public static void main(String []args) {
         if (args.length < 1) {
-            System.out.println("Usage [keyfile] [tree file] [topic composition file] [K] [citation file] [flow file] ([topicscorefile] [maxfilewordnum])");
+            System.out.println("Usage [keyfile] [tree file] " +
+                "[topic composition file] [K] [citation file] " +
+                "[flow file] ([topicscorefile] [maxfilewordnum])");
             System.exit(2);
         }
         Comparisononalledges alledge = new Comparisononalledges();

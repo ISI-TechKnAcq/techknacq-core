@@ -17,6 +17,7 @@ import edu.isi.techknacq.topics.util.Pair;
 
 public class Diffset {
     private Set<Pair> coverededges;
+    private Logger logger = Logger.getLogger(Diffset.class);
 
     public Diffset() {
         this.coverededges = new HashSet<Pair>(1000) {};
@@ -39,13 +40,13 @@ public class Diffset {
                 sid = sc.nextInt();
                 sc.next();
                 tid = sc.nextInt();
-                Pair o=new Pair(sid,tid);
+                Pair o = new Pair(sid,tid);
                 this.coverededges.add(o);
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Diffset.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(Diffset.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
@@ -60,7 +61,7 @@ public class Diffset {
             int sid;
             int tid;
             br.readLine();
-            while ((strline=br.readLine()) != null) {
+            while ((strline = br.readLine()) != null) {
                 Scanner sc=new Scanner(strline);
                 sc.useDelimiter("\t");
                 sid = sc.nextInt();
@@ -68,19 +69,19 @@ public class Diffset {
                 tid = sc.nextInt();
                 Pair o = new Pair(sid,tid);
                 Pair o1 = new Pair(tid,sid);
-                if (this.coverededges.contains(o) == false &&
-                    this.coverededges.contains(o1) == false) {
+                if (!this.coverededges.contains(o) &&
+                    !this.coverededges.contains(o1)) {
                     System.out.println(strline);
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(Diffset.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
     public static void main(String []args) {
         Diffset mydiff = new Diffset();
-        mydiff.readCovered("Z:\\Data\\ConceptGraphs\\acl-full\\evaluation-tsv.txt");
+        mydiff.readCovered("evaluation-tsv.txt");
         mydiff.readTopset("topset.tsv");
 
     }
