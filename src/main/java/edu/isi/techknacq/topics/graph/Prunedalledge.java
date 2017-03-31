@@ -17,19 +17,16 @@ import java.util.logging.Logger;
  * @author linhong
  */
 public class Prunedalledge {
-    double [][]CEdoc;
-    double [][]CEword;
-    double [][]IF;
-    double [][]simword;
-    double [][]simdoc;
-    double [][]cite;
-    double [][]hierdoc;
-    double [][]hierword;
-    int topicnum;
-
-    public Prunedalledge() {
-
-    }
+    private double [][]CEdoc;
+    private double [][]CEword;
+    private double [][]IF;
+    private double [][]simword;
+    private double [][]simdoc;
+    private double [][]cite;
+    private double [][]hierdoc;
+    private double [][]hierword;
+    private int topicnum;
+    private Logger logger = Logger.getLogger(Prunedalledge.class);
 
     public void settopicnum(int _tnum) {
         topicnum = _tnum;
@@ -97,9 +94,9 @@ public class Prunedalledge {
                 //this.hierdoc[tid][id] = -hdoc;
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(EdgeEval.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(EdgeEval.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
@@ -133,7 +130,7 @@ public class Prunedalledge {
             }
             out.close();
         } catch (IOException ex) {
-            Logger.getLogger(Prunedalledge.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 

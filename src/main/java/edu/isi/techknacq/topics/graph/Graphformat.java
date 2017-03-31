@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 
 public class Graphformat {
     private ArrayList<String> keyname;
+    private Logger logger = Logger.getLogger(Graphformat.class);
 
     public void readKey(String keyfilename) {
         keyname = new ArrayList<String>(200);
@@ -26,20 +27,21 @@ public class Graphformat {
             DataInputStream in1 = new DataInputStream(fstream1);
             BufferedReader br = new BufferedReader(new InputStreamReader(in1));
             String strline;
-            int index=0;
-            while((strline=br.readLine())!=null) {
-                Scanner sc=new Scanner(strline);
+            int index = 0;
+            while ((strline = br.readLine())!=null) {
+                Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t| ");
                 sc.next();
                 sc.next();
-                index=0;
-                String name="";
+                index = 0;
+                String name = "";
                 String tempword;
-                while(sc.hasNext()&&index<5) {
-                    tempword=sc.next();
-                    if ((!tempword.contains(name)&&!name.contains(tempword))||name.length()<1) {
-                        name+=tempword;
-                        name+="-";
+                while (sc.hasNext() && index < 5) {
+                    tempword = sc.next();
+                    if ((!tempword.contains(name) &&
+                         !name.contains(tempword)) || name.length() < 1) {
+                        name += tempword;
+                        name += "-";
                         index++;
                     }
                 }
@@ -47,7 +49,7 @@ public class Graphformat {
             }
             in1.close();
         } catch (IOException ex) {
-            Logger.getLogger(Graphformat.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
@@ -66,20 +68,20 @@ public class Graphformat {
             FileWriter fstream = null;
             fstream = new FileWriter(outfilename, false);
             out = new BufferedWriter(fstream);
-            out.write("*Vertices "+keyname.size()+"\n");
+            out.write("*Vertices " + keyname.size() + "\n");
             for (int i = 0; i < keyname.size(); i++) {
                 out.write(i+1+" \""+keyname.get(i)+"\"\n");
             }
             out.write("*Edges ");
             int edgenum = 0;
             lineindex = 1;
-            while ((strline=br.readLine())!=null) {
-                Scanner sc=new Scanner(strline);
+            while ((strline = br.readLine()) != null) {
+                Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t| ");
-                columnindex=1;
+                columnindex = 1;
                 while (sc.hasNext()) {
                     weight = sc.nextInt();
-                    if (weight>0&&columnindex>lineindex) {
+                    if (weight > 0 && columnindex > lineindex) {
                         edgenum++;
                     }
                     columnindex++;
@@ -89,7 +91,7 @@ public class Graphformat {
             out.write(edgenum+"\n");
             in1.close();
 
-            //reopen the file to read
+            // Reopen the file to read
             fstream1 = new FileInputStream(matrixfilename);
             // Get the object of DataInputStream
             in1 = new DataInputStream(fstream1);
@@ -99,7 +101,7 @@ public class Graphformat {
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t| ");
                 columnindex = 1;
-                while(sc.hasNext()) {
+                while (sc.hasNext()) {
                     weight = sc.nextInt();
                     if (weight > 0 && columnindex > lineindex) {
                         out.write(lineindex+" "+columnindex+" "+weight+"\n");
@@ -111,15 +113,16 @@ public class Graphformat {
             in1.close();
             out.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Graphformat.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(Graphformat.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
     public static void main(String []args) {
         if (args.length < 1) {
-            System.out.println("Usage: [keyfilename] [matrixfilename] [outputfilename]");
+            System.out.println("Usage: [keyfilename] [matrixfilename] " +
+                               "[outputfilename]");
             System.exit(2);
         }
         Graphformat mygraph = new Graphformat();
@@ -129,7 +132,7 @@ public class Graphformat {
         mygraph.readKey(args[0]);
         mygraph.readMatrix(args[1],args[2]);
         // Graphformat mygraph = new Graphformat();
-        //mygraph.readKey("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\mallet-keys.txt");
-        //mygraph.readMatrix("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\co-occurrence.txt", "C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\Topicmallet12.net");
+        // mygraph.readKey("mallet-keys.txt");
+        // mygraph.readMatrix("co-occurrence.txt", "Topicmallet12.net");
     }
 }
