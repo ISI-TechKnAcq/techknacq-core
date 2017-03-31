@@ -43,17 +43,17 @@ public class Runwordmatrix {
         }
         System.out.println("Finish reading files");
         Wordmodel mymodel = new Wordmodel();
-        mymodel.InitPost(posts);
-        mymodel.Computerwordmodel();
-        mymodel.Savewordmodel("./lib/wordmodel.txt");
-        mymodel.Saveword("./lib/words.txt");
+        mymodel.initPost(posts);
+        mymodel.computeWordModel();
+        mymodel.saveWordModel("./lib/wordmodel.txt");
+        mymodel.saveWord("./lib/words.txt");
         mymodel.SavetopK(30, "./lib/"+prefix+"top.csv");
         String []words = mymodel.Getwords();
         int[]df = mymodel.Getcount();
         System.out.println("Finish computing dictionary");
         Wordmatrix mymatrix = new Wordmatrix();
-        mymatrix.Initwords(words);
-        mymatrix.Initwordfreq(df);
+        mymatrix.initWords(words);
+        mymatrix.initWordFreq(df);
         mymatrix.Initcontent(posts);
         mymatrix.initmatrix("./lib/"+prefix+"wordmatrix.txt",filenames);
         mymodel.clear();

@@ -13,40 +13,44 @@ import edu.isi.techknacq.topics.util.TokenProcessor;
 /**
  *
  * @author linhong
- * Given a corpus, compute the dictionary and word frequency for it using data structure SortedWordPairList
- * 
+ * Given a corpus, compute the dictionary and word frequency for it using
+ * data structure SortedWordPairList
+ *
  */
 public class Wordmodel {
-    ArrayList<String> posts;
-    String []words;
-    int []df;
-    SortedWordPairList mywords;
-    public Wordmodel(){
-        mywords=new SortedWordPairList(10000);
+    private ArrayList<String> posts;
+    private String []words;
+    private int []df;
+    private SortedWordPairList mywords;
+
+    public Wordmodel() {
+        mywords = new SortedWordPairList(10000);
     }
-    public void InitPost(ArrayList<String> inputpost){
-        posts=inputpost;
+
+    public void initPost(ArrayList<String> inputpost) {
+        posts = inputpost;
     }
-    public void Computerwordmodel(){
-         TokenProcessor tp=new TokenProcessor();
+
+    public void computeWordModel() {
+         TokenProcessor tp = new TokenProcessor();
          String word;
          int i;
          int j;
-         for (i=0;i<this.posts.size();i++){
-             if(i%1000==0){
+         for (i = 0; i < this.posts.size(); i++) {
+             if (i % 1000 == 0) {
                  System.out.println(i);
              }
-             Scanner sc=new Scanner(posts.get(i));
-             while(sc.hasNext()){
+             Scanner sc = new Scanner(posts.get(i));
+             while(sc.hasNext()) {
                  word=tp.getTokenString(sc.next());
-                 if(word.length()<=2)
+                 if (word.length()<=2)
                      continue;
                  int length=0;
-                 for(j=0;j<word.length();j++){
-                     if(word.charAt(j)!=' ')
+                 for(j=0;j<word.length();j++) {
+                     if (word.charAt(j)!=' ')
                          length++;
                  }
-                 if(length<=2)
+                 if (length<=2)
                      continue;
                  mywords.add(word);
              }
@@ -56,12 +60,14 @@ public class Wordmodel {
          mywords.Prune(100);
          mywords.MergeSimilarWords();
     }
-    public void Computerwordmodel(ArrayList<String> filenames){
-         TokenProcessor tp=new TokenProcessor();
+
+    public void computeWordModel(ArrayList<String> filenames) {
+         TokenProcessor tp = new TokenProcessor();
          String word;
          int i;
     }
-    public void Savewordmodel(String filename){
+
+    public void saveWordModel(String filename) {
         try {
             BufferedWriter out = null;
             FileWriter fstream = null;
@@ -72,7 +78,8 @@ public class Wordmodel {
             Logger.getLogger(Wordmodel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void Saveword(String filename){
+
+    public void saveWord(String filename) {
         try {
             BufferedWriter out = null;
             FileWriter fstream = null;
@@ -83,13 +90,16 @@ public class Wordmodel {
             Logger.getLogger(Wordmodel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public String []Getwords(){
+
+    public String []Getwords() {
         return mywords.getWords();
     }
-    public int []Getcount(){
+
+    public int []Getcount() {
         return mywords.Getcount();
     }
-    public void SavetopK(int k, String filename){
+
+    public void SavetopK(int k, String filename) {
         try {
             mywords.MergeSimilarWords();
             String []kword=mywords.Gettop(k);
@@ -98,7 +108,7 @@ public class Wordmodel {
             fstream = new FileWriter(filename, false);
             out = new BufferedWriter(fstream);
             out.write("\"name\",\"word\",\"count\"\n");
-            for(int i=0;i<kword.length;i++){
+            for(int i=0;i<kword.length;i++) {
                 out.write("\""+kword[i]+"\",\""+kword[i]+"\","+mywords.getCountOfWord(kword[i])+"\n");
             }
             out.close();
@@ -106,7 +116,8 @@ public class Wordmodel {
             Logger.getLogger(Wordmodel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void clear(){
+
+    public void clear() {
         mywords.clear();
     }
 }

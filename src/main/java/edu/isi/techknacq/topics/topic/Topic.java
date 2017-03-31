@@ -20,15 +20,11 @@ import edu.isi.techknacq.topics.util.StrUtil;
  * @author linhong
  */
 public class Topic {
-    public Topic() {
-
-    }
-
     public void Runtopic(String dirname, int topicnum, int wordnum,
             double alpha, String prefix) {
         try {
             ArrayList<String> filenames=StrUtil.initFolder(dirname);
-            ArrayList<String> posts=new ArrayList<String>(filenames.size());
+            ArrayList<String> posts = new ArrayList<String>(filenames.size());
             Readfile myreader = new Readfile();
             System.out.println(filenames.size());
             for(int i=0;i<filenames.size();i++){
@@ -38,18 +34,18 @@ public class Topic {
                     System.out.println(i);
             }
             System.out.println("finish reading files");
-            Wordmodel mymodel=new Wordmodel();
-            mymodel.InitPost(posts);
-            mymodel.Computerwordmodel();
-            mymodel.Savewordmodel("./lib/wordmodel.txt");
-            mymodel.Saveword("./lib/words.txt");
+            Wordmodel mymodel = new Wordmodel();
+            mymodel.initPost(posts);
+            mymodel.computeWordModel();
+            mymodel.saveWordModel("./lib/wordmodel.txt");
+            mymodel.saveWord("./lib/words.txt");
             mymodel.SavetopK(30, "./lib/"+prefix+"top.csv");
             String []words=mymodel.Getwords();
             int[]df=mymodel.Getcount();
             System.out.println("finish computing dictionary");
-            Wordmatrix mymatrix=new Wordmatrix();
-            mymatrix.Initwords(words);
-            mymatrix.Initwordfreq(df);
+            Wordmatrix mymatrix = new Wordmatrix();
+            mymatrix.initWords(words);
+            mymatrix.initWordFreq(df);
             mymatrix.Initcontent(posts);
             mymatrix.initmatrix("./lib/wordmatrix.txt");
             mymodel.clear();
@@ -63,7 +59,7 @@ public class Topic {
             //String normalized = new URI(command).normalize().getPath();
             System.out.println(command);
             p=Runtime.getRuntime().exec(command);
-            BufferedReader reader=new BufferedReader(new InputStreamReader(p.getInputStream()));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line=reader.readLine();
             while(line!=null)
             {
@@ -75,10 +71,10 @@ public class Topic {
             System.out.println("Estimation Done!");
             command="./lib/lda inf ./lib/inf-settings.txt "
                     + "./lib/output/final ./lib/wordmatrix.txt"+" ./lib/ACL";
-            //normalized=new URI(command).normalize().getPath();
+            //normalized = new URI(command).normalize().getPath();
             System.out.println(command);
             p=Runtime.getRuntime().exec(command);
-            reader=new BufferedReader(new InputStreamReader(p.getInputStream()));
+            reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
             line=reader.readLine();
             while(line!=null){
                 System.out.println(line);
@@ -91,7 +87,7 @@ public class Topic {
             FileWriter fstream = null;
             fstream = new FileWriter("./lib/"+prefix+"document2topic.txt", false);
             out = new BufferedWriter(fstream);
-            Readresults myRreader=new Readresults();
+            Readresults myRreader = new Readresults();
             myRreader.readD2topic("./lib/output/final.gamma", filenames, out);
             if(out!=null)
                 out.close();
@@ -100,7 +96,7 @@ public class Topic {
             p=Runtime.getRuntime().exec(command);
             fstream = new FileWriter("./lib/"+prefix+"topic.txt", false);
             out = new BufferedWriter(fstream);
-            reader=new BufferedReader(new InputStreamReader(p.getInputStream()));
+            reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
             line=reader.readLine();
             while(line!=null)
             {
