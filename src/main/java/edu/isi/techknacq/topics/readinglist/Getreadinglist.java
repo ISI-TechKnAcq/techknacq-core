@@ -50,9 +50,9 @@ public class Getreadinglist {
             ReadDocumentkey rdk = new ReadDocumentkey(args[4]);
             rdk.readFile();
             //rdk: read the title and author information of each
-            ReadGraph myreader=new ReadGraph(args[3]);
-            Node []G=myreader.Getgraph();
-            Conceptdepth Dependency=new Conceptdepth();
+            ReadGraph myreader = new ReadGraph(args[3]);
+            Node []G = myreader.getGraph();
+            Conceptdepth Dependency = new Conceptdepth();
             Dependency.initGraph(G);
             Dependency.initTopics(topics);
             fstream = new FileWriter(args[0]+"_readinglist.txt",false);

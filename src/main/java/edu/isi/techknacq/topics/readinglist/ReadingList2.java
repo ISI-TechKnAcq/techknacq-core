@@ -172,8 +172,8 @@ public class ReadingList2 {
             FileWriter fstream = new FileWriter(keyword+"_readinglist.html",false);
             BufferedWriter out = new BufferedWriter(fstream);
             ReadGraph myreader = new ReadGraph(graphfile);
-            Node []G=myreader.Getgraph();
-            this.ordertopic = myreader.Ordernode();
+            Node []G = myreader.getGraph();
+            this.ordertopic = myreader.orderNode();
             Conceptdepth Dependency = new Conceptdepth();
             Dependency.initGraph(G);
             Dependency.initTopics(this.topickeys);

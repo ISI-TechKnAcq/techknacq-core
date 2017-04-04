@@ -14,13 +14,12 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.isi.techknacq.topics.readinglist.Concept2doc;
-
 public class ReadflowNetwork {
     private ArrayList<String> keynames;
     // Help find the topic index with a hashmap structure
     private HashMap<String,Integer> keysearch;
     private double []keyvalues;
+    private Logger logger = Logger.getLogger(ReadflowNetwork.class);
 
     public void readKey(String filename) {
         try {
@@ -45,7 +44,7 @@ public class ReadflowNetwork {
                 while (sc.hasNext() && index < 20) {
                     tempword = sc.next();
                     if ((!tempword.contains(name) && !name.contains(tempword))
-                        ||name.length() < 1) {
+                        || name.length() < 1) {
                         name += tempword;
                         name += "-";
                         index++;
@@ -57,20 +56,20 @@ public class ReadflowNetwork {
             }
             in1.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ReadflowNetwork.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(ReadflowNetwork.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
-    public int Findtopicindex(String str) {
-        if (this.keysearch.containsKey(str) == true)
+    public int findTopicIndex(String str) {
+        if (this.keysearch.containsKey(str))
             return this.keysearch.get(str);
         else
             return -1;
     }
 
-    public void Readnodeflow(String filename) {
+    public void readNodeFlow(String filename) {
         try {
             this.keyvalues=new double[keynames.size()];
             FileInputStream fstream1 = null;
@@ -88,16 +87,16 @@ public class ReadflowNetwork {
                 sc.next();
                 score = Double.parseDouble(sc.next());
                 topicname = sc.next();
-                index = this.Findtopicindex(topicname);
+                index = this.findTopicIndex(topicname);
                 if (index != -1)
                     this.keyvalues[index] = score;
             }
         } catch (IOException ex) {
-            Logger.getLogger(ReadflowNetwork.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
-    public double [] Readflowscore(String filename) {
+    public double [] readFlowScore(String filename) {
         try {
             this.keyvalues = new double[keynames.size()];
             FileInputStream fstream1 = null;
@@ -116,17 +115,17 @@ public class ReadflowNetwork {
                 sc.next();
                 score = Double.parseDouble(sc.next());
                 topicname = sc.next();
-                index = this.Findtopicindex(topicname);
+                index = this.findTopicIndex(topicname);
                 if (index != -1)
                     this.keyvalues[index] = score;
             }
         } catch (IOException ex) {
-            Logger.getLogger(ReadflowNetwork.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
         return keyvalues;
     }
 
-    public void Readflowtomatrix(String filename, double[][]matrices){
+    public void readFlowToMatrix(String filename, double[][]matrices){
         try {
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -141,7 +140,7 @@ public class ReadflowNetwork {
             int index2;
             int index3;
             while ((strline = br.readLine()) != null) {
-                if (Character.isDigit(strline.charAt(0)) == true) {
+                if (Character.isDigit(strline.charAt(0))) {
                     Scanner sc = new Scanner(strline);
                     src = sc.nextInt();
                 } else {
@@ -149,7 +148,8 @@ public class ReadflowNetwork {
                     if (index1 >= 0) {
                         index2 = strline.indexOf("(");
                         index3 = strline.indexOf(")");
-                        target = Integer.parseInt(strline.substring(index1+4, index2-1));
+                        target = Integer.parseInt(strline.substring(index1+4,
+                                                                    index2-1));
                         value = strline.substring(index2+1, index3);
                         double v = Double.parseDouble(value);
                         if (v < 1.933e-005)
@@ -159,11 +159,11 @@ public class ReadflowNetwork {
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(ReadflowNetwork.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
-    public void ReadflowGraph(String filename, String outfilename) {
+    public void readFlowGraph(String filename, String outfilename) {
         try {
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -176,7 +176,8 @@ public class ReadflowNetwork {
             String value;
             FileWriter fstream = new FileWriter(outfilename, false);
             BufferedWriter out = new BufferedWriter(fstream);
-            out.write("source_id\tsource_topic\ttarget_id\ttarget_topic\tedge_weight\n");
+            out.write("source_id\tsource_topic\ttarget_id\t" +
+                      "target_topic\tedge_weight\n");
             FileWriter fstream2 = new FileWriter("digraph.txt", false);
             BufferedWriter out2 = new BufferedWriter(fstream2);
             // out2.write(keynames.size() + "\n");
@@ -195,7 +196,8 @@ public class ReadflowNetwork {
                     if (index1 >= 0){
                         index2 = strline.indexOf("(");
                         index3 = strline.indexOf(")");
-                        target = Integer.parseInt(strline.substring(index1+4, index2-1));
+                        target = Integer.parseInt(strline.substring(index1+4,
+                                                                    index2-1));
                         value = strline.substring(index2+1, index3);
                         System.out.println(src+"\t"+target+"\t"+value);
                         double v = Double.parseDouble(value);
@@ -216,12 +218,12 @@ public class ReadflowNetwork {
                                        "\n");
                         }
                     }
-//                    else{
-//                        index1=strline.indexOf("<--");
-//                        index2=strline.indexOf("(");
-//                        index3=strline.indexOf(")");
-//                        target=Integer.parseInt(strline.substring(index1+4, index2-1));
-//                        value=strline.substring(index2+1, index3);
+//                    else {
+//                        index1 = strline.indexOf("<--");
+//                        index2 = strline.indexOf("(");
+//                        index3 = strline.indexOf(")");
+//                        target = Integer.parseInt(strline.substring(index1+4, index2-1));
+//                        value = strline.substring(index2+1, index3);
 //                        out.write(keynames.get(target)+"\t"+keynames.get(src)+"\t"+value+"\n");
 //                    }
                 }
@@ -229,22 +231,23 @@ public class ReadflowNetwork {
             out.close();
             out2.close();
         } catch (IOException ex) {
-            Logger.getLogger(ReadflowNetwork.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
     public static void main(String []args) {
         if (args.length < 1) {
-            System.out.println("Usage: [keyfilename] [treefilename] [flowfilename] [outputfilename]");
+            System.out.println("Usage: [keyfilename] [treefilename] " +
+                               "[flowfilename] [outputfilename]");
             System.exit(2);
         }
         ReadflowNetwork myreader = new ReadflowNetwork();
         myreader.readKey(args[0]);
-        myreader.Readnodeflow(args[1]);
-        myreader.ReadflowGraph(args[2], args[3]);
+        myreader.readNodeFlow(args[1]);
+        myreader.readFlowGraph(args[2], args[3]);
         //ReadflowNetwork myreader=new ReadflowNetwork();
         //myreader.readKey("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\mallet-keys.txt");
-        //myreader.Readnodeflow("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\Topicmallet12.tree");
-        //myreader.ReadflowGraph("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\Topicmallet12.flow", "C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\Topicmallet12flow.txt");
+        //myreader.readNodeFlow("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\Topicmallet12.tree");
+        //myreader.readFlowGraph("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\Topicmallet12.flow", "C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\Topicmallet12flow.txt");
     }
 }

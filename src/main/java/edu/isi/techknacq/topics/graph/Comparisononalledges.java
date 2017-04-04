@@ -308,8 +308,8 @@ public class Comparisononalledges {
         alledge.readKey(args[0]);
         ReadflowNetwork myreader = new ReadflowNetwork();
         myreader.readKey(args[0]);
-        alledge.flowscores = myreader.Readflowscore(args[1]);
-        myreader.Readflowtomatrix(args[5], alledge.flowmatrics);
+        alledge.flowscores = myreader.readFlowScore(args[1]);
+        myreader.readFlowToMatrix(args[5], alledge.flowmatrics);
 
         if (args.length > 6)
             alledge.readTopicScore(args[6]);

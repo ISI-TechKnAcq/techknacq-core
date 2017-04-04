@@ -363,26 +363,27 @@ public class NewReadingList {
         docstring+="]";
         return docstring;
     }
+
     public void Run(String keyword, String graphfile, int maxtopic, int dnum) {
         try {
             FileWriter fstream = new FileWriter(keyword+"_readinglist.json",false);
             BufferedWriter out=new BufferedWriter(fstream);
             ReadGraph myreader=new ReadGraph(graphfile);
-            Node []G=myreader.Getgraph();
-            this.ordertopic=myreader.Ordernode();
-            Conceptdepth Dependency=new Conceptdepth();
+            Node []G = myreader.getGraph();
+            this.ordertopic = myreader.orderNode();
+            Conceptdepth Dependency = new Conceptdepth();
             Dependency.initGraph(G);
             Dependency.initTopics(this.topickeys);
             boolean []isvisit = new boolean[this.docfiles.size()];
             for (int i=0;i<isvisit.length;i++) {
-                isvisit[i]=false;
+                isvisit[i] = false;
             }
             /*
-              Get matched topic and dependent topics
-            */
-            //Get matched topic (start)
+             * Get matched topic and dependent topics
+             */
+            // Get matched topic (start)
             hittopic=match1.Getmatch(keyword);
-            //Get matched topid (end)
+            // Get matched topid (end)
             char []istopicvisit=new char[this.topickeys.size()];
             Arrays.fill(istopicvisit, 'v');
             List mylist=new ArrayList<Weightpair>(100);

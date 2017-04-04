@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * @author linhong
  */
 public class Prunedalledge {
-    private double [][]CEdoc;
+    //private double [][]CEdoc;
     private double [][]CEword;
     private double [][]IF;
     private double [][]simword;
@@ -30,7 +30,7 @@ public class Prunedalledge {
 
     public void settopicnum(int _tnum) {
         topicnum = _tnum;
-        this.CEdoc = new double[topicnum][topicnum];
+        //this.CEdoc = new double[topicnum][topicnum];
         this.IF = new double[topicnum][topicnum];
         this.simword = new double[topicnum][topicnum];
         this.simdoc = new double[topicnum][topicnum];
@@ -40,7 +40,7 @@ public class Prunedalledge {
         this.cite = new double[topicnum][topicnum];
     }
 
-    public void Readscores(String filename) {
+    public void readScores(String filename) {
         try {
             FileInputStream fstream1;
             fstream1 = new FileInputStream(filename);
@@ -80,7 +80,7 @@ public class Prunedalledge {
                 CEword[tid][id] = -ceword;
                 if (ifscore > 0.0) {
                     this.IF[id][tid] = ifscore;
-                    this.IF[tid][id] = (0.0 - ifscore);
+                    this.IF[tid][id] = 0.0 - ifscore;
                 }
                 this.simword[id][tid] = simwordscore;
                 this.simword[tid][id] = simwordscore;
@@ -100,7 +100,7 @@ public class Prunedalledge {
         }
     }
 
-    public void Outputgraph(String outfile, double thres, int type) {
+    public void outputGraph(String outfile, double thres, int type) {
         try {
             FileWriter fstream = new FileWriter(outfile, false);
             BufferedWriter out = new BufferedWriter(fstream);
@@ -137,9 +137,9 @@ public class Prunedalledge {
     public static void main(String []args) {
         Prunedalledge myprune = new Prunedalledge();
         myprune.settopicnum(300);
-        myprune.Readscores("alledge.tsv");
+        myprune.readScores("alledge.tsv");
         //0.0001 for CE
         //0.000001 for IF
-        myprune.Outputgraph("Conceptgraph_Hier-2016-01-18.txt", 0.00000001, 4);
+        myprune.outputGraph("Conceptgraph_Hier-2016-01-18.txt", 0.00000001, 4);
     }
 }
