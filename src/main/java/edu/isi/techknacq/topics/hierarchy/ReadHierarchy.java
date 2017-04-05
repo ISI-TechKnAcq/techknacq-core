@@ -74,24 +74,25 @@ public class ReadHierarchy {
             return;
         this.clusterinwords[sid-topicnum-1] = new ArrayList<Indexpair>(50);
         double sum = 0;
-        for (int i=0;i<temp.length;i++) {
-            sum+=temp[i];
+        for (int i = 0; i < temp.length; i++) {
+            sum += temp[i];
         }
         l.clear();
-        for (int i=0;i<temp.length;i++) {
+        for (int i = 0; i < temp.length; i++) {
             if (temp[i]>0)
                 l.add(new Weightpair(temp[i]/sum,i));
         }
         Collections.sort(l);
-        for (int i=0;(i<l.size()&&i<k);i++) {
+        for (int i = 0; i < l.size() && i < k; i++) {
             Weightpair o = (Weightpair)l.get(i);
-            clusterinwords[sid-topicnum-1].add(new Indexpair(o.getindex(),o.getweight()));
+            clusterinwords[sid-topicnum-1].add(new Indexpair(o.getindex(),
+                                                             o.getweight()));
         }
     }
 
-    public void Generateclustername(String filename, int topicnum) {
+    public void generateClusterName(String filename, int topicnum) {
         try {
-            //FileWriter fstream = new FileWriter("hierarchylink.net",false);
+            //FileWriter fstream = new FileWriter("hierarchylink.net", false);
             // BufferedWriter out = new BufferedWriter(fstream);
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -99,25 +100,25 @@ public class ReadHierarchy {
             DataInputStream in1 = new DataInputStream(fstream1);
             BufferedReader br = new BufferedReader(new InputStreamReader(in1));
             String strline;
-            int linenum=1;
+            int linenum = 1;
             int sid;
             int tid;
             int supernodeid;
-            maxnode=0;
+            maxnode = 0;
             clusterinwords = new ArrayList[topicnum];
             double []temp = new double[this.wordlist.size()+1];
-            while ((strline=br.readLine())!=null) {
+            while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t");
                 sid=sc.nextInt();
                 tid=sc.nextInt();
                 supernodeid=linenum+topicnum;
-                if (supernodeid>maxnode)
-                    maxnode=supernodeid;
-                if (sid>maxnode)
-                    maxnode=sid;
-                if (tid>maxnode)
-                    maxnode=tid;
+                if (supernodeid > maxnode)
+                    maxnode = supernodeid;
+                if (sid > maxnode)
+                    maxnode = sid;
+                if (tid > maxnode)
+                    maxnode = tid;
                 Arrays.fill(temp,0.0);
                 this.updateWordName(temp, sid, topicnum);
                 this.updateWordName(temp, tid, topicnum);
@@ -132,26 +133,26 @@ public class ReadHierarchy {
     }
 
     public void Print(List l, BufferedWriter out, int k) {
-        for (int i=0;(i<l.size()&&i<k);i++) {
+        for (int i = 0; i < l.size() && i < k; i++) {
             try {
-                Indexpair o=(Indexpair)l.get(i);
-                out.write(this.wordlist.get(o.getindex())+" ");
-                out.write(o.getweight()+" ");
+                Indexpair o = (Indexpair)l.get(i);
+                out.write(this.wordlist.get(o.getindex()) + " ");
+                out.write(o.getweight() + " ");
             } catch (IOException ex) {
                 logger.log(Level.SEVERE, null, ex);
             }
         }
     }
 
-    public void ReadandWritefile(String filename, int topicnum) {
+    public void readAndWriteFile(String filename, int topicnum) {
         try {
             FileWriter fstream = null;
             fstream = new FileWriter("hierarchylink200cosine1key.txt",false);
             BufferedWriter out = new BufferedWriter(fstream);
-            out.write("*Vertices "+maxnode+"\n");
-            for (int i=1;i<=maxnode;i++) {
-                out.write(i+" \"");
-                if (i<=topicnum) {
+            out.write("*Vertices " + maxnode + "\n");
+            for (int i = 1; i <= maxnode; i++) {
+                out.write(i + " \"");
+                if (i <= topicnum) {
                     Print(topicinwords[i-1],out,30);
                 } else {
                     Print(clusterinwords[i-topicnum-1],out,30);
@@ -169,14 +170,14 @@ public class ReadHierarchy {
             int sid;
             int tid;
             int supernodeid;
-            while ((strline=br.readLine())!=null) {
+            while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t");
                 sid = sc.nextInt();
                 tid = sc.nextInt();
-                supernodeid = linenum+topicnum;
-                out.write(sid+"\t"+supernodeid+"\n");
-                out.write(tid+"\t"+supernodeid+"\n");
+                supernodeid = linenum + topicnum;
+                out.write(sid + "\t" + supernodeid + "\n");
+                out.write(tid + "\t" + supernodeid + "\n");
                 linenum++;
             }
             out.close();
@@ -192,7 +193,7 @@ public class ReadHierarchy {
         ReadHierarchy hiereader = new ReadHierarchy();
         hiereader.init(myreader.getKeyNames(), myreader.getConceptInWord(),
                        myreader.getWordList());
-        hiereader.Generateclustername("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\hierarchytree-wordcosine.txt", 200);
-        hiereader.ReadandWritefile("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\hierarchytree-wordcosine.txt", 200);
+        hiereader.generateClusterName("hierarchytree-wordcosine.txt", 200);
+        hiereader.readAndWriteFile("hierarchytree-wordcosine.txt", 200);
     }
 }

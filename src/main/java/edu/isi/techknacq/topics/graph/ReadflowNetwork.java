@@ -188,7 +188,7 @@ public class ReadflowNetwork {
             int index2;
             int index3;
             while ((strline = br.readLine()) != null) {
-                if (Character.isDigit(strline.charAt(0)) == true) {
+                if (Character.isDigit(strline.charAt(0))) {
                     Scanner sc = new Scanner(strline);
                     src = sc.nextInt();
                 } else {
@@ -218,14 +218,16 @@ public class ReadflowNetwork {
                                        "\n");
                         }
                     }
-//                    else {
-//                        index1 = strline.indexOf("<--");
-//                        index2 = strline.indexOf("(");
-//                        index3 = strline.indexOf(")");
-//                        target = Integer.parseInt(strline.substring(index1+4, index2-1));
-//                        value = strline.substring(index2+1, index3);
-//                        out.write(keynames.get(target)+"\t"+keynames.get(src)+"\t"+value+"\n");
-//                    }
+                    // else {
+                    //     index1 = strline.indexOf("<--");
+                    //     index2 = strline.indexOf("(");
+                    //     index3 = strline.indexOf(")");
+                    //     target = Integer.parseInt(strline.substring(index1+4,
+                    //                               index2-1));
+                    //     value = strline.substring(index2+1, index3);
+                    //     out.write(keynames.get(target) + "\t" +
+                    //               keynames.get(src)+"\t"+value+"\n");
+                    // }
                 }
             }
             out.close();
@@ -245,9 +247,9 @@ public class ReadflowNetwork {
         myreader.readKey(args[0]);
         myreader.readNodeFlow(args[1]);
         myreader.readFlowGraph(args[2], args[3]);
-        //ReadflowNetwork myreader=new ReadflowNetwork();
-        //myreader.readKey("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\mallet-keys.txt");
-        //myreader.readNodeFlow("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\Topicmallet12.tree");
-        //myreader.readFlowGraph("C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\Topicmallet12.flow", "C:\\Users\\linhong\\Documents\\linhong-work\\Industry_project\\TechKnacq\\Topicmallet12flow.txt");
+        // ReadflowNetwork myreader = new ReadflowNetwork();
+        // myreader.readKey("mallet-keys.txt");
+        // myreader.readNodeFlow("Topicmallet12.tree");
+        // myreader.readFlowGraph("Topicmallet12flow.txt");
     }
 }

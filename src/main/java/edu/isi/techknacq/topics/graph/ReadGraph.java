@@ -50,8 +50,11 @@ public class ReadGraph {
                         while (sc.hasNext()) {
                             String neighstr = sc.next();
                             index = neighstr.indexOf(",");
-                            int neigh = Integer.parseInt(neighstr.substring(0,index));
-                            double weight = Double.parseDouble(neighstr.substring(index+1,neighstr.length()));
+                            String ns = neighstr.substring(0, index);
+                            String ws = neighstr.substring(index + 1,
+                                                           neighstr.length());
+                            int neigh = Integer.parseInt(ns));
+                            double weight = Double.parseDouble(ws);
                             G[v].addNeighbor(neigh, weight);
                         }
                     } else {

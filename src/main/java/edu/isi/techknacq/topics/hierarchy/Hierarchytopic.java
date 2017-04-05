@@ -37,15 +37,15 @@ public class Hierarchytopic {
 
     public void init(ArrayList<String> inputkey, List [] inputtopicword,
                      ArrayList<String> inputwordlist) {
-        this.keynames=inputkey;
-        this.topicinwords=inputtopicword;
-        this.wordlist=inputwordlist;
+        this.keynames = inputkey;
+        this.topicinwords = inputtopicword;
+        this.wordlist = inputwordlist;
     }
 
     public void readClusters(String filename, int clusternum) {
         topiccluster = new ArrayList<Integer>(50);
         cluster2topic = new ArrayList[clusternum];
-        for (int i=0;i<clusternum;i++) {
+        for (int i = 0; i < clusternum; i++) {
             cluster2topic[i] = new ArrayList<Integer>(10);
         }
         try {
@@ -84,18 +84,18 @@ public class Hierarchytopic {
             String src;
             String tar;
             int nodenum = 0;
-            //int line=0;
+            //int line = 0;
             this.clustername = new HashMap<String,Integer>(100);
-            while ((strline=br.readLine())!=null) {
+            while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t");
-                src=sc.next();
-                tar=sc.next();
-                if(this.clustername.containsKey(src)==false) {
+                src = sc.next();
+                tar = sc.next();
+                if (!this.clustername.containsKey(src)) {
                     this.clustername.put(src, nodenum);
                     nodenum++;
                 }
-                if(this.clustername.containsKey(tar)==false) {
+                if (!this.clustername.containsKey(tar)) {
                     this.clustername.put(tar, nodenum);
                     nodenum++;
                 }
@@ -109,7 +109,7 @@ public class Hierarchytopic {
         }
     }
 
-    public String Gettopkword(int k, double []temp) {
+    public String getTopKWord(int k, double []temp) {
         double sum = 0;
         for (int i = 0; i < temp.length; i++) {
             sum += temp[i];
@@ -121,7 +121,7 @@ public class Hierarchytopic {
         Collections.sort(l);
         String res = "";
         for (int i = 0; i < k; i++) {
-            Weightpair o=(Weightpair)l.get(i);
+            Weightpair o = (Weightpair)l.get(i);
             res += wordlist.get(o.getindex());
             res += "\t";
             res += o.getweight();
@@ -138,7 +138,7 @@ public class Hierarchytopic {
             Map.Entry pairs = (Map.Entry)it.next();
             String cluster = (String)pairs.getKey();
             Integer index = (Integer)pairs.getValue();
-            if(cluster.compareToIgnoreCase("all")==0) {
+            if (cluster.compareToIgnoreCase("all") == 0) {
                 Arrays.fill(temp, 0.0);
                 for (int i=0;i<topicinwords.length;i++) {
                     for (int j=0;j<topicinwords[i].size();j++) {
@@ -146,8 +146,8 @@ public class Hierarchytopic {
                         temp[o.getindex()]+=o.getweight();
                     }
                 }
-                clustertopicname[index] = this.Gettopkword(30, temp);
-            }else{
+                clustertopicname[index] = this.getTopKWord(30, temp);
+            } else {
                 Scanner sc = new Scanner (cluster);
                 sc.useDelimiter(",");
                 Arrays.fill(temp, 0.0);
@@ -156,12 +156,12 @@ public class Hierarchytopic {
                     for (int i = 0; i < cluster2topic[cid-1].size(); i++) {
                         int t = cluster2topic[cid-1].get(i);
                         for (int j = 0; j < topicinwords[t].size(); j++) {
-                             Indexpair o = (Indexpair)topicinwords[t].get(j);
-                             temp[o.getindex()] += o.getweight();
+                            Indexpair o = (Indexpair)topicinwords[t].get(j);
+                            temp[o.getindex()] += o.getweight();
                         }
                     }
                 }
-                clustertopicname[index] = this.Gettopkword(30, temp);
+                clustertopicname[index] = this.getTopKWord(30, temp);
             }
         }
     }

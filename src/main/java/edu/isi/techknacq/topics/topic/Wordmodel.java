@@ -22,6 +22,7 @@ public class Wordmodel {
     private String []words;
     private int []df;
     private SortedWordPairList mywords;
+    private Logger logger = Logger.getLogger(Wordmodel.class);
 
     public Wordmodel() {
         mywords = new SortedWordPairList(10000);
@@ -32,39 +33,39 @@ public class Wordmodel {
     }
 
     public void computeWordModel() {
-         TokenProcessor tp = new TokenProcessor();
-         String word;
-         int i;
-         int j;
-         for (i = 0; i < this.posts.size(); i++) {
-             if (i % 1000 == 0) {
-                 System.out.println(i);
-             }
-             Scanner sc = new Scanner(posts.get(i));
-             while(sc.hasNext()) {
-                 word=tp.getTokenString(sc.next());
-                 if (word.length()<=2)
-                     continue;
-                 int length=0;
-                 for(j=0;j<word.length();j++) {
-                     if (word.charAt(j)!=' ')
-                         length++;
-                 }
-                 if (length<=2)
-                     continue;
-                 mywords.add(word);
-             }
-             sc.close();
-         }
-         mywords.RemoveStopWord();
-         mywords.Prune(100);
-         mywords.MergeSimilarWords();
+        TokenProcessor tp = new TokenProcessor();
+        String word;
+        int i;
+        int j;
+        for (i = 0; i < this.posts.size(); i++) {
+            if (i % 1000 == 0) {
+                System.out.println(i);
+            }
+            Scanner sc = new Scanner(posts.get(i));
+            while(sc.hasNext()) {
+                word = tp.getTokenString(sc.next());
+                if (word.length()<=2)
+                    continue;
+                int length=0;
+                for (j = 0; j < word.length(); j++) {
+                    if (word.charAt(j) != ' ')
+                        length++;
+                }
+                if (length <= 2)
+                    continue;
+                mywords.add(word);
+            }
+            sc.close();
+        }
+        mywords.RemoveStopWord();
+        mywords.Prune(100);
+        mywords.MergeSimilarWords();
     }
 
     public void computeWordModel(ArrayList<String> filenames) {
-         TokenProcessor tp = new TokenProcessor();
-         String word;
-         int i;
+        TokenProcessor tp = new TokenProcessor();
+        String word;
+        int i;
     }
 
     public void saveWordModel(String filename) {
@@ -75,7 +76,7 @@ public class Wordmodel {
             out = new BufferedWriter(fstream);
             mywords.Print(out);
         } catch (IOException ex) {
-            Logger.getLogger(Wordmodel.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
@@ -87,7 +88,7 @@ public class Wordmodel {
             out = new BufferedWriter(fstream);
             mywords.Printwords(out);
         } catch (IOException ex) {
-            Logger.getLogger(Wordmodel.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
@@ -102,18 +103,19 @@ public class Wordmodel {
     public void SavetopK(int k, String filename) {
         try {
             mywords.MergeSimilarWords();
-            String []kword=mywords.Gettop(k);
+            String []kword = mywords.Gettop(k);
             BufferedWriter out = null;
             FileWriter fstream = null;
             fstream = new FileWriter(filename, false);
             out = new BufferedWriter(fstream);
             out.write("\"name\",\"word\",\"count\"\n");
-            for(int i=0;i<kword.length;i++) {
-                out.write("\""+kword[i]+"\",\""+kword[i]+"\","+mywords.getCountOfWord(kword[i])+"\n");
+            for (int i = 0; i < kword.length; i++) {
+                out.write("\"" + kword[i] + "\",\"" + kword[i] + "\"," +
+                          mywords.getCountOfWord(kword[i]) + "\n");
             }
             out.close();
         } catch (IOException ex) {
-            Logger.getLogger(Wordmodel.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
