@@ -25,7 +25,7 @@ public class BaselineReadingList {
     private List<String> topickeys;
     private Logger logger = Logger.getLogger(BaselineReadingList.class);
 
-    public void ReadPageRankscore(String filename) {
+    public void readPageRankScore(String filename) {
         try {
             this.paperpagerank = new HashMap<String,Double>(this.topickeys.size());
             FileInputStream fstream1 = null;
@@ -34,21 +34,21 @@ public class BaselineReadingList {
             DataInputStream in1 = new DataInputStream(fstream1);
             BufferedReader br = new BufferedReader(new InputStreamReader(in1));
             String strline;
-            br.readLine(); //skip node vertices line
-            br.readLine(); //skip column name line
+            br.readLine(); // Skip node vertices line
+            br.readLine(); // Skip column name line
             String keyname;
             double value;
             String sr;
-            while((strline=br.readLine())!=null) {
+            while((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t| ");
-                sr=sc.next();
-                if (sr.contains("*Edge")||sr.contains("*Arc"))
+                sr = sc.next();
+                if (sr.contains("*Edge") || sr.contains("*Arc"))
                     break;
-                keyname=sc.next();
-                keyname=keyname.substring(1, keyname.length()-1);
-                value=sc.nextDouble();
-                if (this.paperpagerank.containsKey(keyname) == false) {
+                keyname = sc.next();
+                keyname = keyname.substring(1, keyname.length()-1);
+                value = sc.nextDouble();
+                if (!this.paperpagerank.containsKey(keyname)) {
                     this.paperpagerank.put(keyname, value);
                 }
             }
@@ -60,7 +60,7 @@ public class BaselineReadingList {
         }
     }
 
-    public String Printdocname(String metadata, String did) {
+    public String printDocName(String metadata, String did) {
         String name;
         int index1 = metadata.indexOf("author:");
         int index2 = metadata.indexOf("title:");
@@ -74,7 +74,9 @@ public class BaselineReadingList {
             title = metadata.substring(index2+7, metadata.length());
         } else
             title = null;
-        name = author+": " + "<a href=\"http://www.aclweb.org/anthology/" + did.charAt(0) + "/" +did.substring(0, 3) + "/" + did + ".pdf\">" +title+ "</a>";
+        name = author + ": " + "<a href=\"http://www.aclweb.org/anthology/" +
+            did.charAt(0) + "/" + did.substring(0, 3) + "/" + did + ".pdf\">" +
+            title + "</a>";
         name = name.replace(" A ", " a ");
         name = name.replace(" Of ", " of ");
         name = name.replace(" As ", " as ");
@@ -101,7 +103,7 @@ public class BaselineReadingList {
             Concept2doc doc = new Concept2doc();
             doc.Initnum(this.topickeys.size());
             doc.GettopK(K*4, doc2conceptfilename);
-            //doc.Prune();
+            // doc.Prune();
             List<String> docnames=doc.Getdocname();
             List<Weightpair> mylist = new ArrayList<Weightpair>(100);
             double value;
@@ -109,18 +111,18 @@ public class BaselineReadingList {
             for (int i = 0; i < isvisit.length; i++) {
                 isvisit[i] = false;
             }
-            this.ReadPageRankscore(pagerankfile);
+            this.readPageRankScore(pagerankfile);
             for (Integer hittopic1 : hittopic) {
                 int tindex = hittopic1;
                 ArrayList<Integer> mydocs = doc.Getdocs(tindex);
                 for (Integer mydoc : mydocs) {
                     int Did = mydoc;
-                    if (isvisit[Did] == false)
+                    if (!isvisit[Did])
                         isvisit[Did] = true;
                     else
                         continue;
-                    String dockey=docnames.get(Did);
-                    if (this.paperpagerank.containsKey(dockey) == true)
+                    String dockey = docnames.get(Did);
+                    if (this.paperpagerank.containsKey(dockey))
                         value = this.paperpagerank.get(dockey);
                     else
                         value = -1;
@@ -132,7 +134,7 @@ public class BaselineReadingList {
             ReadDocumentkey rdk = new ReadDocumentkey(docfile);
             rdk.readFile();
             FileWriter fstream = null;
-            fstream = new FileWriter("BaselineReadingList_"+keyword+".html",
+            fstream = new FileWriter("BaselineReadingList_" + keyword + ".html",
                                      false);
             BufferedWriter out = new BufferedWriter(fstream);
             out.write("<html>\n" +
@@ -188,13 +190,13 @@ public class BaselineReadingList {
 "</style>\n" +
 "</head>\n" +
 "<body>\n" +
-"<h1>Reading List for "+keyword+" </h1>");
+"<h1>Reading List for " + keyword + " </h1>");
             for (int i = 0; i < K; i++) {
                 Weightpair o = (Weightpair)mylist.get(i);
                 int Did = o.getindex();
                 String id = docnames.get(Did);
                 String strval = rdk.Getdocumentkey(id);
-                String name = this.Printdocname(strval, id);
+                String name = this.printDocName(strval, id);
                 out.write("<li>"+name+"</li>");
             }
             out.write("</form>\n" +
@@ -209,15 +211,21 @@ public class BaselineReadingList {
 
     public static void main(String []args) {
         if (args.length < 1) {
-            System.err.println("Usage: [keyword][k] [topic-key-file] [doc-topic-composition] [document-meta-file] [page-rank-score]");
+            System.err.println("Usage: [keyword][k] [topic-key-file] " +
+                               "[doc-topic-composition] [document-meta-file] " +
+                               "[page-rank-score]");
             System.exit(2);
         }
         BaselineReadingList myreader = new BaselineReadingList();
         myreader.run(args[2], Integer.parseInt(args[1]), args[4], args[5],
                      args[0], args[3]);
-        //String keyname, int K, String docfile, String pagerankfile, String keyword, String doc2conceptfilename
-       // myreader.run("./old topic/mallet-weighted-key.txt", 10, "acl-meta.json", "Paperpagerank.txt", args[0], "./old topic/concept2doc.txt");
-        //myreader.run("mallet-21185-weightedkey.txt", 10, "acl-meta.json", "Paperpagerank.txt", args[0], "mallet-comp.txt");
+        // String keyname, int K, String docfile, String pagerankfile,
+        // String keyword, String doc2conceptfilename
+        // myreader.run("./old topic/mallet-weighted-key.txt", 10,
+        //              "acl-meta.json", "Paperpagerank.txt", args[0],
+        //              "./old topic/concept2doc.txt");
+        // myreader.run("mallet-21185-weightedkey.txt", 10, "acl-meta.json",
+        //              "Paperpagerank.txt", args[0], "mallet-comp.txt");
     }
 
 }

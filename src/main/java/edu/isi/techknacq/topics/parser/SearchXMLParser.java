@@ -17,7 +17,7 @@ import edu.isi.techknacq.topics.util.StrUtil;
 
 
 public class SearchXMLParser {
-    protected static DocumentBuilderFactory dbFactory;
+    protected DocumentBuilderFactory dbFactory;
 
     protected static final int MAX_NUM_HITS = 50;
 
@@ -25,21 +25,22 @@ public class SearchXMLParser {
         try {
             dbFactory = DocumentBuilderFactory.newInstance();
 
-            //docBuilder.setEntityResolver(new FvEntityResolver());
-            //htmlParser= new HTMLParser();
+            // docBuilder.setEntityResolver(new FvEntityResolver());
+            // htmlParser= new HTMLParser();
         } catch(Exception e) {
             e.printStackTrace();
         }
     }
 
-    protected Document createDomObject(File XmlFile){
+    protected Document createDomObject(File XmlFile) {
         Document doc = null;
         try {
-            InputSource inSource = new InputSource(new InputStreamReader(new FileInputStream(XmlFile), "UTF-8"));
+            FileInputStream fis = new FileInputStream(XmlFile);
+            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+            InputSource inSource = new InputSource(isr);
             // System.out.println(inSource.toString());
             DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
             docBuilder.setEntityResolver(new FvEntityResolver());
-
             doc = docBuilder.parse(inSource);
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,7 +50,7 @@ public class SearchXMLParser {
 
     // This method is not used, replaced by getTextContent() from Node class
     protected  String getStringFromNode(Node aNode) {
-        String value=new String();
+        String value = "";
         if (aNode.getChildNodes().getLength() > 0) {
             value = aNode.getFirstChild().getNodeValue();
         }

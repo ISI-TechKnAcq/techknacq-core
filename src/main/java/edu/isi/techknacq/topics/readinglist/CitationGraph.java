@@ -16,15 +16,16 @@ import java.util.logging.Logger;
  *
  * @author linhong
  */
-public class citationgraph {
-    HashMap<String, Integer> paperids;
-    ArrayList<String> papernames;
-    ArrayList<Integer> []mycited;
-    double [][] paper2topic;
-    int pnum = 0;
-    int tnum = 300;
+public class CitationGraph {
+    private HashMap<String, Integer> paperids;
+    private ArrayList<String> papernames;
+    private ArrayList<Integer> []mycited;
+    private double [][] paper2topic;
+    private int pnum = 0;
+    private int tnum = 300;
+    private Logger logger = Logger.getLogger(CitationGraph.class);
 
-    public citationgraph() {
+    public CitationGraph() {
         this.paperids = new HashMap<String, Integer>(100000);
         this.papernames = new ArrayList<String>(100000);
     }
@@ -39,7 +40,7 @@ public class citationgraph {
             mycited[i] = new ArrayList<Integer>(10);
     }
 
-    public void Readcitation(String filename) {
+    public void readCitation(String filename) {
         try {
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -56,21 +57,21 @@ public class citationgraph {
                 sc.useDelimiter(" ==> ");
                 source = sc.next();
                 target = sc.next();
-                if (this.paperids.containsKey(source) == false) {
+                if (!this.paperids.containsKey(source)) {
                     this.paperids.put(source, pnum);
                     sid = pnum;
                     pnum++;
                 } else {
                     sid = this.paperids.get(source);
                 }
-                if (this.paperids.containsKey(target) == false) {
+                if (!this.paperids.containsKey(target)) {
                     this.paperids.put(target, pnum);
-                    tid=pnum;
+                    tid = pnum;
                     pnum++;
                 } else {
-                    tid=this.paperids.get(target);
+                    tid = this.paperids.get(target);
                 }
-                if(sid >= mycited.length) {
+                if (sid >= mycited.length) {
                     System.out.println("SID is greater than limit");
                     System.out.println(sid);
                     System.exit(2);
@@ -81,16 +82,14 @@ public class citationgraph {
             System.out.println(pnum);
             in1.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(citationgraph.class.getName()).log(Level.SEVERE,
-                                                                null, ex);
+            logger.log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(citationgraph.class.getName()).log(Level.SEVERE,
-                                                                null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
     // Read concept composition for each document.
-    public void Readc2d(String filename) {
+    public void readC2D(String filename) {
         try {
             FileInputStream fstream1 = new FileInputStream(filename);
             // Get the object of DataInputStream
@@ -109,7 +108,8 @@ public class citationgraph {
                 Scanner sc = new Scanner(strline);
                 docname = sc.next();
                 // change '\\'(windows file) to '/' (Linux file)
-                docname = docname.substring(docname.lastIndexOf('/') + 1,docname.length()-4);
+                docname = docname.substring(docname.lastIndexOf('/') + 1,
+                                            docname.length()-4);
                 //System.out.println(docname);
                 if (this.paperids.containsKey(docname) == false)
                     continue;
@@ -120,20 +120,21 @@ public class citationgraph {
                     index1 = topicname.indexOf("topic");
                     index2 = topicname.indexOf(":");
                     if (index1 >= 0 && index2 >= 0) {
-                        tindex = Integer.parseInt(topicname.substring(index1+5,index2));
-                        tweight = Double.parseDouble(topicname.substring(index2+1,topicname.length()));
+                        tindex = Integer.parseInt(topicname.substring(index1+5,
+                                                                      index2));
+                        tweight = Double.parseDouble(topicname.substring(index2+1,
+                                                                         topicname.length()));
                         paper2topic[did][tindex] = tweight;
                     }
                 }
             }
             in1.close();
         } catch (IOException ex) {
-            Logger.getLogger(citationgraph.class.getName()).log(Level.SEVERE,
-                                                                null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
-    public double [][] Computecitationlinks() {
+    public double [][] computeCitationLinks() {
         double [][]topic2topic = new double[tnum][tnum];
         for (int i = 0; i < pnum; i++) {
             // Paper id

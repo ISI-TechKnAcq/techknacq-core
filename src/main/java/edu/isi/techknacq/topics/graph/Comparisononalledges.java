@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import infodynamics.measures.continuous.kernel.EntropyCalculatorKernel;
 
 import edu.isi.techknacq.topics.readinglist.Concept2doc;
-import edu.isi.techknacq.topics.readinglist.citationgraph;
+import edu.isi.techknacq.topics.readinglist.CitationGraph;
 import edu.isi.techknacq.topics.topic.Indexpair;
 import edu.isi.techknacq.topics.topic.Weightpair;
 import edu.isi.techknacq.topics.util.ReadWeightedTopicKey;
@@ -219,12 +219,12 @@ public class Comparisononalledges {
             out.write("\tinformation_flow\tCE\tcitation\tHier");
             out.write("\tCitation_Wang\n");
 
-            citationgraph mycite = new citationgraph();
+            CitationGraph mycite = new CitationGraph();
             mycite.settopicnum(tnum);
             mycite.setmaxfilenum(maxfilewordnum);
-            mycite.Readcitation(citationfile);
-            mycite.Readc2d(filename);
-            double [][]t2t = mycite.Computecitationlinks();
+            mycite.readCitation(citationfile);
+            mycite.readC2D(filename);
+            double [][]t2t = mycite.computeCitationLinks();
 
             //FileWriter fstream2 = new FileWriter("entropy1.txt", false);
             //BufferedWriter out2 = new BufferedWriter(fstream2);

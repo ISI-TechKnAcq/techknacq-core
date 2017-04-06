@@ -61,7 +61,7 @@ public class ReadHierarchy {
                 Indexpair o = (Indexpair)topicinwords[sid-1].get(j);
                 temp[o.getindex()] += o.getweight();
             }
-        }else{
+        } else {
             for (int j = 0; j < clusterinwords[sid-topicnum-1].size(); j++) {
                 Indexpair o = (Indexpair)clusterinwords[sid-topicnum-1].get(j);
                 temp[o.getindex()] += o.getweight();
@@ -132,7 +132,7 @@ public class ReadHierarchy {
         }
     }
 
-    public void Print(List l, BufferedWriter out, int k) {
+    public void print(List l, BufferedWriter out, int k) {
         for (int i = 0; i < l.size() && i < k; i++) {
             try {
                 Indexpair o = (Indexpair)l.get(i);
@@ -153,9 +153,9 @@ public class ReadHierarchy {
             for (int i = 1; i <= maxnode; i++) {
                 out.write(i + " \"");
                 if (i <= topicnum) {
-                    Print(topicinwords[i-1],out,30);
+                    print(topicinwords[i-1],out,30);
                 } else {
-                    Print(clusterinwords[i-topicnum-1],out,30);
+                    print(clusterinwords[i-topicnum-1],out,30);
                 }
                 out.write("\"\n");
             }
