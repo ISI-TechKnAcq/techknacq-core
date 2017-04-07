@@ -15,8 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import infodynamics.measures.continuous.kernel.EntropyCalculatorKernel;
-import infodynamics.measures.continuous.kernel.MutualInfoCalculatorMultiVariateKernel;
-import infodynamics.measures.continuous.kraskov.TransferEntropyCalculatorKraskov;
+//import infodynamics.measures.continuous.kraskov.TransferEntropyCalculatorKraskov;
 
 import edu.isi.techknacq.topics.topic.Weightpair;
 
@@ -25,16 +24,13 @@ import edu.isi.techknacq.topics.topic.Weightpair;
  * @author linhong
  */
 public class Concept2doc {
-    int conceptnum; // number of topics
-    List []topic2docs;
-    ArrayList<String> docnames;
-    HashMap<String, Integer> badpaper = null;
+    private int conceptnum; // number of topics
+    private List []topic2docs;
+    private ArrayList<String> docnames;
+    private HashMap<String, Integer> badpaper = null;
+    private Logger logger = Logger.getLogger(Concept2doc.class);
 
-    public Concept2doc() {
-
-    }
-
-    public void addfiter(String filename) {
+    public void addFilter(String filename) {
         try {
             badpaper = new HashMap<String, Integer>(1000);
             FileInputStream fstream1 = null;
@@ -56,15 +52,13 @@ public class Concept2doc {
             }
             in1.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Concept2doc.class.getName()).log(Level.SEVERE,
-                                                              null, ex);
+            logger.log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(Concept2doc.class.getName()).log(Level.SEVERE,
-                                                              null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
-    public void Initnum(int tnum){
+    public void initNum(int tnum){
         conceptnum = tnum;
     }
 
@@ -98,7 +92,7 @@ public class Concept2doc {
         }
     }
 
-    public void GettopK(int K, String filename) {
+    public void getTopK(int K, String filename) {
         try {
             topic2docs = new ArrayList[conceptnum];
             this.docnames = new ArrayList<String>(10000);
@@ -122,37 +116,36 @@ public class Concept2doc {
             while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 docname = sc.next();
-                //System.out.println(docname);
+                // System.out.println(docname);
                 // change '\\'(windows file) to '/' (Linux file)
                 docname = docname.substring(docname.lastIndexOf('/') + 1,
                                             docname.length() - 4);
-                //System.out.println(docname);
-                //Getthelastname
+                // System.out.println(docname);
+                // Getthelastname
                 if ((this.badpaper != null &&
-                     this.badpaper.containsKey(docname) == false) ||
-                    this.badpaper == null){
+                     !this.badpaper.containsKey(docname)) ||
+                    this.badpaper == null) {
                     docnames.add(docname);
-                    while(sc.hasNext()){
+                    while (sc.hasNext()){
                         topicname = sc.next();
-    //                    System.out.println(topicname);
+                        // System.out.println(topicname);
                         index1 = topicname.indexOf("topic");
                         index2 = topicname.indexOf(":");
                         if (index1 >= 0 && index2 >= 0){
-                            tindex=Integer.parseInt(topicname.substring(index1+5, index2));
-                            tweight=Double.parseDouble(topicname.substring(index2+1, topicname.length()));
-                            //System.out.println("tindex: " + tindex + " " + tweight);
-                            add(tindex,tweight,dindex,K);
+                            tindex = Integer.parseInt(topicname.substring(index1+5, index2));
+                            tweight = Double.parseDouble(topicname.substring(index2+1, topicname.length()));
+                            // System.out.println("tindex: " + tindex + " " +
+                            //                    tweight);
+                            add(tindex, tweight, dindex, K);
                         }
                     }
                     dindex++;
                 }
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Concept2doc.class.getName()).log(Level.SEVERE,
-                                                              null, ex);
+            logger.log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(Concept2doc.class.getName()).log(Level.SEVERE,
-                                                              null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
@@ -174,9 +167,12 @@ public class Concept2doc {
             EntropyCalculatorKernel entropy = new EntropyCalculatorKernel();
             entropy.initialise();
             ArrayList<Double> topicentropy = new ArrayList<Double>(conceptnum);
-//            TransferEntropyCalculatorKraskov teCalc = new TransferEntropyCalculatorKraskov();
-//            teCalc.setProperty("k", "4"); // Use Kraskov parameter K=4 for 4 nearest neighbours
-//            teCalc.initialise(1); // Use history length 1 (Schreiber k=1)
+            // TransferEntropyCalculatorKraskov teCalc;
+            // teCalc = new TransferEntropyCalculatorKraskov();
+            // Use Kraskov parameter K=4 for 4 nearest neighbours
+            // teCalc.setProperty("k", "4");
+            // Use history length 1 (Schreiber k=1)
+            // teCalc.initialise(1);
             double []v1 = new double[topic2docs[0].size()];
             for(int i = 0; i < this.conceptnum; i++){
                 int tindex = i;
@@ -187,15 +183,14 @@ public class Concept2doc {
                 entropy.setObservations(v1);
                 topicentropy.add(entropy.computeAverageLocalOfObservations());
             }
-//            for(int i=0;i<topicentropy.size();i++){
-//                System.out.println(topicentropy.get(i));
-//            }
+            // for (int i = 0; i < topicentropy.size(); i++){
+            //     System.out.println(topicentropy.get(i));
+            // }
             return topicentropy;
-//            teCalc.setObservations(v1, v2);
-//            System.out.println(teCalc.computeAverageLocalOfObservations());
+            // teCalc.setObservations(v1, v2);
+            // System.out.println(teCalc.computeAverageLocalOfObservations());
         } catch (Exception ex) {
-            Logger.getLogger(Concept2doc.class.getName()).log(Level.SEVERE,
-                                                              null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -209,17 +204,17 @@ public class Concept2doc {
         int tnum = 200;
         int K = 100;
         String filename = "concept2doc.txt";
-        doc.Initnum(tnum);
-        doc.GettopK(K, filename);
+        doc.initNum(tnum);
+        doc.getTopK(K, filename);
         int tindex = 180;
         ArrayList<Integer> mydocs = doc.Getdocs(tindex);
         ReadDocumentkey rdk = new ReadDocumentkey("acl-meta.json");
         rdk.readFile();
         for (int i = 0; i < mydocs.size(); i++){
-            //System.out.println(mydocs.get(i));
+            // System.out.println(mydocs.get(i));
             String id = doc.docnames.get(mydocs.get(i));
             String docVal = rdk.Getdocumentkey(id);
-            //System.out.println("Retrieving:");
+            // System.out.println("Retrieving:");
             System.out.println(id + " --- " + docVal);
         }
     }

@@ -14,9 +14,9 @@ import edu.isi.techknacq.topics.graph.ReadGraph;
 
 public class Getreadinglist {
     public static void main(String []args) {
-        FileWriter fstream=null;
+        FileWriter fstream = null;
         try {
-            if (args.length<6) {
+            if (args.length < 6) {
                 System.out.println("Usage [keyword] [doc2topic] [topickey] [topicgraph] [dockey] [docs/topic] [max_topic]");
                 System.exit(2);
             }   //args[0]: keyword;
@@ -39,13 +39,13 @@ public class Getreadinglist {
             match1.readKey(args[2]);
             List<Integer> hittopic=match1.Getmatch(args[0]);
             //hittopic: topics that matches the input keyword
-            List<String> topics=match1.Gettopics();
+            List<String> topics = match1.Gettopics();
             //topics: the topics with word distribution
-            Concept2doc Getdoc=new Concept2doc();
-            Getdoc.Initnum(topics.size());
-            Getdoc.addfiter(filterfile);
-            Getdoc.GettopK(dnum, args[1]);
-            List<String> docfiles=Getdoc.Getdocname();
+            Concept2doc Getdoc = new Concept2doc();
+            Getdoc.initNum(topics.size());
+            Getdoc.addFilter(filterfile);
+            Getdoc.getTopK(dnum, args[1]);
+            List<String> docfiles = Getdoc.Getdocname();
             //docfiles: The filename of each document
             ReadDocumentkey rdk = new ReadDocumentkey(args[4]);
             rdk.readFile();

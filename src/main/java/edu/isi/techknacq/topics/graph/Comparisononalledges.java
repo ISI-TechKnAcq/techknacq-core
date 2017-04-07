@@ -194,8 +194,8 @@ public class Comparisononalledges {
         List []conceptsindoc;
         try {
             Concept2doc doc = new Concept2doc();
-            doc.Initnum(tnum);
-            doc.GettopK(K, filename);
+            doc.initNum(tnum);
+            doc.getTopK(K, filename);
             conceptsindoc = doc.GetTopic2doc();
 
             int cooccount;

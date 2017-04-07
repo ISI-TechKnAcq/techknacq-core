@@ -102,7 +102,6 @@ public class CitationGraph {
             int index2;
             int did;
             int tindex;
-            double tweight;
             paper2topic = new double[pnum][tnum];
             while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
@@ -110,21 +109,22 @@ public class CitationGraph {
                 // change '\\'(windows file) to '/' (Linux file)
                 docname = docname.substring(docname.lastIndexOf('/') + 1,
                                             docname.length()-4);
-                //System.out.println(docname);
-                if (this.paperids.containsKey(docname) == false)
+                // System.out.println(docname);
+                if (!this.paperids.containsKey(docname))
                     continue;
                 did = this.paperids.get(docname);
-                //Getthelastname
+                // Getthelastname
                 while (sc.hasNext()) {
                     topicname = sc.next();
+                    int namelen = topicname.length();
                     index1 = topicname.indexOf("topic");
                     index2 = topicname.indexOf(":");
                     if (index1 >= 0 && index2 >= 0) {
                         tindex = Integer.parseInt(topicname.substring(index1+5,
                                                                       index2));
-                        tweight = Double.parseDouble(topicname.substring(index2+1,
-                                                                         topicname.length()));
-                        paper2topic[did][tindex] = tweight;
+                        String tweight = topicname.substring(index2+1,
+                                                             namelen);
+                        paper2topic[did][tindex] = Double.parseDouble(tweight);
                     }
                 }
             }
@@ -143,8 +143,8 @@ public class CitationGraph {
                 for (int k1 = 0; k1 < this.paper2topic[i].length; k1++) {
                     for (int k2 = 0; k2 < this.paper2topic[citedid].length;
                          k2++) {
-                        topic2topic[k1][k2] += (paper2topic[i][k1] +
-                                                paper2topic[citedid][k2]);
+                        topic2topic[k1][k2] += paper2topic[i][k1] +
+                            paper2topic[citedid][k2];
                     }
                 }
             }
@@ -155,9 +155,5 @@ public class CitationGraph {
             this.mycited[i].clear();
         }
         return topic2topic;
-    }
-
-    public void print() {
-
     }
 }

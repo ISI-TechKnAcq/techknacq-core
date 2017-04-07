@@ -76,22 +76,22 @@ public class NewReadingList {
                          int dnum, String doc2conceptfile, String filterfile) {
         match1 = new Keyword2concept();
         match1.readKey(keyname);
-        System.out.println("finish reading topic");
+        System.out.println("Finish reading topic");
         this.wordintopic=match1.Getweighttopic();
         this.topickeys=match1.Gettopics();
         ReadPageRankscore(pagerankfile);
-        System.out.println("finish reading pagerank");
+        System.out.println("Finish reading pagerank");
         ReadDocumentkey rdk = new ReadDocumentkey(docfile);
         rdk.readFile();
-        System.out.println("finish reading document");
-        docmap=rdk.GetDocmap();
-        Concept2doc Getdoc=new Concept2doc();
-        Getdoc.Initnum(topickeys.size());
-        Getdoc.addfiter(filterfile);
-        Getdoc.GettopK(dnum*relevencek, doc2conceptfile);
-        topic2docs=Getdoc.GetTopic2doc();
-        docfiles=Getdoc.Getdocname();
-        System.out.println("finish reading data");
+        System.out.println("Finish reading document");
+        docmap = rdk.GetDocmap();
+        Concept2doc Getdoc = new Concept2doc();
+        Getdoc.initNum(topickeys.size());
+        Getdoc.addFilter(filterfile);
+        Getdoc.getTopK(dnum*relevencek, doc2conceptfile);
+        topic2docs = Getdoc.GetTopic2doc();
+        docfiles = Getdoc.Getdocname();
+        System.out.println("Finish reading data");
     }
 
     /*

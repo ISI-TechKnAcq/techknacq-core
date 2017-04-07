@@ -111,8 +111,8 @@ public class Cograph {
         List []conceptsindoc;
         try {
             Concept2doc doc = new Concept2doc();
-            doc.Initnum(tnum);
-            doc.GettopK(K, filename);
+            doc.initNum(tnum);
+            doc.getTopK(K, filename);
             conceptsindoc = doc.GetTopic2doc();
             double []v1 = new double[30000];
             double []v2 = new double[30000];

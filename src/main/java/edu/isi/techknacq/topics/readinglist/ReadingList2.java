@@ -51,9 +51,9 @@ public class ReadingList2 {
         rdk.readFile();
         docmap = rdk.GetDocmap();
         Concept2doc Getdoc = new Concept2doc();
-        Getdoc.Initnum(topickeys.size());
-        Getdoc.addfiter(filterfile);
-        Getdoc.GettopK(dnum*10, doc2conceptfile);
+        Getdoc.initNum(topickeys.size());
+        Getdoc.addFilter(filterfile);
+        Getdoc.getTopK(dnum*10, doc2conceptfile);
         topic2docs = Getdoc.GetTopic2doc();
         docfiles = Getdoc.Getdocname();
     }

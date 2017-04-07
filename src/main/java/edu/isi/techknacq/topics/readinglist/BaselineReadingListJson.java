@@ -26,8 +26,8 @@ public class BaselineReadingListJson {
     private Logger logger = Logger.getLogger(BaselineReadingListJson.class);
 
     public void readPageRankScore(String filename) {
+        this.paperpagerank = new HashMap<String,Double>(this.topickeys.size());
         try {
-            this.paperpagerank = new HashMap<String,Double>(this.topickeys.size());
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
             // Get the object of DataInputStream
@@ -69,8 +69,8 @@ public class BaselineReadingListJson {
             ArrayList<Integer> hittopic = match1.Getmatch(keyword);
             this.topickeys = match1.Gettopics();
             Concept2doc doc = new Concept2doc();
-            doc.Initnum(this.topickeys.size());
-            doc.GettopK(K*4, doc2conceptfilename);
+            doc.initNum(this.topickeys.size());
+            doc.getTopK(K*4, doc2conceptfilename);
             // doc.Prune();
             ArrayList<String> docnames = doc.Getdocname();
             List mylist = new ArrayList<Weightpair>(100);
@@ -134,9 +134,13 @@ public class BaselineReadingListJson {
         String s = myreader.run(args[2], Integer.parseInt(args[1]), args[4],
                                 args[5], args[0], args[3]);
         System.out.println(s);
-        //String keyname, int K, String docfile, String pagerankfile, String keyword, String doc2conceptfilename
-        //String s=myreader.run("./old topic/mallet-weighted-key.txt", 10, "acl-meta.json", "Paperpagerank.txt", "machine_learning", "./old topic/concept2doc.txt");
-        //System.out.println(s);
-        //myreader.run("mallet-21185-weightedkey.txt", 10, "acl-meta.json", "Paperpagerank.txt", args[0], "mallet-comp.txt");
+        // String keyname, int K, String docfile, String pagerankfile,
+        // String keyword, String doc2conceptfilename
+        // String s = myreader.run("mallet-weighted-key.txt", 10,
+        //                         "acl-meta.json", "Paperpagerank.txt",
+        //                         "machine_learning", "concept2doc.txt");
+        // System.out.println(s);
+        // myreader.run("mallet-21185-weightedkey.txt", 10, "acl-meta.json",
+        //              "Paperpagerank.txt", args[0], "mallet-comp.txt");
     }
 }

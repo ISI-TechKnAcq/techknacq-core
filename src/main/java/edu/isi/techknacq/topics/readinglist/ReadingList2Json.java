@@ -40,28 +40,30 @@ public class ReadingList2Json {
     public void Readdata(String keyword, String keyname, String pagerankfile,
                          String docfile, int dnum, String doc2conceptfile,
                          String filterfile) {
-        Keyword2concept match1=new Keyword2concept();
+        Keyword2concept match1 = new Keyword2concept();
         match1.readKey(keyname);
-        hittopic=match1.Getmatch(keyword);
-        this.wordintopic=match1.Getweighttopic();
-        this.topickeys=match1.Gettopics();
+        hittopic = match1.Getmatch(keyword);
+        this.wordintopic = match1.Getweighttopic();
+        this.topickeys = match1.Gettopics();
         ReadPageRankscore(pagerankfile);
         ReadDocumentkey rdk = new ReadDocumentkey(docfile);
         rdk.readFile();
         docmap = rdk.GetDocmap();
         Concept2doc Getdoc = new Concept2doc();
-        Getdoc.Initnum(topickeys.size());
-        Getdoc.addfiter(filterfile);
-        Getdoc.GettopK(dnum*10, doc2conceptfile);
-        topic2docs=Getdoc.GetTopic2doc();
-        docfiles=Getdoc.Getdocname();
+        Getdoc.initNum(topickeys.size());
+        Getdoc.addFilter(filterfile);
+        Getdoc.getTopK(dnum*10, doc2conceptfile);
+        topic2docs = Getdoc.GetTopic2doc();
+        docfiles = Getdoc.Getdocname();
     }
+
     public String Getdocmeda(String id) {
-        if (this.docmap.containsKey(id)==true)
+        if (this.docmap.containsKey(id))
             return this.docmap.get(id);
         else
             return null;
     }
+
     public ArrayList<Integer> Getdocs(int tindex) {
         ArrayList<Integer> mydocs=new ArrayList(topic2docs[tindex].size());
         for (int i=0;i<topic2docs[tindex].size();i++) {
