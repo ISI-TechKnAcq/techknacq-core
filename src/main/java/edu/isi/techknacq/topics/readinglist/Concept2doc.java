@@ -149,11 +149,11 @@ public class Concept2doc {
         }
     }
 
-    public List [] GetTopic2doc() {
+    public List [] getTopic2Doc() {
         return this.topic2docs;
     }
 
-    public ArrayList<Integer> Getdocs(int tindex) {
+    public ArrayList<Integer> getDocs(int tindex) {
         ArrayList<Integer> mydocs = new ArrayList<Integer>(topic2docs[tindex].size());
         for (int i = 0; i < topic2docs[tindex].size(); i++){
             Weightpair o = (Weightpair)topic2docs[tindex].get(i);
@@ -162,7 +162,7 @@ public class Concept2doc {
         return mydocs;
     }
 
-    public ArrayList<Double> Prune() {
+    public ArrayList<Double> prune() {
         try {
             EntropyCalculatorKernel entropy = new EntropyCalculatorKernel();
             entropy.initialise();
@@ -195,7 +195,7 @@ public class Concept2doc {
         return null;
     }
 
-    public ArrayList<String> Getdocname() {
+    public ArrayList<String> getDocName() {
         return this.docnames;
     }
 
@@ -207,7 +207,7 @@ public class Concept2doc {
         doc.initNum(tnum);
         doc.getTopK(K, filename);
         int tindex = 180;
-        ArrayList<Integer> mydocs = doc.Getdocs(tindex);
+        ArrayList<Integer> mydocs = doc.getDocs(tindex);
         ReadDocumentkey rdk = new ReadDocumentkey("acl-meta.json");
         rdk.readFile();
         for (int i = 0; i < mydocs.size(); i++){

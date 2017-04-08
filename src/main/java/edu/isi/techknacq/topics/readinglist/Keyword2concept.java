@@ -17,10 +17,11 @@ import edu.isi.techknacq.topics.topic.WordPair;
 
 
 public class Keyword2concept {
-    ArrayList<String> topics;
-    ArrayList<ArrayList<WordPair>> wordintopic;
-    ArrayList<Weightpair> hittopics;
-    int k = 8;
+    private ArrayList<String> topics;
+    private ArrayList<ArrayList<WordPair>> wordintopic;
+    private ArrayList<Weightpair> hittopics;
+    private int k = 8;
+    private Logger logger = Logger.getLogger(Keyword2concept.class);
 
     public void readKey(String filename) {
         try {
@@ -43,7 +44,7 @@ public class Keyword2concept {
                 while (sc.hasNext()) {
                     tempword = sc.next();
                     if ((!tempword.contains(name) && !name.contains(tempword))
-                        || name.length() < 1){
+                        || name.length() < 1) {
                         name += tempword;
                         name += " ";
                     }
@@ -69,23 +70,25 @@ public class Keyword2concept {
             }
             in1.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Keyword2concept.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(Keyword2concept.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
-    public ArrayList<Integer> Getmatch(String keyword) {
+    public ArrayList<Integer> getMatch(String keyword) {
         hittopics = new ArrayList<Weightpair>(20);
         for (int i = 0; i < wordintopic.size(); i++) {
             double hitcount = 0;
-            for (int j = 0; j < wordintopic.get(i).size() && j < k; j++){
+            for (int j = 0; j < wordintopic.get(i).size() && j < k; j++) {
                 WordPair o = wordintopic.get(i).get(j);
                 if (o.getWord().length() < 3)
                     continue;
                 if (keyword.toLowerCase().indexOf(o.getWord()) >= 0 ||
                     o.getWord().indexOf(keyword.toLowerCase()) >= 0) {
-                    double lengthbonus = (double)Math.abs(keyword.length() - o.getWord().length())/Math.max(keyword.length(),o.getWord().length());
+                    double lengthbonus = (double)Math.abs(keyword.length() -
+                                                          o.getWord().length())
+                        / Math.max(keyword.length(), o.getWord().length());
                     lengthbonus = 1 - lengthbonus;
                     hitcount += o.getprob() * lengthbonus;
                 }
@@ -95,26 +98,27 @@ public class Keyword2concept {
             }
         }
         Collections.sort(hittopics);
-        ArrayList<Integer> topicindex = new ArrayList<Integer>(hittopics.size());
+        ArrayList<Integer> topicindex;
+        topicindex = new ArrayList<Integer>(hittopics.size());
         for (Weightpair o : hittopics) {
             topicindex.add(o.getindex());
         }
         return topicindex;
     }
 
-    public ArrayList<String> Gettopics() {
+    public ArrayList<String> getTopics() {
         return topics;
     }
 
-    public ArrayList<ArrayList<WordPair>> Getweighttopic() {
+    public ArrayList<ArrayList<WordPair>> getWeightTopic() {
         return this.wordintopic;
     }
 
     public static void main(String []args) {
         Keyword2concept mykeyword = new Keyword2concept();
         mykeyword.readKey("mallet-weighted-key.txt");
-        ArrayList<Integer> hits = mykeyword.Getmatch("machine_translation");
-        ArrayList<String> mytopic = mykeyword.Gettopics();
+        ArrayList<Integer> hits = mykeyword.getMatch("machine_translation");
+        ArrayList<String> mytopic = mykeyword.getTopics();
         for (int i = 0; i < hits.size(); i++) {
             int index = hits.get(i);
             System.out.println(mytopic.get(index));

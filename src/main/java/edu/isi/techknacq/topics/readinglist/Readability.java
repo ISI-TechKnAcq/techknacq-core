@@ -194,7 +194,7 @@ public class Readability {
             return syllables;
     }
 
-    public void Run(String libfile, String datafile) {
+    public void run(String libfile, String datafile) {
         loadSyllableDict(libfile);
         ArrayList<String> files = StrUtil.initFolder(datafile);
         for (int i = 0; i < files.size(); i++) {
@@ -202,6 +202,7 @@ public class Readability {
             System.out.println(files.get(i)+"\t"+score);
         }
     }
+
     public static void main(String []args) {
         //            if(args.length<1) {
         //                System.out.println("Usage: [libfile] [datafilefolder]");
@@ -210,7 +211,7 @@ public class Readability {
         //                System.exit(2);
         //            }
         Readability myreader=new Readability();
-        //myreader.Run(args[0], args[1]);
-        myreader.Run("syllables.txt", "C:\\Users\\linhong\\Documents\\linhong-work\\Data\\acl-full-1.0-text\\acl-full-1.0-text");
+        //myreader.run(args[0], args[1]);
+        myreader.run("syllables.txt", "C:\\Users\\linhong\\Documents\\linhong-work\\Data\\acl-full-1.0-text\\acl-full-1.0-text");
     }
 }

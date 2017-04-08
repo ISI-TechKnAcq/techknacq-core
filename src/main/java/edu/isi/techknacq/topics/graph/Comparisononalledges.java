@@ -196,7 +196,7 @@ public class Comparisononalledges {
             Concept2doc doc = new Concept2doc();
             doc.initNum(tnum);
             doc.getTopK(K, filename);
-            conceptsindoc = doc.GetTopic2doc();
+            conceptsindoc = doc.getTopic2Doc();
 
             int cooccount;
             double informationflow;

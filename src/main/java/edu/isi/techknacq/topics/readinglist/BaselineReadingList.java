@@ -98,13 +98,13 @@ public class BaselineReadingList {
         try {
             Keyword2concept match1 = new Keyword2concept();
             match1.readKey(keyname);
-            List<Integer> hittopic = match1.Getmatch(keyword);
-            this.topickeys = match1.Gettopics();
+            List<Integer> hittopic = match1.getMatch(keyword);
+            this.topickeys = match1.getTopics();
             Concept2doc doc = new Concept2doc();
             doc.initNum(this.topickeys.size());
             doc.getTopK(K*4, doc2conceptfilename);
-            // doc.Prune();
-            List<String> docnames=doc.Getdocname();
+            // doc.prune();
+            List<String> docnames = doc.getDocName();
             List<Weightpair> mylist = new ArrayList<Weightpair>(100);
             double value;
             boolean []isvisit = new boolean[docnames.size()];
@@ -114,7 +114,7 @@ public class BaselineReadingList {
             this.readPageRankScore(pagerankfile);
             for (Integer hittopic1 : hittopic) {
                 int tindex = hittopic1;
-                ArrayList<Integer> mydocs = doc.Getdocs(tindex);
+                ArrayList<Integer> mydocs = doc.getDocs(tindex);
                 for (Integer mydoc : mydocs) {
                     int Did = mydoc;
                     if (!isvisit[Did])

@@ -43,9 +43,9 @@ public class ReadingList2 {
                          String filterfile) {
         Keyword2concept match1 = new Keyword2concept();
         match1.readKey(keyname);
-        hittopic = match1.Getmatch(keyword);
-        this.wordintopic = match1.Getweighttopic();
-        this.topickeys = match1.Gettopics();
+        hittopic = match1.getMatch(keyword);
+        this.wordintopic = match1.getWeightTopic();
+        this.topickeys = match1.getTopics();
         ReadPageRankscore(pagerankfile);
         ReadDocumentkey rdk = new ReadDocumentkey(docfile);
         rdk.readFile();
@@ -54,8 +54,8 @@ public class ReadingList2 {
         Getdoc.initNum(topickeys.size());
         Getdoc.addFilter(filterfile);
         Getdoc.getTopK(dnum*10, doc2conceptfile);
-        topic2docs = Getdoc.GetTopic2doc();
-        docfiles = Getdoc.Getdocname();
+        topic2docs = Getdoc.getTopic2Doc();
+        docfiles = Getdoc.getDocName();
     }
 
     public String Getdocmeda(String id) {
@@ -65,7 +65,7 @@ public class ReadingList2 {
             return null;
     }
 
-    public ArrayList<Integer> Getdocs(int tindex) {
+    public ArrayList<Integer> getDocs(int tindex) {
         ArrayList<Integer> mydocs = new ArrayList(topic2docs[tindex].size());
         for (int i = 0; i < topic2docs[tindex].size(); i++) {
             Weightpair o = (Weightpair)topic2docs[tindex].get(i);
@@ -167,7 +167,8 @@ public class ReadingList2 {
         name = name.replace(" -- ", " &ndash; ");
         return name;
     }
-    public void Run(String keyword, String graphfile, int maxtopic, int dnum) {
+
+    public void run(String keyword, String graphfile, int maxtopic, int dnum) {
         try {
             FileWriter fstream = new FileWriter(keyword+"_readinglist.html",false);
             BufferedWriter out = new BufferedWriter(fstream);
@@ -184,7 +185,7 @@ public class ReadingList2 {
             //            }
             //            double value;
             //            for (Integer tindex : this.hittopic) {
-            //                ArrayList<Integer> mydocs=this.Getdocs(tindex);
+            //                ArrayList<Integer> mydocs=this.getDocs(tindex);
             //                for (Integer mydoc : mydocs) {
             //                    int Did = mydoc;
             //                    if (isvisit[Did]==false)
@@ -201,7 +202,7 @@ public class ReadingList2 {
             //                }
             //                ArrayList<Integer> deptopics=Dependency.getTopNode(maxtopic, tindex);
             //                for (Integer ddtopic : deptopics) {
-            //                    ArrayList<Integer> dddocs=this.Getdocs(ddtopic);
+            //                    ArrayList<Integer> dddocs=this.getDocs(ddtopic);
             //                        for (Integer mydoc : dddocs) {
             //                           if (isvisit[mydoc]==false)
             //                                isvisit[mydoc]=true;
@@ -308,7 +309,7 @@ public class ReadingList2 {
                     /*
                       Start retrival high quality papers;
                     */
-                    ArrayList<Integer> mydocs=this.Getdocs(tindex);
+                    ArrayList<Integer> mydocs=this.getDocs(tindex);
 
                     mylist.clear();
                     for (Integer mydoc : mydocs) {
@@ -329,7 +330,7 @@ public class ReadingList2 {
                     int j=0;
                     dcount=0;
                     Collections.sort(mylist);
-                    while(dcount<dnum&&j<mylist.size()&&dcount<mylist.size()) {
+                    while (dcount<dnum&&j<mylist.size()&&dcount<mylist.size()) {
                         Weightpair o= (Weightpair)mylist.get(j);
                         int Did=o.getindex();
                         isvisit[Did]=true;
@@ -371,7 +372,7 @@ public class ReadingList2 {
                 /*
                  * Start retrival high quality papers;
                  */
-                ArrayList<Integer> mydocs=this.Getdocs(tindex);
+                ArrayList<Integer> mydocs = this.getDocs(tindex);
                 mylist.clear();
                 for (Integer mydoc : mydocs) {
                     int Did = mydoc;
@@ -391,7 +392,7 @@ public class ReadingList2 {
                 int j = 0;
                 dcount = 0;
                 Collections.sort(mylist);
-                while(dcount<dnum&&j<mylist.size()&&dcount<mylist.size()) {
+                while (dcount<dnum&&j<mylist.size()&&dcount<mylist.size()) {
                     Weightpair o = (Weightpair)mylist.get(j);
                     int Did = o.getindex();
                     isvisit[Did] = true;
@@ -480,7 +481,7 @@ public class ReadingList2 {
         ReadingList2 myreadinglist = new ReadingList2();
         //String keyword, String keyname, String pagerankfile, String docfile, int dnum, String doc2conceptfile
         myreadinglist.Readdata(args[0],args[2] ,args[5], args[4], dnum, args[1],filterfile);
-        //String keyword, String graphfile, int maxtopic, int dnum
-        myreadinglist.Run(args[0], args[3], maxtnum, dnum);
+        // String keyword, String graphfile, int maxtopic, int dnum
+        myreadinglist.run(args[0], args[3], maxtnum, dnum);
     }
 }

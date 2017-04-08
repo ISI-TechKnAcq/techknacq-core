@@ -66,13 +66,13 @@ public class BaselineReadingListJson {
         try {
             Keyword2concept match1 = new Keyword2concept();
             match1.readKey(keyname);
-            ArrayList<Integer> hittopic = match1.Getmatch(keyword);
-            this.topickeys = match1.Gettopics();
+            ArrayList<Integer> hittopic = match1.getMatch(keyword);
+            this.topickeys = match1.getTopics();
             Concept2doc doc = new Concept2doc();
             doc.initNum(this.topickeys.size());
             doc.getTopK(K*4, doc2conceptfilename);
-            // doc.Prune();
-            ArrayList<String> docnames = doc.Getdocname();
+            // doc.prune();
+            ArrayList<String> docnames = doc.getDocName();
             List mylist = new ArrayList<Weightpair>(100);
             double value;
             boolean []isvisit = new boolean[docnames.size()];
@@ -82,7 +82,7 @@ public class BaselineReadingListJson {
             this.readPageRankScore(pagerankfile);
             for (Integer hittopic1 : hittopic) {
                 int tindex = hittopic1;
-                ArrayList<Integer> mydocs = doc.Getdocs(tindex);
+                ArrayList<Integer> mydocs = doc.getDocs(tindex);
                 for (Integer mydoc : mydocs) {
                     int Did = mydoc;
                     if (!isvisit[Did])

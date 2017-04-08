@@ -19,33 +19,34 @@ public class Getreadinglist {
             if (args.length < 6) {
                 System.out.println("Usage [keyword] [doc2topic] [topickey] [topicgraph] [dockey] [docs/topic] [max_topic]");
                 System.exit(2);
-            }   //args[0]: keyword;
-            //args[1]: doc2topicfilename;
-            //args[2]: topicweightedkeyname;
-            //args[3]: topicgraphfilename;
-            //args[4]: dockeyname;
-            //args[5]: number of docs per topic
-            //args[6]: number of maximum dependence topics;
-            int dnum=3;
-            int maxtnum=10;
-            String filterfile="yes-no.csv";
-            if (args.length>5)
-                dnum=Integer.parseInt(args[5]);
-            if (args.length>6)
-                maxtnum=Integer.parseInt(args[6]);
-            if (args.length>7)
-                filterfile=args[7];
-            Keyword2concept match1=new Keyword2concept();
+            }
+            // args[0]: keyword;
+            // args[1]: doc2topicfilename;
+            // args[2]: topicweightedkeyname;
+            // args[3]: topicgraphfilename;
+            // args[4]: dockeyname;
+            // args[5]: number of docs per topic
+            // args[6]: number of maximum dependence topics;
+            int dnum = 3;
+            int maxtnum = 10;
+            String filterfile = "yes-no.csv";
+            if (args.length > 5)
+                dnum = Integer.parseInt(args[5]);
+            if (args.length > 6)
+                maxtnum = Integer.parseInt(args[6]);
+            if (args.length > 7)
+                filterfile = args[7];
+            Keyword2concept match1 = new Keyword2concept();
             match1.readKey(args[2]);
-            List<Integer> hittopic=match1.Getmatch(args[0]);
+            List<Integer> hittopic = match1.getMatch(args[0]);
             //hittopic: topics that matches the input keyword
-            List<String> topics = match1.Gettopics();
+            List<String> topics = match1.getTopics();
             //topics: the topics with word distribution
             Concept2doc Getdoc = new Concept2doc();
             Getdoc.initNum(topics.size());
             Getdoc.addFilter(filterfile);
             Getdoc.getTopK(dnum, args[1]);
-            List<String> docfiles = Getdoc.Getdocname();
+            List<String> docfiles = Getdoc.getDocName();
             //docfiles: The filename of each document
             ReadDocumentkey rdk = new ReadDocumentkey(args[4]);
             rdk.readFile();
@@ -64,7 +65,7 @@ public class Getreadinglist {
                 out.write(topics.get(tindex)+"\n");
                 out.write("```\n");
                 out.write("\t\t==The best relevant "+dnum+" documents: \n");
-                ArrayList<Integer> docindex=Getdoc.Getdocs(tindex);
+                ArrayList<Integer> docindex=Getdoc.getDocs(tindex);
                 for (int j=0;j<docindex.size();j++) {
                     int dindex=docindex.get(j);
                     String dfile=docfiles.get(dindex);
@@ -80,8 +81,8 @@ public class Getreadinglist {
                     out.write(topics.get(ddtindex)+"\n");
                     out.write("```\n");
                     out.write("\t\t\t\t==The best relevant "+dnum+" documents: \n");
-                    ArrayList<Integer> docindex2=Getdoc.Getdocs(ddtindex);
-                    for (int j=0;j<docindex2.size();j++) {
+                    ArrayList<Integer> docindex2 = Getdoc.getDocs(ddtindex);
+                    for (int j = 0; j < docindex2.size(); j++) {
                         int dindex=docindex2.get(j);
                         String dfile=docfiles.get(dindex);
                         out.write("\t\t\t\t- "+dfile);

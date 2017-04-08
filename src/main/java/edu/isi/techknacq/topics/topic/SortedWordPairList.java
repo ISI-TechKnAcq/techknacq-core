@@ -124,9 +124,9 @@ public class SortedWordPairList
     /*
      * return the word count
      */
-    public int []Getcount(){
+    public int []Getcount() {
         int[] result=new int[wordPairs.size()];
-        for(int i=0;i<wordPairs.size();++i){
+        for (int i=0;i<wordPairs.size();++i) {
             result[i]=(int)((WordPair)wordPairs.get(i)).getprob();
         }
         return result;
@@ -135,29 +135,29 @@ public class SortedWordPairList
     /*
      * update the count
      */
-    public void updatecount(int [] wf){
-        for(int i=0;i<wordPairs.size();++i){
+    public void updatecount(int [] wf) {
+        for (int i=0;i<wordPairs.size();++i) {
             ((WordPair)wordPairs.get(i)).setProb(wf[i]);
         }
     }
     /*
      * update the words
      */
-    public void updatecontent(String []wordlists){
-        for(int i=0;i<wordPairs.size();++i)
+    public void updatecontent(String []wordlists) {
+        for (int i=0;i<wordPairs.size();++i)
              ((WordPair)wordPairs.get(i)).setWord(wordlists[i]);
     }
-    public void sort(){
+    public void sort() {
         Collections.sort(wordPairs);
     }
-    public void enumeration(){
-        for(int i=0;i<wordPairs.size();i++){
+    public void enumeration() {
+        for (int i=0;i<wordPairs.size();i++) {
             System.out.println(((WordPair) wordPairs.get(i)).getWord()+" "+((WordPair) wordPairs.get(i)).getprob());
         }
     }
-    public void Print(BufferedWriter out){
+    public void Print(BufferedWriter out) {
         try {
-            for(int i=0;i<wordPairs.size();i++){
+            for (int i=0;i<wordPairs.size();i++) {
                 double v=((WordPair) wordPairs.get(i)).getprob();
                 out.write(((WordPair) wordPairs.get(i)).getWord()+"\t"+v+"\n");
             }
@@ -166,9 +166,9 @@ public class SortedWordPairList
             Logger.getLogger(SortedWordPairList.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void Printwords(BufferedWriter out){
+    public void Printwords(BufferedWriter out) {
         try {
-            for(int i=0;i<wordPairs.size();i++){
+            for (int i=0;i<wordPairs.size();i++) {
                 out.write(((WordPair)wordPairs.get(i)).getWord()+"\n");
             }
             out.close();
@@ -217,30 +217,30 @@ public class SortedWordPairList
     {
         return indexOf(word) >= 0;
     }
-    
-    //prune count
-    public void Prune(int thre){
+
+    // Prune count
+    public void prune(int thre) {
         int i=0;
-        while(i<this.wordPairs.size()){
+        while (i<this.wordPairs.size()) {
             WordPair pair1=(WordPair)wordPairs.get(i);
-            if((int)pair1.getprob()<=thre){
+            if((int)pair1.getprob()<=thre) {
                 wordPairs.remove(i);
             }else
                 i++;
         }
     }
     //prue average
-    public void Pruneaverage(){
+    public void Pruneaverage() {
         float avg=0;
-        for(int i=0;i<this.wordPairs.size();i++)
+        for (int i=0;i<this.wordPairs.size();i++)
             avg+=((WordPair)this.wordPairs.get(i)).getprob();
-        avg/=this.wordPairs.size();
-        this.Prune((int)avg);
+        avg /= this.wordPairs.size();
+        this.prune((int)avg);
     }
-    public String[] Gettop(int k){
+    public String[] Gettop(int k) {
         float [] result = new float[wordPairs.size()];
         int i=0;
-        for (i = 0; i < wordPairs.size(); ++i){
+        for (i = 0; i < wordPairs.size(); ++i) {
             result[i] = ((WordPair) wordPairs.get(i)).getprob();
         }
         Arrays.sort(result);
@@ -251,16 +251,16 @@ public class SortedWordPairList
             threshold=result[0];
         ArrayList<String> words=new ArrayList<String>(k);
         int counter=0;
-        for(i=0;i<this.wordPairs.size();i++){
+        for (i=0;i<this.wordPairs.size();i++) {
              WordPair pair1=(WordPair)wordPairs.get(i);
-             if(pair1.getprob()>threshold){
+             if(pair1.getprob()>threshold) {
                  words.add(pair1.getWord());
                  counter++;
              }
         }
-        for(i=0;i<this.wordPairs.size();i++){
+        for (i=0;i<this.wordPairs.size();i++) {
              WordPair pair1=(WordPair)wordPairs.get(i);
-             if(pair1.getprob()==threshold){
+             if(pair1.getprob()==threshold) {
                  words.add(pair1.getWord());
                  counter++;
                  if(counter==k)
@@ -271,16 +271,16 @@ public class SortedWordPairList
         Arrays.sort(nuns);
         return nuns;
     }
-    public void RemoveStopWord(){
+    public void RemoveStopWord() {
         int i=0;
         int j=0;
         String word;
-        while(i<SortedWordPairList.ENGLISH_STOP_WORDS.length&&j<this.wordPairs.size()){
+        while (i<SortedWordPairList.ENGLISH_STOP_WORDS.length&&j<this.wordPairs.size()) {
             word=((WordPair)this.wordPairs.get(j)).getWord();
-            if(SortedWordPairList.ENGLISH_STOP_WORDS[i].compareToIgnoreCase(word)>0){
+            if(SortedWordPairList.ENGLISH_STOP_WORDS[i].compareToIgnoreCase(word)>0) {
                 j++;
             }else
-                if(SortedWordPairList.ENGLISH_STOP_WORDS[i].compareToIgnoreCase(word)<0){
+                if(SortedWordPairList.ENGLISH_STOP_WORDS[i].compareToIgnoreCase(word)<0) {
                     i++;
                 }else{
                  i++;
@@ -288,21 +288,21 @@ public class SortedWordPairList
                 }
         }
     }
-    public void MergeSimilarWords(){
+    public void MergeSimilarWords() {
         int i=1;
         float count=0;
-        while(i<this.wordPairs.size()){
+        while (i<this.wordPairs.size()) {
             WordPair pair1=(WordPair)wordPairs.get(i);
             WordPair pair2=(WordPair)wordPairs.get(i-1);
             String word=pair1.getWord();
             String preword=pair2.getWord();
-            if(word.length()<=1){
+            if(word.length()<=1) {
                 i++;
                 continue;
             }
             String word1=word.substring(0, word.length()-1);
            // System.out.println(word+" "+word1);
-            if(word1.equalsIgnoreCase(preword)==true){
+            if(word1.equalsIgnoreCase(preword)==true) {
                 count=pair1.getprob();
                 pair2.setProb(count+pair2.getprob());
                 wordPairs.remove(i);
@@ -310,16 +310,17 @@ public class SortedWordPairList
                 i++;
         }
     }
-    public int GetcountofWord(){
+    public int GetcountofWord() {
         return this.wordPairs.size();
     }
-    public void removeproduct(String productname){
+
+    public void removeproduct(String productname) {
         int i=0;
-        while(i<this.wordPairs.size()){
+        while (i<this.wordPairs.size()) {
             String attri=((WordPair)wordPairs.get(i)).getWord();
             String attri2=attri.toLowerCase();
             String pcopy=productname.toLowerCase();
-            if(pcopy.indexOf(attri2)!=-1){
+            if(pcopy.indexOf(attri2)!=-1) {
                 wordPairs.remove(i);
             }else
                 i++;

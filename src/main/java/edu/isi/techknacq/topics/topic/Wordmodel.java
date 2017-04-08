@@ -58,7 +58,7 @@ public class Wordmodel {
             sc.close();
         }
         mywords.RemoveStopWord();
-        mywords.Prune(100);
+        mywords.prune(100);
         mywords.MergeSimilarWords();
     }
 

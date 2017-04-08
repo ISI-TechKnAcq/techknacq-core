@@ -12,7 +12,7 @@ import edu.isi.techknacq.topics.util.StrUtil;
  * @author linhong
  */
 public class Wordmatrixformat {
-    public void Run(String dirname, String prefix) {
+    public void run(String dirname, String prefix) {
         ArrayList<String> filenames = StrUtil.initFolder(dirname);
         List myfile = new ArrayList<StringPair> (filenames.size());
         for (int i = 0; i < filenames.size(); i++) {
@@ -67,6 +67,6 @@ public class Wordmatrixformat {
             System.exit(2);
         }
         Wordmatrixformat myrun = new Wordmatrixformat();
-        myrun.Run(args[0], args[1]);
+        myrun.run(args[0], args[1]);
     }
 }

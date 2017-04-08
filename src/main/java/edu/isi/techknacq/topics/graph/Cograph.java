@@ -113,7 +113,7 @@ public class Cograph {
             Concept2doc doc = new Concept2doc();
             doc.initNum(tnum);
             doc.getTopK(K, filename);
-            conceptsindoc = doc.GetTopic2doc();
+            conceptsindoc = doc.getTopic2Doc();
             double []v1 = new double[30000];
             double []v2 = new double[30000];
             BufferedWriter out = null;
