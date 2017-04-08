@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import edu.isi.techknacq.topics.topic.Indexpair;
 import edu.isi.techknacq.topics.topic.Weightpair;
 import edu.isi.techknacq.topics.topic.WordPair;
 
