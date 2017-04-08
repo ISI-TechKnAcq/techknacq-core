@@ -24,10 +24,7 @@ public class Readability {
     // syllables = used to store dictionary of words and syllable counts
     // are flabby.
     private Map<String, Integer> syllables = new HashMap<String, Integer>();
-
-    public Readability() {
-
-    }
+    private Logger logger = Logger.getLogger(Readability.class);
 
     public double FKscore(String filename) {
         try {
@@ -46,22 +43,25 @@ public class Readability {
                 wordCount += words.length;
                 for (String word : words) {
                     if (isWordInDict(word)) {
-                        // Get syllable count for each word and add it to syllableCount
+                        // Get syllable count for each word and add it to
+                        // syllableCount
                         int syllable = syllables.get(word);
                         syllableCount += syllable;
 
                     } else {
 
-                        // If word not in dict, count syllables with dodgy method.
+                        // If word not in dict, count syllables with dodgy
+                        // method.
                         int syllable = countSyllablesLight(word);
                         syllableCount += syllable;
                     }
                 }
             }
-            score = 0.39*wordCount/sentencenum+11.8*syllableCount/wordCount-15.59;
+            score = 0.39 * wordCount / sentencenum +
+                11.8 * syllableCount / wordCount-15.59;
             return score;
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Readability.class.getName()).log(Level.SEVERE, null, ex);
+           logger.log(Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -95,13 +95,12 @@ public class Readability {
 
     public String cleanWord(String word) {
         /**
-         * A quick function to get rid of any junk around a word. This is useful
-         * for cleaning a word before checking it's syllable count.
+         * A quick function to get rid of any junk around a word. This is
+         * useful for cleaning a word before checking it's syllable count.
          */
-        word = word.replaceAll("[^a-zA-Z]", "");
-        word = word.toLowerCase();
-        word = word.trim();
-        return word;
+        String cleaned = word.replaceAll("[^a-zA-Z]", "");
+        cleaned = cleaned.toLowerCase();
+        return cleaned.trim();
     }
 
     public int getSyllable(String word) {
@@ -109,7 +108,6 @@ public class Readability {
          * Get syllable count whether it be in the dictionary or the dodgy
          * method.
          */
-
         if (syllables.get(word) != null)
             return syllables.get(word);
         else
@@ -130,14 +128,14 @@ public class Readability {
                 sc.useDelimiter(",");
                 word = sc.next();
                 count = sc.nextInt();
-                if (this.syllables.containsKey(word) == false) {
+                if (!this.syllables.containsKey(word)) {
                     this.syllables.put(word, count);
                 }
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Readability.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(Readability.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
 
     }
@@ -147,10 +145,7 @@ public class Readability {
          * Check if a word is in the syllable dictionary. If it is, return true,
          * else false.
          */
-        if (syllables.get(word) != null)
-            return true;
-        else
-            return false;
+        return (syllables.get(word) != null);
     }
 
     public double fleschKincaid(int wordCount, int syllableCount) {
@@ -158,7 +153,8 @@ public class Readability {
          * Calculates Flesch-Kincaid algorithm. This is the raw score not the
          * grade version. For single sentences only.
          */
-        double flesch = (206.835 - ((1.015 * wordCount) / 1)) - (((84.6 * syllableCount) / wordCount));
+        double flesch = (206.835 - ((1.015 * wordCount) / 1))
+            - (((84.6 * syllableCount) / wordCount));
         return flesch;
     }
 
@@ -187,7 +183,8 @@ public class Readability {
          * A simple syllable counter.
          * Use this as the plan B for when the dictionary method fails.
          */
-        int syllables = s.length() - s.toLowerCase().replaceAll("a|e|i|o|u|", "").length();
+        int syllables = s.length()
+            - s.toLowerCase().replaceAll("a|e|i|o|u|", "").length();
         if (syllables < 1)
             return 1;
         else
@@ -199,19 +196,19 @@ public class Readability {
         ArrayList<String> files = StrUtil.initFolder(datafile);
         for (int i = 0; i < files.size(); i++) {
             double score = this.FKscore(files.get(i));
-            System.out.println(files.get(i)+"\t"+score);
+            System.out.println(files.get(i) + "\t" + score);
         }
     }
 
     public static void main(String []args) {
-        //            if(args.length<1) {
-        //                System.out.println("Usage: [libfile] [datafilefolder]");
-        //                //eg:
-        //                //libfile: syllables.txt
-        //                System.exit(2);
-        //            }
-        Readability myreader=new Readability();
-        //myreader.run(args[0], args[1]);
-        myreader.run("syllables.txt", "C:\\Users\\linhong\\Documents\\linhong-work\\Data\\acl-full-1.0-text\\acl-full-1.0-text");
+        // if (args.length < 1) {
+        //     System.out.println("Usage: [libfile] [datafilefolder]");
+        //     // eg:
+        //     // libfile: syllables.txt
+        //     System.exit(2);
+        // }
+        Readability myreader = new Readability();
+        myreader.run(args[0], args[1]);
+        // myreader.run("syllables.txt", "acl-full-1.0-text");
     }
 }

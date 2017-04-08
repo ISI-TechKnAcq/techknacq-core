@@ -56,25 +56,26 @@ public class Getreadinglist {
             Conceptdepth Dependency = new Conceptdepth();
             Dependency.initGraph(G);
             Dependency.initTopics(topics);
-            fstream = new FileWriter(args[0]+"_readinglist.txt",false);
+            fstream = new FileWriter(args[0] + "_readinglist.txt",false);
             BufferedWriter out = new BufferedWriter(fstream);
-            for (int i=0;i<hittopic.size();i++) {
+            for (int i = 0; i < hittopic.size(); i++) {
                 out.write("Matched topic "+i+" : \n");
-                int tindex=hittopic.get(i);
+                int tindex = hittopic.get(i);
                 out.write("```\n");
                 out.write(topics.get(tindex)+"\n");
                 out.write("```\n");
                 out.write("\t\t==The best relevant "+dnum+" documents: \n");
-                ArrayList<Integer> docindex=Getdoc.getDocs(tindex);
-                for (int j=0;j<docindex.size();j++) {
-                    int dindex=docindex.get(j);
-                    String dfile=docfiles.get(dindex);
+                ArrayList<Integer> docindex = Getdoc.getDocs(tindex);
+                for (int j = 0; j < docindex.size(); j++) {
+                    int dindex = docindex.get(j);
+                    String dfile = docfiles.get(dindex);
                     out.write("\t\t- "+dfile);
-                    String value=rdk.Getdocumentkey(dfile);
+                    String value = rdk.getDocumentKey(dfile);
                     out.write(":"+value+"\n");
                 }
-                ArrayList<Integer> deptopics=Dependency.getTopNode(maxtnum, tindex);
-                for (int k=0;k<deptopics.size();k++) {
+                ArrayList<Integer> deptopics;
+                deptopics = Dependency.getTopNode(maxtnum, tindex);
+                for (int k = 0; k < deptopics.size(); k++) {
                     int ddtindex=deptopics.get(k);
                     out.write("\n\ndependency topic: \n");
                     out.write("```\n");
@@ -83,10 +84,10 @@ public class Getreadinglist {
                     out.write("\t\t\t\t==The best relevant "+dnum+" documents: \n");
                     ArrayList<Integer> docindex2 = Getdoc.getDocs(ddtindex);
                     for (int j = 0; j < docindex2.size(); j++) {
-                        int dindex=docindex2.get(j);
-                        String dfile=docfiles.get(dindex);
-                        out.write("\t\t\t\t- "+dfile);
-                        String value=rdk.Getdocumentkey(dfile);
+                        int dindex = docindex2.get(j);
+                        String dfile = docfiles.get(dindex);
+                        out.write("\t\t\t\t- " + dfile);
+                        String value = rdk.getDocumentKey(dfile);
                         out.write(":"+value+"\n");
                     }
                 }

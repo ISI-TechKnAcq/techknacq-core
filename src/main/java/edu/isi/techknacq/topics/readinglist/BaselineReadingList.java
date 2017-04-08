@@ -188,7 +188,7 @@ a:hover span { color: blue !important; }
                 Weightpair o = (Weightpair)mylist.get(i);
                 int Did = o.getindex();
                 String id = docnames.get(Did);
-                String strval = rdk.Getdocumentkey(id);
+                String strval = rdk.getDocumentKey(id);
                 String name = this.printDocName(strval, id);
                 out.write("<li>" + name + "</li>");
             }

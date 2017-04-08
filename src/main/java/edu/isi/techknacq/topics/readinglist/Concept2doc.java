@@ -213,7 +213,7 @@ public class Concept2doc {
         for (int i = 0; i < mydocs.size(); i++){
             // System.out.println(mydocs.get(i));
             String id = doc.docnames.get(mydocs.get(i));
-            String docVal = rdk.Getdocumentkey(id);
+            String docVal = rdk.getDocumentKey(id);
             // System.out.println("Retrieving:");
             System.out.println(id + " --- " + docVal);
         }

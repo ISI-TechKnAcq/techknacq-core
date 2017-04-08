@@ -1,5 +1,5 @@
 /*
- * The new reading List Generation Algorithm
+ * The new reading list generation algorithm
  */
 
 package edu.isi.techknacq.topics.readinglist;
@@ -81,7 +81,7 @@ public class NewReadingList {
         System.out.println("Finish reading topic");
         this.wordintopic = match1.getWeightTopic();
         this.topickeys = match1.getTopics();
-        ReadPageRankscore(pagerankfile);
+        readPageRankscore(pagerankfile);
         System.out.println("Finish reading pagerank");
         ReadDocumentkey rdk = new ReadDocumentkey(docfile);
         rdk.readFile();
@@ -185,7 +185,7 @@ public class NewReadingList {
         }
     }
 
-    public String Getdocmeda(String id) {
+    public String getDocMeta(String id) {
         if (this.docmap.containsKey(id))
             return this.docmap.get(id);
         else
@@ -201,7 +201,7 @@ public class NewReadingList {
         return mydocs;
     }
 
-    public void ReadPageRankscore(String filename) {
+    public void readPageRankscore(String filename) {
         try {
             this.paperpagerank = new HashMap<String,Double>(this.topickeys.size());
             FileInputStream fstream1;
@@ -236,7 +236,7 @@ public class NewReadingList {
         }
     }
 
-    public String Printtopics(int tindex) {
+    public String printTopics(int tindex) {
         String topicname;
         topicname = "\"topic\": [\n";
         double minvalue = 1;
@@ -268,7 +268,7 @@ public class NewReadingList {
         return topicname;
     }
 
-    public String ExtractAuthor(String metadata) {
+    public String extractAuthor(String metadata) {
         int index1;
         int index2;
         if (metadata != null) {
@@ -285,7 +285,7 @@ public class NewReadingList {
         return author;
     }
 
-    public String Printdocname(String metadata, String did, double score) {
+    public String printDocName(String metadata, String did, double score) {
         String name;
         int index1;
         int index2;
@@ -320,7 +320,7 @@ public class NewReadingList {
      * 3. text complexity score;
      * 4. relevence score;
      */
-    public String Gettopdoc(int tindex, int dnum, List mylist,
+    public String getTopDoc(int tindex, int dnum, List mylist,
                             boolean [] isvisit) {
         ArrayList<Weightpair> mydocs = this.getDocs(tindex);
         mylist.clear();
@@ -358,13 +358,13 @@ public class NewReadingList {
             int Did = o.getindex();
             isvisit[Did] = true;
             String dfile = docfiles.get(Did);
-            String metavalue = this.Getdocmeda(dfile);
+            String metavalue = this.getDocMeta(dfile);
             if (metavalue == null) {
                 System.out.println(Did);
             }
-            String author = this.ExtractAuthor(metavalue);
+            String author = this.extractAuthor(metavalue);
             if (!this.authorlists.contains(author)) {
-                String name = this.Printdocname(metavalue, dfile,
+                String name = this.printDocName(metavalue, dfile,
                                                 o.getweight());
                 docstring += name;
                 this.authorlists.add(author);
@@ -372,8 +372,8 @@ public class NewReadingList {
             }
             j++;
         }
-        docstring=docstring.substring(0, docstring.length()-1);
-        docstring+="]";
+        docstring = docstring.substring(0, docstring.length()-1);
+        docstring += "]";
         return docstring;
     }
 
@@ -381,15 +381,15 @@ public class NewReadingList {
         try {
             FileWriter fstream = new FileWriter(keyword + "_readinglist.json",
                                                 false);
-            BufferedWriter out=new BufferedWriter(fstream);
-            ReadGraph myreader=new ReadGraph(graphfile);
+            BufferedWriter out = new BufferedWriter(fstream);
+            ReadGraph myreader = new ReadGraph(graphfile);
             Node []G = myreader.getGraph();
             this.ordertopic = myreader.orderNode();
             Conceptdepth Dependency = new Conceptdepth();
             Dependency.initGraph(G);
             Dependency.initTopics(this.topickeys);
             boolean []isvisit = new boolean[this.docfiles.size()];
-            for (int i=0;i<isvisit.length;i++) {
+            for (int i = 0; i < isvisit.length; i++) {
                 isvisit[i] = false;
             }
 
@@ -400,7 +400,7 @@ public class NewReadingList {
             List mylist = new ArrayList<Weightpair>(100);
             this.authorlists = new HashSet<String>();
             out.write("{");
-            out.write("\"keyword\": \""+keyword+"\",\n");
+            out.write("\"keyword\": \"" + keyword + "\",\n");
 
             // Get dependency topic.
             out.write("\"Match documents\": [\n\t");
@@ -415,9 +415,9 @@ public class NewReadingList {
                         istopicvisit[ddtindex] = 'd';
                 }
                 out.write("{");
-                out.write(this.Printtopics(tindex));
+                out.write(this.printTopics(tindex));
 
-                out.write(this.Gettopdoc(tindex, dnum, mylist, isvisit));
+                out.write(this.getTopDoc(tindex, dnum, mylist, isvisit));
                 out.write("\n}");
                 if (i < hittopic.size() - 1)
                     out.write(",\n");
@@ -441,8 +441,8 @@ public class NewReadingList {
                 if (istopicvisit[tindex] == 'v' || istopicvisit[tindex] == 'm')
                     continue;
                 out.write("{");
-                out.write(this.Printtopics(tindex));
-                out.write(this.Gettopdoc(tindex, dnum, mylist, isvisit));
+                out.write(this.printTopics(tindex));
+                out.write(this.getTopDoc(tindex, dnum, mylist, isvisit));
                 out.write("\n}");
                 if (i < endindex)
                     out.write(",\n");
