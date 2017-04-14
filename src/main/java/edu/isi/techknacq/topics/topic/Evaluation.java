@@ -82,37 +82,34 @@ public class Evaluation {
     }
 
     public ArrayList<Double> word2vec(String word) {
-        word = word.replace("#", "");
-        int newindex = Collections.binarySearch(this.words, word);
+        String w = word.replace("#", "");
+        int newindex = Collections.binarySearch(this.words, w);
         if (newindex >= 0)
             return this.wordvec[newindex];
-        else {
-            if (word.contains("_")) {
-                String word2 = word.replaceAll("_", " ");
-                int index = Collections.binarySearch(this.words, word2);
-                if (index >= 0)
-                    return this.wordvec[index];
-                else {
-                    ArrayList<Double> res = null;
-                    Scanner sc = new Scanner(word);
-                    sc.useDelimiter("_");
-                    while(sc.hasNext()) {
-                        int index2 = Collections.binarySearch(this.words,
-                                                              sc.next());
-                        if (index2 >= 0) {
-                            if (res == null)
-                                res = this.wordvec[index2];
-                            else {
-                                addlist(res, wordvec[index2]);
-                            }
+        else if (w.contains("_")) {
+            String word2 = word.replaceAll("_", " ");
+            int index = Collections.binarySearch(this.words, word2);
+            if (index >= 0)
+                return this.wordvec[index];
+            else {
+                ArrayList<Double> res = null;
+                Scanner sc = new Scanner(w);
+                sc.useDelimiter("_");
+                while(sc.hasNext()) {
+                    int index2 = Collections.binarySearch(this.words,
+                                                          sc.next());
+                    if (index2 >= 0) {
+                        if (res == null)
+                            res = this.wordvec[index2];
+                        else {
+                            addlist(res, wordvec[index2]);
                         }
                     }
-                    return res;
                 }
-            } else
-                return null;
-        }
-
+                return res;
+            }
+        } else
+            return null;
     }
 
     public void runEvaluate(String filename) {

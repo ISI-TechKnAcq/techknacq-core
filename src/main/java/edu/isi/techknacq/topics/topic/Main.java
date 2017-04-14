@@ -41,6 +41,6 @@ public class Main {
             prefix = args[4];
         }
         Topic mytopic = new Topic();
-        mytopic.Runtopic(args[0], topicnum, k, alpha, prefix);
+        mytopic.runTopic(args[0], topicnum, k, alpha, prefix);
     }
 }

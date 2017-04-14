@@ -18,14 +18,14 @@ public class Runwordmatrix {
         for (int i = 0; i < filenames.size(); i++) {
             String name = filenames.get(i);
             String word = name.substring(name.lastIndexOf("\\") + 1,
-                                         name.length()-4);
+                                         name.length() - 4);
             String year = word.substring(5,8);
             if (year.startsWith("0")) {
                 year = "20" + year;
             } else
                 year = "19" + year;
-            System.out.println(year+word);
-            StringPair o = new StringPair(year+word, filenames.get(i));
+            System.out.println(year + word);
+            StringPair o = new StringPair(year + word, filenames.get(i));
             myfile.add(o);
         }
         Collections.sort(myfile);
@@ -47,18 +47,20 @@ public class Runwordmatrix {
         mymodel.computeWordModel();
         mymodel.saveWordModel("./lib/wordmodel.txt");
         mymodel.saveWord("./lib/words.txt");
-        mymodel.SavetopK(30, "./lib/"+prefix+"top.csv");
+        mymodel.SavetopK(30, "./lib/" + prefix + "top.csv");
         String []words = mymodel.Getwords();
-        int[]df = mymodel.Getcount();
+        int[]df = mymodel.getCount();
         System.out.println("Finish computing dictionary");
         Wordmatrix mymatrix = new Wordmatrix();
         mymatrix.initWords(words);
         mymatrix.initWordFreq(df);
         mymatrix.Initcontent(posts);
-        mymatrix.initmatrix("./lib/"+prefix+"wordmatrix.txt",filenames);
+        mymatrix.initmatrix("./lib/" + prefix + "wordmatrix.txt",
+                            filenames);
         mymodel.clear();
         mymatrix.clear();
-        System.out.println("Finish document to word representation computation");
+        System.out.println("Finished computing document-to-word " +
+                           "representation.");
     }
 
     public static void main(String []args) {

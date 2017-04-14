@@ -57,9 +57,9 @@ public class Wordmodel {
             }
             sc.close();
         }
-        mywords.RemoveStopWord();
+        mywords.removeStopWord();
         mywords.prune(100);
-        mywords.MergeSimilarWords();
+        mywords.mergeSimilarWords();
     }
 
     public void computeWordModel(ArrayList<String> filenames) {
@@ -74,7 +74,7 @@ public class Wordmodel {
             FileWriter fstream = null;
             fstream = new FileWriter(filename, false);
             out = new BufferedWriter(fstream);
-            mywords.Print(out);
+            mywords.print(out);
         } catch (IOException ex) {
             logger.log(Level.SEVERE, null, ex);
         }
@@ -86,7 +86,7 @@ public class Wordmodel {
             FileWriter fstream = null;
             fstream = new FileWriter(filename, false);
             out = new BufferedWriter(fstream);
-            mywords.Printwords(out);
+            mywords.printWords(out);
         } catch (IOException ex) {
             logger.log(Level.SEVERE, null, ex);
         }
@@ -96,14 +96,14 @@ public class Wordmodel {
         return mywords.getWords();
     }
 
-    public int []Getcount() {
-        return mywords.Getcount();
+    public int []getCount() {
+        return mywords.getCount();
     }
 
     public void SavetopK(int k, String filename) {
         try {
-            mywords.MergeSimilarWords();
-            String []kword = mywords.Gettop(k);
+            mywords.mergeSimilarWords();
+            String []kword = mywords.getTop(k);
             BufferedWriter out = null;
             FileWriter fstream = null;
             fstream = new FileWriter(filename, false);

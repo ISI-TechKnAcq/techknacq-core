@@ -49,7 +49,7 @@ public class Wordmatrixformat {
         mymodel.saveWord("./lib/words.txt");
         mymodel.SavetopK(30, "./lib/" + prefix + "top.csv");
         String []words = mymodel.Getwords();
-        int[]df = mymodel.Getcount();
+        int[]df = mymodel.getCount();
         System.out.println("Finish computing dictionary.");
         Wordmatrix mymatrix = new Wordmatrix();
         mymatrix.initWords(words);
