@@ -22,6 +22,7 @@ import edu.isi.techknacq.topics.util.StrUtil;
  */
 public class GetACLauthor {
     private HashMap<String, Integer> authorname;
+    private Logger logger = Logger.getLogger(GetACLauthor.class);
 
     public void readfile(String filename) throws IOException {
         authorname = new HashMap<String,Integer>(10000);
@@ -34,7 +35,7 @@ public class GetACLauthor {
             String strline;
             String conf;
             String author;
-            while ((strline = br.readLine()) != null){
+            while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter(":");
                 conf = sc.next();
@@ -52,11 +53,12 @@ public class GetACLauthor {
                     }
                 }
             }
-            BufferedWriter out;
-            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("ACLauthor.txt"), "UTF-8"));
+            FileOutputStream fos = new FileOutputStream("ACLauthor.txt");
+            OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
+            BufferedWriter out = new BufferedWriter(osw);
             StrUtil.printMap(authorname, out);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(GetACLauthor.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
@@ -65,7 +67,7 @@ public class GetACLauthor {
             GetACLauthor myauthor = new GetACLauthor();
             myauthor.readfile("confauthor");
         } catch (IOException ex) {
-            Logger.getLogger(GetACLauthor.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 }

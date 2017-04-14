@@ -54,14 +54,14 @@ public class Evaluation {
             BufferedReader br = new BufferedReader(new InputStreamReader(in1));
             String strline;
             wordvec = new ArrayList[this.words.size()];
-            for (int i = 0;i<this.wordvec.length;i++) {
+            for (int i = 0; i < this.wordvec.length; i++) {
                 wordvec[i] = new ArrayList<Double>(6);
             }
-            int line=0;
-            while((strline=br.readLine())!=null) {
+            int line = 0;
+            while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t");
-                while(sc.hasNext()) {
+                while (sc.hasNext()) {
                     wordvec[line].add(sc.nextDouble());
                 }
                 line++;
@@ -77,7 +77,7 @@ public class Evaluation {
         if (tar.size() != src.size())
             return;
         for (int i = 0; i < tar.size(); i++) {
-            tar.set(i, (tar.get(i)+src.get(i))/2);
+            tar.set(i, (tar.get(i) + src.get(i))/2);
         }
     }
 
@@ -85,7 +85,7 @@ public class Evaluation {
         word = word.replace("#", "");
         int newindex = Collections.binarySearch(this.words, word);
         if (newindex >= 0)
-                return this.wordvec[newindex];
+            return this.wordvec[newindex];
         else {
             if (word.contains("_")) {
                 String word2 = word.replaceAll("_", " ");
@@ -97,19 +97,19 @@ public class Evaluation {
                     Scanner sc = new Scanner(word);
                     sc.useDelimiter("_");
                     while(sc.hasNext()) {
-                        int index2=Collections.binarySearch(this.words, sc.next());
+                        int index2 = Collections.binarySearch(this.words,
+                                                              sc.next());
                         if (index2 >= 0) {
                             if (res == null)
                                 res = this.wordvec[index2];
                             else {
-                                addlist(res,wordvec[index2]);
+                                addlist(res, wordvec[index2]);
                             }
                         }
                     }
                     return res;
                 }
-            }
-            else
+            } else
                 return null;
         }
 
@@ -121,7 +121,7 @@ public class Evaluation {
         myreader.conceptToWords(filename);
         List []l = myreader.getConceptInWord();
         ArrayList<String> topicwords = myreader.getWordList();
-        double totalscore=0;
+        double totalscore = 0;
         for (int i = 0; i < l.length; i++) {
             List temp = l[i];
             double avgscore = 0;
@@ -139,15 +139,16 @@ public class Evaluation {
                     ArrayList<Double> l2 = this.word2vec(word2);
                     if (l2 == null)
                         continue;
-                    // avgscore+=MathUtil.Cosinsimilarity(l1, l2)*(o.getweight()+o2.getweight());
+                    // avgscore += MathUtil.Cosinsimilarity(l1, l2) *
+                    //             (o.getweight() + o2.getweight());
                     avgscore += MathUtil.Cosinsimilarity(l1, l2);
                 }
 
             }
             avgscore /= temp.size();
-            avgscore /= (temp.size()-1);
+            avgscore /= (temp.size() - 1);
             avgscore *= 2;
-            System.out.println(i+"\t"+avgscore);
+            System.out.println(i + "\t" + avgscore);
             totalscore += avgscore;
         }
         totalscore /= l.length;
