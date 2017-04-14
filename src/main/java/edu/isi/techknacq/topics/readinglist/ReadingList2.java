@@ -37,8 +37,9 @@ public class ReadingList2 {
     private ArrayList<String> docfiles;
     private int []ordertopic;
     private Set<String> authorlists;
+    private Logger logger = Logger.getLogger(BaselineReadingList.class);
 
-    public void Readdata(String keyword, String keyname, String pagerankfile,
+    public void readData(String keyword, String keyname, String pagerankfile,
                          String docfile, int dnum, String doc2conceptfile,
                          String filterfile) {
         Keyword2concept match1 = new Keyword2concept();
@@ -46,7 +47,7 @@ public class ReadingList2 {
         hittopic = match1.getMatch(keyword);
         this.wordintopic = match1.getWeightTopic();
         this.topickeys = match1.getTopics();
-        ReadPageRankscore(pagerankfile);
+        readPageRankScore(pagerankfile);
         ReadDocumentkey rdk = new ReadDocumentkey(docfile);
         rdk.readFile();
         docmap = rdk.GetDocmap();
@@ -58,7 +59,7 @@ public class ReadingList2 {
         docfiles = Getdoc.getDocName();
     }
 
-    public String Getdocmeda(String id) {
+    public String getDocMeta(String id) {
         if (this.docmap.containsKey(id))
             return this.docmap.get(id);
         else
@@ -95,7 +96,7 @@ public class ReadingList2 {
     //        val = '%x' % int(f * 255)
     //        val = invert_hex(val)
     //        return '#%s%s%s' % (val, val, val)
-    public String Printtopics(int tindex) {
+    public String printTopics(int tindex) {
         String topicname;
         topicname="<blockquote><p>";
         double minvalue=1;
@@ -126,18 +127,18 @@ public class ReadingList2 {
         topicname+="</p></blockquote>";
         return topicname;
     }
-    public String ExtractAuthor(String metadata) {
-        int index1=metadata.indexOf("author:");
-        int index2=metadata.indexOf("title:");
-        String author;
-        if (index1>=0&&index2>=0) {
-            author=metadata.substring(index1+8,index2);
-        }else
-            author=null;
+
+    public String extractAuthor(String metadata) {
+        int index1 = metadata.indexOf("author:");
+        int index2 = metadata.indexOf("title:");
+        String author = null;
+        if (index1 >= 0 && index2 >= 0) {
+            author=metadata.substring(index1+8, index2);
+        }
         return author;
     }
 
-    public String Printdocname(String metadata, String did, double score) {
+    public String printDocName(String metadata, String did, double score) {
         String name;
         int index1 = metadata.indexOf("author:");
         int index2 = metadata.indexOf("title:");
@@ -193,7 +194,7 @@ public class ReadingList2 {
             //                    else
             //                        continue;
             //                    String dockey=this.docfiles.get(Did);
-            //                    if (this.paperpagerank.containsKey(dockey)==true)
+            //                    if (this.paperpagerank.containsKey(dockey))
             //                        value=this.paperpagerank.get(dockey);
             //                    else
             //                        value=-1;
@@ -209,7 +210,7 @@ public class ReadingList2 {
             //                            else
             //                                continue;
             //                            String dockey=this.docfiles.get(mydoc);
-            //                            if (this.paperpagerank.containsKey(dockey)==true)
+            //                            if (this.paperpagerank.containsKey(dockey))
             //                                value=this.paperpagerank.get(dockey);
             //                            else
             //                                value=-1;
@@ -282,43 +283,43 @@ public class ReadingList2 {
                       "</style>\n" +
                       "</head>\n" +
                       "<body>\n" +
-                      "<h1>Reading List for "+keyword+" </h1>");
+                      "<h1>Reading List for " + keyword + " </h1>");
 
-            boolean []isvisit=new boolean[this.docfiles.size()];
-            for (int i=0;i<isvisit.length;i++) {
-                isvisit[i]=false;
+            boolean []isvisit = new boolean[this.docfiles.size()];
+            for (int i = 0; i < isvisit.length; i++) {
+                isvisit[i] = false;
             }
             /*
-              Get matched topic and dependent topics
-            */
-            char []istopicvisit=new char[this.topickeys.size()];
+             * Get matched topic and dependent topics
+             */
+            char []istopicvisit = new char[this.topickeys.size()];
             Arrays.fill(istopicvisit, 'v');
-            List mylist=new ArrayList(100);
-            this.authorlists=new HashSet();
+            List mylist = new ArrayList(100);
+            this.authorlists = new HashSet();
 
-            for (int i=0;i<hittopic.size();i++) {
-                int tindex=hittopic.get(i);
-                istopicvisit[tindex]='m';
-                if (i==0) {
-                    istopicvisit[tindex]='v';
-                    //put the topic tindex at the very begining of the order list;
+            for (int i = 0; i < hittopic.size(); i++) {
+                int tindex = hittopic.get(i);
+                istopicvisit[tindex] = 'm';
+                if (i == 0) {
+                    istopicvisit[tindex] = 'v';
+                    // Put the topic tindex at the very begining of the order list
                     out.write("<section>");
-                    out.write("<h2>"+"Overall topic: "+"</h2>");
+                    out.write("<h2>Overall topic: "+"</h2>");
                     out.write("<div class=\"topic\">");
-                    out.write(this.Printtopics(tindex));
+                    out.write(this.printTopics(tindex));
                     /*
-                      Start retrival high quality papers;
-                    */
+                     * Start retrival high quality papers;
+                     */
                     ArrayList<Integer> mydocs=this.getDocs(tindex);
 
                     mylist.clear();
                     for (Integer mydoc : mydocs) {
                         int Did = mydoc;
-                        if (isvisit[Did]==true)
+                        if (isvisit[Did])
                             continue;
                         String dockey=this.docfiles.get(Did);
                         double value;
-                        if (this.paperpagerank.containsKey(dockey)==true)
+                        if (this.paperpagerank.containsKey(dockey))
                             value=this.paperpagerank.get(dockey);
                         else
                             value=-1;
@@ -335,10 +336,10 @@ public class ReadingList2 {
                         int Did=o.getindex();
                         isvisit[Did]=true;
                         String dfile=docfiles.get(Did);
-                        String metavalue=this.Getdocmeda(dfile);
-                        String author=this.ExtractAuthor(metavalue);
+                        String metavalue=this.getDocMeta(dfile);
+                        String author=this.extractAuthor(metavalue);
                         if (this.authorlists.contains(author)==false) {
-                            String name=this.Printdocname(metavalue, dfile, o.getweight());
+                            String name=this.printDocName(metavalue, dfile, o.getweight());
                             out.write("<li>"+name+"</li>");
                             this.authorlists.add(author);
                             dcount++;
@@ -358,7 +359,7 @@ public class ReadingList2 {
             Dependency.getSubgraph(keyword);
             // Order topics by knowledge complexity
             for (int i = 0; i < this.ordertopic.length; i++) {
-                int tindex=ordertopic[i];
+                int tindex = ordertopic[i];
                 if (istopicvisit[tindex] == 'v')
                     continue;
                 out.write("<section>");
@@ -368,7 +369,7 @@ public class ReadingList2 {
                     out.write("<h2>"+"Dependency topic: "+"</h2>");
                 }
                 out.write("<div class=\"topic\">");
-                out.write(this.Printtopics(tindex));
+                out.write(this.printTopics(tindex));
                 /*
                  * Start retrival high quality papers;
                  */
@@ -392,15 +393,15 @@ public class ReadingList2 {
                 int j = 0;
                 dcount = 0;
                 Collections.sort(mylist);
-                while (dcount<dnum&&j<mylist.size()&&dcount<mylist.size()) {
+                while (dcount < dnum && j < mylist.size() && dcount < mylist.size()) {
                     Weightpair o = (Weightpair)mylist.get(j);
                     int Did = o.getindex();
                     isvisit[Did] = true;
                     String dfile = docfiles.get(Did);
-                    String metavalue = this.Getdocmeda(dfile);
-                    String author = this.ExtractAuthor(metavalue);
-                    if (this.authorlists.contains(author)==false) {
-                        String name = this.Printdocname(metavalue, dfile,
+                    String metavalue = this.getDocMeta(dfile);
+                    String author = this.extractAuthor(metavalue);
+                    if (!this.authorlists.contains(author)) {
+                        String name = this.printDocName(metavalue, dfile,
                                                         o.getweight());
                         out.write("<li>" + name + "</li>");
                         this.authorlists.add(author);
@@ -418,11 +419,11 @@ public class ReadingList2 {
             out.close();
             Dependency.getSubgraph(keyword);
         } catch (IOException ex) {
-            Logger.getLogger(ReadingList2.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
-    public void ReadPageRankscore(String filename) {
+    public void readPageRankScore(String filename) {
         try {
             this.paperpagerank = new HashMap(this.topickeys.size());
             FileInputStream fstream1;
@@ -451,36 +452,38 @@ public class ReadingList2 {
             }
             in1.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(BaselineReadingList.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(BaselineReadingList.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
     public static void main(String []args) {
-        //args[0]: keyword;
-        //args[1]: doc2topicfilename;
-        //args[2]: topicweightedkeyname;
-        //args[3]: topicgraphfilename;
-        //args[4]: dockeyname;
-        //args[5]: number of docs per topic
-        //args[6]: number of maximum dependence topics;
+        // args[0]: keyword;
+        // args[1]: doc2topicfilename;
+        // args[2]: topicweightedkeyname;
+        // args[3]: topicgraphfilename;
+        // args[4]: dockeyname;
+        // args[5]: number of docs per topic
+        // args[6]: number of maximum dependence topics;
         if (args.length < 6) {
-            System.out.println("Usage [keyword] [doc2topic] [topickey] [topicgraph] [dockey] [pagerankfile] [docs/topic] [max_topic] [filterfile]");
+            System.out.println("Usage [keyword] [doc2topic] [topickey] [topicgraph] [dockey] " +
+                               "[pagerankfile] [docs/topic] [max_topic] [filterfile]");
             System.exit(2);
         }
         int dnum = 3;
         int maxtnum = 10;
-        String filterfile="yes-no.csv";
-        if (args.length>6)
-            dnum=Integer.parseInt(args[6]);
-        if (args.length>7)
-            maxtnum=Integer.parseInt(args[7]);
-        if (args.length>8)
-            filterfile=args[8];
+        String filterfile = "yes-no.csv";
+        if (args.length > 6)
+            dnum = Integer.parseInt(args[6]);
+        if (args.length > 7)
+            maxtnum = Integer.parseInt(args[7]);
+        if (args.length > 8)
+            filterfile = args[8];
         ReadingList2 myreadinglist = new ReadingList2();
-        //String keyword, String keyname, String pagerankfile, String docfile, int dnum, String doc2conceptfile
-        myreadinglist.Readdata(args[0],args[2] ,args[5], args[4], dnum, args[1],filterfile);
+        // String keyword, String keyname, String pagerankfile, String docfile, int dnum,
+        // String doc2conceptfile
+        myreadinglist.readData(args[0], args[2], args[5], args[4], dnum, args[1], filterfile);
         // String keyword, String graphfile, int maxtopic, int dnum
         myreadinglist.run(args[0], args[3], maxtnum, dnum);
     }

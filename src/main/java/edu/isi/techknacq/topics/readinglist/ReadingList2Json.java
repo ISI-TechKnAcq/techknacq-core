@@ -37,7 +37,7 @@ public class ReadingList2Json {
     private int []ordertopic;
     private HashSet<String> authorlists;
 
-    public void Readdata(String keyword, String keyname, String pagerankfile,
+    public void readData(String keyword, String keyname, String pagerankfile,
                          String docfile, int dnum, String doc2conceptfile,
                          String filterfile) {
         Keyword2concept match1 = new Keyword2concept();
@@ -45,7 +45,7 @@ public class ReadingList2Json {
         hittopic = match1.getMatch(keyword);
         this.wordintopic = match1.getWeightTopic();
         this.topickeys = match1.getTopics();
-        ReadPageRankscore(pagerankfile);
+        readPageRankScore(pagerankfile);
         ReadDocumentkey rdk = new ReadDocumentkey(docfile);
         rdk.readFile();
         docmap = rdk.GetDocmap();
@@ -57,7 +57,7 @@ public class ReadingList2Json {
         docfiles = Getdoc.getDocName();
     }
 
-    public String Getdocmeda(String id) {
+    public String getDocMeta(String id) {
         if (this.docmap.containsKey(id))
             return this.docmap.get(id);
         else
@@ -65,16 +65,17 @@ public class ReadingList2Json {
     }
 
     public ArrayList<Integer> getDocs(int tindex) {
-        ArrayList<Integer> mydocs=new ArrayList(topic2docs[tindex].size());
+        ArrayList<Integer> mydocs = new ArrayList(topic2docs[tindex].size());
         for (int i=0;i<topic2docs[tindex].size();i++) {
             Weightpair o=(Weightpair)topic2docs[tindex].get(i);
             mydocs.add(o.getindex());
         }
         return mydocs;
     }
-    public void ReadPageRankscore(String filename) {
+
+    public void readPageRankScore(String filename) {
         try {
-            this.paperpagerank=new HashMap(this.topickeys.size());
+            this.paperpagerank = new HashMap(this.topickeys.size());
             FileInputStream fstream1;
             fstream1 = new FileInputStream(filename);
             // Get the object of DataInputStream
@@ -86,16 +87,16 @@ public class ReadingList2Json {
             String keyname;
             double value;
             String sr;
-            while((strline=br.readLine())!=null) {
-                Scanner sc=new Scanner(strline);
+            while ((strline=br.readLine())!=null) {
+                Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t| ");
-                sr=sc.next();
+                sr = sc.next();
                 if (sr.contains("*Edge")||sr.contains("*Arc"))
                     break;
-                keyname=sc.next();
-                keyname=keyname.substring(1, keyname.length()-1);
-                value=sc.nextDouble();
-                if (this.paperpagerank.containsKey(keyname)==false) {
+                keyname = sc.next();
+                keyname = keyname.substring(1, keyname.length()-1);
+                value = sc.nextDouble();
+                if (!this.paperpagerank.containsKey(keyname)) {
                     this.paperpagerank.put(keyname, value);
                 }
             }
@@ -106,7 +107,7 @@ public class ReadingList2Json {
             Logger.getLogger(BaselineReadingList.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public String Printtopics(int tindex) {
+    public String printTopics(int tindex) {
         String topicname;
         topicname="\"topic\": \n[";
         double minvalue=1;
@@ -133,7 +134,8 @@ public class ReadingList2Json {
         topicname+="],";
         return topicname;
     }
-    public String ExtractAuthor(String metadata) {
+
+    public String extractAuthor(String metadata) {
         int index1=metadata.indexOf("author:");
         int index2=metadata.indexOf("title:");
         String author;
@@ -143,56 +145,57 @@ public class ReadingList2Json {
             author=null;
         return author;
     }
-    public String Printdocname(String metadata, String did, double score) {
+
+    public String printDocName(String metadata, String did, double score) {
         String name;
-        int index1=metadata.indexOf("author:");
-        int index2=metadata.indexOf("title:");
+        int index1 = metadata.indexOf("author:");
+        int index2 = metadata.indexOf("title:");
         String author;
         String title;
-        if (index1>=0&&index2>=0) {
-            author=metadata.substring(index1+8,index2);
-        }else
+        if (index1 >= 0 && index2 >= 0) {
+            author=metadata.substring(index1+8, index2);
+        } else
             author=null;
         if (index2>=0) {
             title=metadata.substring(index2+7, metadata.length());
-        }else
+        } else
             title=null;
-        name="\n\t\t{";
-        name =name+"\"author\": \""+author+"\", \"title\": \""+title+"\",\"ID\": \""+did+"\"},";
+        name = "\n\t\t{";
+        name += "\"author\": \""+author+"\", \"title\": \""+title+"\",\"ID\": \""+did+"\"},";
         return name;
     }
 
-    public String Gettopdoc(int tindex, int dnum, List mylist, boolean [] isvisit) {
+    public String getTopDoc(int tindex, int dnum, List mylist, boolean [] isvisit) {
         ArrayList<Integer> mydocs = this.getDocs(tindex);
         mylist.clear();
-        String docstring="";
+        String docstring = "";
         for (Integer mydoc : mydocs) {
             int Did = mydoc;
-            if (isvisit[Did]==true)
+            if (isvisit[Did])
                 continue;
-            String dockey=this.docfiles.get(Did);
+            String dockey = this.docfiles.get(Did);
             double value;
-            if (this.paperpagerank.containsKey(dockey)==true)
-                value=this.paperpagerank.get(dockey);
+            if (this.paperpagerank.containsKey(dockey))
+                value = this.paperpagerank.get(dockey);
             else
-                value=-1;
-            if (value>-1)
+                value = -1;
+            if (value > -1)
                 mylist.add(new Weightpair(value,Did));
         }
-        docstring+="\n\"documents\": [";
-        int j=0;
-        int dcount=0;
+        docstring += "\n\"documents\": [";
+        int j = 0;
+        int dcount = 0;
         Collections.sort(mylist);
-        while(dcount<dnum&&j<mylist.size()&&dcount<mylist.size()) {
-            Weightpair o= (Weightpair)mylist.get(j);
-            int Did=o.getindex();
-            isvisit[Did]=true;
-            String dfile=docfiles.get(Did);
-            String metavalue=this.Getdocmeda(dfile);
-            String author=this.ExtractAuthor(metavalue);
-            if (this.authorlists.contains(author)==false) {
-                String name=this.Printdocname(metavalue, dfile, o.getweight());
-                docstring+=name;
+        while (dcount < dnum && j < mylist.size() && dcount < mylist.size()) {
+            Weightpair o = (Weightpair)mylist.get(j);
+            int Did = o.getindex();
+            isvisit[Did] = true;
+            String dfile = docfiles.get(Did);
+            String metavalue = this.getDocMeta(dfile);
+            String author = this.extractAuthor(metavalue);
+            if (!this.authorlists.contains(author)) {
+                String name = this.printDocName(metavalue, dfile, o.getweight());
+                docstring += name;
                 this.authorlists.add(author);
                 dcount++;
             }
@@ -221,18 +224,18 @@ public class ReadingList2Json {
             /*
              * Get matched topic and dependent topics
              */
-            char []istopicvisit=new char[this.topickeys.size()];
+            char []istopicvisit = new char[this.topickeys.size()];
             Arrays.fill(istopicvisit, 'v');
-            List mylist=new ArrayList(100);
-            this.authorlists=new HashSet();
+            List mylist = new ArrayList(100);
+            this.authorlists = new HashSet();
             out.write("{");
             out.write("\"keyword\": \""+keyword+"\",\n");
             for (int i=0;i<hittopic.size();i++) {
                 out.write("\"Match topics\": {\n\t");
                 int tindex=hittopic.get(i);
                 istopicvisit[tindex]='m';
-                out.write(this.Printtopics(tindex));
-                out.write(this.Gettopdoc(tindex, dnum, mylist, isvisit));
+                out.write(this.printTopics(tindex));
+                out.write(this.getTopDoc(tindex, dnum, mylist, isvisit));
                 ArrayList<Integer> deptopics = Dependency.getTopNode(maxtopic, tindex);
                 out.write("\n\t\t\"Dependency topics\": \n[");
                 for (int j=0;j<deptopics.size();j++) {
@@ -240,9 +243,9 @@ public class ReadingList2Json {
                     int ddtindex = deptopics.get(j);
                     if (istopicvisit[ddtindex]!='m')
                         istopicvisit[ddtindex]='d';
-                    out.write(this.Printtopics(ddtindex));
-                    String docstrs=this.Gettopdoc(ddtindex, dnum, mylist, isvisit);
-                    docstrs=docstrs.substring(0,docstrs.length()-1);
+                    out.write(this.printTopics(ddtindex));
+                    String docstrs = this.getTopDoc(ddtindex, dnum, mylist, isvisit);
+                    docstrs = docstrs.substring(0,docstrs.length()-1);
                     if (j<deptopics.size()-1) {
                         out.write(docstrs);
                         out.write("},\n");
@@ -286,7 +289,7 @@ public class ReadingList2Json {
         ReadingList2Json myreadinglist = new ReadingList2Json();
         // String keyword, String keyname, String pagerankfile,
         // String docfile, int dnum, String doc2conceptfile
-        myreadinglist.Readdata(args[0], args[2], args[5], args[4], dnum,
+        myreadinglist.readData(args[0], args[2], args[5], args[4], dnum,
                                args[1], filterfile);
         // String keyword, String graphfile, int maxtopic, int dnum
         myreadinglist.run(args[0], args[3], maxtnum, dnum);

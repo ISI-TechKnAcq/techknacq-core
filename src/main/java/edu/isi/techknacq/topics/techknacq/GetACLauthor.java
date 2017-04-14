@@ -22,11 +22,7 @@ import edu.isi.techknacq.topics.util.StrUtil;
  * @author linhong
  */
 public class GetACLauthor {
-    HashMap<String, Integer> authorname;
-
-    public GetACLauthor() {
-
-    }
+    private HashMap<String, Integer> authorname;
 
     public void readfile(String filename) throws IOException {
         authorname = new HashMap<String,Integer>(10000);
@@ -44,14 +40,14 @@ public class GetACLauthor {
                 sc.useDelimiter(":");
                 conf = sc.next();
                 author = sc.next();
-                if (conf.indexOf("conf/acl") >=0 ||
-                    conf.indexOf("conf/emnlp") >=0 ||
-                    conf.indexOf("conf/naacl") >=0 ||
-                    conf.indexOf("conf/eacl") >=0 ||
-                    conf.indexOf("journals/coling") >=0) {
-                    if (this.authorname.containsKey(author) == true) {
+                if (conf.indexOf("conf/acl") >= 0 ||
+                    conf.indexOf("conf/emnlp") >= 0 ||
+                    conf.indexOf("conf/naacl") >= 0 ||
+                    conf.indexOf("conf/eacl") >= 0 ||
+                    conf.indexOf("journals/coling") >= 0) {
+                    if (this.authorname.containsKey(author)) {
                         int count = authorname.get(author);
-                        this.authorname.put(author, count+1);
+                        this.authorname.put(author, count + 1);
                     } else {
                         this.authorname.put(author, 1);
                     }
@@ -68,7 +64,7 @@ public class GetACLauthor {
     public static void main(String []args) {
         try {
             GetACLauthor myauthor = new GetACLauthor();
-            myauthor.readfile("C:\\Users\\linhong\\Documents\\linhong-work\\Coding\\Projects\\eclips\\Parser\\confauthor");
+            myauthor.readfile("confauthor");
         } catch (IOException ex) {
             Logger.getLogger(GetACLauthor.class.getName()).log(Level.SEVERE, null, ex);
         }
