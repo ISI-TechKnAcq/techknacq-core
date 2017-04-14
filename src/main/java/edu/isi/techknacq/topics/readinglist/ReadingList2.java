@@ -75,33 +75,21 @@ public class ReadingList2 {
         return mydocs;
     }
 
-    public String floattoString(double val, double max) {
+    public String floatToString(double val, double max) {
         int color_dec = (int)(255*(1-val/max));
         String str = Integer.toHexString(color_dec);
         if (str.length()>1)
-            str = "#"+str+str+str;
+            str = "#" + str + str + str;
         else
-            str = "#"+0+str+0+str+0+str;
+            str = "#" + 0 + str + 0 + str + 0 + str;
         return str;
     }
 
-    //    def invert_hex(hex_number):
-    //        inverse = hex(abs(int(hex_number, 16) - 255))[2:]
-    //        # If the number is a single digit add a preceding zero
-    //        if len(inverse) == 1:
-    //            inverse = '0'+inverse
-    //        return inverse
-    //
-    //    def float_to_color(f):
-    //        val = '%x' % int(f * 255)
-    //        val = invert_hex(val)
-    //        return '#%s%s%s' % (val, val, val)
     public String printTopics(int tindex) {
-        String topicname;
-        topicname="<blockquote><p>";
-        double minvalue=1;
-        double maxvalue=0;
-        for (int i=0;i<this.wordintopic.get(tindex).size();i++) {
+        String topicname = "<blockquote><p>";
+        double minvalue = 1;
+        double maxvalue = 0;
+        for (int i = 0; i < this.wordintopic.get(tindex).size(); i++) {
             WordPair w = wordintopic.get(tindex).get(i);
             double value = w.getprob();
             if (value > maxvalue)
@@ -110,21 +98,24 @@ public class ReadingList2 {
                 minvalue = value;
             }
         }
-        for (int i=0;i<this.wordintopic.get(tindex).size();i++) {
-            WordPair w=wordintopic.get(tindex).get(i);
-            String word=w.getWord();
-            double value=w.getprob();
-            if (word.startsWith("#")&&word.endsWith("#")) {
-                word=word.replace("#", "");
-                topicname+="<a href=\"http://wikipedia.org/w/index.php?search="+word.replace("_", "+");
-                topicname+="\">"+"<span style=\"color: "+floattoString(value,maxvalue)+"\" title=\""+(int)(value*100)+"% relevant\">"+word.replace("_", "&nbsp;")+"</span>";
-                topicname+="</a>, ";
-            }else{
-                topicname+="<span style=\"color:"+floattoString(value,maxvalue)+"\" title=\""+(int)(value*100)+"% relevant\">"+word.replace("_", "&nbsp;")+"</span>, ";
+        for (int i = 0; i < this.wordintopic.get(tindex).size(); i++) {
+            WordPair w = wordintopic.get(tindex).get(i);
+            String word = w.getWord();
+            double value = w.getprob();
+            if (word.startsWith("#") && word.endsWith("#")) {
+                word = word.replace("#", "");
+                topicname += "<a href=\"http://wikipedia.org/w/index.php?search=" +
+                             word.replace("_", "+") + "\"><span style=\"color: " +
+                             floatToString(value, maxvalue)+"\" title=\"" + (int)(value*100) +
+                             "% relevant\">" + word.replace("_", "&nbsp;") + "</span></a>, ";
+            } else {
+                topicname += "<span style=\"color:" + floatToString(value, maxvalue) +
+                             "\" title=\"" + (int)(value*100) + "% relevant\">" +
+                             word.replace("_", "&nbsp;") + "</span>, ";
             }
         }
-        topicname=topicname.substring(0, topicname.length()-2);
-        topicname+="</p></blockquote>";
+        topicname = topicname.substring(0, topicname.length()-2);
+        topicname += "</p></blockquote>";
         return topicname;
     }
 
@@ -139,20 +130,18 @@ public class ReadingList2 {
     }
 
     public String printDocName(String metadata, String did, double score) {
-        String name;
         int index1 = metadata.indexOf("author:");
         int index2 = metadata.indexOf("title:");
-        String author;
-        String title;
-        if (index1>=0&&index2>=0) {
-            author=metadata.substring(index1+8,index2);
-        } else
-            author=null;
-        if (index2>=0) {
-            title=metadata.substring(index2+7, metadata.length());
-        } else
-            title=null;
-        name = author+": " + "<a href=\"http://www.aclweb.org/anthology/" + did.charAt(0) + "/" +did.substring(0, 3) + "/" + did + ".pdf\">" +title+"</a>"+" ("+score+")";
+        String author = null;
+        String title = null;
+        if (index1 >= 0 && index2 >= 0) {
+            author = metadata.substring(index1+8,index2);
+        }
+        if (index2 >= 0) {
+            title = metadata.substring(index2+7, metadata.length());
+        }
+        String name = author + ": <a href=\"http://www.aclweb.org/anthology/" +
+                      did.charAt(0) + "/" +did.substring(0, 3) + "/" + did + ".pdf\">" +title+"</a>"+" ("+score+")";
         name = name.replace(" A ", " a ");
         name = name.replace(" Of ", " of ");
         name = name.replace(" As ", " as ");
@@ -189,8 +178,8 @@ public class ReadingList2 {
             //                ArrayList<Integer> mydocs=this.getDocs(tindex);
             //                for (Integer mydoc : mydocs) {
             //                    int Did = mydoc;
-            //                    if (isvisit[Did]==false)
-            //                        isvisit[Did]=true;
+            //                    if (!isvisit[Did])
+            //                        isvisit[Did] = true;
             //                    else
             //                        continue;
             //                    String dockey=this.docfiles.get(Did);
@@ -205,7 +194,7 @@ public class ReadingList2 {
             //                for (Integer ddtopic : deptopics) {
             //                    ArrayList<Integer> dddocs=this.getDocs(ddtopic);
             //                        for (Integer mydoc : dddocs) {
-            //                           if (isvisit[mydoc]==false)
+            //                           if (!isvisit[mydoc])
             //                                isvisit[mydoc]=true;
             //                            else
             //                                continue;
@@ -322,24 +311,26 @@ public class ReadingList2 {
                         if (this.paperpagerank.containsKey(dockey))
                             value=this.paperpagerank.get(dockey);
                         else
-                            value=-1;
-                        if (value>-1)
+                            value = -1;
+                        if (value > -1)
                             mylist.add(new Weightpair(value,Did));
                     }
-                    int dcount=Math.min(dnum, mylist.size());
-                    out.write("<p>The best relevant "+dcount+" documents: </p>");
-                    int j=0;
-                    dcount=0;
+                    int dcount = Math.min(dnum, mylist.size());
+                    out.write("<p>The best relevant " + dcount +
+                              " documents: </p>");
+                    int j = 0;
+                    dcount = 0;
                     Collections.sort(mylist);
-                    while (dcount<dnum&&j<mylist.size()&&dcount<mylist.size()) {
-                        Weightpair o= (Weightpair)mylist.get(j);
-                        int Did=o.getindex();
-                        isvisit[Did]=true;
-                        String dfile=docfiles.get(Did);
-                        String metavalue=this.getDocMeta(dfile);
-                        String author=this.extractAuthor(metavalue);
-                        if (this.authorlists.contains(author)==false) {
-                            String name=this.printDocName(metavalue, dfile, o.getweight());
+                    while (dcount < dnum && j < mylist.size() &&
+                           dcount < mylist.size()) {
+                        Weightpair o = (Weightpair)mylist.get(j);
+                        int Did = o.getindex();
+                        isvisit[Did] = true;
+                        String dfile = docfiles.get(Did);
+                        String metavalue = this.getDocMeta(dfile);
+                        String author = this.extractAuthor(metavalue);
+                        if (!this.authorlists.contains(author)) {
+                            String name = this.printDocName(metavalue, dfile, o.getweight());
                             out.write("<li>"+name+"</li>");
                             this.authorlists.add(author);
                             dcount++;
@@ -377,11 +368,11 @@ public class ReadingList2 {
                 mylist.clear();
                 for (Integer mydoc : mydocs) {
                     int Did = mydoc;
-                    if (isvisit[Did]==true)
+                    if (isvisit[Did])
                         continue;
-                    String dockey=this.docfiles.get(Did);
+                    String dockey = this.docfiles.get(Did);
                     double value;
-                    if (this.paperpagerank.containsKey(dockey)==true)
+                    if (this.paperpagerank.containsKey(dockey))
                         value = this.paperpagerank.get(dockey);
                     else
                         value = -1;

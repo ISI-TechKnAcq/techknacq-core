@@ -20,7 +20,7 @@ public class Runwordmatrix {
             String word = name.substring(name.lastIndexOf("\\") + 1,
                                          name.length()-4);
             String year = word.substring(5,8);
-            if (year.startsWith("0") == true){
+            if (year.startsWith("0")) {
                 year = "20" + year;
             } else
                 year = "19" + year;
