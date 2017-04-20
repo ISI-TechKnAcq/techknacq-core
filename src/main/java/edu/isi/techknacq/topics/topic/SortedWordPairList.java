@@ -116,7 +116,7 @@ public class SortedWordPairList
             WordPair pair = (WordPair)wordPairs.get(index);
             pair.setProb(pair.getprob() + (float)count);
         } else {
-            wordPairs.add( -index - 1, new WordPair(word, count));
+            wordPairs.add(-index - 1, new WordPair(word, count));
         }
     }
 
@@ -340,8 +340,8 @@ public class SortedWordPairList
             String word1 = word.substring(0, word.length() - 1);
             // System.out.println(word + " " + word1);
             if (word1.equalsIgnoreCase(preword)) {
-                count=pair1.getprob();
-                pair2.setProb(count+pair2.getprob());
+                count = pair1.getprob();
+                pair2.setProb(count + pair2.getprob());
                 wordPairs.remove(i);
             } else
                 i++;

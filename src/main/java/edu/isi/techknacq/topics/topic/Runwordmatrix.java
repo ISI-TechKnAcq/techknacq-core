@@ -54,7 +54,7 @@ public class Runwordmatrix {
         Wordmatrix mymatrix = new Wordmatrix();
         mymatrix.initWords(words);
         mymatrix.initWordFreq(df);
-        mymatrix.Initcontent(posts);
+        mymatrix.initContent(posts);
         mymatrix.initmatrix("./lib/" + prefix + "wordmatrix.txt",
                             filenames);
         mymodel.clear();

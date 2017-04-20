@@ -34,7 +34,7 @@ public class Wordmatrix {
         this.df = inputdf;
     }
 
-    public void Initcontent(ArrayList<String> inputcontent) {
+    public void initContent(ArrayList<String> inputcontent) {
         this.posts = inputcontent;
     }
 

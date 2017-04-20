@@ -20,12 +20,12 @@ public class Wordmatrixformat {
             String word = name.substring(name.lastIndexOf("\\") + 1,
                                          name.length() - 4);
             String year = word.substring(1, 3);
-            if (year.startsWith("0") == true) {
+            if (year.startsWith("0")) {
                 year = "20" + year;
             } else
                 year = "19" + year;
             System.out.println(year + word);
-            StringPair o = new StringPair(year+word, filenames.get(i));
+            StringPair o = new StringPair(year + word, filenames.get(i));
             myfile.add(o);
         }
         Collections.sort(myfile);
@@ -54,7 +54,7 @@ public class Wordmatrixformat {
         Wordmatrix mymatrix = new Wordmatrix();
         mymatrix.initWords(words);
         mymatrix.initWordFreq(df);
-        mymatrix.Initcontent(posts);
+        mymatrix.initContent(posts);
         mymatrix.initmatrix("./lib/" + prefix + "wordmatrix.txt", filenames);
         mymodel.clear();
         mymatrix.clear();

@@ -77,7 +77,7 @@ public class Evaluation {
         if (tar.size() != src.size())
             return;
         for (int i = 0; i < tar.size(); i++) {
-            tar.set(i, (tar.get(i) + src.get(i))/2);
+            tar.set(i, (tar.get(i) + src.get(i)) / 2);
         }
     }
 
@@ -95,7 +95,7 @@ public class Evaluation {
                 ArrayList<Double> res = null;
                 Scanner sc = new Scanner(w);
                 sc.useDelimiter("_");
-                while(sc.hasNext()) {
+                while (sc.hasNext()) {
                     int index2 = Collections.binarySearch(this.words,
                                                           sc.next());
                     if (index2 >= 0) {
@@ -129,7 +129,7 @@ public class Evaluation {
                 ArrayList<Double> l1 = this.word2vec(word);
                 if (l1 == null)
                     continue;
-                for (int k = j+1; k < temp.size(); k++) {
+                for (int k = j + 1; k < temp.size(); k++) {
                     Indexpair o2 = (Indexpair)temp.get(k);
                     int windex2 = o2.getindex();
                     String word2 = topicwords.get(windex2);
@@ -143,7 +143,7 @@ public class Evaluation {
 
             }
             avgscore /= temp.size();
-            avgscore /= (temp.size() - 1);
+            avgscore /= temp.size() - 1;
             avgscore *= 2;
             System.out.println(i + "\t" + avgscore);
             totalscore += avgscore;
