@@ -63,9 +63,9 @@ public class Wordmodel {
     }
 
     public void computeWordModel(ArrayList<String> filenames) {
-        TokenProcessor tp = new TokenProcessor();
-        String word;
-        int i;
+        // TokenProcessor tp = new TokenProcessor();
+        // String word;
+        // int i;
     }
 
     public void saveWordModel(String filename) {
@@ -92,7 +92,7 @@ public class Wordmodel {
         }
     }
 
-    public String []Getwords() {
+    public String []getWords() {
         return mywords.getWords();
     }
 
@@ -100,7 +100,7 @@ public class Wordmodel {
         return mywords.getCount();
     }
 
-    public void SavetopK(int k, String filename) {
+    public void saveTopK(int k, String filename) {
         try {
             mywords.mergeSimilarWords();
             String []kword = mywords.getTop(k);

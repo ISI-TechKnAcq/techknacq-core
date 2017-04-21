@@ -47,8 +47,8 @@ public class Runwordmatrix {
         mymodel.computeWordModel();
         mymodel.saveWordModel("./lib/wordmodel.txt");
         mymodel.saveWord("./lib/words.txt");
-        mymodel.SavetopK(30, "./lib/" + prefix + "top.csv");
-        String []words = mymodel.Getwords();
+        mymodel.saveTopK(30, "./lib/" + prefix + "top.csv");
+        String []words = mymodel.getWords();
         int[]df = mymodel.getCount();
         System.out.println("Finish computing dictionary");
         Wordmatrix mymatrix = new Wordmatrix();
