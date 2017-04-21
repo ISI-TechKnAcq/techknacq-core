@@ -71,7 +71,7 @@ public class ReadflowNetwork {
 
     public void readNodeFlow(String filename) {
         try {
-            this.keyvalues=new double[keynames.size()];
+            this.keyvalues = new double[keynames.size()];
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
             // Get the object of DataInputStream
@@ -125,7 +125,7 @@ public class ReadflowNetwork {
         return keyvalues;
     }
 
-    public void readFlowToMatrix(String filename, double[][]matrices){
+    public void readFlowToMatrix(String filename, double[][]matrices) {
         try {
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -148,9 +148,9 @@ public class ReadflowNetwork {
                     if (index1 >= 0) {
                         index2 = strline.indexOf("(");
                         index3 = strline.indexOf(")");
-                        target = Integer.parseInt(strline.substring(index1+4,
-                                                                    index2-1));
-                        value = strline.substring(index2+1, index3);
+                        target = Integer.parseInt(strline.substring(index1 + 4,
+                                                                    index2 - 1));
+                        value = strline.substring(index2 + 1, index3);
                         double v = Double.parseDouble(value);
                         if (v < 1.933e-005)
                             continue;
@@ -193,13 +193,13 @@ public class ReadflowNetwork {
                     src = sc.nextInt();
                 } else {
                     index1 = strline.indexOf("-->");
-                    if (index1 >= 0){
+                    if (index1 >= 0) {
                         index2 = strline.indexOf("(");
                         index3 = strline.indexOf(")");
-                        target = Integer.parseInt(strline.substring(index1+4,
-                                                                    index2-1));
-                        value = strline.substring(index2+1, index3);
-                        System.out.println(src+"\t"+target+"\t"+value);
+                        target = Integer.parseInt(strline.substring(index1 + 4,
+                                                                    index2 - 1));
+                        value = strline.substring(index2 + 1, index3);
+                        System.out.println(src + "\t" + target + "\t" + value);
                         double v = Double.parseDouble(value);
                         if (v < 1.933e-005)
                             continue;
@@ -209,8 +209,7 @@ public class ReadflowNetwork {
                                       "\t" + value + "\n");
                             out2.write(src + "\t" + target + "\t" + value +
                                        "\n");
-                        }
-                        else {
+                        } else {
                             out.write(target + "\t" + keynames.get(target) +
                                       "\t" + src + "\t" + keynames.get(src) +
                                       "\t" + value + "\n");

@@ -28,7 +28,7 @@ public class Graphformat {
             BufferedReader br = new BufferedReader(new InputStreamReader(in1));
             String strline;
             int index = 0;
-            while ((strline = br.readLine())!=null) {
+            while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t| ");
                 sc.next();
@@ -70,7 +70,7 @@ public class Graphformat {
             out = new BufferedWriter(fstream);
             out.write("*Vertices " + keyname.size() + "\n");
             for (int i = 0; i < keyname.size(); i++) {
-                out.write(i+1+" \""+keyname.get(i)+"\"\n");
+                out.write(i + 1 + " \"" + keyname.get(i) + "\"\n");
             }
             out.write("*Edges ");
             int edgenum = 0;
@@ -88,7 +88,7 @@ public class Graphformat {
                 }
                 lineindex++;
             }
-            out.write(edgenum+"\n");
+            out.write(edgenum + "\n");
             in1.close();
 
             // Reopen the file to read
@@ -96,7 +96,7 @@ public class Graphformat {
             // Get the object of DataInputStream
             in1 = new DataInputStream(fstream1);
             br = new BufferedReader(new InputStreamReader(in1));
-            lineindex=1;
+            lineindex = 1;
             while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t| ");
@@ -104,7 +104,8 @@ public class Graphformat {
                 while (sc.hasNext()) {
                     weight = sc.nextInt();
                     if (weight > 0 && columnindex > lineindex) {
-                        out.write(lineindex+" "+columnindex+" "+weight+"\n");
+                        out.write(lineindex + " " + columnindex + " " +
+                                  weight + "\n");
                     }
                     columnindex++;
                 }

@@ -40,12 +40,12 @@ public class Concept2doc {
             String strline;
             String pid;
             int value;
-            while ((strline = br.readLine()) != null){
+            while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t");
                 pid = sc.next();
                 value = sc.nextInt();
-                if (value == 0){
+                if (value == 0) {
                     badpaper.put(pid,value);
                 }
             }
@@ -57,7 +57,7 @@ public class Concept2doc {
         }
     }
 
-    public void initNum(int tnum){
+    public void initNum(int tnum) {
         conceptnum = tnum;
     }
 
@@ -70,23 +70,22 @@ public class Concept2doc {
         if (topic2docs[tindex].size() < K) {
             index = Collections.binarySearch(topic2docs[tindex], w);
             if (index < 0)
-                index =- index - 1;
+                index = -index - 1;
             if (index < topic2docs[tindex].size())
                 topic2docs[tindex].add(index, w);
             else
                 topic2docs[tindex].add(w);
         } else {
-            double minweight = ((Weightpair)topic2docs[tindex].get(topic2docs[tindex].size()-1)).getweight();
-            if (tweight > minweight){
+            double minweight = ((Weightpair)topic2docs[tindex].get(topic2docs[tindex].size() - 1)).getweight();
+            if (tweight > minweight) {
                 index = Collections.binarySearch(topic2docs[tindex], w);
                 if (index < 0)
-                    index =- index-1;
-                if (index < topic2docs[tindex].size()){
+                    index = -index - 1;
+                if (index < topic2docs[tindex].size()) {
                     topic2docs[tindex].add(index, w);
-                    topic2docs[tindex].remove(topic2docs[tindex].size()-1);
-                }
-                else
-                    topic2docs[tindex].set(topic2docs[tindex].size()-1, w);
+                    topic2docs[tindex].remove(topic2docs[tindex].size() - 1);
+                } else
+                    topic2docs[tindex].set(topic2docs[tindex].size() - 1, w);
             }
         }
     }
@@ -96,7 +95,7 @@ public class Concept2doc {
             topic2docs = new ArrayList[conceptnum];
             this.docnames = new ArrayList<String>(10000);
             for (int i = 0; i < conceptnum; i++) {
-                topic2docs[i] = new ArrayList<Weightpair>(K+2);
+                topic2docs[i] = new ArrayList<Weightpair>(K + 2);
             }
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -125,14 +124,14 @@ public class Concept2doc {
                      !this.badpaper.containsKey(docname)) ||
                     this.badpaper == null) {
                     docnames.add(docname);
-                    while (sc.hasNext()){
+                    while (sc.hasNext()) {
                         topicname = sc.next();
                         // System.out.println(topicname);
                         index1 = topicname.indexOf("topic");
                         index2 = topicname.indexOf(":");
-                        if (index1 >= 0 && index2 >= 0){
-                            tindex = Integer.parseInt(topicname.substring(index1+5, index2));
-                            tweight = Double.parseDouble(topicname.substring(index2+1, topicname.length()));
+                        if (index1 >= 0 && index2 >= 0) {
+                            tindex = Integer.parseInt(topicname.substring(index1 + 5, index2));
+                            tweight = Double.parseDouble(topicname.substring(index2 + 1, topicname.length()));
                             // System.out.println("tindex: " + tindex + " " +
                             //                    tweight);
                             add(tindex, tweight, dindex, K);
@@ -153,8 +152,9 @@ public class Concept2doc {
     }
 
     public ArrayList<Integer> getDocs(int tindex) {
-        ArrayList<Integer> mydocs = new ArrayList<Integer>(topic2docs[tindex].size());
-        for (int i = 0; i < topic2docs[tindex].size(); i++){
+        ArrayList<Integer> mydocs =
+            new ArrayList<Integer>(topic2docs[tindex].size());
+        for (int i = 0; i < topic2docs[tindex].size(); i++) {
             Weightpair o = (Weightpair)topic2docs[tindex].get(i);
             mydocs.add(o.getindex());
         }
@@ -173,16 +173,16 @@ public class Concept2doc {
             // Use history length 1 (Schreiber k=1)
             // teCalc.initialise(1);
             double []v1 = new double[topic2docs[0].size()];
-            for(int i = 0; i < this.conceptnum; i++){
+            for (int i = 0; i < this.conceptnum; i++) {
                 int tindex = i;
-                for (int j = 0; j < topic2docs[tindex].size(); j++){
+                for (int j = 0; j < topic2docs[tindex].size(); j++) {
                     Weightpair o = (Weightpair)topic2docs[tindex].get(j);
-                    v1[j]=o.getweight();
+                    v1[j] = o.getweight();
                 }
                 entropy.setObservations(v1);
                 topicentropy.add(entropy.computeAverageLocalOfObservations());
             }
-            // for (int i = 0; i < topicentropy.size(); i++){
+            // for (int i = 0; i < topicentropy.size(); i++) {
             //     System.out.println(topicentropy.get(i));
             // }
             return topicentropy;
@@ -209,7 +209,7 @@ public class Concept2doc {
         ArrayList<Integer> mydocs = doc.getDocs(tindex);
         ReadDocumentkey rdk = new ReadDocumentkey("acl-meta.json");
         rdk.readFile();
-        for (int i = 0; i < mydocs.size(); i++){
+        for (int i = 0; i < mydocs.size(); i++) {
             // System.out.println(mydocs.get(i));
             String id = doc.docnames.get(mydocs.get(i));
             String docVal = rdk.getDocumentKey(id);

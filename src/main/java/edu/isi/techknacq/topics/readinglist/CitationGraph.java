@@ -23,7 +23,7 @@ public class CitationGraph {
     private double [][] paper2topic;
     private int pnum = 0;
     private int tnum = 300;
-    private Logger logger = Logger.getLogger(CitationGraph.class);
+    private Logger logger = Logger.getLogger(CitationGraph.class.getName());
 
     public CitationGraph() {
         this.paperids = new HashMap<String, Integer>(100000);
@@ -108,7 +108,7 @@ public class CitationGraph {
                 docname = sc.next();
                 // change '\\'(windows file) to '/' (Linux file)
                 docname = docname.substring(docname.lastIndexOf('/') + 1,
-                                            docname.length()-4);
+                                            docname.length() - 4);
                 // System.out.println(docname);
                 if (!this.paperids.containsKey(docname))
                     continue;
@@ -120,9 +120,9 @@ public class CitationGraph {
                     index1 = topicname.indexOf("topic");
                     index2 = topicname.indexOf(":");
                     if (index1 >= 0 && index2 >= 0) {
-                        tindex = Integer.parseInt(topicname.substring(index1+5,
+                        tindex = Integer.parseInt(topicname.substring(index1 + 5,
                                                                       index2));
-                        String tweight = topicname.substring(index2+1,
+                        String tweight = topicname.substring(index2 + 1,
                                                              namelen);
                         paper2topic[did][tindex] = Double.parseDouble(tweight);
                     }

@@ -150,7 +150,8 @@ public class Comparisononalledges {
                 nzero2++;
             j++;
         }
-        res = (double)((double)(a-b)*this.getOccu(v1, v2)/(nzero1+nzero2));
+        res = (double)((double)(a - b) * this.getOccu(v1, v2)
+                       / (nzero1 + nzero2));
         return res;
     }
 
@@ -184,7 +185,7 @@ public class Comparisononalledges {
         }
         int cooc = this.getOccu(v1, v2);
         if (a + b - cooc > 0)
-            res = (double)cooc/(a + b - cooc);
+            res = (double)cooc / (a + b - cooc);
         else
             res = 0.0;
         return res;
@@ -258,21 +259,25 @@ public class Comparisononalledges {
                         hierdoc = this.getDiffSim(v1, v2);
                         hierword = this.getDiffSim(v3, v4);
                         cocite = (t2t[i][j] - t2t[j][i]) / this.getOccu(v1, v2);
-                        CEword = CEword/1.9514 + hierword/1.1667;
+                        CEword = CEword / 1.9514 + hierword / 1.1667;
                         citewang = t2t[i][j];
 
                         // if (Math.abs(CEword) > 0.007) {
                         //     if (CEword > 0) {
-                        //         out2.write(i+"\t"+j+"\t"+CEword+"\n");
+                        //         out2.write(i + "\t" + j + "\t" + CEword +
+                        //                    "\n");
                         //     } else {
-                        //         out2.write(j+"\t"+i+"\t"+(0-CEword)+"\n");
+                        //         out2.write(j + "\t" + i + "\t" +
+                        //                    (0 - CEword) + "\n");
                         //     }
                         // }
                         // if (Math.abs(cocite) > 10) {
                         //     if (cocite > 0) {
-                        //         out3.write(i+"\t"+j+"\t"+cocite+"\n");
+                        //         out3.write(i + "\t" + j + "\t" + cocite +
+                        //                    "\n");
                         //     } else {
-                        //         out3.write(j+"\t"+i+"\t"+(0-cocite)+"\n");
+                        //         out3.write(j + "\t" + i + "\t" +
+                        //                    (0 - cocite) + "\n");
                         //     }
                         // }
                         out.write(i + "\t" + this.keynames.get(i) + "\t" +

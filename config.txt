@@ -7,12 +7,12 @@
 ['Software manual']	0.0001
 ['Resource']	0.0002
 #end
-#relevencethreshold
+#relevancethreshold
 10
 #end
 #weight
 1	0.5	pagerank
 2	0.2	PVvalue
 3	0.1	complexity
-4	0.000001	relevence
+4	0.000001	relevance
 #end

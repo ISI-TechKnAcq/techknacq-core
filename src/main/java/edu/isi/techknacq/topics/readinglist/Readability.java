@@ -58,10 +58,10 @@ public class Readability {
                 }
             }
             score = 0.39 * wordCount / sentencenum +
-                11.8 * syllableCount / wordCount-15.59;
+                11.8 * syllableCount / wordCount - 15.59;
             return score;
         } catch (FileNotFoundException ex) {
-           logger.log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -141,7 +141,7 @@ public class Readability {
          * Check if a word is in the syllable dictionary. If it is, return true,
          * else false.
          */
-        return (syllables.get(word) != null);
+        return syllables.get(word) != null;
     }
 
     public double fleschKincaid(int wordCount, int syllableCount) {

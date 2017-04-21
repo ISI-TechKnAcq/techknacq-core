@@ -48,7 +48,7 @@ public class ReadHierarchy {
         ArrayList<Integer> topics = new ArrayList<Integer>(100);
         Scanner sc = new Scanner (s);
         sc.useDelimiter(",");
-        while(sc.hasNext()) {
+        while (sc.hasNext()) {
             int id = sc.nextInt();
             topics.add(id);
         }
@@ -57,13 +57,14 @@ public class ReadHierarchy {
 
     public void updateWordName(double []temp, int sid, int topicnum) {
         if (sid <= topicnum) {
-            for (int j = 0; j < topicinwords[sid-1].size(); j++) {
-                Indexpair o = (Indexpair)topicinwords[sid-1].get(j);
+            for (int j = 0; j < topicinwords[sid - 1].size(); j++) {
+                Indexpair o = (Indexpair)topicinwords[sid - 1].get(j);
                 temp[o.getindex()] += o.getweight();
             }
         } else {
-            for (int j = 0; j < clusterinwords[sid-topicnum-1].size(); j++) {
-                Indexpair o = (Indexpair)clusterinwords[sid-topicnum-1].get(j);
+            int index = sid - topicnum - 1;
+            for (int j = 0; j < clusterinwords[index].size(); j++) {
+                Indexpair o = (Indexpair)clusterinwords[index].get(j);
                 temp[o.getindex()] += o.getweight();
             }
         }
@@ -72,27 +73,28 @@ public class ReadHierarchy {
     public void updateIndexWord(double []temp, int sid, int topicnum, int k) {
         if (sid <= topicnum)
             return;
-        this.clusterinwords[sid-topicnum-1] = new ArrayList<Indexpair>(50);
+        this.clusterinwords[sid - topicnum - 1] = new ArrayList<Indexpair>(50);
         double sum = 0;
         for (int i = 0; i < temp.length; i++) {
             sum += temp[i];
         }
         l.clear();
         for (int i = 0; i < temp.length; i++) {
-            if (temp[i]>0)
-                l.add(new Weightpair(temp[i]/sum,i));
+            if (temp[i] > 0)
+                l.add(new Weightpair(temp[i] / sum, i));
         }
         Collections.sort(l);
         for (int i = 0; i < l.size() && i < k; i++) {
             Weightpair o = (Weightpair)l.get(i);
-            clusterinwords[sid-topicnum-1].add(new Indexpair(o.getindex(),
-                                                             o.getweight()));
+            int index = sid - topicnum - 1;
+            clusterinwords[index].add(new Indexpair(o.getindex(),
+                                                    o.getweight()));
         }
     }
 
     public void generateClusterName(String filename, int topicnum) {
         try {
-            //FileWriter fstream = new FileWriter("hierarchylink.net", false);
+            // FileWriter fstream = new FileWriter("hierarchylink.net", false);
             // BufferedWriter out = new BufferedWriter(fstream);
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -106,13 +108,13 @@ public class ReadHierarchy {
             int supernodeid;
             maxnode = 0;
             clusterinwords = new ArrayList[topicnum];
-            double []temp = new double[this.wordlist.size()+1];
+            double []temp = new double[this.wordlist.size() + 1];
             while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t");
-                sid=sc.nextInt();
-                tid=sc.nextInt();
-                supernodeid=linenum+topicnum;
+                sid = sc.nextInt();
+                tid = sc.nextInt();
+                supernodeid = linenum + topicnum;
                 if (supernodeid > maxnode)
                     maxnode = supernodeid;
                 if (sid > maxnode)
@@ -153,13 +155,13 @@ public class ReadHierarchy {
             for (int i = 1; i <= maxnode; i++) {
                 out.write(i + " \"");
                 if (i <= topicnum) {
-                    print(topicinwords[i-1],out,30);
+                    print(topicinwords[i - 1],out,30);
                 } else {
-                    print(clusterinwords[i-topicnum-1],out,30);
+                    print(clusterinwords[i - topicnum - 1],out,30);
                 }
                 out.write("\"\n");
             }
-            out.write("*Arcs "+(maxnode-1)+"\n");
+            out.write("*Arcs " + (maxnode - 1) + "\n");
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
             // Get the object of DataInputStream

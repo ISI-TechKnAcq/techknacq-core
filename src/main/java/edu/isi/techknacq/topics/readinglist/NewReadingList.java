@@ -57,7 +57,7 @@ public class NewReadingList {
     private ArrayList<String> docfiles;
     private int []ordertopic;
     private HashSet<String> authorlists;
-    private int relevencek = 10;
+    private int relevancek = 10;
     private double w1 = 0.6;
     private double w2 = 0.2;
     private double w3 = 0.1;
@@ -90,7 +90,7 @@ public class NewReadingList {
         Concept2doc Getdoc = new Concept2doc();
         Getdoc.initNum(topickeys.size());
         Getdoc.addFilter(filterfile);
-        Getdoc.getTopK(dnum*relevencek, doc2conceptfile);
+        Getdoc.getTopK(dnum * relevancek, doc2conceptfile);
         topic2docs = Getdoc.getTopic2Doc();
         docfiles = Getdoc.getDocName();
         System.out.println("Finish reading data");
@@ -100,7 +100,7 @@ public class NewReadingList {
      * Read the pedagogical type of each document
      */
     public void readPV(String PVtypefile) {
-        this.paperPVtype=new HashMap<String,String>(30000);
+        this.paperPVtype = new HashMap<String,String>(30000);
         try {
             FileInputStream fstream1;
             fstream1 = new FileInputStream(PVtypefile);
@@ -133,7 +133,7 @@ public class NewReadingList {
      *    ranking
      * 2. the heuristic rules that assignes different document types with
      *    different weight
-     * 3. other parameters such as relevence threshold
+     * 3. other parameters such as relevance threshold
      * Those heuristic rules will be automatically learned with feedbacks
      * from users who evaluate the reading list
      */
@@ -155,9 +155,9 @@ public class NewReadingList {
                         this.type2score.put(type, v);
                     }
                 }
-                if (strline.contains("#relevencethreshold")) {
+                if (strline.contains("#relevancethreshold")) {
                     strline = br.readLine();
-                    this.relevencek = Integer.parseInt(strline);
+                    this.relevancek = Integer.parseInt(strline);
                     br.readLine();
                 }
                 if (strline.contains("#weight")) {
@@ -193,7 +193,8 @@ public class NewReadingList {
     }
 
     public ArrayList<Weightpair> getDocs(int tindex) {
-        ArrayList<Weightpair> mydocs = new ArrayList<Weightpair>(topic2docs[tindex].size());
+        ArrayList<Weightpair> mydocs =
+            new ArrayList<Weightpair>(topic2docs[tindex].size());
         for (int i = 0; i < topic2docs[tindex].size(); i++) {
             Weightpair o = (Weightpair)topic2docs[tindex].get(i);
             mydocs.add(o);
@@ -203,7 +204,8 @@ public class NewReadingList {
 
     public void readPageRankscore(String filename) {
         try {
-            this.paperpagerank = new HashMap<String,Double>(this.topickeys.size());
+            this.paperpagerank =
+                new HashMap<String,Double>(this.topickeys.size());
             FileInputStream fstream1;
             fstream1 = new FileInputStream(filename);
             // Get the object of DataInputStream
@@ -216,14 +218,14 @@ public class NewReadingList {
             double value;
             String sr;
             while ((strline = br.readLine()) != null) {
-                Scanner sc=new Scanner(strline);
+                Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t| ");
-                sr=sc.next();
-                if (sr.contains("*Edge")||sr.contains("*Arc"))
+                sr = sc.next();
+                if (sr.contains("*Edge") || sr.contains("*Arc"))
                     break;
-                keyname=sc.next();
-                keyname=keyname.substring(1, keyname.length()-1);
-                value=sc.nextDouble();
+                keyname = sc.next();
+                keyname = keyname.substring(1, keyname.length() - 1);
+                value = sc.nextDouble();
                 if (!this.paperpagerank.containsKey(keyname)) {
                     this.paperpagerank.put(keyname, value);
                 }
@@ -299,11 +301,11 @@ public class NewReadingList {
         String author;
         String title;
         if (index1 >= 0 && index2 >= 0) {
-            author = metadata.substring(index1+8, index2);
+            author = metadata.substring(index1 + 8, index2);
         } else
             author = null;
         if (index2 >= 0) {
-            title = metadata.substring(index2+7, metadata.length());
+            title = metadata.substring(index2 + 7, metadata.length());
         } else
             title = null;
         name = "\n\t\t{";
@@ -318,7 +320,7 @@ public class NewReadingList {
      * 1. pagerank score;
      * 2. pedogocial type score;
      * 3. text complexity score;
-     * 4. relevence score;
+     * 4. relevance score;
      */
     public String getTopDoc(int tindex, int dnum, List mylist,
                             boolean [] isvisit) {
@@ -328,7 +330,7 @@ public class NewReadingList {
         for (int i = 0; i < mydocs.size(); i++) {
             Weightpair o = mydocs.get(i);
             int Did = o.getindex();
-            double value4 = o.getweight(); // value4: relevence score;
+            double value4 = o.getweight(); // value4: relevance score;
             if (isvisit[Did])
                 continue;
             String dockey = this.docfiles.get(Did);
@@ -341,13 +343,13 @@ public class NewReadingList {
             if (this.paperPVtype.containsKey(dockey)) {
                 String type = this.paperPVtype.get(dockey);
                 if (!this.type2score.containsKey(type)) {
-                    value2=0;
+                    value2 = 0;
                 } else
-                    value2=this.type2score.get(type);
+                    value2 = this.type2score.get(type);
             } else
                 value2 = 0;
-            double value = value1*w1+value2*w2+value4*w4;
-            mylist.add(new Weightpair(value,Did));
+            double value = value1 * w1 + value2 * w2 + value4 * w4;
+            mylist.add(new Weightpair(value, Did));
         }
         docstring += "\n\"documents\": [";
         int j = 0;
@@ -372,7 +374,7 @@ public class NewReadingList {
             }
             j++;
         }
-        docstring = docstring.substring(0, docstring.length()-1);
+        docstring = docstring.substring(0, docstring.length() - 1);
         docstring += "]";
         return docstring;
     }
@@ -429,7 +431,7 @@ public class NewReadingList {
             int endindex = 0;
             for (int i = 0; i < this.ordertopic.length; i++) {
                 int tindex = ordertopic[i];
-                if (istopicvisit[tindex] == 'v' || istopicvisit[tindex]=='m')
+                if (istopicvisit[tindex] == 'v' || istopicvisit[tindex] == 'm')
                     continue;
                 if (istopicvisit[tindex] == 'd' && i > endindex)
                     endindex = i;

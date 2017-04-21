@@ -355,7 +355,7 @@ An example of the configuration file is [here](https://github.com/ISI-TechknAcq/
 Basically, we need to specify
 
 - the mapping from pedogical type to a score (double type)
-- the parameter value: e.g., the relevence threshold
+- the parameter value: e.g., the relevance threshold
 - the coefficent weight for each feature (i.e., the weight controls the
 contribution of each feature in ordering documents)
 

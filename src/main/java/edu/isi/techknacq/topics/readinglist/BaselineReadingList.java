@@ -23,7 +23,8 @@ import edu.isi.techknacq.topics.topic.Weightpair;
 public class BaselineReadingList {
     private Map<String, Double> paperpagerank;
     private List<String> topickeys;
-    private Logger logger = Logger.getLogger(BaselineReadingList.class.getName());
+    private Logger logger =
+        Logger.getLogger(BaselineReadingList.class.getName());
 
     public void readPageRankScore(String filename) {
         this.paperpagerank = new HashMap<String,Double>(this.topickeys.size());
@@ -39,14 +40,14 @@ public class BaselineReadingList {
             String keyname;
             double value;
             String sr;
-            while((strline = br.readLine()) != null) {
+            while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t| ");
                 sr = sc.next();
                 if (sr.contains("*Edge") || sr.contains("*Arc"))
                     break;
                 keyname = sc.next();
-                keyname = keyname.substring(1, keyname.length()-1);
+                keyname = keyname.substring(1, keyname.length() - 1);
                 value = sc.nextDouble();
                 if (!this.paperpagerank.containsKey(keyname)) {
                     this.paperpagerank.put(keyname, value);
@@ -67,11 +68,11 @@ public class BaselineReadingList {
         String author;
         String title;
         if (index1 >= 0 && index2 >= 0) {
-            author = metadata.substring(index1+8, index2);
+            author = metadata.substring(index1 + 8, index2);
         } else
             author = null;
         if (index2 >= 0) {
-            title = metadata.substring(index2+7, metadata.length());
+            title = metadata.substring(index2 + 7, metadata.length());
         } else
             title = null;
         name = author + ": " + "<a href=\"http://www.aclweb.org/anthology/" +
@@ -102,7 +103,7 @@ public class BaselineReadingList {
             this.topickeys = match1.getTopics();
             Concept2doc doc = new Concept2doc();
             doc.initNum(this.topickeys.size());
-            doc.getTopK(K*4, doc2conceptfilename);
+            doc.getTopK(K * 4, doc2conceptfilename);
             // doc.prune();
             List<String> docnames = doc.getDocName();
             List<Weightpair> mylist = new ArrayList<Weightpair>(100);
@@ -138,51 +139,51 @@ public class BaselineReadingList {
                                      false);
             BufferedWriter out = new BufferedWriter(fstream);
             String html =
-"<html>\n" +
-"<head>\n" +
-"<title>TechKnAcq Reading List</title>\n" +
-"<style type=\"text/css\">\n" +
-"body {\n" +
-"    margin: 2em auto;\n" +
-"    font-family: 'Univers LT Std', 'Helvetica', sans-serif;\n" +
-"    max-width: 900px;\n" +
-"    width: 90%;\n" +
-"}\n" +
-"article {\n" +
-"    border-top: 4px solid #888;\n" +
-"    padding-top: 3em;\n" +
-"    margin-top: 3em;\n" +
-"}\n" +
-"section {\n" +
-"    padding-bottom: 3em;\n" +
-"    border-bottom: 4px solid #888;\n" +
-"    margin-bottom: 4em;\n" +
-"}\n" +
-"section section {\n" +
-"    border: 0px;\n" +
-"    padding: 0px;\n" +
-"    margin: 0em 0em 3em 0em;\n" +
-"}\n" +
-"h1 { font-size: 18pt; }\n" +
-"h2 { font-size: 14pt; }\n" +
-"label { margin-right: 6px; }\n" +
-"input { margin-left: 6px; }\n" +
-"div.topic {\n" +
-"    padding: 1em;\n" +
-"}\n" +
-"p.rate { font-weight: bold; margin-left: 2em; }\n" +
-"blockquote { margin-left: 40px; }\n" +
-"a {\n" +
-"    text-decoration: none;\n" +
-"    font-style: italic;\n" +
-"    border-bottom: 1px dotted grey;\n" +
-"}\n" +
-"a:hover { color: blue !important; }\n" +
-"a:hover span { color: blue !important; }\n" +
-"</style>\n" +
-"</head>\n" +
-"<body>\n" +
-"<h1>Reading List for " + keyword + " </h1>";
+                "<html>\n" +
+                "<head>\n" +
+                "<title>TechKnAcq Reading List</title>\n" +
+                "<style type=\"text/css\">\n" +
+                "body {\n" +
+                "    margin: 2em auto;\n" +
+                "    font-family: 'Helvetica', sans-serif;\n" +
+                "    max-width: 900px;\n" +
+                "    width: 90%;\n" +
+                "}\n" +
+                "article {\n" +
+                "    border-top: 4px solid #888;\n" +
+                "    padding-top: 3em;\n" +
+                "    margin-top: 3em;\n" +
+                "}\n" +
+                "section {\n" +
+                "    padding-bottom: 3em;\n" +
+                "    border-bottom: 4px solid #888;\n" +
+                "    margin-bottom: 4em;\n" +
+                "}\n" +
+                "section section {\n" +
+                "    border: 0px;\n" +
+                "    padding: 0px;\n" +
+                "    margin: 0em 0em 3em 0em;\n" +
+                "}\n" +
+                "h1 { font-size: 18pt; }\n" +
+                "h2 { font-size: 14pt; }\n" +
+                "label { margin-right: 6px; }\n" +
+                "input { margin-left: 6px; }\n" +
+                "div.topic {\n" +
+                "    padding: 1em;\n" +
+                "}\n" +
+                "p.rate { font-weight: bold; margin-left: 2em; }\n" +
+                "blockquote { margin-left: 40px; }\n" +
+                "a {\n" +
+                "    text-decoration: none;\n" +
+                "    font-style: italic;\n" +
+                "    border-bottom: 1px dotted grey;\n" +
+                "}\n" +
+                "a:hover { color: blue !important; }\n" +
+                "a:hover span { color: blue !important; }\n" +
+                "</style>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "<h1>Reading List for " + keyword + " </h1>";
             out.write(html);
             for (int i = 0; i < K; i++) {
                 Weightpair o = (Weightpair)mylist.get(i);

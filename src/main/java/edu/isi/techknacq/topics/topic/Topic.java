@@ -70,7 +70,7 @@ public class Topic {
                 line = reader.readLine();
             }
             i = p.waitFor();
-            System.out.println("waitFor = " + i );
+            System.out.println("waitFor = " + i);
             System.out.println("Estimation Done!");
             command = "./lib/lda inf ./lib/inf-settings.txt " +
                 "./lib/output/final ./lib/wordmatrix.txt ./lib/ACL";
@@ -80,12 +80,12 @@ public class Topic {
             isr = new InputStreamReader(p.getInputStream());
             reader = new BufferedReader(isr);
             line = reader.readLine();
-            while (line != null){
+            while (line != null) {
                 System.out.println(line);
                 line = reader.readLine();
             }
             i = p.waitFor();
-            System.out.println("waitFor = " + i );
+            System.out.println("waitFor = " + i);
             System.out.println("Inference Done!");
             BufferedWriter out = null;
             FileWriter fstream = null;
@@ -113,7 +113,7 @@ public class Topic {
             if (out != null)
                 out.close();
             i = p.waitFor();
-            System.out.println("waitFor = " + i );
+            System.out.println("waitFor = " + i);
             System.out.println("Done!");
         } catch (InterruptedException ex) {
             logger.log(Level.SEVERE, null, ex);

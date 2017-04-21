@@ -143,7 +143,7 @@ public class Cograph {
                     extract(conceptsindoc[j], v2);
                     double w = this.topSim(v1, v2);
                     if (w > 0.01) {
-                        out.write((i+1) + " " + (j+1) + " " + w + "\n");
+                        out.write((i + 1) + " " + (j + 1) + " " + w + "\n");
                     }
                 }
             }

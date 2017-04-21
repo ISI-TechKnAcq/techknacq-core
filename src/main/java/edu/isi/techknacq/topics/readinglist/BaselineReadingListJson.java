@@ -47,7 +47,7 @@ public class BaselineReadingListJson {
                 if (sr.contains("*Edge") || sr.contains("*Arc"))
                     break;
                 keyname = sc.next();
-                keyname = keyname.substring(1, keyname.length()-1);
+                keyname = keyname.substring(1, keyname.length() - 1);
                 value = sc.nextDouble();
                 if (!this.paperpagerank.containsKey(keyname)) {
                     this.paperpagerank.put(keyname, value);
@@ -71,7 +71,7 @@ public class BaselineReadingListJson {
             this.topickeys = match1.getTopics();
             Concept2doc doc = new Concept2doc();
             doc.initNum(this.topickeys.size());
-            doc.getTopK(K*4, doc2conceptfilename);
+            doc.getTopK(K * 4, doc2conceptfilename);
             // doc.prune();
             ArrayList<String> docnames = doc.getDocName();
             List mylist = new ArrayList<Weightpair>(100);
@@ -96,7 +96,7 @@ public class BaselineReadingListJson {
                     else
                         value = -1;
                     if (value > -1)
-                        mylist.add(new Weightpair(value,Did));
+                        mylist.add(new Weightpair(value, Did));
                 }
             }
             StringWriter writer = new StringWriter();
