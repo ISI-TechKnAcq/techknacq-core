@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 public class Graphformat {
     private ArrayList<String> keyname;
-    private Logger logger = Logger.getLogger(Graphformat.class);
+    private Logger logger = Logger.getLogger(Graphformat.class.getName());
 
     public void readKey(String keyfilename) {
         keyname = new ArrayList<String>(200);

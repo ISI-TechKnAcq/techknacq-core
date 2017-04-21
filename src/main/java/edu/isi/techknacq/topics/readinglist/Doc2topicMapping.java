@@ -32,7 +32,7 @@ public class Doc2topicMapping {
     private int tnum;
     private ArrayList<String> words;
     private List []topicinwords;
-    private Logger logger = Logger.getLogger(Doc2topicMapping.class);
+    private Logger logger = Logger.getLogger(Doc2topicMapping.class.getName());
 
     // Read concept composition for each document
     public void add(int pid, int tindex, double weight, int K) {
@@ -175,7 +175,7 @@ public class Doc2topicMapping {
 
                 }
                 orderword.clear();
-                StrUtil.EnumarateMap(wordweight, orderword);
+                StrUtil.enumerateMap(wordweight, orderword);
                 Collections.sort(orderword);
                 out.write(this.papernames.get(i));
                 for (int j = 0; j < orderword.size(); j++) {

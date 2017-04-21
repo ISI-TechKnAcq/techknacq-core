@@ -18,7 +18,7 @@ import edu.isi.techknacq.topics.util.ReadTopicKey;
 public class Cograph {
     private ArrayList<String> keynames;
     private int tnum;
-    private Logger logger = Logger.getLogger(Cograph.class);
+    private Logger logger = Logger.getLogger(Cograph.class.getName());
 
     /*
      * Read the topic key for each topic from topic key file
@@ -47,7 +47,7 @@ public class Cograph {
      * Turn a Indexpair list into a vector representation
      */
     public void extract2(List a1, double []v1) {
-        Arrays.fill(v1,0.0);
+        Arrays.fill(v1, 0.0);
         for (int i = 0; i < a1.size(); i++) {
             Indexpair o = (Indexpair)a1.get(i);
             v1[o.getindex()] = o.getweight();

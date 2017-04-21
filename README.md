@@ -6,11 +6,23 @@ relations and for generating reading lists.
 
 ## Table of Contents
 
+- [Overview](#overview)
 - [Topic Modeling](#topic-modeling)
 - [Hierarchy Clustering](#hierarchy-clustering)
 - [Concept Graph Generation](#concept-graph-generation)
 - [Basic Reading List Generation](#generate-reading-list)
 - [Pedagogical Reading List Generation](#new-reading-list)
+
+
+## Overview
+
+Some of the documentation below is historical.
+
+To compile the package, as it is used by techknacq-tk, run:
+
+```bash
+mvn package
+```
 
 ## Topic Modeling
 

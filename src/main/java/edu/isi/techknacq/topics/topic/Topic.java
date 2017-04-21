@@ -20,7 +20,7 @@ import edu.isi.techknacq.topics.util.StrUtil;
  * @author linhong
  */
 public class Topic {
-    private Logger logger = Logger.getLogger(Topic.class);
+    private Logger logger = Logger.getLogger(Topic.class.getName());
 
     public void runTopic(String dirname, int topicnum, int wordnum,
             double alpha, String prefix) {
@@ -77,7 +77,7 @@ public class Topic {
             // normalized = new URI(command).normalize().getPath();
             System.out.println(command);
             p = Runtime.getRuntime().exec(command);
-            InputStreamReader isr = new InputStreamReader(p.getInputStream());
+            isr = new InputStreamReader(p.getInputStream());
             reader = new BufferedReader(isr);
             line = reader.readLine();
             while (line != null){

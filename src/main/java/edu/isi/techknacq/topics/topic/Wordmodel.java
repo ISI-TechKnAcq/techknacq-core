@@ -22,7 +22,7 @@ public class Wordmodel {
     private String []words;
     private int []df;
     private SortedWordPairList mywords;
-    private Logger logger = Logger.getLogger(Wordmodel.class);
+    private Logger logger = Logger.getLogger(Wordmodel.class.getName());
 
     public Wordmodel() {
         mywords = new SortedWordPairList(10000);

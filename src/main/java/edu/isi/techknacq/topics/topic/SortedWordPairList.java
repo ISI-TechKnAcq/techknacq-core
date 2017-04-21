@@ -92,7 +92,8 @@ public class SortedWordPairList
         "young", "younger", "youngest", "your", "yours", "z", "zhai",
         "zhang", "zhao", "zhou", "zhu", "zizan"};
 
-    private Logger logger = Logger.getLogger(SortedWordPairList.class);
+    private Logger logger =
+        Logger.getLogger(SortedWordPairList.class.getName());
 
     public SortedWordPairList(int initialCapacity)
     {

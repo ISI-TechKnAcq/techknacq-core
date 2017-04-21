@@ -23,7 +23,8 @@ import edu.isi.techknacq.topics.topic.Weightpair;
 public class BaselineReadingListJson {
     private Map<String, Double> paperpagerank;
     private List<String> topickeys;
-    private Logger logger = Logger.getLogger(BaselineReadingListJson.class);
+    private Logger logger =
+        Logger.getLogger(BaselineReadingListJson.class.getName());
 
     public void readPageRankScore(String filename) {
         this.paperpagerank = new HashMap<String,Double>(this.topickeys.size());

@@ -1,9 +1,9 @@
 package edu.isi.techknacq.topics.graph;
 
 public class Node {
-    private int vid;
+    public int vid;
     public int []nbv;
-    private double []weights;
+    public double []weights;
     public int key;
 
     public Node() {

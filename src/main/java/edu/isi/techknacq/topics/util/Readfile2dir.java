@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Readfile2dir {
-    private Logger logger = Logger.getLogger(Readfile2dir.class);
+    private Logger logger = Logger.getLogger(Readfile2dir.class.getName());
 
     public void parseTopicVector(String filename, int k) {
         try {

@@ -23,7 +23,7 @@ import edu.isi.techknacq.topics.util.ReadWeightedTopicKey;
 public class Evaluation {
     private ArrayList<String> words;
     private ArrayList<Double> []wordvec;
-    private Logger logger = Logger.getLogger(Evaluation.class);
+    private Logger logger = Logger.getLogger(Evaluation.class.getName());
 
     public void readWords(String filename) {
         try {

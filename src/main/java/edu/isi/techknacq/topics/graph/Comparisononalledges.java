@@ -29,7 +29,8 @@ public class Comparisononalledges {
     public double [][]flowmatrics;
     private EntropyCalculatorKernel entropy;
     private ArrayList<Double> topicscores;
-    private Logger logger = Logger.getLogger(Comparisononalledges.class);
+    private Logger logger =
+        Logger.getLogger(Comparisononalledges.class.getName());
 
     public Comparisononalledges() {
         entropy = new EntropyCalculatorKernel();
@@ -66,7 +67,7 @@ public class Comparisononalledges {
     }
 
     public void extract(List a1, double []v1) {
-        Arrays.fill(v1,0.0);
+        Arrays.fill(v1, 0.0);
         for (int i = 0; i < a1.size(); i++) {
             Weightpair o = (Weightpair)a1.get(i);
             v1[o.getindex()] = o.getweight();
@@ -155,15 +156,15 @@ public class Comparisononalledges {
 
     public double getEntropy(double []v1, double []v2) {
         double ce;
-        //System.out.println("res "+res);
+        // System.out.println("res "+res);
         entropy.setObservations(v1);
         ce = entropy.computeAverageLocalOfObservations();
         entropy.setObservations(v2);
         ce -= entropy.computeAverageLocalOfObservations();
-        //System.out.println();
+        // System.out.println();
         ce += this.klDivergence(v1, v2);
         ce -= this.klDivergence(v2, v1);
-        //System.out.println("ce "+ce);
+        // System.out.println("ce "+ce);
         return ce;
     }
 
@@ -200,7 +201,7 @@ public class Comparisononalledges {
 
             int cooccount;
             double informationflow;
-            //double CEdoc;
+            // double CEdoc;
             double CEword;
             double topicsim;
             double wordsim;
@@ -226,10 +227,10 @@ public class Comparisononalledges {
             mycite.readC2D(filename);
             double [][]t2t = mycite.computeCitationLinks();
 
-            //FileWriter fstream2 = new FileWriter("entropy1.txt", false);
-            //BufferedWriter out2 = new BufferedWriter(fstream2);
-            //FileWriter fstream3 = new FileWriter("entropy2.txt", false);
-            //BufferedWriter out3 = new BufferedWriter(fstream3);
+            // FileWriter fstream2 = new FileWriter("entropy1.txt", false);
+            // BufferedWriter out2 = new BufferedWriter(fstream2);
+            // FileWriter fstream3 = new FileWriter("entropy2.txt", false);
+            // BufferedWriter out3 = new BufferedWriter(fstream3);
 
             for (int i = 0; i < tnum; i++) {
                 if (this.topicscores.get(i) < 0.42)
@@ -247,12 +248,12 @@ public class Comparisononalledges {
                     if (cooccount > 2) {
                         topicsim = this.topSim(v1, v2);
                         wordsim = this.topSim(v3, v4);
-                        //System.out.println(flowmatrics[i][j]);
+                        // System.out.println(flowmatrics[i][j]);
                         if (flowscores[i] > flowscores[j])
                             informationflow = -this.flowmatrics[i][j];
                         else
                             informationflow = this.flowmatrics[i][j];
-                        //CEdoc = this.getEntropy(v1, v2);
+                        // CEdoc = this.getEntropy(v1, v2);
                         CEword = this.getEntropy(v3, v4);
                         hierdoc = this.getDiffSim(v1, v2);
                         hierword = this.getDiffSim(v3, v4);
@@ -289,8 +290,8 @@ public class Comparisononalledges {
                     }
                 }
             }
-            //out2.close();
-            //out3.close();
+            // out2.close();
+            // out3.close();
             out.close();
         } catch (IOException ex) {
             logger.log(Level.SEVERE, null, ex);
@@ -321,8 +322,8 @@ public class Comparisononalledges {
         alledge.run(args[2], Integer.parseInt(args[3]), args[4],
                     maxfilewordnum);
 
-//        alledge.readKey("mallet-keys-2gm-200.txt");
-//        alledge.ReadInformationflowScore("mallet0702.tree");
-//        alledge.run("concept2doc.txt", 200,"acl.txt");
+        // alledge.readKey("mallet-keys-2gm-200.txt");
+        // alledge.ReadInformationflowScore("mallet0702.tree");
+        // alledge.run("concept2doc.txt", 200,"acl.txt");
     }
 }

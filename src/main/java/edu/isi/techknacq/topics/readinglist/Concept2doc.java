@@ -15,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import infodynamics.measures.continuous.kernel.EntropyCalculatorKernel;
-//import infodynamics.measures.continuous.kraskov.TransferEntropyCalculatorKraskov;
 
 import edu.isi.techknacq.topics.topic.Weightpair;
 
@@ -28,7 +27,7 @@ public class Concept2doc {
     private List []topic2docs;
     private ArrayList<String> docnames;
     private HashMap<String, Integer> badpaper = null;
-    private Logger logger = Logger.getLogger(Concept2doc.class);
+    private Logger logger = Logger.getLogger(Concept2doc.class.getName());
 
     public void addFilter(String filename) {
         try {

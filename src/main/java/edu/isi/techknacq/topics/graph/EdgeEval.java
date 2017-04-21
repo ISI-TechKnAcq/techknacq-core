@@ -19,7 +19,7 @@ public class EdgeEval {
     private double [][]cite;
     private double [][]citewang;
     private double [][]hierword;
-    private Logger logger = Logger.getLogger(EdgeEval.class);
+    private Logger logger = Logger.getLogger(EdgeEval.class.getName());
 
     public void settopicnum(int _tnum) {
         int topicnum = _tnum;

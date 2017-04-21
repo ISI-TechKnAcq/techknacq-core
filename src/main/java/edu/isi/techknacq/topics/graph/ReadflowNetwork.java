@@ -19,7 +19,7 @@ public class ReadflowNetwork {
     // Help find the topic index with a hashmap structure
     private HashMap<String,Integer> keysearch;
     private double []keyvalues;
-    private Logger logger = Logger.getLogger(ReadflowNetwork.class);
+    private Logger logger = Logger.getLogger(ReadflowNetwork.class.getName());
 
     public void readKey(String filename) {
         try {

@@ -21,7 +21,7 @@ public class Conceptdepth {
     private Node []G;
     private char []isvisit;
     private List<String> topics;
-    private Logger logger = Logger.getLogger(Conceptdepth.class);
+    private Logger logger = Logger.getLogger(Conceptdepth.class.getName());
 
     public void initTopics(List<String> inputtopics) {
         topics = inputtopics;

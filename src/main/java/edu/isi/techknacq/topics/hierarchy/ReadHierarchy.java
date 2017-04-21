@@ -34,7 +34,7 @@ public class ReadHierarchy {
     private ArrayList<String> wordlist;
     private List l;
     private int maxnode;
-    private Logger logger = Logger.getLogger(ReadHierarchy.class);
+    private Logger logger = Logger.getLogger(ReadHierarchy.class.getName());
 
     public void init(ArrayList<String> inputkey, List [] inputtopicword,
                      ArrayList<String> inputwordlist) {

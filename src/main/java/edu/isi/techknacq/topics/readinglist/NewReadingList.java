@@ -62,7 +62,7 @@ public class NewReadingList {
     private double w2 = 0.2;
     private double w3 = 0.1;
     private double w4 = 0.001;
-    private Logger logger = Logger.getLogger(NewReadingList.class);
+    private Logger logger = Logger.getLogger(NewReadingList.class.getName());
 
     /**
      * @param keyname: the file name of word distribution for each topic
@@ -86,7 +86,7 @@ public class NewReadingList {
         ReadDocumentkey rdk = new ReadDocumentkey(docfile);
         rdk.readFile();
         System.out.println("Finish reading document");
-        docmap = rdk.GetDocmap();
+        docmap = rdk.getDocMap();
         Concept2doc Getdoc = new Concept2doc();
         Getdoc.initNum(topickeys.size());
         Getdoc.addFilter(filterfile);

@@ -36,7 +36,7 @@ public class Wordmatrixformat {
         for (int i = 0; i < myfile.size(); i++) {
             StringPair o = (StringPair)myfile.get(i);
             filenames.add(o.getWord().substring(4));
-            String res = myreader.readFile(o.getname());
+            String res = myreader.read(o.getname());
             posts.add(res);
             if (i % 1000 == 0)
                 System.out.println(i);

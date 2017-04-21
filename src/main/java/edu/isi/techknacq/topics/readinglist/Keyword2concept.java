@@ -20,7 +20,7 @@ public class Keyword2concept {
     private ArrayList<ArrayList<WordPair>> wordintopic;
     private ArrayList<Weightpair> hittopics;
     private int k = 8;
-    private Logger logger = Logger.getLogger(Keyword2concept.class);
+    private Logger logger = Logger.getLogger(Keyword2concept.class.getName());
 
     public void readKey(String filename) {
         try {

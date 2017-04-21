@@ -14,7 +14,7 @@ import org.json.simple.parser.ParseException;
 public class ReadDocumentkey {
     private Map <String, String> docMap;
     private String filename;
-    private Logger logger = Logger.getLogger(ReadDocumentkey.class);
+    private Logger logger = Logger.getLogger(ReadDocumentkey.class.getName());
 
     public ReadDocumentkey(String filename) {
         this.filename = filename;
@@ -24,12 +24,14 @@ public class ReadDocumentkey {
     public void readFile() {
         try {
             JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(filename));
+            JSONObject jsonObject =
+                (JSONObject) parser.parse(new FileReader(filename));
             for (Object key : jsonObject.keySet()) {
                 JSONObject documentInfo = (JSONObject) jsonObject.get(key);
                 String author = (String) documentInfo.get("author");
                 String title = (String) documentInfo.get("title");
-                docMap.put((String) key, "author: "+author+", title: "+title);
+                docMap.put((String) key, "author: " + author + ", title: " + 
+                           title);
             }
         } catch (FileNotFoundException ex) {
             logger.log(Level.SEVERE, null, ex);

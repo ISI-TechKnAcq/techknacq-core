@@ -22,7 +22,7 @@ import edu.isi.techknacq.topics.topic.Weightpair;
  */
 public class ReadGraph {
     private Node []G;
-    private Logger logger = Logger.getLogger(ReadGraph.class);
+    private Logger logger = Logger.getLogger(ReadGraph.class.getName());
 
     public ReadGraph(String filename) {
         try {
@@ -53,7 +53,7 @@ public class ReadGraph {
                             String ns = neighstr.substring(0, index);
                             String ws = neighstr.substring(index + 1,
                                                            neighstr.length());
-                            int neigh = Integer.parseInt(ns));
+                            int neigh = Integer.parseInt(ns);
                             double weight = Double.parseDouble(ws);
                             G[v].addNeighbor(neigh, weight);
                         }

@@ -21,7 +21,7 @@ import edu.isi.techknacq.topics.util.ReadTopicKey;
 public class Readentity {
     private ArrayList<String> entitylists;
     private HashMap<String, Integer> mywords;
-    private Logger logger = Logger.getLogger(Readentity.class);
+    private Logger logger = Logger.getLogger(Readentity.class.getName());
 
     public void initDict(HashMap<String, Integer> dictionaries) {
         mywords = new HashMap<String,Integer>(2000);

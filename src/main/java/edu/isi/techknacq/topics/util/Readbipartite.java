@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class Readbipartite {
     private HashMap<String, Integer> entities;
     private HashMap<String, Integer> topics;
-    private Logger logger = Logger.getLogger(Readbipartite.class);
+    private Logger logger = Logger.getLogger(Readbipartite.class.getName());
 
     public Readbipartite() {
         this.entities = new HashMap<String, Integer>(10000);

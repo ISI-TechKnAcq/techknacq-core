@@ -33,7 +33,7 @@ public class Hierarchytopic {
     private List []topicinwords;
     private ArrayList<Integer> []cluster2topic;
     private ArrayList<String> wordlist;
-    private Logger logger = Logger.getLogger(Hierarchytopic.class);
+    private Logger logger = Logger.getLogger(Hierarchytopic.class.getName());
 
     public void init(ArrayList<String> inputkey, List [] inputtopicword,
                      ArrayList<String> inputwordlist) {

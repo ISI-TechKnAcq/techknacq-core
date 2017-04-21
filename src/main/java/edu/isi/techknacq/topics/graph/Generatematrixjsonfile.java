@@ -16,7 +16,8 @@ import java.util.logging.Logger;
 public class Generatematrixjsonfile {
     private ArrayList<String> User_id;
     private ArrayList<String> group;
-    private Logger logger = Logger.getLogger(Generatematrixjsonfile.class);
+    private Logger logger =
+        Logger.getLogger(Generatematrixjsonfile.class.getName());
 
     public Generatematrixjsonfile() {
         User_id = new ArrayList<String> (8000);
@@ -35,7 +36,7 @@ public class Generatematrixjsonfile {
             String id;
             String attr;
             while ((strline = br.readLine()) != null) {
-                Scanner sc=new Scanner(strline);
+                Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t");
                 sc.next();
                 id = sc.next();
@@ -58,9 +59,9 @@ public class Generatematrixjsonfile {
             for (int i = 0; i < User_id.size(); i++) {
                 out1.write("\t\t{");
                 out1.write("\"group\":");
-                out1.write(group.get(i)+",");
+                out1.write(group.get(i) + ",");
                 out1.write("\"name\":");
-                out1.write("\""+User_id.get(i)+"\"");
+                out1.write("\"" + User_id.get(i) + "\"");
                 out1.write("}");
                 if (i < this.User_id.size() - 1)
                     out1.write(",\n");

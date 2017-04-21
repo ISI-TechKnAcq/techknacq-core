@@ -24,7 +24,7 @@ public class Readability {
     // syllables = used to store dictionary of words and syllable counts
     // are flabby.
     private Map<String, Integer> syllables = new HashMap<String, Integer>();
-    private Logger logger = Logger.getLogger(Readability.class);
+    private Logger logger = Logger.getLogger(Readability.class.getName());
 
     public double FKscore(String filename) {
         try {
@@ -35,7 +35,7 @@ public class Readability {
             int wordCount = 0;
             int syllableCount = 0;
             while (sc.hasNext()) {
-                String sentence = sc.nextLine();//sentence.
+                String sentence = sc.nextLine();
                 if (sentence.length() < 1)
                     continue;
                 sentencenum++;
@@ -74,15 +74,11 @@ public class Readability {
         int wordCount = words.length;
         int syllableCount = 0;
         for (String word : words) {
-
             if (isWordInDict(word)) {
-
                 // Get syllable count for each word and add it to syllableCount
                 int syllable = syllables.get(word);
                 syllableCount += syllable;
-
             } else {
-
                 // If word not in dict, count syllables with dodgy method.
                 int syllable = countSyllablesLight(word);
                 syllableCount += syllable;

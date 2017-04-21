@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 import edu.isi.techknacq.topics.topic.Weightpair;
 
 public class StrUtil {
-    private Logger logger = Logger.getLogger(StrUtil.class);
+    private static Logger logger = Logger.getLogger(StrUtil.class.getName());
 
     public static int getMapMaxvalue(Map mp) {
         int max = 0;
@@ -37,8 +37,8 @@ public class StrUtil {
             while (it.hasNext()) {
                 try {
                     Map.Entry pairs = (Map.Entry)it.next();
-                    //Integer w = (Integer)pairs.getValue();
-                    //if (w > 1)
+                    // Integer w = (Integer)pairs.getValue();
+                    // if (w > 1)
                     out.write(pairs.getKey() + "\t" + pairs.getValue() + "\n");
                 } catch (IOException ex) {
                     logger.log(Level.SEVERE, null, ex);

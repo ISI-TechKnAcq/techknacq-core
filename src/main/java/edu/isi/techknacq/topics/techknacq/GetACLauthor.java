@@ -22,7 +22,8 @@ import edu.isi.techknacq.topics.util.StrUtil;
  */
 public class GetACLauthor {
     private HashMap<String, Integer> authorname;
-    private Logger logger = Logger.getLogger(GetACLauthor.class);
+    private static Logger logger =
+        Logger.getLogger(GetACLauthor.class.getName());
 
     public void readfile(String filename) throws IOException {
         authorname = new HashMap<String,Integer>(10000);

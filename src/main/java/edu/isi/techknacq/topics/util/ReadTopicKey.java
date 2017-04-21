@@ -20,7 +20,7 @@ public class ReadTopicKey {
     private HashMap<String, Integer> words;
     private List []topicinwords;
     private ArrayList<String> wordlist;
-    private Logger logger = Logger.getLogger(ReadTopicKey.class);
+    private Logger logger = Logger.getLogger(ReadTopicKey.class.getName());
 
     public void read(String filename, int maxcount) {
         int wordcount = 0;
@@ -52,7 +52,7 @@ public class ReadTopicKey {
                 String name = "";
                 String tempword;
                 while (sc.hasNext() && index < maxcount) {
-                    tempwordi = sc.next();
+                    tempword = sc.next();
                     if ((!tempword.contains(name) &&
                          !name.contains(tempword)) || name.length() < 1) {
                         name += tempword;
@@ -97,7 +97,7 @@ public class ReadTopicKey {
             for (int i = 0; i < conceptnum; i++) {
                 topicinwords[i] = new ArrayList<Indexpair>(21);
             }
-            whilei ((strline = br.readLine()) != null) {
+            while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t| ");
                 sc.next();

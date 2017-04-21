@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Readresults {
-    private Logger logger = getLogger(Readresults.class);
+    private Logger logger = Logger.getLogger(Readresults.class.getName());
 
     public void readD2topic(String filename, ArrayList<String> filenames,
                             BufferedWriter out) {

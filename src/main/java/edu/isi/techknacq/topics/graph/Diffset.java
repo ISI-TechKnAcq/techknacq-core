@@ -17,7 +17,7 @@ import edu.isi.techknacq.topics.util.Pair;
 
 public class Diffset {
     private Set<Pair> coverededges;
-    private Logger logger = Logger.getLogger(Diffset.class);
+    private Logger logger = Logger.getLogger(Diffset.class.getName());
 
     public Diffset() {
         this.coverededges = new HashSet<Pair>(1000) {};
