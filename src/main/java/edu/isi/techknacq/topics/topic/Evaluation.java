@@ -136,9 +136,9 @@ public class Evaluation {
                     ArrayList<Double> l2 = this.word2vec(word2);
                     if (l2 == null)
                         continue;
-                    // avgscore += MathUtil.Cosinsimilarity(l1, l2) *
+                    // avgscore += MathUtil.cosinSimilarity(l1, l2) *
                     //             (o.getweight() + o2.getweight());
-                    avgscore += MathUtil.Cosinsimilarity(l1, l2);
+                    avgscore += MathUtil.cosinSimilarity(l1, l2);
                 }
 
             }

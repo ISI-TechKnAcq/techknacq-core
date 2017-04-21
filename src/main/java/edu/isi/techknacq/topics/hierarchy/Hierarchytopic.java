@@ -62,8 +62,8 @@ public class Hierarchytopic {
                 sc.useDelimiter("\t");
                 sc.next();
                 cid = sc.nextInt();
-                this.topiccluster.add(cid-1);
-                this.cluster2topic[cid-1].add(line);
+                this.topiccluster.add(cid - 1);
+                this.cluster2topic[cid - 1].add(line);
                 line++;
             }
         } catch (FileNotFoundException ex) {
@@ -116,7 +116,7 @@ public class Hierarchytopic {
         }
         List l = new ArrayList<Weightpair>(this.wordlist.size());
         for (int i = 0; i < temp.length; i++) {
-            l.add(new Weightpair(temp[i]/sum, i));
+            l.add(new Weightpair(temp[i] / sum, i));
         }
         Collections.sort(l);
         String res = "";
@@ -140,10 +140,10 @@ public class Hierarchytopic {
             Integer index = (Integer)pairs.getValue();
             if (cluster.compareToIgnoreCase("all") == 0) {
                 Arrays.fill(temp, 0.0);
-                for (int i=0;i<topicinwords.length;i++) {
-                    for (int j=0;j<topicinwords[i].size();j++) {
+                for (int i = 0; i < topicinwords.length; i++) {
+                    for (int j = 0; j < topicinwords[i].size(); j++) {
                         Indexpair o = (Indexpair)topicinwords[i].get(j);
-                        temp[o.getindex()]+=o.getweight();
+                        temp[o.getindex()] += o.getweight();
                     }
                 }
                 clustertopicname[index] = this.getTopKWord(30, temp);
@@ -165,11 +165,13 @@ public class Hierarchytopic {
             }
         }
     }
+
     public void printClusterGraph(String filename) {
         try {
-            System.out.println("Vertices "+clustertopicname.length);
+            System.out.println("Vertices " + clustertopicname.length);
             for (int i = 0; i < clustertopicname.length; i++) {
-                System.out.println((i+1)+" "+"\""+clustertopicname[i]+"\"");
+                System.out.println((i + 1) + " \"" + clustertopicname[i] +
+                                   "\"");
             }
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -186,7 +188,7 @@ public class Hierarchytopic {
                 tar = sc.next();
                 int sid = this.clustername.get(src);
                 int tid = this.clustername.get(tar);
-                System.out.println((sid+1) + " " + (tid+1));
+                System.out.println((sid + 1) + " " + (tid + 1));
             }
         } catch (IOException ex) {
             logger.log(Level.SEVERE, null, ex);

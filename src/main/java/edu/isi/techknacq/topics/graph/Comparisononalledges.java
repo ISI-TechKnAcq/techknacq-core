@@ -184,7 +184,7 @@ public class Comparisononalledges {
         }
         int cooc = this.getOccu(v1, v2);
         if (a + b - cooc > 0)
-            res = (double)cooc/(a + b - cooc);
+            res = (double)cooc / (a + b - cooc);
         else
             res = 0.0;
         return res;
@@ -258,7 +258,7 @@ public class Comparisononalledges {
                         hierdoc = this.getDiffSim(v1, v2);
                         hierword = this.getDiffSim(v3, v4);
                         cocite = (t2t[i][j] - t2t[j][i]) / this.getOccu(v1, v2);
-                        CEword = CEword/1.9514 + hierword/1.1667;
+                        CEword = CEword / 1.9514 + hierword / 1.1667;
                         citewang = t2t[i][j];
 
                         // if (Math.abs(CEword) > 0.007) {

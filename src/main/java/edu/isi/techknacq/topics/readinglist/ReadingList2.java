@@ -77,7 +77,7 @@ public class ReadingList2 {
     }
 
     public String floatToString(double val, double max) {
-        int color_dec = (int)(255 * (1 - val/max));
+        int color_dec = (int)(255 * (1 - val / max));
         String str = Integer.toHexString(color_dec);
         if (str.length() > 1)
             str = "#" + str + str + str;
@@ -113,7 +113,7 @@ public class ReadingList2 {
             } else {
                 topicname += "<span style=\"color:" +
                     floatToString(value, maxvalue) +
-                    "\" title=\"" + (int)(value*100) + "% relevant\">" +
+                    "\" title=\"" + (int)(value * 100) + "% relevant\">" +
                     word.replace("_", "&nbsp;") + "</span>, ";
             }
         }
@@ -226,51 +226,51 @@ public class ReadingList2 {
             //     isvisit[Did] = true;
             // }
             String html =
-"<html>\n" +
-"<head>\n" +
-"<title>TechKnAcq Reading List</title>\n" +
-"<style type=\"text/css\">\n" +
-"body {\n" +
-"    margin: 2em auto;\n" +
-"    font-family: 'Univers LT Std', 'Helvetica', sans-serif;\n" +
-"    max-width: 900px;\n" +
-"    width: 90%;\n" +
-"}\n" +
-"article {\n" +
-"    border-top: 4px solid #888;\n" +
-"    padding-top: 3em;\n" +
-"    margin-top: 3em;\n" +
-"}\n" +
-"section {\n" +
-"    padding-bottom: 3em;\n" +
-"    border-bottom: 4px solid #888;\n" +
-"    margin-bottom: 4em;\n" +
-"}\n" +
-"section section {\n" +
-"    border: 0px;\n" +
-"    padding: 0px;\n" +
-"    margin: 0em 0em 3em 0em;\n" +
-"}\n" +
-"h1 { font-size: 18pt; }\n" +
-"h2 { font-size: 14pt; }\n" +
-"label { margin-right: 6px; }\n" +
-"input { margin-left: 6px; }\n" +
-"div.topic {\n" +
-"    padding: 1em;\n" +
-"}\n" +
-"p.rate { font-weight: bold; margin-left: 2em; }\n" +
-"blockquote { margin-left: 40px; }\n" +
-"a {\n" +
-"    text-decoration: none;\n" +
-"    font-style: italic;\n" +
-"    border-bottom: 1px dotted grey;\n" +
-"}\n" +
-"a:hover { color: blue !important; }\n" +
-"a:hover span { color: blue !important; }\n" +
-"</style>\n" +
-"</head>\n" +
-"<body>\n" +
-"<h1>Reading List for " + keyword + " </h1>";
+                "<html>\n" +
+                "<head>\n" +
+                "<title>TechKnAcq Reading List</title>\n" +
+                "<style type=\"text/css\">\n" +
+                "body {\n" +
+                "    margin: 2em auto;\n" +
+                "    font-family: 'Helvetica', sans-serif;\n" +
+                "    max-width: 900px;\n" +
+                "    width: 90%;\n" +
+                "}\n" +
+                "article {\n" +
+                "    border-top: 4px solid #888;\n" +
+                "    padding-top: 3em;\n" +
+                "    margin-top: 3em;\n" +
+                "}\n" +
+                "section {\n" +
+                "    padding-bottom: 3em;\n" +
+                "    border-bottom: 4px solid #888;\n" +
+                "    margin-bottom: 4em;\n" +
+                "}\n" +
+                "section section {\n" +
+                "    border: 0px;\n" +
+                "    padding: 0px;\n" +
+                "    margin: 0em 0em 3em 0em;\n" +
+                "}\n" +
+                "h1 { font-size: 18pt; }\n" +
+                "h2 { font-size: 14pt; }\n" +
+                "label { margin-right: 6px; }\n" +
+                "input { margin-left: 6px; }\n" +
+                "div.topic {\n" +
+                "    padding: 1em;\n" +
+                "}\n" +
+                "p.rate { font-weight: bold; margin-left: 2em; }\n" +
+                "blockquote { margin-left: 40px; }\n" +
+                "a {\n" +
+                "    text-decoration: none;\n" +
+                "    font-style: italic;\n" +
+                "    border-bottom: 1px dotted grey;\n" +
+                "}\n" +
+                "a:hover { color: blue !important; }\n" +
+                "a:hover span { color: blue !important; }\n" +
+                "</style>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "<h1>Reading List for " + keyword + " </h1>";
             out.write(html);
             boolean []isvisit = new boolean[this.docfiles.size()];
             for (int i = 0; i < isvisit.length; i++) {
@@ -292,23 +292,23 @@ public class ReadingList2 {
                     // Put the topic tindex at the very begining of the order
                     // list
                     out.write("<section>");
-                    out.write("<h2>Overall topic: "+"</h2>");
+                    out.write("<h2>Overall topic: </h2>");
                     out.write("<div class=\"topic\">");
                     out.write(this.printTopics(tindex));
                     /*
                      * Start retrival high quality papers;
                      */
-                    ArrayList<Integer> mydocs=this.getDocs(tindex);
+                    ArrayList<Integer> mydocs = this.getDocs(tindex);
 
                     mylist.clear();
                     for (Integer mydoc : mydocs) {
                         int Did = mydoc;
                         if (isvisit[Did])
                             continue;
-                        String dockey=this.docfiles.get(Did);
+                        String dockey = this.docfiles.get(Did);
                         double value;
                         if (this.paperpagerank.containsKey(dockey))
-                            value=this.paperpagerank.get(dockey);
+                            value = this.paperpagerank.get(dockey);
                         else
                             value = -1;
                         if (value > -1)
@@ -331,7 +331,7 @@ public class ReadingList2 {
                         if (!this.authorlists.contains(author)) {
                             String name = this.printDocName(metavalue, dfile,
                                                             o.getweight());
-                            out.write("<li>"+name+"</li>");
+                            out.write("<li>" + name + "</li>");
                             this.authorlists.add(author);
                             dcount++;
                         }
@@ -357,7 +357,7 @@ public class ReadingList2 {
                 out.write("<section>");
                 if (istopicvisit[tindex] == 'm') {
                     out.write("<h2>Matched topic: </h2>");
-                } else{
+                } else {
                     out.write("<h2>Dependency topic: </h2>");
                 }
                 out.write("<div class=\"topic\">");
@@ -381,7 +381,8 @@ public class ReadingList2 {
                         mylist.add(new Weightpair(value,Did));
                 }
                 int dcount = Math.min(dnum, mylist.size());
-                out.write("<p>The best relevant "+dcount+" documents: </p>");
+                out.write("<p>The best relevant " + dcount +
+                          " documents: </p>");
                 int j = 0;
                 dcount = 0;
                 Collections.sort(mylist);

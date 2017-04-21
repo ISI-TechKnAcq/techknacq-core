@@ -60,7 +60,7 @@ public class Prunedalledge {
             // double hdoc;
             br.readLine();
             while ((strline = br.readLine()) != null) {
-                Scanner sc=new Scanner(strline);
+                Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t");
                 id = sc.nextInt();
                 sc.next();
@@ -69,13 +69,13 @@ public class Prunedalledge {
                 simdocscore = sc.nextDouble();
                 simwordscore = sc.nextDouble();
                 ifscore = sc.nextDouble();
-                //cedoc = sc.nextDouble();
+                // cedoc = sc.nextDouble();
                 ceword = sc.nextDouble();
                 cecite = sc.nextDouble();
                 hword = sc.nextDouble();
-                //hdoc = sc.nextDouble();
-                //CEdoc[id][tid] = cedoc;
-                //CEdoc[tid][id] = -cedoc;
+                // hdoc = sc.nextDouble();
+                // CEdoc[id][tid] = cedoc;
+                // CEdoc[tid][id] = -cedoc;
                 CEword[id][tid] = ceword;
                 CEword[tid][id] = -ceword;
                 if (ifscore > 0.0) {
@@ -90,8 +90,8 @@ public class Prunedalledge {
                 this.cite[tid][id] = -cecite;
                 this.hierword[id][tid] = hword;
                 this.hierword[tid][id] = -hword;
-                //this.hierdoc[id][tid] = hdoc;
-                //this.hierdoc[tid][id] = -hdoc;
+                // this.hierdoc[id][tid] = hdoc;
+                // this.hierdoc[tid][id] = -hdoc;
             }
         } catch (FileNotFoundException ex) {
             logger.log(Level.SEVERE, null, ex);

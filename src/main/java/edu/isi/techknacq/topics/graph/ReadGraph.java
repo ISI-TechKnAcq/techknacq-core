@@ -38,11 +38,11 @@ public class ReadGraph {
             while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
                 sc.useDelimiter(":");
-                if(sc.hasNext()) {
+                if (sc.hasNext()) {
                     String vstr = sc.next();
                     index = vstr.indexOf(",");
-                    int v = Integer.parseInt(vstr.substring(0,index));
-                    int d = Integer.parseInt(vstr.substring(index+1,
+                    int v = Integer.parseInt(vstr.substring(0, index));
+                    int d = Integer.parseInt(vstr.substring(index + 1,
                                                             vstr.length()));
                     if (d > 0) {
                         G[v] = new Node(d);

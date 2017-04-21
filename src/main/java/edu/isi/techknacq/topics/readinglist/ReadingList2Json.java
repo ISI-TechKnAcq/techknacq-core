@@ -67,8 +67,8 @@ public class ReadingList2Json {
 
     public ArrayList<Integer> getDocs(int tindex) {
         ArrayList<Integer> mydocs = new ArrayList(topic2docs[tindex].size());
-        for (int i=0;i<topic2docs[tindex].size();i++) {
-            Weightpair o=(Weightpair)topic2docs[tindex].get(i);
+        for (int i = 0; i < topic2docs[tindex].size(); i++) {
+            Weightpair o = (Weightpair)topic2docs[tindex].get(i);
             mydocs.add(o.getindex());
         }
         return mydocs;
@@ -163,7 +163,7 @@ public class ReadingList2Json {
         } else
             title = null;
         name = "\n\t\t{";
-        name += "\"author\": \"" + author + "\", \"title\": \"" + title + 
+        name += "\"author\": \"" + author + "\", \"title\": \"" + title +
                 "\",\"ID\": \"" + did + "\"},";
         return name;
     }
@@ -198,7 +198,8 @@ public class ReadingList2Json {
             String metavalue = this.getDocMeta(dfile);
             String author = this.extractAuthor(metavalue);
             if (!this.authorlists.contains(author)) {
-                String name = this.printDocName(metavalue, dfile, o.getweight());
+                String name = this.printDocName(metavalue, dfile,
+                                                o.getweight());
                 docstring += name;
                 this.authorlists.add(author);
                 dcount++;
@@ -255,8 +256,7 @@ public class ReadingList2Json {
                     if (j < deptopics.size() - 1) {
                         out.write(docstrs);
                         out.write("},\n");
-                    }
-                    else{
+                    } else {
                         out.write(docstrs);
                         out.write("}\n");
                     }

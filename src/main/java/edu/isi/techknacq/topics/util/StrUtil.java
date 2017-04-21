@@ -50,7 +50,7 @@ public class StrUtil {
         }
     }
 
-    public static void enumarateMap(Map mp, List l) {
+    public static void enumerateMap(Map mp, List l) {
         Iterator it = mp.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pairs = (Map.Entry)it.next();
@@ -77,8 +77,7 @@ public class StrUtil {
                         for (int i = 0; i < arr.length; i++) {
                             Dir.add(f.getAbsolutePath() + "/" + arr[i]);
                         }
-                    }
-                    catch (NullPointerException exp) {
+                    } catch (NullPointerException exp) {
                         Dir.remove(f.getAbsoluteFile());
                     }
                 }
@@ -252,13 +251,13 @@ public class StrUtil {
     }
 
     public static void main(String[] arg) {
-//        System.out.println(StrUtil.getSearchTime("20070811110001"));
-//        long start=StrUtil.parseSearchTime("20061108010001");
-//        long end=StrUtil.parseSearchTime("20071130220001");
-//        long number = (end - start)/(3*3600*1000);
-//        System.out.println(number*15);
-//        System.out.println((float)2978/number);
-//        System.out.println((float)44594/number/15);
+        // System.out.println(StrUtil.getSearchTime("20070811110001"));
+        // long start = StrUtil.parseSearchTime("20061108010001");
+        // long end = StrUtil.parseSearchTime("20071130220001");
+        // long number = (end - start) / (3 * 3600 * 1000);
+        // System.out.println(number * 15);
+        // System.out.println((float)2978 / number);
+        // System.out.println((float)44594 / number / 15);
         long start = StrUtil.parsetweettime("2012-08-10 04:43:58");
         long end = StrUtil.parsetweettime("2012-08-10 05:43:58");
         long number = end - start;

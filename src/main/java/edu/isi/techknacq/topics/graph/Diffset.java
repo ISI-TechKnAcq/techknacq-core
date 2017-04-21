@@ -20,7 +20,7 @@ public class Diffset {
     private Logger logger = Logger.getLogger(Diffset.class.getName());
 
     public Diffset() {
-        this.coverededges = new HashSet<Pair>(1000) {};
+        this.coverededges = new HashSet<Pair>(1000){};
     }
 
     public void readCovered(String filename) {
@@ -62,7 +62,7 @@ public class Diffset {
             int tid;
             br.readLine();
             while ((strline = br.readLine()) != null) {
-                Scanner sc=new Scanner(strline);
+                Scanner sc = new Scanner(strline);
                 sc.useDelimiter("\t");
                 sid = sc.nextInt();
                 sc.next();

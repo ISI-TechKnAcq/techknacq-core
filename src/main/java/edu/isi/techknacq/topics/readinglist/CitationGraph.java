@@ -23,7 +23,7 @@ public class CitationGraph {
     private double [][] paper2topic;
     private int pnum = 0;
     private int tnum = 300;
-    private Logger logger = Logger.getLogger(CitationGraph.class);
+    private Logger logger = Logger.getLogger(CitationGraph.class.getName());
 
     public CitationGraph() {
         this.paperids = new HashMap<String, Integer>(100000);

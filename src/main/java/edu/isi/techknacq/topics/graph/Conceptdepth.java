@@ -34,7 +34,7 @@ public class Conceptdepth {
 
     public void resetVisit() {
         for (int i = 0; i < isvisit.length; i++) {
-            isvisit[i]='w';
+            isvisit[i] = 'w';
         }
     }
 
@@ -91,7 +91,7 @@ public class Conceptdepth {
         int subcount = 0;
         for (int i = 0; i < G.length; i++) {
             if (isvisit[i] == 'g') {
-                mapindex[i]=subcount;
+                mapindex[i] = subcount;
                 subcount++;
             }
         }
@@ -102,7 +102,7 @@ public class Conceptdepth {
             if (isvisit[i] == 'g') {
                 for (int j = 0; j < G[i].key; j++) {
                     int nb = G[i].nbv[j];
-                    if (isvisit[nb]=='g')
+                    if (isvisit[nb] == 'g')
                         subedge++;
                 }
             }
@@ -112,11 +112,12 @@ public class Conceptdepth {
         s.name("topic pairs");
         s.beginArray();
         for (int i = 0; i < G.length; i++) {
-            if (isvisit[i]=='g') {
+            if (isvisit[i] == 'g') {
                 for (int j = 0; j < G[i].key; j++) {
                     int nb = G[i].nbv[j];
                     if (isvisit[nb] == 'g') {
-                        s.value(i+"-->"+nb+" weight:"+G[i].weights[j]);
+                        s.value(i + "-->" + nb + " weight:" +
+                                G[i].weights[j]);
                     }
                 }
             }
@@ -129,7 +130,7 @@ public class Conceptdepth {
     public void getSubgraph(String keyword) {
         FileWriter fstream = null;
         try {
-            fstream = new FileWriter(keyword+"_graph.net",false);
+            fstream = new FileWriter(keyword + "_graph.net", false);
             BufferedWriter out = new BufferedWriter(fstream);
             int []mapindex = new int[topics.size()];
             for (int i = 0; i < topics.size(); i++) {
@@ -155,7 +156,7 @@ public class Conceptdepth {
                     }
                 }
             }
-            out.write("*Arcs "+subedge+"\n");
+            out.write("*Arcs " + subedge + "\n");
             for (int i = 0; i < G.length; i++) {
                 if (isvisit[i] == 'g') {
                     for (int j = 0; j < G[i].key; j++) {

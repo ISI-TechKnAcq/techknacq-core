@@ -47,7 +47,7 @@ public class Doc2topicMapping {
             else
                 paper2topic[pid].add(w);
         } else {
-            double minweight = ((Weightpair)paper2topic[pid].get(paper2topic[pid].size()-1)).getweight();
+            double minweight = ((Weightpair)paper2topic[pid].get(paper2topic[pid].size() - 1)).getweight();
             if (weight > minweight) {
                 index = Collections.binarySearch(paper2topic[pid], w);
                 if (index < 0)
@@ -55,8 +55,7 @@ public class Doc2topicMapping {
                 if (index < paper2topic[pid].size()) {
                     paper2topic[pid].add(index, w);
                     paper2topic[pid].remove(paper2topic[pid].size() - 1);
-                }
-                else
+                } else
                     paper2topic[pid].set(paper2topic[pid].size() - 1, w);
             }
         }
@@ -116,10 +115,12 @@ public class Doc2topicMapping {
                     index1 = topicname.indexOf("topic");
                     index2 = topicname.indexOf(":");
                     if (index1 >= 0 && index2 >= 0) {
-                        tindex = Integer.parseInt(topicname.substring(index1+5,
-                                                                      index2));
-                        tweight = Double.parseDouble(topicname.substring(index2+1,
-                                                                         topicname.length()));
+                        tindex =
+                            Integer.parseInt(topicname.substring(index1 + 5,
+                                                                 index2));
+                        tweight =
+                            Double.parseDouble(topicname.substring(index2 + 1,
+                                                                   topicname.length()));
                         this.add(did, tindex, tweight,10);
                     }
                 }
@@ -146,7 +147,7 @@ public class Doc2topicMapping {
             fstream = new FileWriter("Topicspotfull.txt",false);
             BufferedWriter out = new BufferedWriter(fstream);
             for (int i = 0; i < pnum; i++) {
-                double w=0;
+                double w = 0;
                 wordweight.clear();
                 for (int j = 0; j < paper2topic[i].size(); j++) {
                     Weightpair o = (Weightpair)paper2topic[i].get(j);
@@ -155,7 +156,7 @@ public class Doc2topicMapping {
                     double w2 = 0.0;
                     for (int k = 0; k < this.topicinwords[tindex].size();
                          k++) {
-                       Indexpair p = (Indexpair)topicinwords[tindex].get(k);
+                        Indexpair p = (Indexpair)topicinwords[tindex].get(k);
                         int windex = p.getindex();
                         if (!wordweight.containsKey(windex)) {
                             wordweight.put(windex,

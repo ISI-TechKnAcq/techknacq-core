@@ -13,7 +13,8 @@ import java.util.logging.Logger;
  * @author linhong
  */
 public class Testprint {
-    private static Logger logger = Logger.getLogger(Testprint.class.getLogger());
+    private static Logger logger =
+        Logger.getLogger(Testprint.class.getName());
 
     public static void printMap(Map mp, BufferedWriter out) {
         try {

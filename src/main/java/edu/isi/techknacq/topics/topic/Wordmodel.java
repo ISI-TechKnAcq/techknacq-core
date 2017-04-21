@@ -42,11 +42,11 @@ public class Wordmodel {
                 System.out.println(i);
             }
             Scanner sc = new Scanner(posts.get(i));
-            while(sc.hasNext()) {
+            while (sc.hasNext()) {
                 word = tp.getTokenString(sc.next());
-                if (word.length()<=2)
+                if (word.length() <= 2)
                     continue;
-                int length=0;
+                int length = 0;
                 for (j = 0; j < word.length(); j++) {
                     if (word.charAt(j) != ' ')
                         length++;

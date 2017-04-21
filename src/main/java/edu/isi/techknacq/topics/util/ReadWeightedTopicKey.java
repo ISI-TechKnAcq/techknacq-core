@@ -20,7 +20,7 @@ public class ReadWeightedTopicKey {
     private HashMap<String, Integer> words;
     private List []topicinwords;
     private ArrayList<String> wordlist;
-    private Logger logger = Logger.getLogger(ReadTopicKey.class);
+    private Logger logger = Logger.getLogger(ReadTopicKey.class.getName());
 
     public void read(String filename, int maxcount) {
         int wordcount = 0;

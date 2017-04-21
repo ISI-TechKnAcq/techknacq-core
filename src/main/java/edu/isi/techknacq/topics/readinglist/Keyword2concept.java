@@ -57,14 +57,14 @@ public class Keyword2concept {
             for (int i = 0; i < wordintopic.size(); i++) {
                 float sum = 0;
                 for (int j = 0; j < wordintopic.get(i).size(); j++) {
-                     WordPair o = wordintopic.get(i).get(j);
-                     sum += o.getprob();
+                    WordPair o = wordintopic.get(i).get(j);
+                    sum += o.getprob();
                 }
                 for (int j = 0; j < wordintopic.get(i).size(); j++) {
                     WordPair o = wordintopic.get(i).get(j);
                     float oldv = o.getprob();
                     o.setProb(oldv / sum);
-                    wordintopic.get(i).set(j,o );
+                    wordintopic.get(i).set(j, o);
                 }
             }
             in1.close();
