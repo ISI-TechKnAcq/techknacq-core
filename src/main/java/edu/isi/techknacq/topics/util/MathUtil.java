@@ -6,6 +6,7 @@ public class MathUtil {
     public static double getIntAvg(ArrayList<Integer> a) {
         if (a.size() < 1)
             return 0;
+
         double res = 0;
         for (int i = 0; i < a.size(); i++) {
             res += (double)a.get(i) / a.size();
@@ -16,6 +17,7 @@ public class MathUtil {
     public static double getLongAvg(ArrayList<Long> a) {
         if (a.size() < 1)
             return 0;
+
         double res = 0;
         for (int i = 0; i < a.size(); i++) {
             res += (double)a.get(i) / a.size();
@@ -26,29 +28,27 @@ public class MathUtil {
     public static double getIntSD(ArrayList<Integer> a, double mean) {
         if (a.size() < 2)
             return 0;
-        else {
-            double res = 0;
-            for (int i = 0; i < a.size(); i++) {
-                res += (a.get(i) - mean) * (a.get(i) - mean);
-            }
-            res /= a.size() - 1;
-            res = Math.sqrt(res);
-            return res;
+
+        double res = 0;
+        for (int i = 0; i < a.size(); i++) {
+            res += (a.get(i) - mean) * (a.get(i) - mean);
         }
+        res /= a.size() - 1;
+        res = Math.sqrt(res);
+        return res;
     }
 
     public static double getLongSD(ArrayList<Long> a, double mean) {
         if (a.size() < 2)
             return 0;
-        else {
-            double res = 0;
-            for (int i = 0; i < a.size(); i++) {
-                res += (a.get(i) - mean) * (a.get(i) - mean);
-            }
-            res /= a.size() - 1;
-            res = Math.sqrt(res);
-            return res;
+
+        double res = 0;
+        for (int i = 0; i < a.size(); i++) {
+            res += (a.get(i) - mean) * (a.get(i) - mean);
         }
+        res /= a.size() - 1;
+        res = Math.sqrt(res);
+        return res;
     }
 
     public static double getIntMax(ArrayList<Integer> a) {
@@ -72,6 +72,7 @@ public class MathUtil {
     public static double getIntMeanNoMax(ArrayList<Integer> a, double max) {
         if (a.size() < 1)
             return 0;
+
         double res = 0;
         for (int i = 0; i < a.size(); i++) {
             if (a.get(i) < max)
@@ -102,7 +103,7 @@ public class MathUtil {
             if (a.get(i) < max)
                 res += (a.get(i) - mean) * (a.get(i) - mean);
         }
-        res /= (a.size() - 1);
+        res /= a.size() - 1;
         res = Math.sqrt(res);
         return res;
     }
@@ -115,7 +116,7 @@ public class MathUtil {
         double res = 0;
         for (int i = 0; i < a.size(); i++) {
             if (a.get(i) < max)
-                res += ((a.get(i) - mean) * (a.get(i) - mean));
+                res += (a.get(i) - mean) * (a.get(i) - mean);
         }
         res /= (a.size() - 1);
         res = Math.sqrt(res);
@@ -202,25 +203,24 @@ public class MathUtil {
         if (v1.size() != v2.size()) {
             System.out.println("Error occurs in computing the word vector");
             return -1;
-        } else {
-            if (v1.size() == 0 || v2.size() == 0 || v1 == null || v2 == null)
-                return 0;
-            else {
-                double dotproduct = 0;
-                for (int i = 0; i < v1.size(); i++)
-                    dotproduct += v1.get(i) * v2.get(i);
-                if (dotproduct >= 0.0) {
-                    double v1length = getVectorlength(v1);
-                    double v2length = getVectorlength(v2);
-                    if (v1length != 0 && v2length != 0)
-                        return dotproduct / v1length / v2length;
-                    else
-                        return 0;
-                } else {
-                    return 0;
-                }
-            }
         }
+
+        if (v1.size() == 0 || v2.size() == 0 || v1 == null || v2 == null)
+            return 0;
+
+        double dotproduct = 0;
+        for (int i = 0; i < v1.size(); i++)
+            dotproduct += v1.get(i) * v2.get(i);
+
+        if (dotproduct >= 0.0) {
+            double v1length = getVectorlength(v1);
+            double v2length = getVectorlength(v2);
+            if (v1length != 0 && v2length != 0)
+                return dotproduct / v1length / v2length;
+            return 0;
+        }
+
+        return 0;
     }
 
     public static float cosinSimilarity(float []v1, float []v2) {
