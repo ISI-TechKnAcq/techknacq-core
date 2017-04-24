@@ -118,7 +118,7 @@ public class MathUtil {
             if (a.get(i) < max)
                 res += (a.get(i) - mean) * (a.get(i) - mean);
         }
-        res /= (a.size() - 1);
+        res /= a.size() - 1;
         res = Math.sqrt(res);
         return res;
     }
@@ -201,7 +201,7 @@ public class MathUtil {
     public static double cosinSimilarity(ArrayList<Double> v1,
                                          ArrayList<Double> v2) {
         if (v1.size() != v2.size()) {
-            System.out.println("Error occurs in computing the word vector");
+            System.out.println("Error computing the word vector.");
             return -1;
         }
 
@@ -225,7 +225,7 @@ public class MathUtil {
 
     public static float cosinSimilarity(float []v1, float []v2) {
         if (v1.length != v2.length) {
-            System.out.println("Error occurs in computing the TF-IDF vector");
+            System.out.println("Error computing the TF-IDF vector.");
             return -1;
         }
 
@@ -265,7 +265,7 @@ public class MathUtil {
 
     public static float EJsimilarity(float []v1, float []v2) {
         if (v1.length != v2.length) {
-            System.out.println("Error occurs in computing the tfidf vector");
+            System.out.println("Error computing the TF-IDF vector.");
             return -1F;
         }
         if (v1.length == 0 || v2.length == 0 || v1 == null || v2 == null)
@@ -281,8 +281,7 @@ public class MathUtil {
                 - dotproduct;
             if (temp == 0)
                 return 0.0F;
-            else
-                return dotproduct / temp;
+            return dotproduct / temp;
         }
 
         return 0.0F;

@@ -60,8 +60,9 @@ java -jar [jarfilename] [dirname] [topicnum] [k] [alpha] [prefix]
 ```
 
 2. Without jar file:
-```
-java -classpath ".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m topic.Main [dirname] [topicnum] [k] [alpha] [prefix]
+```bash
+java -classpath ".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" \
+     -Xmx1024m topic.Main [dirname] [topicnum] [k] [alpha] [prefix]
 ```
 
 The arguments are:
@@ -124,9 +125,10 @@ code (in src/main/java/edu/isi/techknacq/topics/graph) to generate the Pajek
 http://gephi.github.io/users/supported-graph-formats/pajek-net-format/
 
 2. Compile:
-```
+```bash
 mkdir classes
-javac -cp "lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -d classes @name.txt
+javac -cp "lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" \
+      -d classes @name.txt
 ```
 
 3. Run:
@@ -161,14 +163,16 @@ obtain the edge table format for the topic dependency Graph
 
 2.1. Compile the ReadFlowNetwork
 
-```
-javac -cp "lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -d classes @name.txt
+```bash
+javac -cp "lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" \
+      -d classes @name.txt
 ```
 
 2.2. Run the ReadFlowNetwork
 
-```
-java -classpath ".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m util.ReadFlowNetwork [arguments]
+```bash
+java -classpath ".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" \
+     -Xmx1024m util.ReadFlowNetwork [arguments]
 ```
 
 2.3. Arguments: [keyfilename] [treefilename] [flowfilename] [outputfilename]
@@ -179,7 +183,7 @@ as follows.
 
 3.1. Compile
 
-```
+```bash
 cd util
 g++ edge2weightstandard.cpp -O3 -o format
 ```
@@ -189,11 +193,11 @@ g++ edge2weightstandard.cpp -O3 -o format
 
 ### Cross Entropy Graph Generation
 
-1. Run
-     techknacq-core/src/main/java/edu/isi/techknacq/topics/graph/Comparisononalledges.java
-with Arguments:
+1. Run techknacq-core/src/main/java/edu/isi/techknacq/topics/graph/Comparisononalledges.java
+with arguments:
 ```
-Usage [keyfile] [tree file] [topic composition file] [# topics] [citation file] [flow file] [topicscorefile] [maximum number of files or words]
+[keyfile] [tree file] [topic composition file] [# topics] [citation file]
+[flow file] [topicscorefile] [maximum number of files or words]
 ```
 
 2. The output for the co-occurrence based cross entropy approach is
@@ -210,23 +214,26 @@ See the directions above.
 
 ### Compile
 
-  1. The easiest way is to comile with the IDE (either Netbeans or others) and generate a jar file
-  
-  2. Command line compile:
-  
-     mkdir classes 
-
-     javac -cp "lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -d classes @name.txt
+1. The easiest way is to comile with the IDE (either Netbeans or others)
+and generate a jar file.
+2. Command line compile:
+```bash
+mkdir classes
+javac -cp "lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" \
+      -d classes @name.txt
 
 ### Run
 
 1. With jar file generated from IDE or ant:
 
-   Simply type java -jar [jarfilename] [arguments], where arguments are specified in Usage as below
-   
-2. Without jar file:
+Simply type `java -jar [jarfilename] [arguments]`, where arguments are
+specified in Usage as below.
 
-  java -classpath ".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m readinglist.Getreadinglist [arguments], where arguments are specified in Usage as below
+2. Without jar file:
+```
+java -classpath ".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m readinglist.Getreadinglist [arguments]
+```
+where arguments are specified in Usage as below
 
 ### Usage
 
