@@ -45,7 +45,7 @@ public class MathUtil {
             for (int i = 0; i < a.size(); i++) {
                 res += (a.get(i) - mean) * (a.get(i) - mean);
             }
-            res /= (a.size() - 1);
+            res /= a.size() - 1;
             res = Math.sqrt(res);
             return res;
         }
@@ -100,7 +100,7 @@ public class MathUtil {
         double res = 0;
         for (int i = 0; i < a.size(); i++) {
             if (a.get(i) < max)
-                res += ((a.get(i) - mean) * (a.get(i) - mean));
+                res += (a.get(i) - mean) * (a.get(i) - mean);
         }
         res /= (a.size() - 1);
         res = Math.sqrt(res);
@@ -193,7 +193,7 @@ public class MathUtil {
         float sd = 0;
         for (int i = 0; i < v.length; i++)
             sd = sd + (v[i] - avg) * (v[i] - avg);
-        sd = (float)Math.sqrt(sd/v.length);
+        sd = (float)Math.sqrt(sd / v.length);
         return sd;
     }
 
@@ -202,8 +202,7 @@ public class MathUtil {
         if (v1.size() != v2.size()) {
             System.out.println("Error occurs in computing the word vector");
             return -1;
-        }
-        else {
+        } else {
             if (v1.size() == 0 || v2.size() == 0 || v1 == null || v2 == null)
                 return 0;
             else {
@@ -217,8 +216,7 @@ public class MathUtil {
                         return dotproduct / v1length / v2length;
                     else
                         return 0;
-                }
-                else {
+                } else {
                     return 0;
                 }
             }
