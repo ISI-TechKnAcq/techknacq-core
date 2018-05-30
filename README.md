@@ -221,6 +221,7 @@ and generate a jar file.
 mkdir classes
 javac -cp "lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" \
       -d classes @name.txt
+```
 
 ### Run
 
