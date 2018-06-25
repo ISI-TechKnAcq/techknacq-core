@@ -253,7 +253,7 @@ Our program accepts the following parameters, that are:
 
 #### keyword
 
-Note that if the keyword is not unigram, we use "_" to connect each term
+Note that if the keyword is not unigram, we use `_` to connect each term
 within the input keyword.
 
 #### doc2topicfile
@@ -278,7 +278,7 @@ the adjacency list of each node, formatted as follows:
 node_id,degree_d:neighboreid1,weight1:neighborid2,weight2:...neighboridd,weightd
 ```
 
-Note that the node_id is within the range [0,n-1], where n is number of
+Note that the `node_id` is within the range [0,n-1], where n is number of
 nodes, and the list of neighbors are sorted in ascending order too.
 
 An example of input graph format is as follows:
@@ -311,14 +311,14 @@ It is a comma separate file that contains the document key and a binary value
 
 ### Output format
 
-The output is saved in a JSON file with name keyword_readinglist
+The output is saved in a JSON file with name `<keyword>_readinglist`
 
 
 ## New Reading List
 
 ### Main Function
 
-techknacq-core/src/main/java/edu/isi/techknacq/topics/readinglist/NewReadingList.java
+`techknacq-core/src/main/java/edu/isi/techknacq/topics/readinglist/NewReadingList.java`
 
 ### Run with jar file
 Simply type `java -jar [jarfilename] [arguments]`, where arguments are
@@ -368,6 +368,16 @@ Basically, we need to specify
 contribution of each feature in ordering documents)
 
 All the other input files are using the same format as specfied as above.
+
+
+## Citation
+
+If you use this code, cite:
+
+> Jonathan Gordon, Linhong Zhu, Aram Galstyan, Prem Natarajan, and Gully
+> Burns. 2016. Modeling Concept Dependencies in a Scientific Corpus. In
+> Proceedings of the 54th Annual Meeting of the Association for
+> Computational Linguistics (ACL). https://doi.org/10.18653/v1/P16-1082
 
 
 ## Acknowledgments
