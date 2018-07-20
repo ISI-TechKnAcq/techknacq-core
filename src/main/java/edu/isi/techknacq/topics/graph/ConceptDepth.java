@@ -17,11 +17,11 @@ import com.google.gson.stream.JsonWriter;
 import edu.isi.techknacq.topics.topic.Weightpair;
 
 
-public class Conceptdepth {
+public class ConceptDepth {
     private Node []G;
     private char []isvisit;
     private List<String> topics;
-    private Logger logger = Logger.getLogger(Conceptdepth.class.getName());
+    private Logger logger = Logger.getLogger(ConceptDepth.class.getName());
 
     public void initTopics(List<String> inputtopics) {
         topics = inputtopics;

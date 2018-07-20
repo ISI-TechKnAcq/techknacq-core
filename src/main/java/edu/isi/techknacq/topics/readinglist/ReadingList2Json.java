@@ -19,7 +19,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.isi.techknacq.topics.graph.Conceptdepth;
+import edu.isi.techknacq.topics.graph.ConceptDepth;
 import edu.isi.techknacq.topics.graph.Node;
 import edu.isi.techknacq.topics.graph.ReadGraph;
 import edu.isi.techknacq.topics.topic.Weightpair;
@@ -219,7 +219,7 @@ public class ReadingList2Json {
             ReadGraph myreader = new ReadGraph(graphfile);
             Node []G = myreader.getGraph();
             this.ordertopic = myreader.orderNode();
-            Conceptdepth Dependency = new Conceptdepth();
+            ConceptDepth Dependency = new ConceptDepth();
             Dependency.initGraph(G);
             Dependency.initTopics(this.topickeys);
             boolean []isvisit = new boolean[this.docfiles.size()];

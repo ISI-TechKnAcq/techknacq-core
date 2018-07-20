@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.isi.techknacq.topics.graph.Conceptdepth;
+import edu.isi.techknacq.topics.graph.ConceptDepth;
 import edu.isi.techknacq.topics.graph.Node;
 import edu.isi.techknacq.topics.graph.ReadGraph;
 
@@ -53,7 +53,7 @@ public class Getreadinglist {
             //rdk: read the title and author information of each
             ReadGraph myreader = new ReadGraph(args[3]);
             Node []G = myreader.getGraph();
-            Conceptdepth Dependency = new Conceptdepth();
+            ConceptDepth Dependency = new ConceptDepth();
             Dependency.initGraph(G);
             Dependency.initTopics(topics);
             fstream = new FileWriter(args[0] + "_readinglist.txt",false);
