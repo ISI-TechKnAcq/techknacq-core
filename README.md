@@ -232,7 +232,7 @@ specified in Usage as below.
 
 2. Without jar file:
 ```
-java -classpath ".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m readinglist.Getreadinglist [arguments]
+java -classpath ".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m readinglist.GetReadingList [arguments]
 ```
 where arguments are specified in Usage as below
 

@@ -12,7 +12,7 @@ import edu.isi.techknacq.topics.graph.ConceptDepth;
 import edu.isi.techknacq.topics.graph.Node;
 import edu.isi.techknacq.topics.graph.ReadGraph;
 
-public class Getreadinglist {
+public class GetReadingList {
     public static void main(String []args) {
         FileWriter fstream = null;
         try {
@@ -97,7 +97,7 @@ public class Getreadinglist {
             out.close();
             Dependency.getSubgraph(args[0]);
         } catch (IOException ex) {
-            Logger.getLogger(Getreadinglist.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetReadingList.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
