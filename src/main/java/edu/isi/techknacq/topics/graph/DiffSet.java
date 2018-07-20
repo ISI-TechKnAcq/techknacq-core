@@ -15,11 +15,11 @@ import java.util.logging.Logger;
 import edu.isi.techknacq.topics.util.Pair;
 
 
-public class Diffset {
+public class DiffSet {
     private Set<Pair> coverededges;
-    private Logger logger = Logger.getLogger(Diffset.class.getName());
+    private Logger logger = Logger.getLogger(DiffSet.class.getName());
 
-    public Diffset() {
+    public DiffSet() {
         this.coverededges = new HashSet<Pair>(1000){};
     }
 
@@ -50,7 +50,7 @@ public class Diffset {
         }
     }
 
-    public void readTopset(String filename) {
+    public void readTopSet(String filename) {
         try {
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -80,9 +80,9 @@ public class Diffset {
     }
 
     public static void main(String []args) {
-        Diffset mydiff = new Diffset();
+        DiffSet mydiff = new DiffSet();
         mydiff.readCovered("evaluation-tsv.txt");
-        mydiff.readTopset("topset.tsv");
+        mydiff.readTopSet("topset.tsv");
 
     }
 }
