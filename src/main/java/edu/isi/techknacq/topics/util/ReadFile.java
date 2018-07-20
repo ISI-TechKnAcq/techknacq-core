@@ -9,8 +9,8 @@ import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Readfile {
-    private Logger logger = Logger.getLogger(Readfile.class.getName());
+public class ReadFile {
+    private Logger logger = Logger.getLogger(ReadFile.class.getName());
 
     public String read(String filename) {
         try {

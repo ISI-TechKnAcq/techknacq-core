@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import edu.isi.techknacq.topics.util.Readfile;
+import edu.isi.techknacq.topics.util.ReadFile;
 import edu.isi.techknacq.topics.util.StrUtil;
 
 /**
@@ -30,7 +30,7 @@ public class RunWordMatrix {
         }
         Collections.sort(myfile);
         ArrayList<String> posts = new ArrayList<String>(filenames.size());
-        Readfile myreader = new Readfile();
+        ReadFile myreader = new ReadFile();
         System.out.println(filenames.size());
         filenames.clear();
         for (int i = 0; i < myfile.size(); i++) {

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.isi.techknacq.topics.util.Readfile;
+import edu.isi.techknacq.topics.util.ReadFile;
 import edu.isi.techknacq.topics.util.Readresults;
 import edu.isi.techknacq.topics.util.StrUtil;
 
@@ -27,7 +27,7 @@ public class Topic {
         try {
             ArrayList<String> filenames = StrUtil.initFolder(dirname);
             ArrayList<String> posts = new ArrayList<String>(filenames.size());
-            Readfile myreader = new Readfile();
+            ReadFile myreader = new ReadFile();
             System.out.println(filenames.size());
             for (int i = 0; i < filenames.size(); i++) {
                 String res = myreader.read(filenames.get(i));
