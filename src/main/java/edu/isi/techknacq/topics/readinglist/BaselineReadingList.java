@@ -132,7 +132,7 @@ public class BaselineReadingList {
                 }
             }
             Collections.sort(mylist);
-            ReadDocumentkey rdk = new ReadDocumentkey(docfile);
+            ReadDocumentKey rdk = new ReadDocumentKey(docfile);
             rdk.readFile();
             FileWriter fstream = null;
             fstream = new FileWriter("BaselineReadingList_" + keyword + ".html",

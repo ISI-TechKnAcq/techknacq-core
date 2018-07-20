@@ -47,7 +47,7 @@ public class ReadingList2Json {
         this.wordintopic = match1.getWeightTopic();
         this.topickeys = match1.getTopics();
         readPageRankScore(pagerankfile);
-        ReadDocumentkey rdk = new ReadDocumentkey(docfile);
+        ReadDocumentKey rdk = new ReadDocumentKey(docfile);
         rdk.readFile();
         docmap = rdk.getDocMap();
         Concept2doc Getdoc = new Concept2doc();

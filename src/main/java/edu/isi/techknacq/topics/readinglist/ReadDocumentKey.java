@@ -11,12 +11,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class ReadDocumentkey {
+public class ReadDocumentKey {
     private Map <String, String> docMap;
     private String filename;
-    private Logger logger = Logger.getLogger(ReadDocumentkey.class.getName());
+    private Logger logger = Logger.getLogger(ReadDocumentKey.class.getName());
 
-    public ReadDocumentkey(String filename) {
+    public ReadDocumentKey(String filename) {
         this.filename = filename;
         docMap = new HashMap<String, String>();
     }
@@ -56,7 +56,7 @@ public class ReadDocumentkey {
 
     public static void main(String []args) {
         // Test reading index.json file
-        ReadDocumentkey rdk = new ReadDocumentkey("meta.json");
+        ReadDocumentKey rdk = new ReadDocumentKey("meta.json");
         rdk.readFile();
         String id = "acl-X98-1030";
         String docVal = rdk.getDocumentKey(id);

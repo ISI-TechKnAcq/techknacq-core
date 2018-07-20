@@ -105,7 +105,7 @@ public class BaselineReadingListJson {
             s.name("keyword");
             s.value(keyword);
             Collections.sort(mylist);
-            ReadDocumentkey rdk = new ReadDocumentkey(docfile);
+            ReadDocumentKey rdk = new ReadDocumentKey(docfile);
             rdk.readFile();
             s.name("documents");
             s.beginArray();

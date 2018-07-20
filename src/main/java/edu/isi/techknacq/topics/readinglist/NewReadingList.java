@@ -83,7 +83,7 @@ public class NewReadingList {
         this.topickeys = match1.getTopics();
         readPageRankscore(pagerankfile);
         System.out.println("Finish reading pagerank");
-        ReadDocumentkey rdk = new ReadDocumentkey(docfile);
+        ReadDocumentKey rdk = new ReadDocumentKey(docfile);
         rdk.readFile();
         System.out.println("Finish reading document");
         docmap = rdk.getDocMap();

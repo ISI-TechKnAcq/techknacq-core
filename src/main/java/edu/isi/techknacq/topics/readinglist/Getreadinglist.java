@@ -48,7 +48,7 @@ public class Getreadinglist {
             Getdoc.getTopK(dnum, args[1]);
             List<String> docfiles = Getdoc.getDocName();
             //docfiles: The filename of each document
-            ReadDocumentkey rdk = new ReadDocumentkey(args[4]);
+            ReadDocumentKey rdk = new ReadDocumentKey(args[4]);
             rdk.readFile();
             //rdk: read the title and author information of each
             ReadGraph myreader = new ReadGraph(args[3]);

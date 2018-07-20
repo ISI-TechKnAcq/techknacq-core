@@ -207,7 +207,7 @@ public class Concept2doc {
         doc.getTopK(K, filename);
         int tindex = 180;
         ArrayList<Integer> mydocs = doc.getDocs(tindex);
-        ReadDocumentkey rdk = new ReadDocumentkey("acl-meta.json");
+        ReadDocumentKey rdk = new ReadDocumentKey("acl-meta.json");
         rdk.readFile();
         for (int i = 0; i < mydocs.size(); i++) {
             // System.out.println(mydocs.get(i));
