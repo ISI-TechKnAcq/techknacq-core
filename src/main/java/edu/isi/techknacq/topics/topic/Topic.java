@@ -45,7 +45,7 @@ public class Topic {
             String []words = mymodel.getWords();
             int[]df = mymodel.getCount();
             System.out.println("Finish computing dictionary");
-            Wordmatrix mymatrix = new Wordmatrix();
+            WordMatrix mymatrix = new WordMatrix();
             mymatrix.initWords(words);
             mymatrix.initWordFreq(df);
             mymatrix.initContent(posts);

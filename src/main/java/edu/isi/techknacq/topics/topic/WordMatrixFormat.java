@@ -11,7 +11,7 @@ import edu.isi.techknacq.topics.util.StrUtil;
  *
  * @author linhong
  */
-public class Wordmatrixformat {
+public class WordMatrixFormat {
     public void run(String dirname, String prefix) {
         ArrayList<String> filenames = StrUtil.initFolder(dirname);
         List myfile = new ArrayList<StringPair> (filenames.size());
@@ -51,7 +51,7 @@ public class Wordmatrixformat {
         String []words = mymodel.getWords();
         int[]df = mymodel.getCount();
         System.out.println("Finish computing dictionary.");
-        Wordmatrix mymatrix = new Wordmatrix();
+        WordMatrix mymatrix = new WordMatrix();
         mymatrix.initWords(words);
         mymatrix.initWordFreq(df);
         mymatrix.initContent(posts);
@@ -66,7 +66,7 @@ public class Wordmatrixformat {
             System.err.println("Usage: [foldername] [prefixname]\n");
             System.exit(2);
         }
-        Wordmatrixformat myrun = new Wordmatrixformat();
+        WordMatrixFormat myrun = new WordMatrixFormat();
         myrun.run(args[0], args[1]);
     }
 }
