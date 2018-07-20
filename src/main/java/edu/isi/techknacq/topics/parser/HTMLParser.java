@@ -18,12 +18,12 @@ import javax.swing.text.html.parser.ParserDelegator;
 /**
  * @author sunax
  *
- * This is a simple HTML parser that can parse the text body and all the links.
- * Further enhancement needed to control the filter the parsed URLs.
+ * This is a simple HTML parser that can parse the text body and all the
+ * links. Further enhancement needed to control the filter the parsed URLs.
  */
 public class HTMLParser {
 
-    private StringBuffer sb=null;
+    private StringBuffer sb = null;
 
     class MiniParser extends HTMLEditorKit.ParserCallback {
         public void handleText(char[] data, int pos) {
@@ -58,7 +58,8 @@ public class HTMLParser {
             Reader r = new FileReader(htmlfile);
             new ParserDelegator().parse(r, new MiniParser(), true);
         } catch (IOException ex) {
-            Logger.getLogger(HTMLParser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HTMLParser.class.getName()).log(Level.SEVERE,
+                                                             null, ex);
         }
         return sb.toString().trim();
     }
@@ -70,10 +71,10 @@ public class HTMLParser {
     public static void main(String[] args) {
         try {
             HTMLParser htmlp = new HTMLParser();
-            String ahtml="<strong class=\"keyword\"> s > < again </strong> end";
-            String bhtml="1 this is a test<b type=\"keyword\" and> again </b> end";
-            String chtml="2 this is a test<b type=\"keyword\" and> again </b> end";
-            String dhtml="3 this is a test<b type=\"keyword\" and> again </b> end";
+            String ahtml = "<strong class=\"keyword\"> s > < again </strong> end";
+            String bhtml = "1 this is a test<b type=\"keyword\" and> again </b> end";
+            String chtml = "2 this is a test<b type=\"keyword\" and> again </b> end";
+            String dhtml = "3 this is a test<b type=\"keyword\" and> again </b> end";
 
             System.out.println(htmlp.parseHTML(ahtml));
             System.out.println(htmlp.parseHTML(bhtml));
