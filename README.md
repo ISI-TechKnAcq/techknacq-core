@@ -119,7 +119,7 @@ NB: The compilation instructions below will not work for this repository,
 which does not include 'name.txt', which was used in the TechKnAcq-topic
 repository.
 
-1. Given the co-occurrence matrices, the first step is to run the Graphformat
+1. Given the co-occurrence matrices, the first step is to run the GraphFormat
 code (in `src/main/java/edu/isi/techknacq/topics/graph`) to generate the Pajek
 .net format. For an introduction to this format, see
 http://gephi.github.io/users/supported-graph-formats/pajek-net-format

@@ -14,9 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class Graphformat {
+public class GraphFormat {
     private ArrayList<String> keyname;
-    private Logger logger = Logger.getLogger(Graphformat.class.getName());
+    private Logger logger = Logger.getLogger(GraphFormat.class.getName());
 
     public void readKey(String keyfilename) {
         keyname = new ArrayList<String>(200);
@@ -126,13 +126,13 @@ public class Graphformat {
                                "[outputfilename]");
             System.exit(2);
         }
-        Graphformat mygraph = new Graphformat();
+        GraphFormat mygraph = new GraphFormat();
         // args[0]:keyfilename
         // args[1]: co-occurrence matrix file name
         // args[2]:output file name
         mygraph.readKey(args[0]);
         mygraph.readMatrix(args[1],args[2]);
-        // Graphformat mygraph = new Graphformat();
+        // GraphFormat mygraph = new GraphFormat();
         // mygraph.readKey("mallet-keys.txt");
         // mygraph.readMatrix("co-occurrence.txt", "Topicmallet12.net");
     }
