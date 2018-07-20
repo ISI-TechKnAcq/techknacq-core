@@ -17,7 +17,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.isi.techknacq.topics.topic.Indexpair;
+import edu.isi.techknacq.topics.topic.IndexPair;
 import edu.isi.techknacq.topics.topic.Weightpair;
 import edu.isi.techknacq.topics.util.ReadWeightedTopicKey;
 
@@ -58,13 +58,13 @@ public class ReadHierarchy {
     public void updateWordName(double []temp, int sid, int topicnum) {
         if (sid <= topicnum) {
             for (int j = 0; j < topicinwords[sid - 1].size(); j++) {
-                Indexpair o = (Indexpair)topicinwords[sid - 1].get(j);
+                IndexPair o = (IndexPair)topicinwords[sid - 1].get(j);
                 temp[o.getindex()] += o.getweight();
             }
         } else {
             int index = sid - topicnum - 1;
             for (int j = 0; j < clusterinwords[index].size(); j++) {
-                Indexpair o = (Indexpair)clusterinwords[index].get(j);
+                IndexPair o = (IndexPair)clusterinwords[index].get(j);
                 temp[o.getindex()] += o.getweight();
             }
         }
@@ -73,7 +73,7 @@ public class ReadHierarchy {
     public void updateIndexWord(double []temp, int sid, int topicnum, int k) {
         if (sid <= topicnum)
             return;
-        this.clusterinwords[sid - topicnum - 1] = new ArrayList<Indexpair>(50);
+        this.clusterinwords[sid - topicnum - 1] = new ArrayList<IndexPair>(50);
         double sum = 0;
         for (int i = 0; i < temp.length; i++) {
             sum += temp[i];
@@ -87,7 +87,7 @@ public class ReadHierarchy {
         for (int i = 0; i < l.size() && i < k; i++) {
             Weightpair o = (Weightpair)l.get(i);
             int index = sid - topicnum - 1;
-            clusterinwords[index].add(new Indexpair(o.getindex(),
+            clusterinwords[index].add(new IndexPair(o.getindex(),
                                                     o.getweight()));
         }
     }
@@ -137,7 +137,7 @@ public class ReadHierarchy {
     public void print(List l, BufferedWriter out, int k) {
         for (int i = 0; i < l.size() && i < k; i++) {
             try {
-                Indexpair o = (Indexpair)l.get(i);
+                IndexPair o = (IndexPair)l.get(i);
                 out.write(this.wordlist.get(o.getindex()) + " ");
                 out.write(o.getweight() + " ");
             } catch (IOException ex) {

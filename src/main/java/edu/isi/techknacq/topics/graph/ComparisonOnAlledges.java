@@ -16,7 +16,7 @@ import infodynamics.measures.continuous.kernel.EntropyCalculatorKernel;
 
 import edu.isi.techknacq.topics.readinglist.Concept2doc;
 import edu.isi.techknacq.topics.readinglist.CitationGraph;
-import edu.isi.techknacq.topics.topic.Indexpair;
+import edu.isi.techknacq.topics.topic.IndexPair;
 import edu.isi.techknacq.topics.topic.Weightpair;
 import edu.isi.techknacq.topics.util.ReadWeightedTopicKey;
 
@@ -77,7 +77,7 @@ public class ComparisonOnAlledges {
     public void extract2(List a1, double []v1) {
         Arrays.fill(v1, 0.0);
         for (int i = 0; i < a1.size(); i++) {
-            Indexpair o = (Indexpair)a1.get(i);
+            IndexPair o = (IndexPair)a1.get(i);
             v1[o.getindex()] = o.getweight();
         }
     }

@@ -17,7 +17,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.isi.techknacq.topics.topic.Indexpair;
+import edu.isi.techknacq.topics.topic.IndexPair;
 import edu.isi.techknacq.topics.topic.Weightpair;
 import edu.isi.techknacq.topics.util.ReadWeightedTopicKey;
 
@@ -142,7 +142,7 @@ public class HierarchyTopic {
                 Arrays.fill(temp, 0.0);
                 for (int i = 0; i < topicinwords.length; i++) {
                     for (int j = 0; j < topicinwords[i].size(); j++) {
-                        Indexpair o = (Indexpair)topicinwords[i].get(j);
+                        IndexPair o = (IndexPair)topicinwords[i].get(j);
                         temp[o.getindex()] += o.getweight();
                     }
                 }
@@ -156,7 +156,7 @@ public class HierarchyTopic {
                     for (int i = 0; i < cluster2topic[cid - 1].size(); i++) {
                         int t = cluster2topic[cid - 1].get(i);
                         for (int j = 0; j < topicinwords[t].size(); j++) {
-                            Indexpair o = (Indexpair)topicinwords[t].get(j);
+                            IndexPair o = (IndexPair)topicinwords[t].get(j);
                             temp[o.getindex()] += o.getweight();
                         }
                     }

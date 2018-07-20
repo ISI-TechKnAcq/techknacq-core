@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import edu.isi.techknacq.topics.readinglist.Concept2doc;
-import edu.isi.techknacq.topics.topic.Indexpair;
+import edu.isi.techknacq.topics.topic.IndexPair;
 import edu.isi.techknacq.topics.topic.Weightpair;
 import edu.isi.techknacq.topics.util.ReadTopicKey;
 
@@ -44,12 +44,12 @@ public class CoGraph {
     }
 
     /*
-     * Turn a Indexpair list into a vector representation
+     * Turn a IndexPair list into a vector representation
      */
     public void extract2(List a1, double []v1) {
         Arrays.fill(v1, 0.0);
         for (int i = 0; i < a1.size(); i++) {
-            Indexpair o = (Indexpair)a1.get(i);
+            IndexPair o = (IndexPair)a1.get(i);
             v1[o.getindex()] = o.getweight();
         }
     }

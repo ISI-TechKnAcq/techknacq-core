@@ -8,8 +8,8 @@ import edu.isi.techknacq.topics.util.Pair;
  * @email linhong.seba.zhu@gmail.com
  * @since April/19/2012
  */
-public class Indexpair extends Pair implements Comparable {
-    public Indexpair(int index, double value){
+public class IndexPair extends Pair implements Comparable {
+    public IndexPair(int index, double value){
          super(index,value);
     }
         public void setindex(int indexvalue){
@@ -25,9 +25,9 @@ public class Indexpair extends Pair implements Comparable {
         return ((Double)this.getValue()).doubleValue();
     }
     public int compareTo(Object o) {
-         return compareTo((Indexpair)o);
+         return compareTo((IndexPair)o);
     }
-    public int compareTo(Indexpair o) {
+    public int compareTo(IndexPair o) {
         if(getindex()==o.getindex())
             return 0;
         else

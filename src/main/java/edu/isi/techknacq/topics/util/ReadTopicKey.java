@@ -13,7 +13,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.isi.techknacq.topics.topic.Indexpair;
+import edu.isi.techknacq.topics.topic.IndexPair;
 
 public class ReadTopicKey {
     private ArrayList<String> keynames;
@@ -95,7 +95,7 @@ public class ReadTopicKey {
             int conceptnum = this.keynames.size();
             topicinwords = new ArrayList[conceptnum];
             for (int i = 0; i < conceptnum; i++) {
-                topicinwords[i] = new ArrayList<Indexpair>(21);
+                topicinwords[i] = new ArrayList<IndexPair>(21);
             }
             while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
@@ -106,7 +106,7 @@ public class ReadTopicKey {
                 while (sc.hasNext()) {
                     tempword = sc.next();
                     int windex = this.words.get(tempword);
-                    this.topicinwords[index].add(new Indexpair(windex,1));
+                    this.topicinwords[index].add(new IndexPair(windex,1));
                 }
                 index++;
             }

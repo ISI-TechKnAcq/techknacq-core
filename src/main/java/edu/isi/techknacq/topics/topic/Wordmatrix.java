@@ -42,7 +42,7 @@ public class Wordmatrix {
         try {
             int i = 0;
             int j = 0;
-            ArrayList<Indexpair> features = new ArrayList<Indexpair>(100);
+            ArrayList<IndexPair> features = new ArrayList<IndexPair>(100);
             ArrayList<String> uniquecontent = new ArrayList<String>(100);
             ArrayList<Integer> tf = new ArrayList<Integer>(100);
             int index = 0;
@@ -74,7 +74,7 @@ public class Wordmatrix {
                     if (tf.get(j) > 0) {
                         index = Arrays.binarySearch(words, uniquecontent.get(j));
                         if (index >=0) {
-                            Indexpair o = new Indexpair(index,(double)tf.get(j)/this.df[j]);
+                            IndexPair o = new IndexPair(index,(double)tf.get(j)/this.df[j]);
                             features.add(o);
                         }
                     }
@@ -107,7 +107,7 @@ public class Wordmatrix {
         try {
             int i = 0;
             int j = 0;
-            ArrayList<Indexpair> features = new ArrayList<Indexpair>(100);
+            ArrayList<IndexPair> features = new ArrayList<IndexPair>(100);
             ArrayList<String> uniquecontent = new ArrayList<String>(100);
             ArrayList<Integer> tf = new ArrayList<Integer>(100);
             int index = 0;
@@ -139,7 +139,7 @@ public class Wordmatrix {
                     if (tf.get(j) > 0) {
                         index = Arrays.binarySearch(words, uniquecontent.get(j));
                         if (index >=0) {
-                            Indexpair o = new Indexpair(index,tf.get(j));
+                            IndexPair o = new IndexPair(index,tf.get(j));
                             features.add(o);
                         }
                     }

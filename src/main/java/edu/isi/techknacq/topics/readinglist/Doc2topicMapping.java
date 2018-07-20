@@ -15,7 +15,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.isi.techknacq.topics.topic.Indexpair;
+import edu.isi.techknacq.topics.topic.IndexPair;
 import edu.isi.techknacq.topics.topic.Weightpair;
 import edu.isi.techknacq.topics.util.ReadWeightedTopicKey;
 import edu.isi.techknacq.topics.util.StrUtil;
@@ -156,7 +156,7 @@ public class Doc2topicMapping {
                     double w2 = 0.0;
                     for (int k = 0; k < this.topicinwords[tindex].size();
                          k++) {
-                        Indexpair p = (Indexpair)topicinwords[tindex].get(k);
+                        IndexPair p = (IndexPair)topicinwords[tindex].get(k);
                         int windex = p.getindex();
                         if (!wordweight.containsKey(windex)) {
                             wordweight.put(windex,

@@ -123,14 +123,14 @@ public class Evaluation {
             List temp = l[i];
             double avgscore = 0;
             for (int j = 0; j < temp.size(); j++) {
-                Indexpair o = (Indexpair)temp.get(j);
+                IndexPair o = (IndexPair)temp.get(j);
                 int windex = o.getindex();
                 String word = topicwords.get(windex);
                 ArrayList<Double> l1 = this.word2vec(word);
                 if (l1 == null)
                     continue;
                 for (int k = j + 1; k < temp.size(); k++) {
-                    Indexpair o2 = (Indexpair)temp.get(k);
+                    IndexPair o2 = (IndexPair)temp.get(k);
                     int windex2 = o2.getindex();
                     String word2 = topicwords.get(windex2);
                     ArrayList<Double> l2 = this.word2vec(word2);
