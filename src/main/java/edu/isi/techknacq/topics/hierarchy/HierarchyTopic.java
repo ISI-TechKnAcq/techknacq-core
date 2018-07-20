@@ -25,7 +25,7 @@ import edu.isi.techknacq.topics.util.ReadWeightedTopicKey;
  *
  * @author linhong
  */
-public class Hierarchytopic {
+public class HierarchyTopic {
     private ArrayList<Integer> topiccluster;
     private ArrayList<String> keynames;
     private HashMap<String,Integer> clustername;
@@ -33,7 +33,7 @@ public class Hierarchytopic {
     private List []topicinwords;
     private ArrayList<Integer> []cluster2topic;
     private ArrayList<String> wordlist;
-    private Logger logger = Logger.getLogger(Hierarchytopic.class.getName());
+    private Logger logger = Logger.getLogger(HierarchyTopic.class.getName());
 
     public void init(ArrayList<String> inputkey, List [] inputtopicword,
                      ArrayList<String> inputwordlist) {
@@ -196,7 +196,7 @@ public class Hierarchytopic {
     }
 
     public static void main(String []args) {
-        Hierarchytopic myhier = new Hierarchytopic();
+        HierarchyTopic myhier = new HierarchyTopic();
         ReadWeightedTopicKey myreader = new ReadWeightedTopicKey();
         myreader.read("mallet-weighted-key.txt", 5);
         myreader.conceptToWords("mallet-weighted-key.txt");
