@@ -13,8 +13,8 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Readresults {
-    private Logger logger = Logger.getLogger(Readresults.class.getName());
+public class ReadResults {
+    private Logger logger = Logger.getLogger(ReadResults.class.getName());
 
     public void readD2topic(String filename, ArrayList<String> filenames,
                             BufferedWriter out) {
@@ -84,7 +84,7 @@ public class Readresults {
     }
 
     public static void main(String []args) {
-        Readresults myreader = new Readresults();
+        ReadResults myreader = new ReadResults();
         myreader.topicword("techtopic.txt");
     }
 }

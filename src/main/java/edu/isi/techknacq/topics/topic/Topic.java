@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import edu.isi.techknacq.topics.util.ReadFile;
-import edu.isi.techknacq.topics.util.Readresults;
+import edu.isi.techknacq.topics.util.ReadResults;
 import edu.isi.techknacq.topics.util.StrUtil;
 
 /**
@@ -92,7 +92,7 @@ public class Topic {
             fstream = new FileWriter("./lib/" + prefix + "document2topic.txt",
                                      false);
             out = new BufferedWriter(fstream);
-            Readresults myRreader = new Readresults();
+            ReadResults myRreader = new ReadResults();
             myRreader.readD2topic("./lib/output/final.gamma", filenames, out);
             if (out != null)
                 out.close();
