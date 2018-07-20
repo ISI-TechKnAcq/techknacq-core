@@ -15,10 +15,10 @@ import edu.isi.techknacq.topics.topic.Weightpair;
 import edu.isi.techknacq.topics.util.ReadTopicKey;
 
 
-public class Cograph {
+public class CoGraph {
     private ArrayList<String> keynames;
     private int tnum;
-    private Logger logger = Logger.getLogger(Cograph.class.getName());
+    private Logger logger = Logger.getLogger(CoGraph.class.getName());
 
     /*
      * Read the topic key for each topic from topic key file
@@ -159,7 +159,7 @@ public class Cograph {
                                "[topic composition file] [output graph file]");
             Runtime.getRuntime().exit(2);
         }
-        Cograph mygraph = new Cograph();
+        CoGraph mygraph = new CoGraph();
         mygraph.readKey(args[0]);
         mygraph.run(100, args[1], args[2]);
     }
