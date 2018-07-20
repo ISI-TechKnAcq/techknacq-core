@@ -14,12 +14,12 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ReadflowNetwork {
+public class ReadFlowNetwork {
     private ArrayList<String> keynames;
     // Help find the topic index with a hashmap structure
     private HashMap<String,Integer> keysearch;
     private double []keyvalues;
-    private Logger logger = Logger.getLogger(ReadflowNetwork.class.getName());
+    private Logger logger = Logger.getLogger(ReadFlowNetwork.class.getName());
 
     public void readKey(String filename) {
         try {
@@ -242,11 +242,11 @@ public class ReadflowNetwork {
                                "[flowfilename] [outputfilename]");
             System.exit(2);
         }
-        ReadflowNetwork myreader = new ReadflowNetwork();
+        ReadFlowNetwork myreader = new ReadFlowNetwork();
         myreader.readKey(args[0]);
         myreader.readNodeFlow(args[1]);
         myreader.readFlowGraph(args[2], args[3]);
-        // ReadflowNetwork myreader = new ReadflowNetwork();
+        // ReadFlowNetwork myreader = new ReadFlowNetwork();
         // myreader.readKey("mallet-keys.txt");
         // myreader.readNodeFlow("Topicmallet12.tree");
         // myreader.readFlowGraph("Topicmallet12flow.txt");

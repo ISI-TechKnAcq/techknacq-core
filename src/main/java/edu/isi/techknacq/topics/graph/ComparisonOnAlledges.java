@@ -312,7 +312,7 @@ public class ComparisonOnAlledges {
         }
         ComparisonOnAlledges alledge = new ComparisonOnAlledges();
         alledge.readKey(args[0]);
-        ReadflowNetwork myreader = new ReadflowNetwork();
+        ReadFlowNetwork myreader = new ReadFlowNetwork();
         myreader.readKey(args[0]);
         alledge.flowscores = myreader.readFlowScore(args[1]);
         myreader.readFlowToMatrix(args[5], alledge.flowmatrics);

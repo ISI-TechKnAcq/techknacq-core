@@ -158,7 +158,7 @@ as .flow format.
 running the infomap with the .net format for co-occurrence matrices,
 see (TechKnAcq-hierarchy clustering) in above for more details.
 
-2. Run the ReadflowNetwork under TechKnAcq-topic/TopicModeling/src/util to
+2. Run the ReadFlowNetwork under TechKnAcq-topic/TopicModeling/src/util to
 obtain the edge table format for the topic dependency Graph
 
 2.1. Compile the ReadFlowNetwork
