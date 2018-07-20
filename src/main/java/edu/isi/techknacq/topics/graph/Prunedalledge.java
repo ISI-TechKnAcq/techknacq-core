@@ -28,7 +28,7 @@ public class Prunedalledge {
     private int topicnum;
     private Logger logger = Logger.getLogger(Prunedalledge.class.getName());
 
-    public void settopicnum(int _tnum) {
+    public void setTopicNum(int _tnum) {
         topicnum = _tnum;
         // this.CEdoc = new double[topicnum][topicnum];
         this.IF = new double[topicnum][topicnum];
@@ -136,7 +136,7 @@ public class Prunedalledge {
 
     public static void main(String []args) {
         Prunedalledge myprune = new Prunedalledge();
-        myprune.settopicnum(300);
+        myprune.setTopicNum(300);
         myprune.readScores("alledge.tsv");
         //0.0001 for CE
         //0.000001 for IF

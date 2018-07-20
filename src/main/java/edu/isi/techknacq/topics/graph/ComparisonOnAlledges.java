@@ -222,7 +222,7 @@ public class ComparisonOnAlledges {
             out.write("\tCitation_Wang\n");
 
             CitationGraph mycite = new CitationGraph();
-            mycite.settopicnum(tnum);
+            mycite.setTopicNum(tnum);
             mycite.setmaxfilenum(maxfilewordnum);
             mycite.readCitation(citationfile);
             mycite.readC2D(filename);

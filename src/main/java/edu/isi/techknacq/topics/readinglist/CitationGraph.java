@@ -30,7 +30,7 @@ public class CitationGraph {
         this.papernames = new ArrayList<String>(100000);
     }
 
-    public void settopicnum(int _tnum) {
+    public void setTopicNum(int _tnum) {
         tnum = _tnum;
     }
 
