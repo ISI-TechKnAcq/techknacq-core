@@ -42,7 +42,7 @@ public class WordMatrixFormat {
                 System.out.println(i);
         }
         System.out.println("Finish reading files.");
-        Wordmodel mymodel = new Wordmodel();
+        WordModel mymodel = new WordModel();
         mymodel.initPost(posts);
         mymodel.computeWordModel();
         mymodel.saveWordModel("./lib/wordmodel.txt");
