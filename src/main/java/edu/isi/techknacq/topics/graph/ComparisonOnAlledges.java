@@ -21,7 +21,7 @@ import edu.isi.techknacq.topics.topic.Weightpair;
 import edu.isi.techknacq.topics.util.ReadWeightedTopicKey;
 
 
-public class Comparisononalledges {
+public class ComparisonOnAlledges {
     private ArrayList<String> keynames;
     private int tnum;
     private List []conceptsinword;
@@ -30,9 +30,9 @@ public class Comparisononalledges {
     private EntropyCalculatorKernel entropy;
     private ArrayList<Double> topicscores;
     private Logger logger =
-        Logger.getLogger(Comparisononalledges.class.getName());
+        Logger.getLogger(ComparisonOnAlledges.class.getName());
 
-    public Comparisononalledges() {
+    public ComparisonOnAlledges() {
         entropy = new EntropyCalculatorKernel();
         entropy.initialise();
     }
@@ -310,7 +310,7 @@ public class Comparisononalledges {
                 "[flow file] ([topicscorefile] [maxfilewordnum])");
             System.exit(2);
         }
-        Comparisononalledges alledge = new Comparisononalledges();
+        ComparisonOnAlledges alledge = new ComparisonOnAlledges();
         alledge.readKey(args[0]);
         ReadflowNetwork myreader = new ReadflowNetwork();
         myreader.readKey(args[0]);

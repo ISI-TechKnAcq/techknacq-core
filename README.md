@@ -193,7 +193,7 @@ g++ edge2weightstandard.cpp -O3 -o format
 
 ### Cross Entropy Graph Generation
 
-1. Run techknacq-core/src/main/java/edu/isi/techknacq/topics/graph/Comparisononalledges.java
+1. Run `src/main/java/edu/isi/techknacq/topics/graph/ComparisonOnAllEdges.java`
 with arguments:
 ```
 [keyfile] [tree file] [topic composition file] [# topics] [citation file]
