@@ -48,8 +48,9 @@ public class SearchXMLParser {
         return doc;
     }
 
-    // This method is not used, replaced by getTextContent() from Node class
-    protected  String getStringFromNode(Node aNode) {
+    // This method is not used, replaced by getTextContent() from the Node
+    // class.
+    protected String getStringFromNode(Node aNode) {
         String value = "";
         if (aNode.getChildNodes().getLength() > 0) {
             value = aNode.getFirstChild().getNodeValue();
