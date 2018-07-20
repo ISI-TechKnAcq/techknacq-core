@@ -11,7 +11,7 @@ import edu.isi.techknacq.topics.util.StrUtil;
  *
  * @author linhong
  */
-public class Runwordmatrix {
+public class RunWordMatrix {
     public void run(String dirname, String prefix) {
         ArrayList<String> filenames = StrUtil.initFolder(dirname);
         List myfile = new ArrayList<StringPair> (filenames.size());
@@ -68,7 +68,7 @@ public class Runwordmatrix {
             System.err.println("Usage: [foldername] [prefixname]\n");
             System.exit(2);
         }
-        Runwordmatrix myrun = new Runwordmatrix();
+        RunWordMatrix myrun = new RunWordMatrix();
         myrun.run(args[0], args[1]);
     }
 }
