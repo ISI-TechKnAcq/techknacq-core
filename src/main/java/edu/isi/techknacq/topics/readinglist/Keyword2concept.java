@@ -11,14 +11,14 @@ import java.util.Collections;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 import edu.isi.techknacq.topics.topic.WordPair;
 
 
 public class Keyword2concept {
     private ArrayList<String> topics;
     private ArrayList<ArrayList<WordPair>> wordintopic;
-    private ArrayList<Weightpair> hittopics;
+    private ArrayList<WeightPair> hittopics;
     private int k = 8;
     private Logger logger = Logger.getLogger(Keyword2concept.class.getName());
 
@@ -76,7 +76,7 @@ public class Keyword2concept {
     }
 
     public ArrayList<Integer> getMatch(String keyword) {
-        hittopics = new ArrayList<Weightpair>(20);
+        hittopics = new ArrayList<WeightPair>(20);
         for (int i = 0; i < wordintopic.size(); i++) {
             double hitcount = 0;
             for (int j = 0; j < wordintopic.get(i).size() && j < k; j++) {
@@ -93,13 +93,13 @@ public class Keyword2concept {
                 }
             }
             if (hitcount > 0) {
-                hittopics.add(new Weightpair(hitcount, i));
+                hittopics.add(new WeightPair(hitcount, i));
             }
         }
         Collections.sort(hittopics);
         ArrayList<Integer> topicindex;
         topicindex = new ArrayList<Integer>(hittopics.size());
-        for (Weightpair o : hittopics) {
+        for (WeightPair o : hittopics) {
             topicindex.add(o.getindex());
         }
         return topicindex;

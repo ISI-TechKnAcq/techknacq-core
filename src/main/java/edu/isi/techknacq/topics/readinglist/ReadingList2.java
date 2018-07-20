@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 import edu.isi.techknacq.topics.graph.ConceptDepth;
 import edu.isi.techknacq.topics.graph.Node;
 import edu.isi.techknacq.topics.graph.ReadGraph;
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 import edu.isi.techknacq.topics.topic.WordPair;
 
 
@@ -70,7 +70,7 @@ public class ReadingList2 {
     public ArrayList<Integer> getDocs(int tindex) {
         ArrayList<Integer> mydocs = new ArrayList(topic2docs[tindex].size());
         for (int i = 0; i < topic2docs[tindex].size(); i++) {
-            Weightpair o = (Weightpair)topic2docs[tindex].get(i);
+            WeightPair o = (WeightPair)topic2docs[tindex].get(i);
             mydocs.add(o.getindex());
         }
         return mydocs;
@@ -193,7 +193,7 @@ public class ReadingList2 {
             //         else
             //             value = -1;
             //         if (value > -1)
-            //             mylist.add(new Weightpair(value,Did));
+            //             mylist.add(new WeightPair(value,Did));
             //     }
             //     ArrayList<Integer> deptopics;
             //     deptopics = Dependency.getTopNode(maxtopic, tindex);
@@ -210,7 +210,7 @@ public class ReadingList2 {
             //             else
             //                 value = -1;
             //             if (value > -1)
-            //                 mylist.add(new Weightpair(value,mydoc));
+            //                 mylist.add(new WeightPair(value,mydoc));
             //         }
             //     }
             // }
@@ -221,7 +221,7 @@ public class ReadingList2 {
             // int maxdoc = maxtopic * dnum * 3;
             // maxdoc += this.hittopic.size() * dnum * 4;
             // for (int i = 0; i < maxdoc && i < mylist.size(); i++) {
-            //     Weightpair o = (Weightpair)mylist.get(i);
+            //     WeightPair o = (WeightPair)mylist.get(i);
             //     int Did = o.getindex();
             //     isvisit[Did] = true;
             // }
@@ -312,7 +312,7 @@ public class ReadingList2 {
                         else
                             value = -1;
                         if (value > -1)
-                            mylist.add(new Weightpair(value,Did));
+                            mylist.add(new WeightPair(value,Did));
                     }
                     int dcount = Math.min(dnum, mylist.size());
                     out.write("<p>The best relevant " + dcount +
@@ -322,7 +322,7 @@ public class ReadingList2 {
                     Collections.sort(mylist);
                     while (dcount < dnum && j < mylist.size() &&
                            dcount < mylist.size()) {
-                        Weightpair o = (Weightpair)mylist.get(j);
+                        WeightPair o = (WeightPair)mylist.get(j);
                         int Did = o.getindex();
                         isvisit[Did] = true;
                         String dfile = docfiles.get(Did);
@@ -378,7 +378,7 @@ public class ReadingList2 {
                     else
                         value = -1;
                     if (value > -1)
-                        mylist.add(new Weightpair(value,Did));
+                        mylist.add(new WeightPair(value,Did));
                 }
                 int dcount = Math.min(dnum, mylist.size());
                 out.write("<p>The best relevant " + dcount +
@@ -388,7 +388,7 @@ public class ReadingList2 {
                 Collections.sort(mylist);
                 while (dcount < dnum && j < mylist.size() &&
                        dcount < mylist.size()) {
-                    Weightpair o = (Weightpair)mylist.get(j);
+                    WeightPair o = (WeightPair)mylist.get(j);
                     int Did = o.getindex();
                     isvisit[Did] = true;
                     String dfile = docfiles.get(Did);

@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 import com.google.gson.stream.JsonWriter;
 
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 
 
 public class ConceptDepth {
@@ -39,8 +39,8 @@ public class ConceptDepth {
     }
 
     public void BFS(ArrayList<Integer> res, int v, int m) {
-        PriorityQueue<Weightpair> queue2 =
-            new PriorityQueue<Weightpair>();
+        PriorityQueue<WeightPair> queue2 =
+            new PriorityQueue<WeightPair>();
         Queue<Integer> queue = new LinkedList<Integer>();
         queue.add(v); // Adds to end of queue
         while (!queue.isEmpty()) {
@@ -54,11 +54,11 @@ public class ConceptDepth {
                 int w = G[u].nbv[i];
                 double weight = G[u].weights[i];
                 if (isvisit[w] != 'g') {
-                    queue2.add(new Weightpair(weight, w));
+                    queue2.add(new WeightPair(weight, w));
                 }
             }
             while (!queue2.isEmpty()) {
-                Weightpair e = queue2.remove();
+                WeightPair e = queue2.remove();
                 queue.add(e.getindex());
                 res.add(e.getindex());
                 isvisit[e.getindex()] = 'g';

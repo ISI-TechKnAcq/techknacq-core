@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import edu.isi.techknacq.topics.topic.IndexPair;
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 import edu.isi.techknacq.topics.util.ReadWeightedTopicKey;
 import edu.isi.techknacq.topics.util.StrUtil;
 
@@ -36,7 +36,7 @@ public class Doc2topicMapping {
 
     // Read concept composition for each document
     public void add(int pid, int tindex, double weight, int K) {
-        Weightpair w = new Weightpair(weight, tindex);
+        WeightPair w = new WeightPair(weight, tindex);
         int index;
         if (paper2topic[pid].size() < K) {
             index = Collections.binarySearch(paper2topic[pid], w);
@@ -47,7 +47,7 @@ public class Doc2topicMapping {
             else
                 paper2topic[pid].add(w);
         } else {
-            double minweight = ((Weightpair)paper2topic[pid].get(paper2topic[pid].size() - 1)).getweight();
+            double minweight = ((WeightPair)paper2topic[pid].get(paper2topic[pid].size() - 1)).getweight();
             if (weight > minweight) {
                 index = Collections.binarySearch(paper2topic[pid], w);
                 if (index < 0)
@@ -97,7 +97,7 @@ public class Doc2topicMapping {
             br = new BufferedReader(new InputStreamReader(in1));
             paper2topic = new ArrayList[pnum];
             for (int i = 0; i < pnum; i++) {
-                paper2topic[i] = new ArrayList<Weightpair>(10);
+                paper2topic[i] = new ArrayList<WeightPair>(10);
             }
             while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
@@ -141,7 +141,7 @@ public class Doc2topicMapping {
             this.words = myreader.getWordList();
             tnum = this.topicinwords.length;
             this.readC2D(c2dfile);
-            List orderword = new ArrayList<Weightpair> (100);
+            List orderword = new ArrayList<WeightPair> (100);
             HashMap<Integer, Double> wordweight;
             wordweight = new HashMap<Integer, Double>(100);
             fstream = new FileWriter("Topicspotfull.txt",false);
@@ -150,7 +150,7 @@ public class Doc2topicMapping {
                 double w = 0;
                 wordweight.clear();
                 for (int j = 0; j < paper2topic[i].size(); j++) {
-                    Weightpair o = (Weightpair)paper2topic[i].get(j);
+                    WeightPair o = (WeightPair)paper2topic[i].get(j);
                     int tindex = o.getindex();
                     w += o.getweight();
                     double w2 = 0.0;
@@ -180,7 +180,7 @@ public class Doc2topicMapping {
                 Collections.sort(orderword);
                 out.write(this.papernames.get(i));
                 for (int j = 0; j < orderword.size(); j++) {
-                    Weightpair p = (Weightpair)orderword.get(j);
+                    WeightPair p = (WeightPair)orderword.get(j);
                     int windex = p.getindex();
                     out.write("\t" + this.words.get(windex) + ":" +
                               p.getweight());

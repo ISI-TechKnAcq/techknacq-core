@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 import edu.isi.techknacq.topics.topic.WordPair;
 
 /**
@@ -192,11 +192,11 @@ public class NewReadingList {
             return "author: ??, title: ??";
     }
 
-    public ArrayList<Weightpair> getDocs(int tindex) {
-        ArrayList<Weightpair> mydocs =
-            new ArrayList<Weightpair>(topic2docs[tindex].size());
+    public ArrayList<WeightPair> getDocs(int tindex) {
+        ArrayList<WeightPair> mydocs =
+            new ArrayList<WeightPair>(topic2docs[tindex].size());
         for (int i = 0; i < topic2docs[tindex].size(); i++) {
-            Weightpair o = (Weightpair)topic2docs[tindex].get(i);
+            WeightPair o = (WeightPair)topic2docs[tindex].get(i);
             mydocs.add(o);
         }
         return mydocs;
@@ -324,11 +324,11 @@ public class NewReadingList {
      */
     public String getTopDoc(int tindex, int dnum, List mylist,
                             boolean [] isvisit) {
-        ArrayList<Weightpair> mydocs = this.getDocs(tindex);
+        ArrayList<WeightPair> mydocs = this.getDocs(tindex);
         mylist.clear();
         String docstring = "";
         for (int i = 0; i < mydocs.size(); i++) {
-            Weightpair o = mydocs.get(i);
+            WeightPair o = mydocs.get(i);
             int Did = o.getindex();
             double value4 = o.getweight(); // value4: relevance score;
             if (isvisit[Did])
@@ -349,14 +349,14 @@ public class NewReadingList {
             } else
                 value2 = 0;
             double value = value1 * w1 + value2 * w2 + value4 * w4;
-            mylist.add(new Weightpair(value, Did));
+            mylist.add(new WeightPair(value, Did));
         }
         docstring += "\n\"documents\": [";
         int j = 0;
         int dcount = 0;
         Collections.sort(mylist);
         while (dcount < dnum && j < mylist.size() && dcount < mylist.size()) {
-            Weightpair o = (Weightpair)mylist.get(j);
+            WeightPair o = (WeightPair)mylist.get(j);
             int Did = o.getindex();
             isvisit[Did] = true;
             String dfile = docfiles.get(Did);
@@ -399,7 +399,7 @@ public class NewReadingList {
             hittopic = match1.getMatch(keyword);
             char []istopicvisit = new char[this.topickeys.size()];
             Arrays.fill(istopicvisit, 'v');
-            List mylist = new ArrayList<Weightpair>(100);
+            List mylist = new ArrayList<WeightPair>(100);
             this.authorlists = new HashSet<String>();
             out.write("{");
             out.write("\"keyword\": \"" + keyword + "\",\n");

@@ -6,8 +6,8 @@ import edu.isi.techknacq.topics.util.Pair;
  *
  * @author Linhong
  */
-public class Weightpair extends Pair implements Comparable {
-    public Weightpair(Object key, Object value) {
+public class WeightPair extends Pair implements Comparable {
+    public WeightPair(Object key, Object value) {
         super(key, value);
     }
 
@@ -29,10 +29,10 @@ public class Weightpair extends Pair implements Comparable {
 
     @Override
     public int compareTo(Object o) {
-         return compareTo((Weightpair)o);
+         return compareTo((WeightPair)o);
     }
 
-    public int compareTo(Weightpair o) {
+    public int compareTo(WeightPair o) {
         return Double.compare(o.getweight(), getweight());
     }
 }

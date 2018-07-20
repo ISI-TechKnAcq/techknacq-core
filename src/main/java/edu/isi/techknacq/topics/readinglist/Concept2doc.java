@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 import infodynamics.measures.continuous.kernel.EntropyCalculatorKernel;
 
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 
 /**
  *
@@ -65,7 +65,7 @@ public class Concept2doc {
     // K: in integer
     // compute the top k documents for each topic
     public void add(int tindex, double tweight, int dindex, int K) {
-        Weightpair w = new Weightpair(tweight, dindex);
+        WeightPair w = new WeightPair(tweight, dindex);
         int index;
         if (topic2docs[tindex].size() < K) {
             index = Collections.binarySearch(topic2docs[tindex], w);
@@ -76,7 +76,7 @@ public class Concept2doc {
             else
                 topic2docs[tindex].add(w);
         } else {
-            double minweight = ((Weightpair)topic2docs[tindex].get(topic2docs[tindex].size() - 1)).getweight();
+            double minweight = ((WeightPair)topic2docs[tindex].get(topic2docs[tindex].size() - 1)).getweight();
             if (tweight > minweight) {
                 index = Collections.binarySearch(topic2docs[tindex], w);
                 if (index < 0)
@@ -95,7 +95,7 @@ public class Concept2doc {
             topic2docs = new ArrayList[conceptnum];
             this.docnames = new ArrayList<String>(10000);
             for (int i = 0; i < conceptnum; i++) {
-                topic2docs[i] = new ArrayList<Weightpair>(K + 2);
+                topic2docs[i] = new ArrayList<WeightPair>(K + 2);
             }
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -155,7 +155,7 @@ public class Concept2doc {
         ArrayList<Integer> mydocs =
             new ArrayList<Integer>(topic2docs[tindex].size());
         for (int i = 0; i < topic2docs[tindex].size(); i++) {
-            Weightpair o = (Weightpair)topic2docs[tindex].get(i);
+            WeightPair o = (WeightPair)topic2docs[tindex].get(i);
             mydocs.add(o.getindex());
         }
         return mydocs;
@@ -176,7 +176,7 @@ public class Concept2doc {
             for (int i = 0; i < this.conceptnum; i++) {
                 int tindex = i;
                 for (int j = 0; j < topic2docs[tindex].size(); j++) {
-                    Weightpair o = (Weightpair)topic2docs[tindex].get(j);
+                    WeightPair o = (WeightPair)topic2docs[tindex].get(j);
                     v1[j] = o.getweight();
                 }
                 entropy.setObservations(v1);

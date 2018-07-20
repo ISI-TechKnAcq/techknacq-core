@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 
 public class StrUtil {
     private static Logger logger = Logger.getLogger(StrUtil.class.getName());
@@ -56,7 +56,7 @@ public class StrUtil {
             Map.Entry pairs = (Map.Entry)it.next();
             Integer windex = (Integer)pairs.getKey();
             Double weight = (Double)pairs.getValue();
-            Weightpair o = new Weightpair(weight,windex);
+            WeightPair o = new WeightPair(weight,windex);
             l.add(o);
         }
     }

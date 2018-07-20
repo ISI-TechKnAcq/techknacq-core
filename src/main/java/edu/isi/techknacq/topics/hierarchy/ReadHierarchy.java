@@ -18,7 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import edu.isi.techknacq.topics.topic.IndexPair;
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 import edu.isi.techknacq.topics.util.ReadWeightedTopicKey;
 
 /**
@@ -41,7 +41,7 @@ public class ReadHierarchy {
         this.topickeynames = inputkey;
         this.topicinwords = inputtopicword;
         this.wordlist = inputwordlist;
-        l = new ArrayList<Weightpair>(this.wordlist.size());
+        l = new ArrayList<WeightPair>(this.wordlist.size());
     }
 
     public ArrayList<Integer> parseTopic(String s) {
@@ -81,11 +81,11 @@ public class ReadHierarchy {
         l.clear();
         for (int i = 0; i < temp.length; i++) {
             if (temp[i] > 0)
-                l.add(new Weightpair(temp[i] / sum, i));
+                l.add(new WeightPair(temp[i] / sum, i));
         }
         Collections.sort(l);
         for (int i = 0; i < l.size() && i < k; i++) {
-            Weightpair o = (Weightpair)l.get(i);
+            WeightPair o = (WeightPair)l.get(i);
             int index = sid - topicnum - 1;
             clusterinwords[index].add(new IndexPair(o.getindex(),
                                                     o.getweight()));

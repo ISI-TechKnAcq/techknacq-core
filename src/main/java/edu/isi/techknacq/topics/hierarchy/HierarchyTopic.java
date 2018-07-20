@@ -18,7 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import edu.isi.techknacq.topics.topic.IndexPair;
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 import edu.isi.techknacq.topics.util.ReadWeightedTopicKey;
 
 /**
@@ -114,14 +114,14 @@ public class HierarchyTopic {
         for (int i = 0; i < temp.length; i++) {
             sum += temp[i];
         }
-        List l = new ArrayList<Weightpair>(this.wordlist.size());
+        List l = new ArrayList<WeightPair>(this.wordlist.size());
         for (int i = 0; i < temp.length; i++) {
-            l.add(new Weightpair(temp[i] / sum, i));
+            l.add(new WeightPair(temp[i] / sum, i));
         }
         Collections.sort(l);
         String res = "";
         for (int i = 0; i < k; i++) {
-            Weightpair o = (Weightpair)l.get(i);
+            WeightPair o = (WeightPair)l.get(i);
             res += wordlist.get(o.getindex());
             res += "\t";
             res += o.getweight();

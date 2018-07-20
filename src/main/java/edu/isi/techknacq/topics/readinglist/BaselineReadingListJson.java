@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 import com.google.gson.stream.JsonWriter;
 
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 
 public class BaselineReadingListJson {
     private Map<String, Double> paperpagerank;
@@ -74,7 +74,7 @@ public class BaselineReadingListJson {
             doc.getTopK(K * 4, doc2conceptfilename);
             // doc.prune();
             ArrayList<String> docnames = doc.getDocName();
-            List mylist = new ArrayList<Weightpair>(100);
+            List mylist = new ArrayList<WeightPair>(100);
             double value;
             boolean []isvisit = new boolean[docnames.size()];
             for (int i = 0; i < isvisit.length; i++) {
@@ -96,7 +96,7 @@ public class BaselineReadingListJson {
                     else
                         value = -1;
                     if (value > -1)
-                        mylist.add(new Weightpair(value, Did));
+                        mylist.add(new WeightPair(value, Did));
                 }
             }
             StringWriter writer = new StringWriter();
@@ -110,7 +110,7 @@ public class BaselineReadingListJson {
             s.name("documents");
             s.beginArray();
             for (int i = 0; i < K; i++) {
-                Weightpair o = (Weightpair)mylist.get(i);
+                WeightPair o = (WeightPair)mylist.get(i);
                 int Did = o.getindex();
                 String id = docnames.get(Did);
                 s.value("id " + id + ", weight: " + o.getweight());
