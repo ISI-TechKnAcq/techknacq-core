@@ -76,7 +76,7 @@ public class Concept2doc {
             else
                 topic2docs[tindex].add(w);
         } else {
-            double minweight = ((WeightPair)topic2docs[tindex].get(topic2docs[tindex].size() - 1)).getweight();
+            double minweight = ((WeightPair)topic2docs[tindex].get(topic2docs[tindex].size() - 1)).getWeight();
             if (tweight > minweight) {
                 index = Collections.binarySearch(topic2docs[tindex], w);
                 if (index < 0)
@@ -156,7 +156,7 @@ public class Concept2doc {
             new ArrayList<Integer>(topic2docs[tindex].size());
         for (int i = 0; i < topic2docs[tindex].size(); i++) {
             WeightPair o = (WeightPair)topic2docs[tindex].get(i);
-            mydocs.add(o.getindex());
+            mydocs.add(o.getIndex());
         }
         return mydocs;
     }
@@ -177,7 +177,7 @@ public class Concept2doc {
                 int tindex = i;
                 for (int j = 0; j < topic2docs[tindex].size(); j++) {
                     WeightPair o = (WeightPair)topic2docs[tindex].get(j);
-                    v1[j] = o.getweight();
+                    v1[j] = o.getWeight();
                 }
                 entropy.setObservations(v1);
                 topicentropy.add(entropy.computeAverageLocalOfObservations());

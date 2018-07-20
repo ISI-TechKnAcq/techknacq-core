@@ -47,7 +47,7 @@ public class Doc2topicMapping {
             else
                 paper2topic[pid].add(w);
         } else {
-            double minweight = ((WeightPair)paper2topic[pid].get(paper2topic[pid].size() - 1)).getweight();
+            double minweight = ((WeightPair)paper2topic[pid].get(paper2topic[pid].size() - 1)).getWeight();
             if (weight > minweight) {
                 index = Collections.binarySearch(paper2topic[pid], w);
                 if (index < 0)
@@ -151,23 +151,23 @@ public class Doc2topicMapping {
                 wordweight.clear();
                 for (int j = 0; j < paper2topic[i].size(); j++) {
                     WeightPair o = (WeightPair)paper2topic[i].get(j);
-                    int tindex = o.getindex();
-                    w += o.getweight();
+                    int tindex = o.getIndex();
+                    w += o.getWeight();
                     double w2 = 0.0;
                     for (int k = 0; k < this.topicinwords[tindex].size();
                          k++) {
                         IndexPair p = (IndexPair)topicinwords[tindex].get(k);
-                        int windex = p.getindex();
+                        int windex = p.getIndex();
                         if (!wordweight.containsKey(windex)) {
                             wordweight.put(windex,
-                                           p.getweight() * o.getweight());
+                                           p.getWeight() * o.getWeight());
                         } else {
                             double oldvalue = wordweight.get(windex);
                             wordweight.put(windex,
-                                           p.getweight() * o.getweight() +
+                                           p.getWeight() * o.getWeight() +
                                            oldvalue);
                         }
-                        w2 += p.getweight();
+                        w2 += p.getWeight();
                         if (w2 > 0.6)
                             break;
                     }
@@ -181,9 +181,9 @@ public class Doc2topicMapping {
                 out.write(this.papernames.get(i));
                 for (int j = 0; j < orderword.size(); j++) {
                     WeightPair p = (WeightPair)orderword.get(j);
-                    int windex = p.getindex();
+                    int windex = p.getIndex();
                     out.write("\t" + this.words.get(windex) + ":" +
-                              p.getweight());
+                              p.getWeight());
                 }
                 out.write("\n");
             }

@@ -70,7 +70,7 @@ public class ComparisonOnAlledges {
         Arrays.fill(v1, 0.0);
         for (int i = 0; i < a1.size(); i++) {
             WeightPair o = (WeightPair)a1.get(i);
-            v1[o.getindex()] = o.getweight();
+            v1[o.getIndex()] = o.getWeight();
         }
     }
 
@@ -78,7 +78,7 @@ public class ComparisonOnAlledges {
         Arrays.fill(v1, 0.0);
         for (int i = 0; i < a1.size(); i++) {
             IndexPair o = (IndexPair)a1.get(i);
-            v1[o.getindex()] = o.getweight();
+            v1[o.getIndex()] = o.getWeight();
         }
     }
 

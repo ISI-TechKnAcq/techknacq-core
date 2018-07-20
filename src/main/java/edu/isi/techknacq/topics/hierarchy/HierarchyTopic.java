@@ -122,9 +122,9 @@ public class HierarchyTopic {
         String res = "";
         for (int i = 0; i < k; i++) {
             WeightPair o = (WeightPair)l.get(i);
-            res += wordlist.get(o.getindex());
+            res += wordlist.get(o.getIndex());
             res += "\t";
-            res += o.getweight();
+            res += o.getWeight();
             res += "\t";
         }
         return res;
@@ -143,7 +143,7 @@ public class HierarchyTopic {
                 for (int i = 0; i < topicinwords.length; i++) {
                     for (int j = 0; j < topicinwords[i].size(); j++) {
                         IndexPair o = (IndexPair)topicinwords[i].get(j);
-                        temp[o.getindex()] += o.getweight();
+                        temp[o.getIndex()] += o.getWeight();
                     }
                 }
                 clustertopicname[index] = this.getTopKWord(30, temp);
@@ -157,7 +157,7 @@ public class HierarchyTopic {
                         int t = cluster2topic[cid - 1].get(i);
                         for (int j = 0; j < topicinwords[t].size(); j++) {
                             IndexPair o = (IndexPair)topicinwords[t].get(j);
-                            temp[o.getindex()] += o.getweight();
+                            temp[o.getIndex()] += o.getWeight();
                         }
                     }
                 }

@@ -87,7 +87,7 @@ public class ReadGraph {
         int [] topicorder = new int[this.G.length];
         for (int i = 0; i < myorderlist.size(); i++) {
             WeightPair o = (WeightPair)myorderlist.get(i);
-            topicorder[i] = o.getindex();
+            topicorder[i] = o.getIndex();
         }
         return topicorder;
     }

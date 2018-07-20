@@ -117,11 +117,11 @@ public class ReadWeightedTopicKey {
                 double sum = 0;
                 for (int j = 0; j < topicinwords[i].size(); j++) {
                     IndexPair o = (IndexPair)topicinwords[i].get(j);
-                    sum += o.getweight();
+                    sum += o.getWeight();
                 }
                 for (int j = 0; j < topicinwords[i].size(); j++) {
                     IndexPair o = (IndexPair)topicinwords[i].get(j);
-                    o.setvalue(o.getweight() / sum);
+                    o.setValue(o.getWeight() / sum);
                 }
             }
         } catch (IOException ex) {
@@ -155,8 +155,8 @@ public class ReadWeightedTopicKey {
             for (int j = 0; j < temp.size(); j++) {
                 IndexPair o = (IndexPair)temp.get(j);
                 System.out.println((i + 1) + "\t" +
-                                   (o.getindex() + 1) + "\t" +
-                                   o.getweight());
+                                   (o.getIndex() + 1) + "\t" +
+                                   o.getWeight());
             }
         }
     }

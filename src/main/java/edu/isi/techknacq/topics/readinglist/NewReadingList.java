@@ -329,8 +329,8 @@ public class NewReadingList {
         String docstring = "";
         for (int i = 0; i < mydocs.size(); i++) {
             WeightPair o = mydocs.get(i);
-            int Did = o.getindex();
-            double value4 = o.getweight(); // value4: relevance score;
+            int Did = o.getIndex();
+            double value4 = o.getWeight(); // value4: relevance score;
             if (isvisit[Did])
                 continue;
             String dockey = this.docfiles.get(Did);
@@ -357,7 +357,7 @@ public class NewReadingList {
         Collections.sort(mylist);
         while (dcount < dnum && j < mylist.size() && dcount < mylist.size()) {
             WeightPair o = (WeightPair)mylist.get(j);
-            int Did = o.getindex();
+            int Did = o.getIndex();
             isvisit[Did] = true;
             String dfile = docfiles.get(Did);
             String metavalue = this.getDocMeta(dfile);
@@ -367,7 +367,7 @@ public class NewReadingList {
             String author = this.extractAuthor(metavalue);
             if (!this.authorlists.contains(author)) {
                 String name = this.printDocName(metavalue, dfile,
-                                                o.getweight());
+                                                o.getWeight());
                 docstring += name;
                 this.authorlists.add(author);
                 dcount++;

@@ -69,7 +69,7 @@ public class ReadingList2Json {
         ArrayList<Integer> mydocs = new ArrayList(topic2docs[tindex].size());
         for (int i = 0; i < topic2docs[tindex].size(); i++) {
             WeightPair o = (WeightPair)topic2docs[tindex].get(i);
-            mydocs.add(o.getindex());
+            mydocs.add(o.getIndex());
         }
         return mydocs;
     }
@@ -192,14 +192,14 @@ public class ReadingList2Json {
         Collections.sort(mylist);
         while (dcount < dnum && j < mylist.size() && dcount < mylist.size()) {
             WeightPair o = (WeightPair)mylist.get(j);
-            int Did = o.getindex();
+            int Did = o.getIndex();
             isvisit[Did] = true;
             String dfile = docfiles.get(Did);
             String metavalue = this.getDocMeta(dfile);
             String author = this.extractAuthor(metavalue);
             if (!this.authorlists.contains(author)) {
                 String name = this.printDocName(metavalue, dfile,
-                                                o.getweight());
+                                                o.getWeight());
                 docstring += name;
                 this.authorlists.add(author);
                 dcount++;

@@ -83,8 +83,8 @@ public class Wordmatrix {
                     out.write(keyname.get(i)+" ");
                     out.write(Integer.toString(features.size()));
                     for (j = 0; j < features.size(); j++) {
-                        index=features.get(j).getindex();
-                        v=features.get(j).getweight();
+                        index=features.get(j).getIndex();
+                        v=features.get(j).getWeight();
                         //out.write((i+1)+"\t"+(index+1)+"\t"+v+"\n");
                         out.write(" " +index + ":" + v);
                     }
@@ -147,8 +147,8 @@ public class Wordmatrix {
                 if (features.size()>0) {
                     out.write(Integer.toString(features.size()));
                     for (j = 0; j < features.size(); j++) {
-                        index=features.get(j).getindex();
-                        v=features.get(j).getweight();
+                        index=features.get(j).getIndex();
+                        v=features.get(j).getWeight();
                         out.write(" " +index + ":" + (int)v);
                     }
                     out.write("\n");

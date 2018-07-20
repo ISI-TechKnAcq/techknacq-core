@@ -111,9 +111,9 @@ public class BaselineReadingListJson {
             s.beginArray();
             for (int i = 0; i < K; i++) {
                 WeightPair o = (WeightPair)mylist.get(i);
-                int Did = o.getindex();
+                int Did = o.getIndex();
                 String id = docnames.get(Did);
-                s.value("id " + id + ", weight: " + o.getweight());
+                s.value("id " + id + ", weight: " + o.getWeight());
             }
             s.endArray();
             s.endObject();

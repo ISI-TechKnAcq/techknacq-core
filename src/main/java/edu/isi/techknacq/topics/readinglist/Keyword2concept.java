@@ -100,7 +100,7 @@ public class Keyword2concept {
         ArrayList<Integer> topicindex;
         topicindex = new ArrayList<Integer>(hittopics.size());
         for (WeightPair o : hittopics) {
-            topicindex.add(o.getindex());
+            topicindex.add(o.getIndex());
         }
         return topicindex;
     }

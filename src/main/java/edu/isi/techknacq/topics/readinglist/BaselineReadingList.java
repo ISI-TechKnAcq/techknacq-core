@@ -187,7 +187,7 @@ public class BaselineReadingList {
             out.write(html);
             for (int i = 0; i < K; i++) {
                 WeightPair o = (WeightPair)mylist.get(i);
-                int Did = o.getindex();
+                int Did = o.getIndex();
                 String id = docnames.get(Did);
                 String strval = rdk.getDocumentKey(id);
                 String name = this.printDocName(strval, id);

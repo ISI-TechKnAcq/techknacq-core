@@ -59,13 +59,13 @@ public class ReadHierarchy {
         if (sid <= topicnum) {
             for (int j = 0; j < topicinwords[sid - 1].size(); j++) {
                 IndexPair o = (IndexPair)topicinwords[sid - 1].get(j);
-                temp[o.getindex()] += o.getweight();
+                temp[o.getIndex()] += o.getWeight();
             }
         } else {
             int index = sid - topicnum - 1;
             for (int j = 0; j < clusterinwords[index].size(); j++) {
                 IndexPair o = (IndexPair)clusterinwords[index].get(j);
-                temp[o.getindex()] += o.getweight();
+                temp[o.getIndex()] += o.getWeight();
             }
         }
     }
@@ -87,8 +87,8 @@ public class ReadHierarchy {
         for (int i = 0; i < l.size() && i < k; i++) {
             WeightPair o = (WeightPair)l.get(i);
             int index = sid - topicnum - 1;
-            clusterinwords[index].add(new IndexPair(o.getindex(),
-                                                    o.getweight()));
+            clusterinwords[index].add(new IndexPair(o.getIndex(),
+                                                    o.getWeight()));
         }
     }
 
@@ -138,8 +138,8 @@ public class ReadHierarchy {
         for (int i = 0; i < l.size() && i < k; i++) {
             try {
                 IndexPair o = (IndexPair)l.get(i);
-                out.write(this.wordlist.get(o.getindex()) + " ");
-                out.write(o.getweight() + " ");
+                out.write(this.wordlist.get(o.getIndex()) + " ");
+                out.write(o.getWeight() + " ");
             } catch (IOException ex) {
                 logger.log(Level.SEVERE, null, ex);
             }

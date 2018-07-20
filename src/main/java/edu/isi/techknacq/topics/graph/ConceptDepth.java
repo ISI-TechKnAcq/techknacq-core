@@ -59,11 +59,11 @@ public class ConceptDepth {
             }
             while (!queue2.isEmpty()) {
                 WeightPair e = queue2.remove();
-                queue.add(e.getindex());
-                res.add(e.getindex());
-                isvisit[e.getindex()] = 'g';
-                System.out.println(u + "\t" + e.getindex() +
-                                   "\t" + e.getweight());
+                queue.add(e.getIndex());
+                res.add(e.getIndex());
+                isvisit[e.getIndex()] = 'g';
+                System.out.println(u + "\t" + e.getIndex() +
+                                   "\t" + e.getWeight());
                 if (res.size() >= m)
                     break;
             }

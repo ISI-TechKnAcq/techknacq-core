@@ -11,19 +11,19 @@ public class WeightPair extends Pair implements Comparable {
         super(key, value);
     }
 
-    public void setindex(int indexvalue) {
+    public void setIndex(int indexvalue) {
         setValue(indexvalue);
     }
 
-    public void setweight(double inputvalue) {
+    public void setWeight(double inputvalue) {
         setKey(inputvalue);
     }
 
-    public int getindex() {
+    public int getIndex() {
         return ((Integer)this.getValue());
     }
 
-    public double getweight() {
+    public double getWeight() {
         return ((Double)this.getKey());
     }
 
@@ -33,6 +33,6 @@ public class WeightPair extends Pair implements Comparable {
     }
 
     public int compareTo(WeightPair o) {
-        return Double.compare(o.getweight(), getweight());
+        return Double.compare(o.getWeight(), getWeight());
     }
 }
