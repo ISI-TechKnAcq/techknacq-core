@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.isi.techknacq</groupId>
     <artifactId>techknacq-core</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.3-SNAPSHOT</version>
     <name>TechKnAcq Core Java</name>
 
     <properties>
