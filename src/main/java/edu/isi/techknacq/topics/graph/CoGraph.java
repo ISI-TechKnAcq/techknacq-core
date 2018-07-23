@@ -9,16 +9,16 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.isi.techknacq.topics.readinglist.Concept2doc;
-import edu.isi.techknacq.topics.topic.Indexpair;
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.readinglist.ConceptToDoc;
+import edu.isi.techknacq.topics.topic.IndexPair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 import edu.isi.techknacq.topics.util.ReadTopicKey;
 
 
-public class Cograph {
+public class CoGraph {
     private ArrayList<String> keynames;
     private int tnum;
-    private Logger logger = Logger.getLogger(Cograph.class.getName());
+    private Logger logger = Logger.getLogger(CoGraph.class.getName());
 
     /*
      * Read the topic key for each topic from topic key file
@@ -38,19 +38,19 @@ public class Cograph {
     public void extract(List a1, double []v1) {
         Arrays.fill(v1, 0.0);
         for (int i = 0; i < a1.size(); i++) {
-            Weightpair o = (Weightpair)a1.get(i);
-            v1[o.getindex()] = o.getweight();
+            WeightPair o = (WeightPair)a1.get(i);
+            v1[o.getIndex()] = o.getWeight();
         }
     }
 
     /*
-     * Turn a Indexpair list into a vector representation
+     * Turn a IndexPair list into a vector representation
      */
     public void extract2(List a1, double []v1) {
         Arrays.fill(v1, 0.0);
         for (int i = 0; i < a1.size(); i++) {
-            Indexpair o = (Indexpair)a1.get(i);
-            v1[o.getindex()] = o.getweight();
+            IndexPair o = (IndexPair)a1.get(i);
+            v1[o.getIndex()] = o.getWeight();
         }
     }
 
@@ -110,7 +110,7 @@ public class Cograph {
     public void run(int K, String filename, String outfilename) {
         List []conceptsindoc;
         try {
-            Concept2doc doc = new Concept2doc();
+            ConceptToDoc doc = new ConceptToDoc();
             doc.initNum(tnum);
             doc.getTopK(K, filename);
             conceptsindoc = doc.getTopic2Doc();
@@ -159,7 +159,7 @@ public class Cograph {
                                "[topic composition file] [output graph file]");
             Runtime.getRuntime().exit(2);
         }
-        Cograph mygraph = new Cograph();
+        CoGraph mygraph = new CoGraph();
         mygraph.readKey(args[0]);
         mygraph.run(100, args[1], args[2]);
     }

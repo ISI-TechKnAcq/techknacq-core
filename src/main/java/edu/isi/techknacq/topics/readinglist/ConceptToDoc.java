@@ -16,18 +16,18 @@ import java.util.logging.Logger;
 
 import infodynamics.measures.continuous.kernel.EntropyCalculatorKernel;
 
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 
 /**
  *
  * @author linhong
  */
-public class Concept2doc {
+public class ConceptToDoc {
     private int conceptnum; // number of topics
     private List []topic2docs;
     private ArrayList<String> docnames;
     private HashMap<String, Integer> badpaper = null;
-    private Logger logger = Logger.getLogger(Concept2doc.class.getName());
+    private Logger logger = Logger.getLogger(ConceptToDoc.class.getName());
 
     public void addFilter(String filename) {
         try {
@@ -65,7 +65,7 @@ public class Concept2doc {
     // K: in integer
     // compute the top k documents for each topic
     public void add(int tindex, double tweight, int dindex, int K) {
-        Weightpair w = new Weightpair(tweight, dindex);
+        WeightPair w = new WeightPair(tweight, dindex);
         int index;
         if (topic2docs[tindex].size() < K) {
             index = Collections.binarySearch(topic2docs[tindex], w);
@@ -76,7 +76,7 @@ public class Concept2doc {
             else
                 topic2docs[tindex].add(w);
         } else {
-            double minweight = ((Weightpair)topic2docs[tindex].get(topic2docs[tindex].size() - 1)).getweight();
+            double minweight = ((WeightPair)topic2docs[tindex].get(topic2docs[tindex].size() - 1)).getWeight();
             if (tweight > minweight) {
                 index = Collections.binarySearch(topic2docs[tindex], w);
                 if (index < 0)
@@ -95,7 +95,7 @@ public class Concept2doc {
             topic2docs = new ArrayList[conceptnum];
             this.docnames = new ArrayList<String>(10000);
             for (int i = 0; i < conceptnum; i++) {
-                topic2docs[i] = new ArrayList<Weightpair>(K + 2);
+                topic2docs[i] = new ArrayList<WeightPair>(K + 2);
             }
             FileInputStream fstream1 = null;
             fstream1 = new FileInputStream(filename);
@@ -155,8 +155,8 @@ public class Concept2doc {
         ArrayList<Integer> mydocs =
             new ArrayList<Integer>(topic2docs[tindex].size());
         for (int i = 0; i < topic2docs[tindex].size(); i++) {
-            Weightpair o = (Weightpair)topic2docs[tindex].get(i);
-            mydocs.add(o.getindex());
+            WeightPair o = (WeightPair)topic2docs[tindex].get(i);
+            mydocs.add(o.getIndex());
         }
         return mydocs;
     }
@@ -176,8 +176,8 @@ public class Concept2doc {
             for (int i = 0; i < this.conceptnum; i++) {
                 int tindex = i;
                 for (int j = 0; j < topic2docs[tindex].size(); j++) {
-                    Weightpair o = (Weightpair)topic2docs[tindex].get(j);
-                    v1[j] = o.getweight();
+                    WeightPair o = (WeightPair)topic2docs[tindex].get(j);
+                    v1[j] = o.getWeight();
                 }
                 entropy.setObservations(v1);
                 topicentropy.add(entropy.computeAverageLocalOfObservations());
@@ -199,7 +199,7 @@ public class Concept2doc {
     }
 
     public static void main(String args[]) {
-        Concept2doc doc = new Concept2doc();
+        ConceptToDoc doc = new ConceptToDoc();
         int tnum = 200;
         int K = 100;
         String filename = "concept2doc.txt";
@@ -207,7 +207,7 @@ public class Concept2doc {
         doc.getTopK(K, filename);
         int tindex = 180;
         ArrayList<Integer> mydocs = doc.getDocs(tindex);
-        ReadDocumentkey rdk = new ReadDocumentkey("acl-meta.json");
+        ReadDocumentKey rdk = new ReadDocumentKey("acl-meta.json");
         rdk.readFile();
         for (int i = 0; i < mydocs.size(); i++) {
             // System.out.println(mydocs.get(i));

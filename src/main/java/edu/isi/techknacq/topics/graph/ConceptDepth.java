@@ -14,14 +14,14 @@ import java.util.logging.Logger;
 
 import com.google.gson.stream.JsonWriter;
 
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 
 
-public class Conceptdepth {
+public class ConceptDepth {
     private Node []G;
     private char []isvisit;
     private List<String> topics;
-    private Logger logger = Logger.getLogger(Conceptdepth.class.getName());
+    private Logger logger = Logger.getLogger(ConceptDepth.class.getName());
 
     public void initTopics(List<String> inputtopics) {
         topics = inputtopics;
@@ -39,8 +39,8 @@ public class Conceptdepth {
     }
 
     public void BFS(ArrayList<Integer> res, int v, int m) {
-        PriorityQueue<Weightpair> queue2 =
-            new PriorityQueue<Weightpair>();
+        PriorityQueue<WeightPair> queue2 =
+            new PriorityQueue<WeightPair>();
         Queue<Integer> queue = new LinkedList<Integer>();
         queue.add(v); // Adds to end of queue
         while (!queue.isEmpty()) {
@@ -54,16 +54,16 @@ public class Conceptdepth {
                 int w = G[u].nbv[i];
                 double weight = G[u].weights[i];
                 if (isvisit[w] != 'g') {
-                    queue2.add(new Weightpair(weight, w));
+                    queue2.add(new WeightPair(weight, w));
                 }
             }
             while (!queue2.isEmpty()) {
-                Weightpair e = queue2.remove();
-                queue.add(e.getindex());
-                res.add(e.getindex());
-                isvisit[e.getindex()] = 'g';
-                System.out.println(u + "\t" + e.getindex() +
-                                   "\t" + e.getweight());
+                WeightPair e = queue2.remove();
+                queue.add(e.getIndex());
+                res.add(e.getIndex());
+                isvisit[e.getIndex()] = 'g';
+                System.out.println(u + "\t" + e.getIndex() +
+                                   "\t" + e.getWeight());
                 if (res.size() >= m)
                     break;
             }

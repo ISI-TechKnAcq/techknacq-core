@@ -18,10 +18,10 @@ import java.util.logging.Logger;
 
 import edu.isi.techknacq.topics.util.ReadTopicKey;
 
-public class Readentity {
+public class ReadEntity {
     private ArrayList<String> entitylists;
     private HashMap<String, Integer> mywords;
-    private Logger logger = Logger.getLogger(Readentity.class.getName());
+    private Logger logger = Logger.getLogger(ReadEntity.class.getName());
 
     public void initDict(HashMap<String, Integer> dictionaries) {
         mywords = new HashMap<String,Integer>(2000);
@@ -164,7 +164,7 @@ public class Readentity {
         ReadTopicKey mytopic = new ReadTopicKey();
         mytopic.read("mallet-keys-2gm-200.txt", 20);
         mytopic.conceptToWords("mallet-keys-2gm-200.txt");
-        Readentity myreader = new Readentity();
+        ReadEntity myreader = new ReadEntity();
         myreader.initDict(mytopic.getAllWords());
         myreader.readWikiFile("wikipedia-entity-counts.txt");
         // myreader.readFile("A00-1002_0.t2s");

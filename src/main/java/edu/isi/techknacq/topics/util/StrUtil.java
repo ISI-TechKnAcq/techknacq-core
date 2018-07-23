@@ -14,12 +14,12 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 
 public class StrUtil {
     private static Logger logger = Logger.getLogger(StrUtil.class.getName());
 
-    public static int getMapMaxvalue(Map mp) {
+    public static int getMapMaxValue(Map mp) {
         int max = 0;
         Iterator it = mp.entrySet().iterator();
         while (it.hasNext()) {
@@ -56,7 +56,7 @@ public class StrUtil {
             Map.Entry pairs = (Map.Entry)it.next();
             Integer windex = (Integer)pairs.getKey();
             Double weight = (Double)pairs.getValue();
-            Weightpair o = new Weightpair(weight,windex);
+            WeightPair o = new WeightPair(weight,windex);
             l.add(o);
         }
     }
@@ -215,18 +215,6 @@ public class StrUtil {
         return timeInSec;
     }
 
-    public static long parsetweettime(String timestr) {
-        long timeIns = 0;
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-            Date date = (Date) formatter.parse(timestr);
-            timeIns = date.getTime() / 1000;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return timeIns;
-    }
-
     public static String getTimestr2(long timeLong) {
         Date date = new Date(timeLong);
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
@@ -258,10 +246,8 @@ public class StrUtil {
         // System.out.println(number * 15);
         // System.out.println((float)2978 / number);
         // System.out.println((float)44594 / number / 15);
-        long start = StrUtil.parsetweettime("2012-08-10 04:43:58");
-        long end = StrUtil.parsetweettime("2012-08-10 05:43:58");
-        long number = end - start;
-        System.out.println(number);
+        // long number = end - start;
+        // System.out.println(number);
         String timestr = StrUtil.getTimestr2(1402365792700l);
         System.out.println(timestr);
         System.out.println(StrUtil.floattoString(0.9));

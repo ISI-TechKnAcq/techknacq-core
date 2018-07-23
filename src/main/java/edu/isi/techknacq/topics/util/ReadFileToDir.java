@@ -12,8 +12,8 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Readfile2dir {
-    private Logger logger = Logger.getLogger(Readfile2dir.class.getName());
+public class ReadFileToDir {
+    private Logger logger = Logger.getLogger(ReadFileToDir.class.getName());
 
     public void parseTopicVector(String filename, int k) {
         try {
@@ -98,7 +98,7 @@ public class Readfile2dir {
                                "[prefix for output file]");
             System.exit(2);
         }
-        Readfile2dir myreader = new Readfile2dir();
+        ReadFileToDir myreader = new ReadFileToDir();
         int type = Integer.parseInt(args[0]);
         if (type == 1) {
             myreader.parseTopicVector(args[1], Integer.parseInt(args[2]));

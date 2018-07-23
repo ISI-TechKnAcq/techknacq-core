@@ -20,14 +20,14 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.isi.techknacq.topics.graph.Conceptdepth;
+import edu.isi.techknacq.topics.graph.ConceptDepth;
 import edu.isi.techknacq.topics.graph.Node;
 import edu.isi.techknacq.topics.graph.ReadGraph;
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 import edu.isi.techknacq.topics.topic.WordPair;
 
 
-public class ReadingList2 {
+public class ReadingList {
     private Map<String, Double> paperpagerank;
     private ArrayList<ArrayList<WordPair>> wordintopic;
     private List<String> topickeys;
@@ -43,16 +43,16 @@ public class ReadingList2 {
     public void readData(String keyword, String keyname, String pagerankfile,
                          String docfile, int dnum, String doc2conceptfile,
                          String filterfile) {
-        Keyword2concept match1 = new Keyword2concept();
+        KeywordToConcept match1 = new KeywordToConcept();
         match1.readKey(keyname);
         hittopic = match1.getMatch(keyword);
         this.wordintopic = match1.getWeightTopic();
         this.topickeys = match1.getTopics();
         readPageRankScore(pagerankfile);
-        ReadDocumentkey rdk = new ReadDocumentkey(docfile);
+        ReadDocumentKey rdk = new ReadDocumentKey(docfile);
         rdk.readFile();
         docmap = rdk.getDocMap();
-        Concept2doc Getdoc = new Concept2doc();
+        ConceptToDoc Getdoc = new ConceptToDoc();
         Getdoc.initNum(topickeys.size());
         Getdoc.addFilter(filterfile);
         Getdoc.getTopK(dnum * 10, doc2conceptfile);
@@ -70,8 +70,8 @@ public class ReadingList2 {
     public ArrayList<Integer> getDocs(int tindex) {
         ArrayList<Integer> mydocs = new ArrayList(topic2docs[tindex].size());
         for (int i = 0; i < topic2docs[tindex].size(); i++) {
-            Weightpair o = (Weightpair)topic2docs[tindex].get(i);
-            mydocs.add(o.getindex());
+            WeightPair o = (WeightPair)topic2docs[tindex].get(i);
+            mydocs.add(o.getIndex());
         }
         return mydocs;
     }
@@ -170,7 +170,7 @@ public class ReadingList2 {
             ReadGraph myreader = new ReadGraph(graphfile);
             Node []G = myreader.getGraph();
             this.ordertopic = myreader.orderNode();
-            Conceptdepth Dependency = new Conceptdepth();
+            ConceptDepth Dependency = new ConceptDepth();
             Dependency.initGraph(G);
             Dependency.initTopics(this.topickeys);
             // List mylist = new ArrayList<>(100);
@@ -193,7 +193,7 @@ public class ReadingList2 {
             //         else
             //             value = -1;
             //         if (value > -1)
-            //             mylist.add(new Weightpair(value,Did));
+            //             mylist.add(new WeightPair(value,Did));
             //     }
             //     ArrayList<Integer> deptopics;
             //     deptopics = Dependency.getTopNode(maxtopic, tindex);
@@ -210,7 +210,7 @@ public class ReadingList2 {
             //             else
             //                 value = -1;
             //             if (value > -1)
-            //                 mylist.add(new Weightpair(value,mydoc));
+            //                 mylist.add(new WeightPair(value,mydoc));
             //         }
             //     }
             // }
@@ -221,8 +221,8 @@ public class ReadingList2 {
             // int maxdoc = maxtopic * dnum * 3;
             // maxdoc += this.hittopic.size() * dnum * 4;
             // for (int i = 0; i < maxdoc && i < mylist.size(); i++) {
-            //     Weightpair o = (Weightpair)mylist.get(i);
-            //     int Did = o.getindex();
+            //     WeightPair o = (WeightPair)mylist.get(i);
+            //     int Did = o.getIndex();
             //     isvisit[Did] = true;
             // }
             String html =
@@ -312,7 +312,7 @@ public class ReadingList2 {
                         else
                             value = -1;
                         if (value > -1)
-                            mylist.add(new Weightpair(value,Did));
+                            mylist.add(new WeightPair(value,Did));
                     }
                     int dcount = Math.min(dnum, mylist.size());
                     out.write("<p>The best relevant " + dcount +
@@ -322,15 +322,15 @@ public class ReadingList2 {
                     Collections.sort(mylist);
                     while (dcount < dnum && j < mylist.size() &&
                            dcount < mylist.size()) {
-                        Weightpair o = (Weightpair)mylist.get(j);
-                        int Did = o.getindex();
+                        WeightPair o = (WeightPair)mylist.get(j);
+                        int Did = o.getIndex();
                         isvisit[Did] = true;
                         String dfile = docfiles.get(Did);
                         String metavalue = this.getDocMeta(dfile);
                         String author = this.extractAuthor(metavalue);
                         if (!this.authorlists.contains(author)) {
                             String name = this.printDocName(metavalue, dfile,
-                                                            o.getweight());
+                                                            o.getWeight());
                             out.write("<li>" + name + "</li>");
                             this.authorlists.add(author);
                             dcount++;
@@ -378,7 +378,7 @@ public class ReadingList2 {
                     else
                         value = -1;
                     if (value > -1)
-                        mylist.add(new Weightpair(value,Did));
+                        mylist.add(new WeightPair(value,Did));
                 }
                 int dcount = Math.min(dnum, mylist.size());
                 out.write("<p>The best relevant " + dcount +
@@ -388,15 +388,15 @@ public class ReadingList2 {
                 Collections.sort(mylist);
                 while (dcount < dnum && j < mylist.size() &&
                        dcount < mylist.size()) {
-                    Weightpair o = (Weightpair)mylist.get(j);
-                    int Did = o.getindex();
+                    WeightPair o = (WeightPair)mylist.get(j);
+                    int Did = o.getIndex();
                     isvisit[Did] = true;
                     String dfile = docfiles.get(Did);
                     String metavalue = this.getDocMeta(dfile);
                     String author = this.extractAuthor(metavalue);
                     if (!this.authorlists.contains(author)) {
                         String name = this.printDocName(metavalue, dfile,
-                                                        o.getweight());
+                                                        o.getWeight());
                         out.write("<li>" + name + "</li>");
                         this.authorlists.add(author);
                         dcount++;
@@ -475,7 +475,7 @@ public class ReadingList2 {
             maxtnum = Integer.parseInt(args[7]);
         if (args.length > 8)
             filterfile = args[8];
-        ReadingList2 myreadinglist = new ReadingList2();
+        ReadingList myreadinglist = new ReadingList();
         // String keyword, String keyname, String pagerankfile, String docfile,
         // int dnum, String doc2conceptfile
         myreadinglist.readData(args[0], args[2], args[5], args[4], dnum,

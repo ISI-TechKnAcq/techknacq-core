@@ -13,13 +13,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class Generatematrixjsonfile {
+public class GenerateMatrixJsonFile {
     private ArrayList<String> User_id;
     private ArrayList<String> group;
     private Logger logger =
-        Logger.getLogger(Generatematrixjsonfile.class.getName());
+        Logger.getLogger(GenerateMatrixJsonFile.class.getName());
 
-    public Generatematrixjsonfile() {
+    public GenerateMatrixJsonFile() {
         User_id = new ArrayList<String> (8000);
         group = new ArrayList<String> (8000);
     }
@@ -98,7 +98,7 @@ public class Generatematrixjsonfile {
     }
 
     public static void main(String []args) {
-        Generatematrixjsonfile myrun = new Generatematrixjsonfile();
+        GenerateMatrixJsonFile myrun = new GenerateMatrixJsonFile();
         // keyword file for nodes
         myrun.readNodeFile(args[0]);
         // args[1]: edge file, args[2]: outputfile

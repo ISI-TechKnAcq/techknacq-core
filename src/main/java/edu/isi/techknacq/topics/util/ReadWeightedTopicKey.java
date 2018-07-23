@@ -13,7 +13,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.isi.techknacq.topics.topic.Indexpair;
+import edu.isi.techknacq.topics.topic.IndexPair;
 
 public class ReadWeightedTopicKey {
     private ArrayList<String> keynames;
@@ -96,7 +96,7 @@ public class ReadWeightedTopicKey {
             int conceptnum = this.keynames.size();
             topicinwords = new ArrayList[conceptnum];
             for (int i = 0; i < conceptnum; i++) {
-                topicinwords[i] = new ArrayList<Indexpair>(21);
+                topicinwords[i] = new ArrayList<IndexPair>(21);
             }
             while ((strline = br.readLine()) != null) {
                 Scanner sc = new Scanner(strline);
@@ -108,7 +108,7 @@ public class ReadWeightedTopicKey {
                     tempword = sc.next();
                     value = sc.nextDouble();
                     int windex = this.words.get(tempword);
-                    this.topicinwords[index].add(new Indexpair(windex, value));
+                    this.topicinwords[index].add(new IndexPair(windex, value));
                 }
                 index++;
             }
@@ -116,12 +116,12 @@ public class ReadWeightedTopicKey {
             for (int i = 0; i < conceptnum; i++) {
                 double sum = 0;
                 for (int j = 0; j < topicinwords[i].size(); j++) {
-                    Indexpair o = (Indexpair)topicinwords[i].get(j);
-                    sum += o.getweight();
+                    IndexPair o = (IndexPair)topicinwords[i].get(j);
+                    sum += o.getWeight();
                 }
                 for (int j = 0; j < topicinwords[i].size(); j++) {
-                    Indexpair o = (Indexpair)topicinwords[i].get(j);
-                    o.setvalue(o.getweight() / sum);
+                    IndexPair o = (IndexPair)topicinwords[i].get(j);
+                    o.setValue(o.getWeight() / sum);
                 }
             }
         } catch (IOException ex) {
@@ -153,10 +153,10 @@ public class ReadWeightedTopicKey {
         for (int i = 0; i < l.length; i++) {
             List temp = l[i];
             for (int j = 0; j < temp.size(); j++) {
-                Indexpair o = (Indexpair)temp.get(j);
+                IndexPair o = (IndexPair)temp.get(j);
                 System.out.println((i + 1) + "\t" +
-                                   (o.getindex() + 1) + "\t" +
-                                   o.getweight());
+                                   (o.getIndex() + 1) + "\t" +
+                                   o.getWeight());
             }
         }
     }

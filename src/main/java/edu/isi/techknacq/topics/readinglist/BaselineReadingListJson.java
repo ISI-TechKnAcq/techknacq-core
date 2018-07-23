@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 import com.google.gson.stream.JsonWriter;
 
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 
 public class BaselineReadingListJson {
     private Map<String, Double> paperpagerank;
@@ -65,16 +65,16 @@ public class BaselineReadingListJson {
                       String pagerankfile, String keyword,
                       String doc2conceptfilename) {
         try {
-            Keyword2concept match1 = new Keyword2concept();
+            KeywordToConcept match1 = new KeywordToConcept();
             match1.readKey(keyname);
             ArrayList<Integer> hittopic = match1.getMatch(keyword);
             this.topickeys = match1.getTopics();
-            Concept2doc doc = new Concept2doc();
+            ConceptToDoc doc = new ConceptToDoc();
             doc.initNum(this.topickeys.size());
             doc.getTopK(K * 4, doc2conceptfilename);
             // doc.prune();
             ArrayList<String> docnames = doc.getDocName();
-            List mylist = new ArrayList<Weightpair>(100);
+            List mylist = new ArrayList<WeightPair>(100);
             double value;
             boolean []isvisit = new boolean[docnames.size()];
             for (int i = 0; i < isvisit.length; i++) {
@@ -96,7 +96,7 @@ public class BaselineReadingListJson {
                     else
                         value = -1;
                     if (value > -1)
-                        mylist.add(new Weightpair(value, Did));
+                        mylist.add(new WeightPair(value, Did));
                 }
             }
             StringWriter writer = new StringWriter();
@@ -105,15 +105,15 @@ public class BaselineReadingListJson {
             s.name("keyword");
             s.value(keyword);
             Collections.sort(mylist);
-            ReadDocumentkey rdk = new ReadDocumentkey(docfile);
+            ReadDocumentKey rdk = new ReadDocumentKey(docfile);
             rdk.readFile();
             s.name("documents");
             s.beginArray();
             for (int i = 0; i < K; i++) {
-                Weightpair o = (Weightpair)mylist.get(i);
-                int Did = o.getindex();
+                WeightPair o = (WeightPair)mylist.get(i);
+                int Did = o.getIndex();
                 String id = docnames.get(Did);
-                s.value("id " + id + ", weight: " + o.getweight());
+                s.value("id " + id + ", weight: " + o.getWeight());
             }
             s.endArray();
             s.endObject();

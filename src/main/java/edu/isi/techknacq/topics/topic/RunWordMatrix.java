@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import edu.isi.techknacq.topics.util.Readfile;
+import edu.isi.techknacq.topics.util.ReadFile;
 import edu.isi.techknacq.topics.util.StrUtil;
 
 /**
  *
  * @author linhong
  */
-public class Runwordmatrix {
+public class RunWordMatrix {
     public void run(String dirname, String prefix) {
         ArrayList<String> filenames = StrUtil.initFolder(dirname);
         List myfile = new ArrayList<StringPair> (filenames.size());
@@ -30,7 +30,7 @@ public class Runwordmatrix {
         }
         Collections.sort(myfile);
         ArrayList<String> posts = new ArrayList<String>(filenames.size());
-        Readfile myreader = new Readfile();
+        ReadFile myreader = new ReadFile();
         System.out.println(filenames.size());
         filenames.clear();
         for (int i = 0; i < myfile.size(); i++) {
@@ -42,7 +42,7 @@ public class Runwordmatrix {
                 System.out.println(i);
         }
         System.out.println("Finish reading files");
-        Wordmodel mymodel = new Wordmodel();
+        WordModel mymodel = new WordModel();
         mymodel.initPost(posts);
         mymodel.computeWordModel();
         mymodel.saveWordModel("./lib/wordmodel.txt");
@@ -51,7 +51,7 @@ public class Runwordmatrix {
         String []words = mymodel.getWords();
         int[]df = mymodel.getCount();
         System.out.println("Finish computing dictionary");
-        Wordmatrix mymatrix = new Wordmatrix();
+        WordMatrix mymatrix = new WordMatrix();
         mymatrix.initWords(words);
         mymatrix.initWordFreq(df);
         mymatrix.initContent(posts);
@@ -68,7 +68,7 @@ public class Runwordmatrix {
             System.err.println("Usage: [foldername] [prefixname]\n");
             System.exit(2);
         }
-        Runwordmatrix myrun = new Runwordmatrix();
+        RunWordMatrix myrun = new RunWordMatrix();
         myrun.run(args[0], args[1]);
     }
 }

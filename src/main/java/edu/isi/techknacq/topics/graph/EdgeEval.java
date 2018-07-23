@@ -21,7 +21,7 @@ public class EdgeEval {
     private double [][]hierword;
     private Logger logger = Logger.getLogger(EdgeEval.class.getName());
 
-    public void settopicnum(int _tnum) {
+    public void setTopicNum(int _tnum) {
         int topicnum = _tnum;
         this.CEdoc = new double[topicnum][topicnum];
         this.IF = new double[topicnum][topicnum];
@@ -135,7 +135,7 @@ public class EdgeEval {
             System.exit(2);
         }
         EdgeEval myEval = new EdgeEval();
-        myEval.settopicnum(Integer.parseInt(args[2]));
+        myEval.setTopicNum(Integer.parseInt(args[2]));
         myEval.readScores(args[0]);
         myEval.readEvaluation(args[1]);
         // myEval.readScores("alledge.tsv");

@@ -17,8 +17,8 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.isi.techknacq.topics.topic.Indexpair;
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.IndexPair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 import edu.isi.techknacq.topics.util.ReadWeightedTopicKey;
 
 /**
@@ -41,7 +41,7 @@ public class ReadHierarchy {
         this.topickeynames = inputkey;
         this.topicinwords = inputtopicword;
         this.wordlist = inputwordlist;
-        l = new ArrayList<Weightpair>(this.wordlist.size());
+        l = new ArrayList<WeightPair>(this.wordlist.size());
     }
 
     public ArrayList<Integer> parseTopic(String s) {
@@ -58,14 +58,14 @@ public class ReadHierarchy {
     public void updateWordName(double []temp, int sid, int topicnum) {
         if (sid <= topicnum) {
             for (int j = 0; j < topicinwords[sid - 1].size(); j++) {
-                Indexpair o = (Indexpair)topicinwords[sid - 1].get(j);
-                temp[o.getindex()] += o.getweight();
+                IndexPair o = (IndexPair)topicinwords[sid - 1].get(j);
+                temp[o.getIndex()] += o.getWeight();
             }
         } else {
             int index = sid - topicnum - 1;
             for (int j = 0; j < clusterinwords[index].size(); j++) {
-                Indexpair o = (Indexpair)clusterinwords[index].get(j);
-                temp[o.getindex()] += o.getweight();
+                IndexPair o = (IndexPair)clusterinwords[index].get(j);
+                temp[o.getIndex()] += o.getWeight();
             }
         }
     }
@@ -73,7 +73,7 @@ public class ReadHierarchy {
     public void updateIndexWord(double []temp, int sid, int topicnum, int k) {
         if (sid <= topicnum)
             return;
-        this.clusterinwords[sid - topicnum - 1] = new ArrayList<Indexpair>(50);
+        this.clusterinwords[sid - topicnum - 1] = new ArrayList<IndexPair>(50);
         double sum = 0;
         for (int i = 0; i < temp.length; i++) {
             sum += temp[i];
@@ -81,14 +81,14 @@ public class ReadHierarchy {
         l.clear();
         for (int i = 0; i < temp.length; i++) {
             if (temp[i] > 0)
-                l.add(new Weightpair(temp[i] / sum, i));
+                l.add(new WeightPair(temp[i] / sum, i));
         }
         Collections.sort(l);
         for (int i = 0; i < l.size() && i < k; i++) {
-            Weightpair o = (Weightpair)l.get(i);
+            WeightPair o = (WeightPair)l.get(i);
             int index = sid - topicnum - 1;
-            clusterinwords[index].add(new Indexpair(o.getindex(),
-                                                    o.getweight()));
+            clusterinwords[index].add(new IndexPair(o.getIndex(),
+                                                    o.getWeight()));
         }
     }
 
@@ -137,9 +137,9 @@ public class ReadHierarchy {
     public void print(List l, BufferedWriter out, int k) {
         for (int i = 0; i < l.size() && i < k; i++) {
             try {
-                Indexpair o = (Indexpair)l.get(i);
-                out.write(this.wordlist.get(o.getindex()) + " ");
-                out.write(o.getweight() + " ");
+                IndexPair o = (IndexPair)l.get(i);
+                out.write(this.wordlist.get(o.getIndex()) + " ");
+                out.write(o.getWeight() + " ");
             } catch (IOException ex) {
                 logger.log(Level.SEVERE, null, ex);
             }

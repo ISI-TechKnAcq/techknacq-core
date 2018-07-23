@@ -84,19 +84,19 @@ The corpus directory cannot contain subdirectories.
 The resulting output will be stored in the current working directory and
 lib/output. The output files include:
 
-- lib/output/final.beta: The word-topic matrix, where each line denotes a
+- `lib/output/final.beta`: The word-topic matrix, where each line denotes a
 topic, each column denotes a word, and each value is the likelihood that
 the word belongs to this topic.
 
-- lib/prefixdocument2topic.txt: The document-topic matrix, where each line is
-of the format:
+- `lib/prefixdocument2topic.txt`: The document-topic matrix, where each
+line is of the format:
 ```
 [documentname]\t[topic1]:[value]\t[topic2]:[value]\t...
 ```
 
-- lib/prefixtopic.csv: The topic 30 words from the entire corpus
+- `lib/prefixtopic.csv`: The topic 30 words from the entire corpus
 
-- lib/prefixtopic.txt: The top-k word distribution of topics. It is formatted
+- `lib/prefixtopic.txt`: The top-k word distribution of topics. It is formatted
 as follows:
 ```
 topic 000
@@ -119,10 +119,10 @@ NB: The compilation instructions below will not work for this repository,
 which does not include 'name.txt', which was used in the TechKnAcq-topic
 repository.
 
-1. Given the co-occurrence matrices, the first step is to run the Graphformat
-code (in src/main/java/edu/isi/techknacq/topics/graph) to generate the Pajek
+1. Given the co-occurrence matrices, the first step is to run the GraphFormat
+code (in `src/main/java/edu/isi/techknacq/topics/graph`) to generate the Pajek
 .net format. For an introduction to this format, see
-http://gephi.github.io/users/supported-graph-formats/pajek-net-format/
+http://gephi.github.io/users/supported-graph-formats/pajek-net-format
 
 2. Compile:
 ```bash
@@ -158,7 +158,7 @@ as .flow format.
 running the infomap with the .net format for co-occurrence matrices,
 see (TechKnAcq-hierarchy clustering) in above for more details.
 
-2. Run the ReadflowNetwork under TechKnAcq-topic/TopicModeling/src/util to
+2. Run the ReadFlowNetwork under TechKnAcq-topic/TopicModeling/src/util to
 obtain the edge table format for the topic dependency Graph
 
 2.1. Compile the ReadFlowNetwork
@@ -193,7 +193,7 @@ g++ edge2weightstandard.cpp -O3 -o format
 
 ### Cross Entropy Graph Generation
 
-1. Run techknacq-core/src/main/java/edu/isi/techknacq/topics/graph/Comparisononalledges.java
+1. Run `src/main/java/edu/isi/techknacq/topics/graph/ComparisonOnAllEdges.java`
 with arguments:
 ```
 [keyfile] [tree file] [topic composition file] [# topics] [citation file]
@@ -232,7 +232,7 @@ specified in Usage as below.
 
 2. Without jar file:
 ```
-java -classpath ".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m readinglist.Getreadinglist [arguments]
+java -classpath ".\classes;lib\\jackson-core-2.5.0.jar;lib\\KStem.jar;lib\\lucene-core-2.3.2.jar" -Xmx1024m readinglist.GetReadingList [arguments]
 ```
 where arguments are specified in Usage as below
 
@@ -343,7 +343,7 @@ Our program accepts the following parameters, that are:
 7. number of docs per topic (Integer)
 8. number of maximum dependence topics (Integer);
 9. a list of bad papers that to be filtered out.
-10. the file of pedegocial type of each document
+10. the file of pedagogical type of each document
 11. configuration file
 
 ### Input format
@@ -352,17 +352,18 @@ Our program accepts the following parameters, that are:
 
 Each row is seperated by tab with three columns:
 
-- first column: labeled/unlabeled (string) eg: unlabeled
-- second column: ID of documents, eg: ACL-X98-1030
-- third column: pedogical type (string), eg: ['survey']
+- first column: labeled/unlabeled (string) e.g.: `unlabeled`
+- second column: ID of documents, e.g.: `ACL-X98-1030`
+- third column: pedagogical type (string), e.g.: `['survey']`
 
 #### The configuration file
 
-An example of the configuration file is [here](https://github.com/ISI-TechknAcq/techknacq-core/blob/master/config.txt)
+An example of the configuration file is
+[here](https://github.com/ISI-TechKnAcq/techknacq-core/blob/master/config.txt).
 
 Basically, we need to specify
 
-- the mapping from pedogical type to a score (double type)
+- the mapping from pedagogical type to a score (double type)
 - the parameter value: e.g., the relevance threshold
 - the coefficent weight for each feature (i.e., the weight controls the
 contribution of each feature in ordering documents)

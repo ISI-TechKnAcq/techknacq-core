@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.isi.techknacq.topics.util.Readfile;
-import edu.isi.techknacq.topics.util.Readresults;
+import edu.isi.techknacq.topics.util.ReadFile;
+import edu.isi.techknacq.topics.util.ReadResults;
 import edu.isi.techknacq.topics.util.StrUtil;
 
 /**
@@ -27,7 +27,7 @@ public class Topic {
         try {
             ArrayList<String> filenames = StrUtil.initFolder(dirname);
             ArrayList<String> posts = new ArrayList<String>(filenames.size());
-            Readfile myreader = new Readfile();
+            ReadFile myreader = new ReadFile();
             System.out.println(filenames.size());
             for (int i = 0; i < filenames.size(); i++) {
                 String res = myreader.read(filenames.get(i));
@@ -36,7 +36,7 @@ public class Topic {
                     System.out.println(i);
             }
             System.out.println("Finish reading files");
-            Wordmodel mymodel = new Wordmodel();
+            WordModel mymodel = new WordModel();
             mymodel.initPost(posts);
             mymodel.computeWordModel();
             mymodel.saveWordModel("./lib/wordmodel.txt");
@@ -45,7 +45,7 @@ public class Topic {
             String []words = mymodel.getWords();
             int[]df = mymodel.getCount();
             System.out.println("Finish computing dictionary");
-            Wordmatrix mymatrix = new Wordmatrix();
+            WordMatrix mymatrix = new WordMatrix();
             mymatrix.initWords(words);
             mymatrix.initWordFreq(df);
             mymatrix.initContent(posts);
@@ -92,7 +92,7 @@ public class Topic {
             fstream = new FileWriter("./lib/" + prefix + "document2topic.txt",
                                      false);
             out = new BufferedWriter(fstream);
-            Readresults myRreader = new Readresults();
+            ReadResults myRreader = new ReadResults();
             myRreader.readD2topic("./lib/output/final.gamma", filenames, out);
             if (out != null)
                 out.close();

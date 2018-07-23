@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.isi.techknacq.topics.graph.Conceptdepth;
+import edu.isi.techknacq.topics.graph.ConceptDepth;
 import edu.isi.techknacq.topics.graph.Node;
 import edu.isi.techknacq.topics.graph.ReadGraph;
 
-public class Getreadinglist {
+public class GetReadingList {
     public static void main(String []args) {
         FileWriter fstream = null;
         try {
@@ -36,24 +36,24 @@ public class Getreadinglist {
                 maxtnum = Integer.parseInt(args[6]);
             if (args.length > 7)
                 filterfile = args[7];
-            Keyword2concept match1 = new Keyword2concept();
+            KeywordToConcept match1 = new KeywordToConcept();
             match1.readKey(args[2]);
             List<Integer> hittopic = match1.getMatch(args[0]);
             //hittopic: topics that matches the input keyword
             List<String> topics = match1.getTopics();
             //topics: the topics with word distribution
-            Concept2doc Getdoc = new Concept2doc();
+            ConceptToDoc Getdoc = new ConceptToDoc();
             Getdoc.initNum(topics.size());
             Getdoc.addFilter(filterfile);
             Getdoc.getTopK(dnum, args[1]);
             List<String> docfiles = Getdoc.getDocName();
             //docfiles: The filename of each document
-            ReadDocumentkey rdk = new ReadDocumentkey(args[4]);
+            ReadDocumentKey rdk = new ReadDocumentKey(args[4]);
             rdk.readFile();
             //rdk: read the title and author information of each
             ReadGraph myreader = new ReadGraph(args[3]);
             Node []G = myreader.getGraph();
-            Conceptdepth Dependency = new Conceptdepth();
+            ConceptDepth Dependency = new ConceptDepth();
             Dependency.initGraph(G);
             Dependency.initTopics(topics);
             fstream = new FileWriter(args[0] + "_readinglist.txt",false);
@@ -97,7 +97,7 @@ public class Getreadinglist {
             out.close();
             Dependency.getSubgraph(args[0]);
         } catch (IOException ex) {
-            Logger.getLogger(Getreadinglist.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetReadingList.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

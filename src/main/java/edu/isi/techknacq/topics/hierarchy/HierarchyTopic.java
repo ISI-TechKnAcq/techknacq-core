@@ -17,15 +17,15 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.isi.techknacq.topics.topic.Indexpair;
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.IndexPair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 import edu.isi.techknacq.topics.util.ReadWeightedTopicKey;
 
 /**
  *
  * @author linhong
  */
-public class Hierarchytopic {
+public class HierarchyTopic {
     private ArrayList<Integer> topiccluster;
     private ArrayList<String> keynames;
     private HashMap<String,Integer> clustername;
@@ -33,7 +33,7 @@ public class Hierarchytopic {
     private List []topicinwords;
     private ArrayList<Integer> []cluster2topic;
     private ArrayList<String> wordlist;
-    private Logger logger = Logger.getLogger(Hierarchytopic.class.getName());
+    private Logger logger = Logger.getLogger(HierarchyTopic.class.getName());
 
     public void init(ArrayList<String> inputkey, List [] inputtopicword,
                      ArrayList<String> inputwordlist) {
@@ -114,17 +114,17 @@ public class Hierarchytopic {
         for (int i = 0; i < temp.length; i++) {
             sum += temp[i];
         }
-        List l = new ArrayList<Weightpair>(this.wordlist.size());
+        List l = new ArrayList<WeightPair>(this.wordlist.size());
         for (int i = 0; i < temp.length; i++) {
-            l.add(new Weightpair(temp[i] / sum, i));
+            l.add(new WeightPair(temp[i] / sum, i));
         }
         Collections.sort(l);
         String res = "";
         for (int i = 0; i < k; i++) {
-            Weightpair o = (Weightpair)l.get(i);
-            res += wordlist.get(o.getindex());
+            WeightPair o = (WeightPair)l.get(i);
+            res += wordlist.get(o.getIndex());
             res += "\t";
-            res += o.getweight();
+            res += o.getWeight();
             res += "\t";
         }
         return res;
@@ -142,8 +142,8 @@ public class Hierarchytopic {
                 Arrays.fill(temp, 0.0);
                 for (int i = 0; i < topicinwords.length; i++) {
                     for (int j = 0; j < topicinwords[i].size(); j++) {
-                        Indexpair o = (Indexpair)topicinwords[i].get(j);
-                        temp[o.getindex()] += o.getweight();
+                        IndexPair o = (IndexPair)topicinwords[i].get(j);
+                        temp[o.getIndex()] += o.getWeight();
                     }
                 }
                 clustertopicname[index] = this.getTopKWord(30, temp);
@@ -156,8 +156,8 @@ public class Hierarchytopic {
                     for (int i = 0; i < cluster2topic[cid - 1].size(); i++) {
                         int t = cluster2topic[cid - 1].get(i);
                         for (int j = 0; j < topicinwords[t].size(); j++) {
-                            Indexpair o = (Indexpair)topicinwords[t].get(j);
-                            temp[o.getindex()] += o.getweight();
+                            IndexPair o = (IndexPair)topicinwords[t].get(j);
+                            temp[o.getIndex()] += o.getWeight();
                         }
                     }
                 }
@@ -196,7 +196,7 @@ public class Hierarchytopic {
     }
 
     public static void main(String []args) {
-        Hierarchytopic myhier = new Hierarchytopic();
+        HierarchyTopic myhier = new HierarchyTopic();
         ReadWeightedTopicKey myreader = new ReadWeightedTopicKey();
         myreader.read("mallet-weighted-key.txt", 5);
         myreader.conceptToWords("mallet-weighted-key.txt");

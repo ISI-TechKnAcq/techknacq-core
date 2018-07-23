@@ -21,7 +21,7 @@ import edu.isi.techknacq.topics.util.TokenProcessor;
  * representation
  */
 
-public class Wordmatrix {
+public class WordMatrix {
     private String []words;
     private int []df;
     private ArrayList<String> posts;
@@ -42,7 +42,7 @@ public class Wordmatrix {
         try {
             int i = 0;
             int j = 0;
-            ArrayList<Indexpair> features = new ArrayList<Indexpair>(100);
+            ArrayList<IndexPair> features = new ArrayList<IndexPair>(100);
             ArrayList<String> uniquecontent = new ArrayList<String>(100);
             ArrayList<Integer> tf = new ArrayList<Integer>(100);
             int index = 0;
@@ -53,12 +53,12 @@ public class Wordmatrix {
             fstream = new FileWriter(filename, false);
             out = new BufferedWriter(fstream);
             String word;
-            TokenProcessor tp=new TokenProcessor();
-            for (i=0;i<this.posts.size();i++) {
-                Scanner sc=new Scanner(posts.get(i));
+            TokenProcessor tp = new TokenProcessor();
+            for (i = 0; i < this.posts.size(); i++) {
+                Scanner sc = new Scanner(posts.get(i));
                 while(sc.hasNext()) {
-                    word=tp.getTokenString(sc.next());
-                    if (word.length()<2) {
+                    word = tp.getTokenString(sc.next());
+                    if (word.length() < 2) {
                         continue;
                     }
                     index = Collections.binarySearch(uniquecontent, word);
@@ -74,18 +74,18 @@ public class Wordmatrix {
                     if (tf.get(j) > 0) {
                         index = Arrays.binarySearch(words, uniquecontent.get(j));
                         if (index >=0) {
-                            Indexpair o = new Indexpair(index,(double)tf.get(j)/this.df[j]);
+                            IndexPair o = new IndexPair(index,(double)tf.get(j)/this.df[j]);
                             features.add(o);
                         }
                     }
                 }
-                if (features.size()>0) {
-                    out.write(keyname.get(i)+" ");
+                if (features.size() > 0) {
+                    out.write(keyname.get(i) + " ");
                     out.write(Integer.toString(features.size()));
                     for (j = 0; j < features.size(); j++) {
-                        index=features.get(j).getindex();
-                        v=features.get(j).getweight();
-                        //out.write((i+1)+"\t"+(index+1)+"\t"+v+"\n");
+                        index = features.get(j).getIndex();
+                        v = features.get(j).getWeight();
+                        // out.write((i+1)+"\t"+(index+1)+"\t"+v+"\n");
                         out.write(" " +index + ":" + v);
                     }
                     out.write("\n");
@@ -94,12 +94,12 @@ public class Wordmatrix {
                 uniquecontent.clear();
                 features.clear();
             }
-            if (out!=null)
+            if (out != null)
                 out.close();
-            if (fstream!=null)
+            if (fstream != null)
                 fstream.close();
         } catch (IOException ex) {
-            Logger.getLogger(Wordmatrix.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WordMatrix.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -107,7 +107,7 @@ public class Wordmatrix {
         try {
             int i = 0;
             int j = 0;
-            ArrayList<Indexpair> features = new ArrayList<Indexpair>(100);
+            ArrayList<IndexPair> features = new ArrayList<IndexPair>(100);
             ArrayList<String> uniquecontent = new ArrayList<String>(100);
             ArrayList<Integer> tf = new ArrayList<Integer>(100);
             int index = 0;
@@ -119,11 +119,11 @@ public class Wordmatrix {
             out = new BufferedWriter(fstream);
             String word;
             TokenProcessor tp=new TokenProcessor();
-            for (i=0;i<this.posts.size();i++) {
-                Scanner sc=new Scanner(posts.get(i));
+            for (i = 0; i < this.posts.size(); i++) {
+                Scanner sc = new Scanner(posts.get(i));
                 while(sc.hasNext()) {
-                    word=tp.getTokenString(sc.next());
-                    if (word.length()<2) {
+                    word = tp.getTokenString(sc.next());
+                    if (word.length() < 2) {
                         continue;
                     }
                     index = Collections.binarySearch(uniquecontent, word);
@@ -139,7 +139,7 @@ public class Wordmatrix {
                     if (tf.get(j) > 0) {
                         index = Arrays.binarySearch(words, uniquecontent.get(j));
                         if (index >=0) {
-                            Indexpair o = new Indexpair(index,tf.get(j));
+                            IndexPair o = new IndexPair(index,tf.get(j));
                             features.add(o);
                         }
                     }
@@ -147,8 +147,8 @@ public class Wordmatrix {
                 if (features.size()>0) {
                     out.write(Integer.toString(features.size()));
                     for (j = 0; j < features.size(); j++) {
-                        index=features.get(j).getindex();
-                        v=features.get(j).getweight();
+                        index=features.get(j).getIndex();
+                        v=features.get(j).getWeight();
                         out.write(" " +index + ":" + (int)v);
                     }
                     out.write("\n");
@@ -162,18 +162,18 @@ public class Wordmatrix {
             if (fstream!=null)
                 fstream.close();
         } catch (IOException ex) {
-            Logger.getLogger(Wordmatrix.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WordMatrix.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void clear() {
         this.posts.clear();
         this.posts.trimToSize();
-        if (this.df!=null) {
-            this.df=null;
+        if (this.df != null) {
+            this.df = null;
         }
-        if (this.words!=null) {
-            this.words=null;
+        if (this.words != null) {
+            this.words = null;
         }
     }
 }

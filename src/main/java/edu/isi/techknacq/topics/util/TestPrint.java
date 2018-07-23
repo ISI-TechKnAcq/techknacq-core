@@ -12,9 +12,9 @@ import java.util.logging.Logger;
  *
  * @author linhong
  */
-public class Testprint {
+public class TestPrint {
     private static Logger logger =
-        Logger.getLogger(Testprint.class.getName());
+        Logger.getLogger(TestPrint.class.getName());
 
     public static void printMap(Map mp, BufferedWriter out) {
         try {

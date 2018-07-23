@@ -17,7 +17,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 
 
 public class BaselineReadingList {
@@ -97,16 +97,16 @@ public class BaselineReadingList {
     public void run(String keyname, int K, String docfile, String pagerankfile,
                     String keyword, String doc2conceptfilename) {
         try {
-            Keyword2concept match1 = new Keyword2concept();
+            KeywordToConcept match1 = new KeywordToConcept();
             match1.readKey(keyname);
             List<Integer> hittopic = match1.getMatch(keyword);
             this.topickeys = match1.getTopics();
-            Concept2doc doc = new Concept2doc();
+            ConceptToDoc doc = new ConceptToDoc();
             doc.initNum(this.topickeys.size());
             doc.getTopK(K * 4, doc2conceptfilename);
             // doc.prune();
             List<String> docnames = doc.getDocName();
-            List<Weightpair> mylist = new ArrayList<Weightpair>(100);
+            List<WeightPair> mylist = new ArrayList<WeightPair>(100);
             double value;
             boolean []isvisit = new boolean[docnames.size()];
             for (int i = 0; i < isvisit.length; i++) {
@@ -128,11 +128,11 @@ public class BaselineReadingList {
                     else
                         value = -1;
                     if (value > -1)
-                        mylist.add(new Weightpair(value, Did));
+                        mylist.add(new WeightPair(value, Did));
                 }
             }
             Collections.sort(mylist);
-            ReadDocumentkey rdk = new ReadDocumentkey(docfile);
+            ReadDocumentKey rdk = new ReadDocumentKey(docfile);
             rdk.readFile();
             FileWriter fstream = null;
             fstream = new FileWriter("BaselineReadingList_" + keyword + ".html",
@@ -186,8 +186,8 @@ public class BaselineReadingList {
                 "<h1>Reading List for " + keyword + " </h1>";
             out.write(html);
             for (int i = 0; i < K; i++) {
-                Weightpair o = (Weightpair)mylist.get(i);
-                int Did = o.getindex();
+                WeightPair o = (WeightPair)mylist.get(i);
+                int Did = o.getIndex();
                 String id = docnames.get(Did);
                 String strval = rdk.getDocumentKey(id);
                 String name = this.printDocName(strval, id);

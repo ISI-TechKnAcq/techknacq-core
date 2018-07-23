@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author linhong
  */
-public class Prunedalledge {
+public class PrunedAlledge {
     // private double [][]CEdoc;
     private double [][]CEword;
     private double [][]IF;
@@ -26,9 +26,9 @@ public class Prunedalledge {
     private double [][]hierdoc;
     private double [][]hierword;
     private int topicnum;
-    private Logger logger = Logger.getLogger(Prunedalledge.class.getName());
+    private Logger logger = Logger.getLogger(PrunedAlledge.class.getName());
 
-    public void settopicnum(int _tnum) {
+    public void setTopicNum(int _tnum) {
         topicnum = _tnum;
         // this.CEdoc = new double[topicnum][topicnum];
         this.IF = new double[topicnum][topicnum];
@@ -135,8 +135,8 @@ public class Prunedalledge {
     }
 
     public static void main(String []args) {
-        Prunedalledge myprune = new Prunedalledge();
-        myprune.settopicnum(300);
+        PrunedAlledge myprune = new PrunedAlledge();
+        myprune.setTopicNum(300);
         myprune.readScores("alledge.tsv");
         //0.0001 for CE
         //0.000001 for IF

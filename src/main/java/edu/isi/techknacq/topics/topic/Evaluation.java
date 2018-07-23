@@ -123,21 +123,21 @@ public class Evaluation {
             List temp = l[i];
             double avgscore = 0;
             for (int j = 0; j < temp.size(); j++) {
-                Indexpair o = (Indexpair)temp.get(j);
-                int windex = o.getindex();
+                IndexPair o = (IndexPair)temp.get(j);
+                int windex = o.getIndex();
                 String word = topicwords.get(windex);
                 ArrayList<Double> l1 = this.word2vec(word);
                 if (l1 == null)
                     continue;
                 for (int k = j + 1; k < temp.size(); k++) {
-                    Indexpair o2 = (Indexpair)temp.get(k);
-                    int windex2 = o2.getindex();
+                    IndexPair o2 = (IndexPair)temp.get(k);
+                    int windex2 = o2.getIndex();
                     String word2 = topicwords.get(windex2);
                     ArrayList<Double> l2 = this.word2vec(word2);
                     if (l2 == null)
                         continue;
                     // avgscore += MathUtil.cosinSimilarity(l1, l2) *
-                    //             (o.getweight() + o2.getweight());
+                    //             (o.getWeight() + o2.getWeight());
                     avgscore += MathUtil.cosinSimilarity(l1, l2);
                 }
 

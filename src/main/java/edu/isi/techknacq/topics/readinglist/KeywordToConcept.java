@@ -11,16 +11,16 @@ import java.util.Collections;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 import edu.isi.techknacq.topics.topic.WordPair;
 
 
-public class Keyword2concept {
+public class KeywordToConcept {
     private ArrayList<String> topics;
     private ArrayList<ArrayList<WordPair>> wordintopic;
-    private ArrayList<Weightpair> hittopics;
+    private ArrayList<WeightPair> hittopics;
     private int k = 8;
-    private Logger logger = Logger.getLogger(Keyword2concept.class.getName());
+    private Logger logger = Logger.getLogger(KeywordToConcept.class.getName());
 
     public void readKey(String filename) {
         try {
@@ -76,7 +76,7 @@ public class Keyword2concept {
     }
 
     public ArrayList<Integer> getMatch(String keyword) {
-        hittopics = new ArrayList<Weightpair>(20);
+        hittopics = new ArrayList<WeightPair>(20);
         for (int i = 0; i < wordintopic.size(); i++) {
             double hitcount = 0;
             for (int j = 0; j < wordintopic.get(i).size() && j < k; j++) {
@@ -93,14 +93,14 @@ public class Keyword2concept {
                 }
             }
             if (hitcount > 0) {
-                hittopics.add(new Weightpair(hitcount, i));
+                hittopics.add(new WeightPair(hitcount, i));
             }
         }
         Collections.sort(hittopics);
         ArrayList<Integer> topicindex;
         topicindex = new ArrayList<Integer>(hittopics.size());
-        for (Weightpair o : hittopics) {
-            topicindex.add(o.getindex());
+        for (WeightPair o : hittopics) {
+            topicindex.add(o.getIndex());
         }
         return topicindex;
     }
@@ -114,7 +114,7 @@ public class Keyword2concept {
     }
 
     public static void main(String []args) {
-        Keyword2concept mykeyword = new Keyword2concept();
+        KeywordToConcept mykeyword = new KeywordToConcept();
         mykeyword.readKey("mallet-weighted-key.txt");
         ArrayList<Integer> hits = mykeyword.getMatch("machine_translation");
         ArrayList<String> mytopic = mykeyword.getTopics();

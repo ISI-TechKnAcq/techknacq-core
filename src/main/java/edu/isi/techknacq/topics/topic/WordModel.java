@@ -17,14 +17,14 @@ import edu.isi.techknacq.topics.util.TokenProcessor;
  * data structure SortedWordPairList
  *
  */
-public class Wordmodel {
+public class WordModel {
     private ArrayList<String> posts;
     private String []words;
     private int []df;
     private SortedWordPairList mywords;
-    private Logger logger = Logger.getLogger(Wordmodel.class.getName());
+    private Logger logger = Logger.getLogger(WordModel.class.getName());
 
-    public Wordmodel() {
+    public WordModel() {
         mywords = new SortedWordPairList(10000);
     }
 

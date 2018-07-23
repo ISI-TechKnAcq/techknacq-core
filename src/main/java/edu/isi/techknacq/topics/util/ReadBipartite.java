@@ -14,12 +14,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class Readbipartite {
+public class ReadBipartite {
     private HashMap<String, Integer> entities;
     private HashMap<String, Integer> topics;
-    private Logger logger = Logger.getLogger(Readbipartite.class.getName());
+    private Logger logger = Logger.getLogger(ReadBipartite.class.getName());
 
-    public Readbipartite() {
+    public ReadBipartite() {
         this.entities = new HashMap<String, Integer>(10000);
         this.topics = new HashMap<String, Integer>(10000);
     }
@@ -85,7 +85,7 @@ public class Readbipartite {
     }
 
     public static void main(String []args) {
-        Readbipartite myrun = new Readbipartite();
+        ReadBipartite myrun = new ReadBipartite();
         myrun.readFile(args[0]);
     }
 }

@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import edu.isi.techknacq.topics.graph.Node;
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 
 /**
  *
@@ -75,19 +75,19 @@ public class ReadGraph {
     }
 
     public int [] orderNode() {
-        List myorderlist = new ArrayList<Weightpair>(this.G.length);
+        List myorderlist = new ArrayList<WeightPair>(this.G.length);
         for (int i = 0; i < G.length; i++) {
             double wdeg = 0;
             for (int j = 0; j < G[i].key; j++) {
                 wdeg += G[i].weights[j];
             }
-            myorderlist.add(new Weightpair(wdeg,i));
+            myorderlist.add(new WeightPair(wdeg,i));
         }
         Collections.sort(myorderlist);
         int [] topicorder = new int[this.G.length];
         for (int i = 0; i < myorderlist.size(); i++) {
-            Weightpair o = (Weightpair)myorderlist.get(i);
-            topicorder[i] = o.getindex();
+            WeightPair o = (WeightPair)myorderlist.get(i);
+            topicorder[i] = o.getIndex();
         }
         return topicorder;
     }

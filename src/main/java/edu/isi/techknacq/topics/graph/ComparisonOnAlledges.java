@@ -14,14 +14,14 @@ import java.util.logging.Logger;
 
 import infodynamics.measures.continuous.kernel.EntropyCalculatorKernel;
 
-import edu.isi.techknacq.topics.readinglist.Concept2doc;
+import edu.isi.techknacq.topics.readinglist.ConceptToDoc;
 import edu.isi.techknacq.topics.readinglist.CitationGraph;
-import edu.isi.techknacq.topics.topic.Indexpair;
-import edu.isi.techknacq.topics.topic.Weightpair;
+import edu.isi.techknacq.topics.topic.IndexPair;
+import edu.isi.techknacq.topics.topic.WeightPair;
 import edu.isi.techknacq.topics.util.ReadWeightedTopicKey;
 
 
-public class Comparisononalledges {
+public class ComparisonOnAlledges {
     private ArrayList<String> keynames;
     private int tnum;
     private List []conceptsinword;
@@ -30,9 +30,9 @@ public class Comparisononalledges {
     private EntropyCalculatorKernel entropy;
     private ArrayList<Double> topicscores;
     private Logger logger =
-        Logger.getLogger(Comparisononalledges.class.getName());
+        Logger.getLogger(ComparisonOnAlledges.class.getName());
 
-    public Comparisononalledges() {
+    public ComparisonOnAlledges() {
         entropy = new EntropyCalculatorKernel();
         entropy.initialise();
     }
@@ -69,16 +69,16 @@ public class Comparisononalledges {
     public void extract(List a1, double []v1) {
         Arrays.fill(v1, 0.0);
         for (int i = 0; i < a1.size(); i++) {
-            Weightpair o = (Weightpair)a1.get(i);
-            v1[o.getindex()] = o.getweight();
+            WeightPair o = (WeightPair)a1.get(i);
+            v1[o.getIndex()] = o.getWeight();
         }
     }
 
     public void extract2(List a1, double []v1) {
         Arrays.fill(v1, 0.0);
         for (int i = 0; i < a1.size(); i++) {
-            Indexpair o = (Indexpair)a1.get(i);
-            v1[o.getindex()] = o.getweight();
+            IndexPair o = (IndexPair)a1.get(i);
+            v1[o.getIndex()] = o.getWeight();
         }
     }
 
@@ -195,7 +195,7 @@ public class Comparisononalledges {
                     int maxfilewordnum) {
         List []conceptsindoc;
         try {
-            Concept2doc doc = new Concept2doc();
+            ConceptToDoc doc = new ConceptToDoc();
             doc.initNum(tnum);
             doc.getTopK(K, filename);
             conceptsindoc = doc.getTopic2Doc();
@@ -222,8 +222,8 @@ public class Comparisononalledges {
             out.write("\tCitation_Wang\n");
 
             CitationGraph mycite = new CitationGraph();
-            mycite.settopicnum(tnum);
-            mycite.setmaxfilenum(maxfilewordnum);
+            mycite.setTopicNum(tnum);
+            mycite.setMaxFileNum(maxfilewordnum);
             mycite.readCitation(citationfile);
             mycite.readC2D(filename);
             double [][]t2t = mycite.computeCitationLinks();
@@ -310,9 +310,9 @@ public class Comparisononalledges {
                 "[flow file] ([topicscorefile] [maxfilewordnum])");
             System.exit(2);
         }
-        Comparisononalledges alledge = new Comparisononalledges();
+        ComparisonOnAlledges alledge = new ComparisonOnAlledges();
         alledge.readKey(args[0]);
-        ReadflowNetwork myreader = new ReadflowNetwork();
+        ReadFlowNetwork myreader = new ReadFlowNetwork();
         myreader.readKey(args[0]);
         alledge.flowscores = myreader.readFlowScore(args[1]);
         myreader.readFlowToMatrix(args[5], alledge.flowmatrics);
