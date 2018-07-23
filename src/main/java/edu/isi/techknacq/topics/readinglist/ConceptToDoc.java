@@ -22,12 +22,12 @@ import edu.isi.techknacq.topics.topic.WeightPair;
  *
  * @author linhong
  */
-public class Concept2doc {
+public class ConceptToDoc {
     private int conceptnum; // number of topics
     private List []topic2docs;
     private ArrayList<String> docnames;
     private HashMap<String, Integer> badpaper = null;
-    private Logger logger = Logger.getLogger(Concept2doc.class.getName());
+    private Logger logger = Logger.getLogger(ConceptToDoc.class.getName());
 
     public void addFilter(String filename) {
         try {
@@ -199,7 +199,7 @@ public class Concept2doc {
     }
 
     public static void main(String args[]) {
-        Concept2doc doc = new Concept2doc();
+        ConceptToDoc doc = new ConceptToDoc();
         int tnum = 200;
         int K = 100;
         String filename = "concept2doc.txt";

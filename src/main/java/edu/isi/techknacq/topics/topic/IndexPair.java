@@ -14,11 +14,11 @@ public class IndexPair extends Pair implements Comparable {
     }
 
     public void setIndex(int indexvalue) {
-        setKey(indexvalue);
+        super.setKey(indexvalue);
     }
 
     public void setValue(double inputvalue) {
-        setValue(inputvalue);
+        super.setValue(inputvalue);
     }
 
     public int getIndex() {
@@ -36,10 +36,8 @@ public class IndexPair extends Pair implements Comparable {
     public int compareTo(IndexPair o) {
         if (getIndex() == o.getIndex())
             return 0;
-        else
-            if (getIndex() > o.getIndex())
-                return 1;
-            else
-                return -1;
+        if (getIndex() > o.getIndex())
+            return 1;
+        return -1;
     }
 }

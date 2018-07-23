@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.isi.techknacq.topics.readinglist.Concept2doc;
+import edu.isi.techknacq.topics.readinglist.ConceptToDoc;
 import edu.isi.techknacq.topics.topic.IndexPair;
 import edu.isi.techknacq.topics.topic.WeightPair;
 import edu.isi.techknacq.topics.util.ReadTopicKey;
@@ -110,7 +110,7 @@ public class CoGraph {
     public void run(int K, String filename, String outfilename) {
         List []conceptsindoc;
         try {
-            Concept2doc doc = new Concept2doc();
+            ConceptToDoc doc = new ConceptToDoc();
             doc.initNum(tnum);
             doc.getTopK(K, filename);
             conceptsindoc = doc.getTopic2Doc();

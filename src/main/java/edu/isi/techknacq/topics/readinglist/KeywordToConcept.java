@@ -15,12 +15,12 @@ import edu.isi.techknacq.topics.topic.WeightPair;
 import edu.isi.techknacq.topics.topic.WordPair;
 
 
-public class Keyword2concept {
+public class KeywordToConcept {
     private ArrayList<String> topics;
     private ArrayList<ArrayList<WordPair>> wordintopic;
     private ArrayList<WeightPair> hittopics;
     private int k = 8;
-    private Logger logger = Logger.getLogger(Keyword2concept.class.getName());
+    private Logger logger = Logger.getLogger(KeywordToConcept.class.getName());
 
     public void readKey(String filename) {
         try {
@@ -114,7 +114,7 @@ public class Keyword2concept {
     }
 
     public static void main(String []args) {
-        Keyword2concept mykeyword = new Keyword2concept();
+        KeywordToConcept mykeyword = new KeywordToConcept();
         mykeyword.readKey("mallet-weighted-key.txt");
         ArrayList<Integer> hits = mykeyword.getMatch("machine_translation");
         ArrayList<String> mytopic = mykeyword.getTopics();

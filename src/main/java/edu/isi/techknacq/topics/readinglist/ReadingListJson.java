@@ -26,35 +26,35 @@ import edu.isi.techknacq.topics.topic.WeightPair;
 import edu.isi.techknacq.topics.topic.WordPair;
 
 
-public class ReadingList2Json {
-    private Map<String, Double> paperpagerank;
-    private ArrayList<ArrayList<WordPair>> wordintopic;
+public class ReadingListJson {
+    private Map<String, Double> paperPageRank;
+    private ArrayList<ArrayList<WordPair>> wordInTopic;
     private List<String> topickeys;
     private List<Integer> hittopic;
     private Map<String, String> docmap;
-    private List []topic2docs;
+    private List []topicToDocs;
     private ArrayList<String> docfiles;
     private int []ordertopic;
     private HashSet<String> authorlists;
-    private Logger logger = Logger.getLogger(ReadingList2Json.class.getName());
+    private Logger logger = Logger.getLogger(ReadingListJson.class.getName());
 
     public void readData(String keyword, String keyname, String pagerankfile,
                          String docfile, int dnum, String doc2conceptfile,
                          String filterfile) {
-        Keyword2concept match1 = new Keyword2concept();
+        KeywordToConcept match1 = new KeywordToConcept();
         match1.readKey(keyname);
         hittopic = match1.getMatch(keyword);
-        this.wordintopic = match1.getWeightTopic();
+        this.wordInTopic = match1.getWeightTopic();
         this.topickeys = match1.getTopics();
         readPageRankScore(pagerankfile);
         ReadDocumentKey rdk = new ReadDocumentKey(docfile);
         rdk.readFile();
         docmap = rdk.getDocMap();
-        Concept2doc Getdoc = new Concept2doc();
+        ConceptToDoc Getdoc = new ConceptToDoc();
         Getdoc.initNum(topickeys.size());
         Getdoc.addFilter(filterfile);
         Getdoc.getTopK(dnum * 10, doc2conceptfile);
-        topic2docs = Getdoc.getTopic2Doc();
+        topicToDocs = Getdoc.getTopic2Doc();
         docfiles = Getdoc.getDocName();
     }
 
@@ -66,9 +66,9 @@ public class ReadingList2Json {
     }
 
     public ArrayList<Integer> getDocs(int tindex) {
-        ArrayList<Integer> mydocs = new ArrayList(topic2docs[tindex].size());
-        for (int i = 0; i < topic2docs[tindex].size(); i++) {
-            WeightPair o = (WeightPair)topic2docs[tindex].get(i);
+        ArrayList<Integer> mydocs = new ArrayList(topicToDocs[tindex].size());
+        for (int i = 0; i < topicToDocs[tindex].size(); i++) {
+            WeightPair o = (WeightPair)topicToDocs[tindex].get(i);
             mydocs.add(o.getIndex());
         }
         return mydocs;
@@ -76,7 +76,7 @@ public class ReadingList2Json {
 
     public void readPageRankScore(String filename) {
         try {
-            this.paperpagerank = new HashMap(this.topickeys.size());
+            this.paperPageRank = new HashMap(this.topickeys.size());
             FileInputStream fstream1;
             fstream1 = new FileInputStream(filename);
             // Get the object of DataInputStream
@@ -97,8 +97,8 @@ public class ReadingList2Json {
                 keyname = sc.next();
                 keyname = keyname.substring(1, keyname.length() - 1);
                 value = sc.nextDouble();
-                if (!this.paperpagerank.containsKey(keyname)) {
-                    this.paperpagerank.put(keyname, value);
+                if (!this.paperPageRank.containsKey(keyname)) {
+                    this.paperPageRank.put(keyname, value);
                 }
             }
             in1.close();
@@ -114,8 +114,8 @@ public class ReadingList2Json {
         topicname = "\"topic\": \n[";
         double minvalue = 1;
         double maxvalue = 0;
-        for (int i = 0; i < this.wordintopic.get(tindex).size(); i++) {
-            WordPair w = wordintopic.get(tindex).get(i);
+        for (int i = 0; i < this.wordInTopic.get(tindex).size(); i++) {
+            WordPair w = wordInTopic.get(tindex).get(i);
             double value = w.getprob();
             if (value > maxvalue)
                 maxvalue = value;
@@ -123,14 +123,14 @@ public class ReadingList2Json {
                 minvalue = value;
             }
         }
-        for (int i = 0; i < this.wordintopic.get(tindex).size(); i++) {
-            WordPair w = wordintopic.get(tindex).get(i);
+        for (int i = 0; i < this.wordInTopic.get(tindex).size(); i++) {
+            WordPair w = wordInTopic.get(tindex).get(i);
             String word = w.getWord();
             double value = w.getprob();
             topicname += "{";
             topicname += "\"word\": \"" + word + "\",";
             topicname += "\"value\": " + value + "}";
-            if (i < this.wordintopic.get(tindex).size() - 1)
+            if (i < this.wordInTopic.get(tindex).size() - 1)
                 topicname += ",";
         }
         topicname += "],";
@@ -179,8 +179,8 @@ public class ReadingList2Json {
                 continue;
             String dockey = this.docfiles.get(Did);
             double value;
-            if (this.paperpagerank.containsKey(dockey))
-                value = this.paperpagerank.get(dockey);
+            if (this.paperPageRank.containsKey(dockey))
+                value = this.paperPageRank.get(dockey);
             else
                 value = -1;
             if (value > -1)
@@ -292,7 +292,7 @@ public class ReadingList2Json {
             maxtnum = Integer.parseInt(args[7]);
         if (args.length > 8)
             filterfile = args[8];
-        ReadingList2Json myreadinglist = new ReadingList2Json();
+        ReadingListJson myreadinglist = new ReadingListJson();
         // String keyword, String keyname, String pagerankfile,
         // String docfile, int dnum, String doc2conceptfile
         myreadinglist.readData(args[0], args[2], args[5], args[4], dnum,

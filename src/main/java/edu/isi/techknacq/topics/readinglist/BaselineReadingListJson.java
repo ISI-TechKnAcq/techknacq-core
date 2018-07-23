@@ -65,11 +65,11 @@ public class BaselineReadingListJson {
                       String pagerankfile, String keyword,
                       String doc2conceptfilename) {
         try {
-            Keyword2concept match1 = new Keyword2concept();
+            KeywordToConcept match1 = new KeywordToConcept();
             match1.readKey(keyname);
             ArrayList<Integer> hittopic = match1.getMatch(keyword);
             this.topickeys = match1.getTopics();
-            Concept2doc doc = new Concept2doc();
+            ConceptToDoc doc = new ConceptToDoc();
             doc.initNum(this.topickeys.size());
             doc.getTopK(K * 4, doc2conceptfilename);
             // doc.prune();

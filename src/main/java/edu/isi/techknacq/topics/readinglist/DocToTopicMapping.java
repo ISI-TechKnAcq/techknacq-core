@@ -24,7 +24,7 @@ import edu.isi.techknacq.topics.util.StrUtil;
  *
  * @author linhong
  */
-public class Doc2topicMapping {
+public class DocToTopicMapping {
     private List []paper2topic;
     private HashMap<String, Integer> paperids;
     private ArrayList<String> papernames;
@@ -32,7 +32,7 @@ public class Doc2topicMapping {
     private int tnum;
     private ArrayList<String> words;
     private List []topicinwords;
-    private Logger logger = Logger.getLogger(Doc2topicMapping.class.getName());
+    private Logger logger = Logger.getLogger(DocToTopicMapping.class.getName());
 
     // Read concept composition for each document
     public void add(int pid, int tindex, double weight, int K) {
@@ -205,7 +205,7 @@ public class Doc2topicMapping {
                                "[topic weighted key file]");
             System.exit(2);
         }
-        Doc2topicMapping mytopic = new Doc2topicMapping();
+        DocToTopicMapping mytopic = new DocToTopicMapping();
         mytopic.run(args[0], args[1]);
         // mytopic.run("mallet-comp.txt", "mallet-15689-weightedkey.txt");
     }

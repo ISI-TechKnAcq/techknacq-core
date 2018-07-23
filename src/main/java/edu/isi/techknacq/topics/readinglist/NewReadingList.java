@@ -35,28 +35,28 @@ import edu.isi.techknacq.topics.topic.WordPair;
  */
 public class NewReadingList {
     // The function that matches a query to topics.
-    private Keyword2concept match1;
+    private KeywordToConcept match1;
 
     // The map function that matches each paper to the pagerank score.
-    private HashMap<String, Double> paperpagerank;
+    private HashMap<String, Double> paperPageRank;
 
     // The map function that matches each paper to the pedegogical role type.
     private HashMap<String, String> paperPVtype;
 
     // The map function that matches each paper to the text complexity score.
-    private HashMap<String, Double> papercomplexity;
+    private HashMap<String, Double> paperComplexity;
 
     // The map function that assignes each pedagogical role type with a score.
-    private HashMap<String, Double> type2score;
+    private HashMap<String, Double> typeToScore;
 
-    private ArrayList<ArrayList<WordPair>> wordintopic;
-    private ArrayList<String> topickeys;
-    private ArrayList<Integer> hittopic;
+    private ArrayList<ArrayList<WordPair>> wordInTopic;
+    private ArrayList<String> topicKeys;
+    private ArrayList<Integer> hitTopic;
     private Map<String, String> docmap;
-    private List []topic2docs;
+    private List []topicToDocs;
     private ArrayList<String> docfiles;
     private int []ordertopic;
-    private HashSet<String> authorlists;
+    private HashSet<String> authorLists;
     private int relevancek = 10;
     private double w1 = 0.6;
     private double w2 = 0.2;
@@ -76,22 +76,22 @@ public class NewReadingList {
     **/
     public void readData(String keyname, String pagerankfile, String docfile,
                          int dnum, String doc2conceptfile, String filterfile) {
-        match1 = new Keyword2concept();
+        match1 = new KeywordToConcept();
         match1.readKey(keyname);
         System.out.println("Finish reading topic");
-        this.wordintopic = match1.getWeightTopic();
-        this.topickeys = match1.getTopics();
+        this.wordInTopic = match1.getWeightTopic();
+        this.topicKeys = match1.getTopics();
         readPageRankscore(pagerankfile);
         System.out.println("Finish reading pagerank");
         ReadDocumentKey rdk = new ReadDocumentKey(docfile);
         rdk.readFile();
         System.out.println("Finish reading document");
         docmap = rdk.getDocMap();
-        Concept2doc Getdoc = new Concept2doc();
-        Getdoc.initNum(topickeys.size());
+        ConceptToDoc Getdoc = new ConceptToDoc();
+        Getdoc.initNum(topicKeys.size());
         Getdoc.addFilter(filterfile);
         Getdoc.getTopK(dnum * relevancek, doc2conceptfile);
-        topic2docs = Getdoc.getTopic2Doc();
+        topicToDocs = Getdoc.getTopic2Doc();
         docfiles = Getdoc.getDocName();
         System.out.println("Finish reading data");
     }
@@ -139,7 +139,7 @@ public class NewReadingList {
      */
     public void readConfiguration(String filename) {
         try {
-            this.type2score = new HashMap<String,Double>(5);
+            this.typeToScore = new HashMap<String,Double>(5);
             FileInputStream fstream1;
             fstream1 = new FileInputStream(filename);
             DataInputStream in1 = new DataInputStream(fstream1);
@@ -152,7 +152,7 @@ public class NewReadingList {
                         sc.useDelimiter("\t");
                         String type = sc.next();
                         double v = sc.nextDouble();
-                        this.type2score.put(type, v);
+                        this.typeToScore.put(type, v);
                     }
                 }
                 if (strline.contains("#relevancethreshold")) {
@@ -194,9 +194,9 @@ public class NewReadingList {
 
     public ArrayList<WeightPair> getDocs(int tindex) {
         ArrayList<WeightPair> mydocs =
-            new ArrayList<WeightPair>(topic2docs[tindex].size());
-        for (int i = 0; i < topic2docs[tindex].size(); i++) {
-            WeightPair o = (WeightPair)topic2docs[tindex].get(i);
+            new ArrayList<WeightPair>(topicToDocs[tindex].size());
+        for (int i = 0; i < topicToDocs[tindex].size(); i++) {
+            WeightPair o = (WeightPair)topicToDocs[tindex].get(i);
             mydocs.add(o);
         }
         return mydocs;
@@ -204,8 +204,8 @@ public class NewReadingList {
 
     public void readPageRankscore(String filename) {
         try {
-            this.paperpagerank =
-                new HashMap<String,Double>(this.topickeys.size());
+            this.paperPageRank =
+                new HashMap<String,Double>(this.topicKeys.size());
             FileInputStream fstream1;
             fstream1 = new FileInputStream(filename);
             // Get the object of DataInputStream
@@ -226,8 +226,8 @@ public class NewReadingList {
                 keyname = sc.next();
                 keyname = keyname.substring(1, keyname.length() - 1);
                 value = sc.nextDouble();
-                if (!this.paperpagerank.containsKey(keyname)) {
-                    this.paperpagerank.put(keyname, value);
+                if (!this.paperPageRank.containsKey(keyname)) {
+                    this.paperPageRank.put(keyname, value);
                 }
             }
             in1.close();
@@ -243,8 +243,8 @@ public class NewReadingList {
         topicname = "\"topic\": [\n";
         double minvalue = 1;
         double maxvalue = 0;
-        for (int i = 0; i < this.wordintopic.get(tindex).size(); i++) {
-            WordPair w = wordintopic.get(tindex).get(i);
+        for (int i = 0; i < this.wordInTopic.get(tindex).size(); i++) {
+            WordPair w = wordInTopic.get(tindex).get(i);
             double value = w.getprob();
             if (value > maxvalue)
                 maxvalue = value;
@@ -252,14 +252,14 @@ public class NewReadingList {
                 minvalue = value;
             }
         }
-        for (int i = 0; i < this.wordintopic.get(tindex).size(); i++) {
-            WordPair w = wordintopic.get(tindex).get(i);
+        for (int i = 0; i < this.wordInTopic.get(tindex).size(); i++) {
+            WordPair w = wordInTopic.get(tindex).get(i);
             String word = w.getWord();
             double value = w.getprob();
             topicname += "{";
             topicname += "\"word\": \"" + word + "\",";
             topicname += "\"value\": " + value + "}";
-            if (i < this.wordintopic.get(tindex).size() - 1)
+            if (i < this.wordInTopic.get(tindex).size() - 1)
                 topicname += ",";
         }
         topicname += "],\n";
@@ -335,17 +335,17 @@ public class NewReadingList {
                 continue;
             String dockey = this.docfiles.get(Did);
             double value1; // value1: pagerankscore;
-            if (this.paperpagerank.containsKey(dockey))
-                value1 = this.paperpagerank.get(dockey);
+            if (this.paperPageRank.containsKey(dockey))
+                value1 = this.paperPageRank.get(dockey);
             else
                 value1 = 0;
             double value2; // Pedgogical value score;
             if (this.paperPVtype.containsKey(dockey)) {
                 String type = this.paperPVtype.get(dockey);
-                if (!this.type2score.containsKey(type)) {
+                if (!this.typeToScore.containsKey(type)) {
                     value2 = 0;
                 } else
-                    value2 = this.type2score.get(type);
+                    value2 = this.typeToScore.get(type);
             } else
                 value2 = 0;
             double value = value1 * w1 + value2 * w2 + value4 * w4;
@@ -365,11 +365,11 @@ public class NewReadingList {
                 System.out.println(Did);
             }
             String author = this.extractAuthor(metavalue);
-            if (!this.authorlists.contains(author)) {
+            if (!this.authorLists.contains(author)) {
                 String name = this.printDocName(metavalue, dfile,
                                                 o.getWeight());
                 docstring += name;
-                this.authorlists.add(author);
+                this.authorLists.add(author);
                 dcount++;
             }
             j++;
@@ -389,39 +389,39 @@ public class NewReadingList {
             this.ordertopic = myreader.orderNode();
             ConceptDepth Dependency = new ConceptDepth();
             Dependency.initGraph(G);
-            Dependency.initTopics(this.topickeys);
+            Dependency.initTopics(this.topicKeys);
             boolean []isvisit = new boolean[this.docfiles.size()];
             for (int i = 0; i < isvisit.length; i++) {
                 isvisit[i] = false;
             }
 
             // Get matched topic.
-            hittopic = match1.getMatch(keyword);
-            char []istopicvisit = new char[this.topickeys.size()];
-            Arrays.fill(istopicvisit, 'v');
+            hitTopic = match1.getMatch(keyword);
+            char []isTopicVisit = new char[this.topicKeys.size()];
+            Arrays.fill(isTopicVisit, 'v');
             List mylist = new ArrayList<WeightPair>(100);
-            this.authorlists = new HashSet<String>();
+            this.authorLists = new HashSet<String>();
             out.write("{");
             out.write("\"keyword\": \"" + keyword + "\",\n");
 
             // Get dependency topic.
             out.write("\"Match documents\": [\n\t");
-            for (int i = 0; i < hittopic.size(); i++) {
-                int tindex = hittopic.get(i);
-                istopicvisit[tindex] = 'm';
+            for (int i = 0; i < hitTopic.size(); i++) {
+                int tindex = hitTopic.get(i);
+                isTopicVisit[tindex] = 'm';
                 ArrayList<Integer> deptopics = Dependency.getTopNode(maxtopic,
                                                                      tindex);
                 for (int j = 0; j < deptopics.size(); j++) {
                     int ddtindex = deptopics.get(j);
-                    if (istopicvisit[ddtindex] != 'm')
-                        istopicvisit[ddtindex] = 'd';
+                    if (isTopicVisit[ddtindex] != 'm')
+                        isTopicVisit[ddtindex] = 'd';
                 }
                 out.write("{");
                 out.write(this.printTopics(tindex));
 
                 out.write(this.getTopDoc(tindex, dnum, mylist, isvisit));
                 out.write("\n}");
-                if (i < hittopic.size() - 1)
+                if (i < hitTopic.size() - 1)
                     out.write(",\n");
                 else
                     out.write("],\n");
@@ -431,16 +431,16 @@ public class NewReadingList {
             int endindex = 0;
             for (int i = 0; i < this.ordertopic.length; i++) {
                 int tindex = ordertopic[i];
-                if (istopicvisit[tindex] == 'v' || istopicvisit[tindex] == 'm')
+                if (isTopicVisit[tindex] == 'v' || isTopicVisit[tindex] == 'm')
                     continue;
-                if (istopicvisit[tindex] == 'd' && i > endindex)
+                if (isTopicVisit[tindex] == 'd' && i > endindex)
                     endindex = i;
             }
             System.out.println(endindex);
             out.write("\"Dependency documents\": [\n\t");
             for (int i = 0; i < this.ordertopic.length; i++) {
                 int tindex = ordertopic[i];
-                if (istopicvisit[tindex] == 'v' || istopicvisit[tindex] == 'm')
+                if (isTopicVisit[tindex] == 'v' || isTopicVisit[tindex] == 'm')
                     continue;
                 out.write("{");
                 out.write(this.printTopics(tindex));

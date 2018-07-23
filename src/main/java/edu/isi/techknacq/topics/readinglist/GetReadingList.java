@@ -36,13 +36,13 @@ public class GetReadingList {
                 maxtnum = Integer.parseInt(args[6]);
             if (args.length > 7)
                 filterfile = args[7];
-            Keyword2concept match1 = new Keyword2concept();
+            KeywordToConcept match1 = new KeywordToConcept();
             match1.readKey(args[2]);
             List<Integer> hittopic = match1.getMatch(args[0]);
             //hittopic: topics that matches the input keyword
             List<String> topics = match1.getTopics();
             //topics: the topics with word distribution
-            Concept2doc Getdoc = new Concept2doc();
+            ConceptToDoc Getdoc = new ConceptToDoc();
             Getdoc.initNum(topics.size());
             Getdoc.addFilter(filterfile);
             Getdoc.getTopK(dnum, args[1]);

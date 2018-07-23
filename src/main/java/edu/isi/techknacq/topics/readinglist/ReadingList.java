@@ -27,7 +27,7 @@ import edu.isi.techknacq.topics.topic.WeightPair;
 import edu.isi.techknacq.topics.topic.WordPair;
 
 
-public class ReadingList2 {
+public class ReadingList {
     private Map<String, Double> paperpagerank;
     private ArrayList<ArrayList<WordPair>> wordintopic;
     private List<String> topickeys;
@@ -43,7 +43,7 @@ public class ReadingList2 {
     public void readData(String keyword, String keyname, String pagerankfile,
                          String docfile, int dnum, String doc2conceptfile,
                          String filterfile) {
-        Keyword2concept match1 = new Keyword2concept();
+        KeywordToConcept match1 = new KeywordToConcept();
         match1.readKey(keyname);
         hittopic = match1.getMatch(keyword);
         this.wordintopic = match1.getWeightTopic();
@@ -52,7 +52,7 @@ public class ReadingList2 {
         ReadDocumentKey rdk = new ReadDocumentKey(docfile);
         rdk.readFile();
         docmap = rdk.getDocMap();
-        Concept2doc Getdoc = new Concept2doc();
+        ConceptToDoc Getdoc = new ConceptToDoc();
         Getdoc.initNum(topickeys.size());
         Getdoc.addFilter(filterfile);
         Getdoc.getTopK(dnum * 10, doc2conceptfile);
@@ -475,7 +475,7 @@ public class ReadingList2 {
             maxtnum = Integer.parseInt(args[7]);
         if (args.length > 8)
             filterfile = args[8];
-        ReadingList2 myreadinglist = new ReadingList2();
+        ReadingList myreadinglist = new ReadingList();
         // String keyword, String keyname, String pagerankfile, String docfile,
         // int dnum, String doc2conceptfile
         myreadinglist.readData(args[0], args[2], args[5], args[4], dnum,

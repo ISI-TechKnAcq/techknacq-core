@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 import infodynamics.measures.continuous.kernel.EntropyCalculatorKernel;
 
-import edu.isi.techknacq.topics.readinglist.Concept2doc;
+import edu.isi.techknacq.topics.readinglist.ConceptToDoc;
 import edu.isi.techknacq.topics.readinglist.CitationGraph;
 import edu.isi.techknacq.topics.topic.IndexPair;
 import edu.isi.techknacq.topics.topic.WeightPair;
@@ -195,7 +195,7 @@ public class ComparisonOnAlledges {
                     int maxfilewordnum) {
         List []conceptsindoc;
         try {
-            Concept2doc doc = new Concept2doc();
+            ConceptToDoc doc = new ConceptToDoc();
             doc.initNum(tnum);
             doc.getTopK(K, filename);
             conceptsindoc = doc.getTopic2Doc();
@@ -223,7 +223,7 @@ public class ComparisonOnAlledges {
 
             CitationGraph mycite = new CitationGraph();
             mycite.setTopicNum(tnum);
-            mycite.setmaxfilenum(maxfilewordnum);
+            mycite.setMaxFileNum(maxfilewordnum);
             mycite.readCitation(citationfile);
             mycite.readC2D(filename);
             double [][]t2t = mycite.computeCitationLinks();
